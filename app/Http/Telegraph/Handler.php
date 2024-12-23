@@ -29,7 +29,7 @@ class Handler extends WebhookHandler
             ->message('Бот сайта "Автоэлектрики" приветствует вас!')
             ->keyboard(
                 Keyboard::make()->buttons([
-                    Button::make('Попасть на сайт "Автоэлектрики11"')->action('feedback')->param('value', '1'),
+                    Button::make('Попасть на сайт "Автоэлектрики11456"')->action('feedback')->param('value', '1'),
                     Button::make('Создать пост без регистрации22')->action('feedback')->param('value', '2'),
                 ])
             )->send();
