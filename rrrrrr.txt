@@ -1,0 +1,23 @@
+{
+    "id": 594,
+    "date": "2024-12-17T14:47:49.000000Z",
+    "text": "aaaa",
+    "protected": false,
+    "from": {
+        "id": 7124124425,
+        "is_bot": false,
+        "first_name": "setser",
+        "last_name": "set",
+        "username": "",
+        "language_code": "ru",
+        "is_premium": false
+    },
+    "chat": {
+        "id": "7124124425",
+        "type": "private",
+        "title": ""
+    },
+    "photos": [],
+    "new_chat_members": [],
+    "entities": []
+}
