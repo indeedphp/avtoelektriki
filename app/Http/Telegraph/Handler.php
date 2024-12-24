@@ -18,329 +18,219 @@ class Handler extends WebhookHandler
     public function start()
     {
         $id_user = $this->message->from()->id();
-        $cr_post = Create_post::where('id_user', $id_user)->first();
-        if ($cr_post !== null)
-            $cr_post->delete();  //  подчищаем базу если есть незавершенные посты
-        $data = User::where('name', $id_user)->first();
-        if ($data == null) {
+        $create_post = Create_post::where('id_user', $id_user)->first();
+        if ($create_post !== null)
+            $create_post->delete();  //  подчищаем базу если есть незавершенные посты
+        $user_data = User::where('name', $id_user)->first();
+        if ($user_data == null) {
             User::create(['name' => $id_user, 'email' => '1234@5678', 'password' => '12345678'])->first();
         }
         $this->chat
-            ->message('Бот сайта "Автоэлектрики" приветствует вас!')
+            ->message('Бот сайта "Автоэлектрики" приветствует вас! Все команды бота в кноке "меню" внизу экрана')
             ->keyboard(
                 Keyboard::make()->buttons([
-                    Button::make('Попасть на сайт "Автоэлектрики11456"')->action('feedback')->param('value', '1'),
-                    Button::make('Создать пост без регистрации22')->action('feedback')->param('value', '2'),
+                    Button::make('Ссылка на сайт "Автоэлектрики15555"')->action('feedback_1')->param('value', '1'),
+                    Button::make('Получить логин и пароль от сайта111')->action('feedback_1')->param('value', value: '2'),
+                    Button::make('Создать пост без регистрации22')->action('feedback_1')->param('value', '3'),
                 ])
             )->send();
     }
 
-    public function post()
+    public function feedback_1()
     {
-        $id_user = $this->message->from()->id();
-        $cr_post = Create_post::where('id_user', $id_user)->first();
-        if ($cr_post !== null)
-            $cr_post->delete();
-        Create_post::create(['id_user' => $id_user, 'date' => '1'])->first();
-        $this->chat->html('Напишите название поста, например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000 г троит" и отправьте.')->send();
-    }
+        $value_button = $this->data->get('value');
+        $id_user = $this->chat->toArray();
 
-    public function bag()
-    {
-        $id_user = $this->message->from()->id();
-        $cr_post = Create_post::where('id_user', $id_user)->first();
-        if ($cr_post !== null)
-            $cr_post->delete();
-        $this->chat->html("Пост удален")->send();
-        $this->start();
-    }
+        if ($value_button == 1)
+            $this->chat->html("Ссылка на сайт https://avtoelektriki.duckdns.org")->send();
 
-
-    protected function handleChatMessage($text): void  // метод принимает сообщения, фото, но не команды типа "/start"
-    {
-
-        $id = $this->message->toArray();
-        // file_put_contents('11.json', count($id));
-        $id_user = $this->message->from()->id();
-        $data = Create_post::where('id_user', $id_user)->first();
-        $photo_no = empty($this->message->photos()->toArray());
-
-        if ($data == null) {                        // если пост не начат а юзер вбивает текст
-            $this->chat
-                ->message('Бот сайта "Автоэлектрики" приветствует вас!')
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make('Пройти на сайт "Автоэлектрики33"')->action('feedback')->param('value', '1'),
-                        Button::make('Создать пост без регистрации44')->action('feedback')->param('value', '2'),
-                    ])
-                )->send();
-            goto a;
-        }
-        if ($data->date == '1' && count($id) > 9) {  // по количеству элементов массива понимаем что это тектовое сообщение
-            $this->chat->html("Неправильное действие")->send();  // отсекаем файлы, видео и пр.
-            $this->post();
-            goto a;
-        }
-        if ($data->date == '2') {  // значит юзер стал писать не нажав кнопку после прихода кнопок
-            $this->chat->html("Неправильное действие ")->send();
-            $id_post = $this->message->id();
-            $user_name = $this->message->from()->firstName();
-            $this->chat
-                ->message("Название поста номер $id_post сохранено")
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make("$user_name жмите для вставки фото55")->action('feedback3')->param('value', "1"),
-                        Button::make("$user_name или написать текст66")->action('feedback3')->param('value', "2"),
-                    ])
-                )->send();
-            goto a;
-        }
-
-        if ($data->date == '4') {  // значит юзер стал писать не нажав кнопку после прихода кнопок
-            $this->chat->html("Неправильное действие ")->send();
-            $this->chat
-            ->message('Фотография сохранена, выберите вариант')
-            ->keyboard(
-                Keyboard::make()->buttons([
-                    Button::make('Написать текст поста или описание фото99')->action('feedback5')->param('value', '1'),
-                    Button::make('Завершить пост00')->action('feedback5')->param('value', '2'),
-                ])
-            )->send();
-            goto a;
-        }
-
-
-        if ($data->id_user == $id_user && $data->name_post == null) {  // создание названия поста
-
-            $id_post = $this->message->id();
-            $user_name = $this->message->from()->firstName();
-            DB::table('create_posts')
-                ->where('id_user', $id_user)
-                ->update(['user_name' => $user_name, 'name_post' => $text, 'id_post' => $id_post, 'date' => '2']);
-
-            $this->chat
-                ->message("Название поста номер $id_post сохранено")
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make("$user_name жмите для вставки фото55")->action('feedback3')->param('value', "1"),
-                        Button::make("$user_name или написать текст66")->action('feedback3')->param('value', "2"),
-                    ])
-                )->send();
-            goto a;
-        }
-        if ($data->date == '3' || $data->date == '5') {
-            if ($data->id_user == $id_user && $data->name_post !== null && $data->text_post == null && $photo_no == true) {  // создание текста поста
-                DB::table('create_posts')
-                    ->where('id_user', $id_user)
-                    ->update(['text_post' => $text]);
-
-                $this->chat
-                    ->message('Текст поста сохранен, вставте фото или завершите пост')
-                    ->keyboard(
-                        Keyboard::make()->buttons([
-                            Button::make('Вставить фото77')->action('feedback4')->param('value', '1'),
-                            Button::make('Завершить пост88')->action('feedback4')->param('value', '2'),
-
-                        ])
-                    )->send();
-                goto a;
-            }
-
-            if ($data->id_user == $id_user && $data->name_post !== null && $data->url_foto == null && $photo_no == false) {  // скачка , создание имени, сохранение фото
-
-                $photo = $this->message->photos()->toArray();  // получаем  в массив инфу о фото в с разными вариантами размеров
-                $data = count($photo) - 1;   // считаем количество элементов массива
-                $id_foto = $photo[$data]['id'];  // берем последнее айди фото из массива
-                $name_foto = $id_user . '-' . time() . '.jpg';
-                DB::table('create_posts')
-                    ->where('id_user', $id_user)
-                    ->update(['url_foto' => 'storage/app/bot/images' . '/' . $name_foto, 'date' => '4']);
-                $this->chat
-                    ->message('Фотография сохранена, выберите вариант')
-                    ->keyboard(
-                        Keyboard::make()->buttons([
-                            Button::make('Написать текст поста или описание фото99')->action('feedback5')->param('value', '1'),
-                            Button::make('Завершить пост00')->action('feedback5')->param('value', '2'),
-                        ])
-                    )->send();
-                sleep(5);
-                $this->bot->store($id_foto, Storage::path('bot/images'), $name_foto);  // сохраняем на локалке,
-                goto a;
-            }
-            if ($data->id_user == $id_user && $data->name_post !== null && $data->url_foto !== null && $photo_no == false)
-                $this->chat
-                    ->message('Фотография уже сохранена')
-                    ->keyboard(
-                        Keyboard::make()->buttons([
-                            Button::make('Завершить пост00')->action('feedback5')->param('value', '2'),
-                        ])
-                    )->send();
-        }
-        a:
-    }
-
-
-
-    public function feedback()
-    {
-        $data = $this->data->get('value');
-        if ($data == 1) {
-            $this->chat
-                ->message('Выберите вариант входа на сайт')
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make('Получить логин и пароль111')->action('feedback2')->param('value', value: '1'),
-                        Button::make('Ссылка на сайт автоэлектрики222')->action('feedback2')->param('value', '2'),
-                    ])
-                )->send();
-        }
-        if ($data == 2) {
-            $id = $this->chat->toArray();
-            DB::table('create_posts')
-                ->where('id_user', $id["chat_id"])
-                ->delete();
-
-            Create_post::create(['id_user' => $id["chat_id"]])->first();
-            $this->chat->html('Напишите название поста, например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000 г троит" и отправьте.')->send();
-        }
-    }
-
-    public function feedback2()  // создаем логин и пароль
-    {
-        $data = $this->data->get('value');
-        $id = $this->chat->toArray();
-        if ($data == 1) {
+        if ($value_button == 2) {
             $password = rand(1222222, 9999999999);
-            $email = rand(1222222, 9999999999) . '@' . $password;
+            $login = rand(1222222, 9999999999) . '@' . $password;
             $password_hash = Hash::make($password);
             DB::table('users')
-                ->where('name', $id["chat_id"])
-                ->update(['email' => $email, 'password' => $password_hash]);
-            $this->chat->html("Логин $email Пароль $password")->send();
+                ->where('name', $id_user["chat_id"])
+                ->update(['email' => $login, 'password' => $password_hash]);
+            $this->chat->html("Ваш логин $login и пароль $password")->send();
         }
-        if ($data == 2)
-            $this->chat->html("https://www.google.kz/")->send();
-    }
 
-    public function feedback3()
-    {
-        $id = $this->chat->toArray();
-        DB::table('create_posts')
-            ->where('id_user', $id["chat_id"])
-            ->update(['date' => '3']);
-
-        $data = $this->data->get('value');
-        if ($data == '1')
-            $this->chat->html("Вставте одно фото без текста и отправте1")->send();
-        if ($data == '2')
-            $this->chat->html("Напишите текст для поста или описание фото и отправте2")->send();
-    }
-
-    public function feedback4()
-    {
-        $id = $this->chat->toArray();
-        $data = $this->data->get('value');
-        $сreate_post = Create_post::where('id_user', $id["chat_id"])->first();
-        if ($сreate_post->url_foto !== null) {
-            $data = '2';
-            file_put_contents('10.json', json_encode($data . $сreate_post->url_foto));
+        if ($value_button == 3) {
+            DB::table('create_posts')
+                ->where('id_user', $id_user["chat_id"])
+                ->delete();
+            Create_post::create(['id_user' => $id_user["chat_id"], 'date' => '1'])->first();
+            $this->chat->html('Напишите название поста, например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000г троит" и отправьте.')->send();
         }
-        if ($data == '1')
-            $this->chat->html("Выберите фото из галереи или сфоткайте и отправте без текста3")->send();
-        if ($data == '2')
-            $this->chat
-                ->message('Выберите вариант сохранения')
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make('Созранить для всех')->action('feedback6')->param('value', value: '1'),
-                        Button::make('Сохранить для своей ленты')->action('feedback6')->param('value', '2'),
-                    ])
-                )->send();
     }
 
-    public function feedback5()
+    protected function handleChatMessage($text): void  // метод сортирует сообщения, фото
     {
-        $id = $this->chat->toArray();
+        $id_user = $this->message->from()->id();
+        $create_post = Create_post::where('id_user', $id_user)->first();
+        $photo_no = empty($this->message->photos()->toArray());
+        $count_vol = count($this->message->toArray());
+        if ($create_post == null) {
+            $this->reply("Выберите команду для бота в синем меню внизу");
+        } else {
+            switch ($create_post->date) {
+                case 1:
+                    if ($photo_no == true && $count_vol == 9) {
+                        $this->name_post_create();
+                    } else {
+                        $this->chat->html('<i>Неправильное действие1</i>')->send();
+                    }
+                    break;
+                case 2:
+                case 4:
+                    if ($photo_no == false) {
+                        $this->foto_create();
+                    } else {
+                        $this->chat->html('<i>Неправильное действие2</i>')->send();
+                    }
+                    break;
+                case 3:
+                case 5:
+                    if ($photo_no == true && $count_vol == 9) {
+                        $this->text_post_create();
+                    } else {
+                        $this->chat->html('<i>Неправильное действие3</i>')->send();
+                    }
+                    break;
+                default:
+                    $this->chat->html('<i>Неправильное действие4</i>')->send();
+            }
+        }
+    }
+
+    protected function name_post_create()
+    {
+        $id_user = $this->message->from()->id();
+        $text = $this->message->text();
+        $id_post = $this->message->id();
+        $user_name = $this->message->from()->firstName();
+
         DB::table('create_posts')
-            ->where('id_user', $id["chat_id"])
-            ->update(['date' => '5']);
+            ->where('id_user', $id_user)
+            ->update(['user_name' => $user_name, 'name_post' => $text, 'id_post' => $id_post, 'date' => '2']);
 
-        $data = $this->data->get('value');
-        if ($data == '1')
-            $this->chat->html("Напишите текст для поста и отправте5")->send();
-        if ($data == '2')
-            $this->chat
-                ->message('Выберите вариант сохранения')
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make('Сохранить для всех')->action('feedback6')->param('value', value: 1),
-                        Button::make('Сохранить для своей ленты')->action('feedback6')->param('value', 2),
-                    ])
-                )->send();
+        $this->reply("Название сохранено. Вставте одно фото, например автомобиля, его салона, неисправной детали и пр. Текст под фото не нужен");
     }
-    public function feedback6()
+
+    protected function foto_create()
+    {
+        $id_user = $this->message->from()->id();
+        $photo = $this->message->photos()->toArray();  // получаем  в массив инфу о фото в с разными вариантами размеров
+        $data = count($photo) - 1;   // считаем количество элементов массива
+        $id_foto = $photo[$data]['id'];  // берем последнее айди фото из массива
+        $name_foto = $id_user . '-' . time() . '.jpg';
+
+
+        DB::table('create_posts')
+            ->where('id_user', $id_user)
+            ->update(['url_foto' => 'storage/app/bot/images' . '/' . $name_foto, 'date' => '3']);
+        $this->reply("Фото сохранено. Опишите фото или расскажите о машине, ее проблеме, неисправности и т.д.");
+
+        sleep(5); // пауза между запросами и для тяжелых фото
+        $this->bot->store($id_foto, Storage::path('bot/images'), $name_foto);  // сохраняем на локалке,
+    }
+
+    protected function text_post_create()
+    {
+        $message = $this->message->toArray();
+        $text = $this->message->text();
+        $id_user = $this->message->from()->id();
+
+        DB::table('create_posts')
+            ->where('id_user', $id_user)
+            ->update(['text_post' => $text, 'date' => '4']);
+
+        $this->chat
+            ->message('Поздавляем, минимальный пост создан! Выберите вариант с помощью кнопок')
+            ->keyboard(
+                Keyboard::make()->buttons([
+                    Button::make('Дописать еще блок с фото и текстом"')->action('feedback_2')->param('value', '1'),
+                    Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
+                ])
+            )->send();
+
+    }
+
+    public function feedback_2()// получаем запросы от кнопок из text_post_create()
     {
         $id = $this->chat->toArray();
-        $data = $this->data->get('value');
-        if ($data == '1') {
-            $cr_post = Create_post::where('id_user', $id["chat_id"])->first();
-            Post::create([
-                'user_name' => $cr_post->user_name,
-                'name_post' => $cr_post->name_post,
-                'id_user' => $cr_post->id_user,
-                'id_post' => $cr_post->id_post,
-                'text_post' => $cr_post->text_post,
-                'url_foto' => $cr_post->url_foto,
+        $value_button = $this->data->get('value');
+
+        if ($value_button == '1') {
+            $this->chat->html("Вставте одно фото, например автомобиля, его салона, неисправной детали и пр. Текст под фото не нужен")->send();
+        }
+
+        if ($value_button == '2') {
+            $create_post = Create_post::where('id_user', $id["chat_id"])->first();
+           $date = date('Y-m-d H:i:s');
+            $id = DB::table('posts')->insertGetId([
+                'created_at' => $date, 
+                'updated_at'=> $date,
+                'user_name' => $create_post->user_name,
+                'name_post' => $create_post->name_post,
+                'id_user' => $create_post->id_user,
+                'id_post' => $create_post->id_post,
+                'text_post' => $create_post->text_post,
+                'url_foto' => $create_post->url_foto,
                 'stuff' => '1',
-            ])->first();
-            $cr_post->delete();
-            $this->chat->html("Пост сохранен для всех 7")->send();
-        }
+            ]);
+        
+            // Post::create([
+            //     'user_name' => $create_post->user_name,
+            //     'name_post' => $create_post->name_post,
+            //     'id_user' => $create_post->id_user,
+            //     'id_post' => $create_post->id_post,
+            //     'text_post' => $create_post->text_post,
+            //     'url_foto' => $create_post->url_foto,
+            //     'stuff' => '1',
+            // ])->first();
+            $create_post->delete();
 
-        if ($data == '2') {
-            $cr_post = Create_post::where('id_user', $id["chat_id"])->first();
-            Post::create([
-                'user_name' => $cr_post->user_name,
-                'name_post' => $cr_post->name_post,
-                'id_user' => $cr_post->id_user,
-                'id_post' => $cr_post->id_post,
-                'text_post' => $cr_post->text_post,
-                'url_foto' => $cr_post->url_foto,
-                'stuff' => '2',
-            ])->first();
-            $cr_post->delete();
-            $this->chat->html("Пост сохранен для своей ленты 8")->send();
+            $this->chat->html("Пост сохранен под номером $id и после проверки появится на сайте")->send();
         }
     }
 
+    public function new_post()
+    {
+        $id_user = $this->message->from()->id();
+        $create_post = Create_post::where('id_user', $id_user)->first();
+        if ($create_post !== null)
+            $create_post->delete();
+        Create_post::create(['id_user' => $id_user, 'date' => '1'])->first();
+        $this->chat->html('Напишите название поста, например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000 г троит" и отправьте2.')->send();
+    }
 
-    protected function handleUnknownCommand($text): void
+    public function delete_post()
+    {
+        $id_user = $this->message->from()->id();
+        $cr_post = Create_post::where('id_user', $id_user)->first();
+        if ($cr_post !== null)
+            $cr_post->delete();
+        $this->chat->html("Пост удален. Можете выбрать команды в меню")->send();
+    }
+
+    public function new_psassword()
+    {
+        $id_user = $this->chat->toArray();
+        $password = rand(1222222, 9999999999);
+        $login = rand(1222222, 9999999999) . '@' . $password;
+        $password_hash = Hash::make($password);
+        DB::table('users')
+            ->where('name', $id_user["chat_id"])
+            ->update(['email' => $login, 'password' => $password_hash]);
+        $this->chat->html("Ваш логин $login и пароль $password")->send();
+    }
+
+        protected function handleUnknownCommand($text): void
     {
         $this->chat->html("Нет такой команды, посмотрите список внизу в синем меню")->send();
     }
 
 
 
-    public function com()
-    {
-        Telegraph::registerBotCommands([
-            'post' => 'написать новый пост',
-            'start' => 'Пройти на сайт, получить новый пароль',
-            'bag' => 'удалить недоделанный пост',
-        ])->send();
-        // Telegraph::unregisterBotCommands()->send();  // убираем меню
-    }
-    public function help()
-    {
-        $this->reply('Описание команд...');
-    }
-    public function fas()
-    {
-        $this->reply("Жалоба принята!");
-    }
 }
 
-// $id = $this->chat->toArray();
-// file_put_contents('5.json', json_encode($id));
-// $user_name = $this->message->from()->firstName();
-// $user_name2 = $this->message->from()->userName();

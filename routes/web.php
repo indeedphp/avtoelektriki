@@ -25,19 +25,23 @@ Route::get('/1', function () {
     // ->delete(); 
 
 info('eeee');
-$cr_post = Create_post::where('id_user', '7124124425')->first();
-Post::create([
-    'user_name' => $cr_post->user_name,
-    'name_post' => $cr_post->name_post,
-    'id_user' => $cr_post->id_user,
-    'id_post' => $cr_post->id_post,
-    'text_post' => $cr_post->text_post,
-    'url_foto' => $cr_post->url_foto,
-    'stuff' => '1',
-])->first();
 
-    // Create_post::create(['id_user' => '3435453443'])->first();
-    return view('index');
+// $id = DB::table('posts')->insertGetId([
+//     'user_name' => 'create_pos',
+//     'name_post' => 'create_post',
+//     'id_user' => '3453',
+//     'id_post' => '43',
+// ]);
+
+$test = Post::create([
+    'user_name' => 'create_pos',
+    'name_post' => 'create_post',
+    'id_user' => '3453',
+    'id_post' => '43',
+])->first();
+var_dump($test);
+// echo $test->id;
+    // return view('index');
 }); 
 
         // $id = $this->message->toArray();
