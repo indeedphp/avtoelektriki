@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ class PostController extends Controller
         $posts = Post::all();
         $posts = $posts->reverse();
         // dump($posts); 
-        return view('index',compact('posts'));
+   
+        return view('index',compact('posts', ));
     } 
 }

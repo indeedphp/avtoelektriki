@@ -19,6 +19,7 @@ class Create_post extends Model
         'text_post',
         'url_foto',
         'stuff',
+        'step',
     ];
 
 

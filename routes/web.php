@@ -20,26 +20,10 @@ Route::get('/', [PostController::class, 'show'])->name('show');
 
 
 Route::get('/1', function () {
-    // DB::table('create_posts')
-    // ->where('id_post', "660")
-    // ->delete(); 
-
-info('eeee');
-
-// $id = DB::table('posts')->insertGetId([
-//     'user_name' => 'create_pos',
-//     'name_post' => 'create_post',
-//     'id_user' => '3453',
-//     'id_post' => '43',
-// ]);
-
-$test = Post::create([
-    'user_name' => 'create_pos',
-    'name_post' => 'create_post',
-    'id_user' => '3453',
-    'id_post' => '43',
-])->first();
-var_dump($test);
+    $create_post = Create_post::where('id_user', '7124124425')->first();
+    DB::table('create_posts')
+    ->where('id_user', '7124124425')
+    ->update(['step' => $create_post->step + 1]); 
 // echo $test->id;
     // return view('index');
 }); 
