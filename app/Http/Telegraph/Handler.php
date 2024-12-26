@@ -18,12 +18,13 @@ class Handler extends WebhookHandler
     public function start()
     {
         $id_user = $this->message->from()->id();
+        $email = 'email@'.$id_user;
         $create_post = Create_post::where('id_user', $id_user)->first();
         if ($create_post !== null)
             $create_post->delete();  //  подчищаем базу если есть незавершенные посты
         $user_data = User::where('name', $id_user)->first();
         if ($user_data == null) {
-            User::create(['name' => $id_user, 'email' => '1234@5678', 'password' => '12345678'])->first();
+            User::create(['name' => $id_user, 'email' => $email, 'password' => '12345678'])->first();
         }
         $this->chat
             ->message('Бот сайта "Автоэлектрики" приветствует вас! Все команды бота в кноке "меню" внизу экрана')

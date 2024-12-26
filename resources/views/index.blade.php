@@ -9,6 +9,8 @@
   <meta name="description" content="Профпортал Автоэлектрики">
   <script src="bootstrap.js" integrity="" crossorigin="anonymous"></script>
   <link href="bootstrap.css" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+rel="stylesheet" -->
   <link rel="stylesheet" href="bootstrap-icons-1.10.5/font/bootstrap-icons.min.css">
 </head>
 
@@ -63,42 +65,90 @@
 
         <div class=" my-4 py-3"></div> {{--отодвигатор--}}
 
+
+
+        <!-- <img src="storage/app/bot/images/7124124425-1735118651.jpg" class="img-fluid" alt="..."> -->
+
+
         @foreach ($posts as $post)
 
       <div class="card  mb-3  shadow ">
-        <div class="card-header">
-        <i class="bi bi-card-text"></i> {{$post->id}}&nbsp &nbsp
-        <i class="bi bi-clock"></i> {{ $post->created_at}} &nbsp &nbsp
-        <i class="bi bi-universal-access"></i> {{ $post->user_name}} &nbsp &nbsp
-
-      
-
-
-        <i class="bi bi-pencil"></i>
-        <i class="bi bi-hand-thumbs-up"></i>
-        <i class="bi bi-chat-dots"></i>
-        <i class="bi bi-chat"></i>
-
+        <div class=" card-header text-muted ">
+        <div class="row">
+          <div class="col-auto"><a class="link-underline-light" href="#"><i class="bi bi-card-text"></i>
+            {{$post->id}}</a> </div>
+          <div class="col-auto me-auto"> <i class="bi bi-clock"></i> @php echo date ('d-m-Y',
+          strtotime($post->created_at)); @endphp </div>
+          <div class="col-auto"> <a class="link-underline-light" href="#collapseExample1"><i
+            class="bi bi-universal-access ms-auto"></i> {{ $post->user_name}} </a> </div>
 
 
         </div>
-        <div class="card-body">
+        </div>
+        <div class="card-body px-1 px-lg-5 py-1">
         <h5 class="card-title">{{ $post->name_post}}</h5>
-        <img class=" shadow " src="{{ $post->url_foto}}" height="255" alt="lorem">
-        <p class="card-text"> {{ $post->text_post}}</p>
+        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+          <img class=" img-fluid shadow " src="{{ $post->url_foto}}" alt="Фото потерялось">
+          </div>
+        </div>
+      
+        
+        <div class="card-text"> {{ $e = Str::limit($post->text_post, 300) }}
+        <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
+            data-bs-target="#collapseExample{{$post->id}}{{ $loop->iteration }}" aria-expanded="false"
+            aria-controls="collapseExample"> развернуть </a></div>
+
+            <div class="collapse p-0" id="collapseExample{{$post->id}}{{ $loop->iteration }}">
+          <div class=" p-1">
+          
+      
+          <div class="card-text"> {{'...'}} {{ Str::unwrap($post->text_post, Str::before($e,  '...')) }}</div>
         @if ($post->url_foto_2 !== null)
-      <img class=" shadow " src="{{ $post->url_foto_2}}" height="255" alt="lorem">
+      <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+        <img class=" img-fluid shadow " src="{{ $post->url_foto_2}}" alt="Фото потерялось">
+        </div>
+      </div>
       <p class="card-text"> {{ $post->text_post_2}}</p>
     @endif
-    @if ($post->url_foto_3 !== null)
-    <img class=" shadow " src="{{ $post->url_foto_3}}" height="255" alt="lorem">
-    <p class="card-text"> {{ $post->text_post_3}}</p>
+        @if ($post->url_foto_3 !== null)
+      <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+        <img class=" img-fluid shadow " src="{{ $post->url_foto_3}}" alt="Фото потерялось">
+        </div>
+      </div>
+      <p class="card-text "> {{ $post->text_post_3}}         <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
+            data-bs-target="#collapseExample{{$post->id}}{{ $loop->iteration }}" aria-expanded="false"
+            aria-controls="collapseExample"> &nbsp &nbsp свернуть </a></p>
     @endif
 
-
+    </div>
         </div>
-        <div class="card-footer text-muted">
-        Комментарии
+        </div>
+
+
+        <div class="card-footer text-muted p-1 p-lg-3 ">
+        <div class="row">
+          <div class="col-auto pe-3"> <a class="link-underline-light" href="#collapseExample1"> <i
+            class="bi bi-hand-thumbs-up"></i> 15</a> </div>
+          <div class="col-auto me-auto p-0"> <a class="link-underline-light" href="#collapseExample1"><i
+            class="bi bi-share"></i> Поделится</a> </div>
+          <div class="col-auto">
+          <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
+            data-bs-target="#collapseExample{{$post->id}}" aria-expanded="false"
+            aria-controls="collapseExample"><i class="bi bi-chat-dots"></i> Коментарии 23 </a>
+
+
+          </div>
+        </div>
+
+        <div class="collapse p-0" id="collapseExample{{$post->id}}">
+          <div class="card card-body p-1">
+          Комментарии
+          </div>
+        </div>
+
         </div>
       </div>
 
@@ -108,7 +158,31 @@
       </div>
       <div class="col-lg-2 ">
 
+
+
+
+
+
+        <!-- <i class="bi bi-pencil"></i>
+        <i class="bi bi-hand-thumbs-up"></i>
+        <i class="bi bi-chat-dots"></i>
+        <i class="bi bi-chat"></i> 
+          <i class="bi bi-reply"></i>
+      <i class="bi bi-piggy-bank"></i>
+        
+        -->
+
       </div>
     </div>
 
   </div>
+
+
+
+  <!-- <a class="link-underline-light" href="#collapseExample1" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" ><i class="bi bi-chat-dots"></i> Коментарии 23 </a>
+
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Некоторый заполнитель для компонента сворачивания. Эта панель по умолчанию скрыта, но открывается, когда пользователь активирует соответствующий триггер.
+  </div>
+</div> -->
