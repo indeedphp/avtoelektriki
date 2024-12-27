@@ -42,3 +42,23 @@
 
 
 
+<div id='wrapper'>
+  <button id='like1' value="22"> 0</button>
+  <button id='like2' value="23"> 0</button>
+  <button id='like3' value="24"> 0</button>
+  <button id='like4' value="25"> 0</button>
+</div>
+
+<script>
+const wrapper = document.getElementById('wrapper');
+wrapper.addEventListener('click', (event) => {
+  let like = event.target.textContent;  
+            like++;
+            
+            event.target.textContent = ' ' +like;
+          
+})
+</script>
+
+
+

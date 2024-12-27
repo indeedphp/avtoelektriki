@@ -219,6 +219,7 @@ class Handler extends WebhookHandler
             $id = DB::table('posts')->insertGetId([
                 'created_at' => $date,
                 'updated_at' => $date,
+                'data' => $create_post->date,
                 'user_name' => $create_post->user_name,
                 'name_post' => $create_post->name_post,
                 'id_user' => $create_post->id_user,

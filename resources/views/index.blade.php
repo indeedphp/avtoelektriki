@@ -63,114 +63,149 @@ rel="stylesheet" -->
           </div>
         </nav>
 
-        <div class=" my-4 py-3"></div> {{--отодвигатор--}}
+        <div class=" my-3 py-3"></div> {{--отодвигатор--}}
 
 
 
         <!-- <img src="storage/app/bot/images/7124124425-1735118651.jpg" class="img-fluid" alt="..."> -->
 
+        <div id='wrapper'>
+          @foreach ($posts as $post)
 
-        @foreach ($posts as $post)
+        <div class="card  mb-3  shadow ">
+        <div class=" card-header text-muted py-1 p-lg-3">
+          <div class="row">
+          {{-- <div class="col-auto p-0 px-lg-3 "><a class="link-underline-light" href="#"> <i
+              class="bi bi-card-text"></i> {{ $post->id}} </a> </div> --}}
+          <div class="col-auto me-auto p-0 "><i class="bi bi-clock p-lg-1"></i>@php echo date('d-m-Y',
+            strtotime($post->created_at)); @endphp </div>
 
-      <div class="card  mb-3  shadow ">
-        <div class=" card-header text-muted ">
-        <div class="row">
-          <div class="col-auto"><a class="link-underline-light" href="#"><i class="bi bi-card-text"></i>
-            {{$post->id}}</a> </div>
-          <div class="col-auto me-auto"> <i class="bi bi-clock"></i> @php echo date ('d-m-Y',
-          strtotime($post->created_at)); @endphp </div>
-          <div class="col-auto"> <a class="link-underline-light" href="#collapseExample1"><i
-            class="bi bi-universal-access ms-auto"></i> {{ $post->user_name}} </a> </div>
+          <div class="col-auto p-0"> <a class="link-underline-light" href="#"> <i
+              class="bi bi-geo-alt"></i>{{'Алматы'}}</a> </div>
+
+          <div class="col-auto p-0 ps-1 px-lg-3 "> <a class="link-underline-light" href="#collapseExample1"><i
+              class="bi bi-universal-access ms-auto"></i>{{$post->user_name}} </a> </div>
 
 
-        </div>
-        </div>
-        <div class="card-body px-1 px-lg-5 py-1">
-        <h5 class="card-title">{{ $post->name_post}}</h5>
-        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-          <img class=" img-fluid shadow " src="{{ $post->url_foto}}" alt="Фото потерялось">
           </div>
         </div>
-      
-        
-        <div class="card-text"> {{ $e = Str::limit($post->text_post, 300) }}
-        <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
-            data-bs-target="#collapseExample{{$post->id}}{{ $loop->iteration }}" aria-expanded="false"
-            aria-controls="collapseExample"> развернуть </a></div>
+        <div class="card-body px-1 px-lg-5 py-1">
+          <h5 class="card-title">{{ $post->name_post}}</h5>
+          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+            <img class=" img-fluid shadow " src="{{ $post->url_foto}}" alt="Фото потерялось">
+          </div>
+          </div>
 
-            <div class="collapse p-0" id="collapseExample{{$post->id}}{{ $loop->iteration }}">
+
+          <div class="card-text"> {{ $e = Str::limit($post->text_post, 300) }}
+          <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
+            data-bs-target="#collapseExample{{$post->id}}{{ $loop->iteration }}" aria-expanded="false"
+            aria-controls="collapseExample"> развернуть </a>
+          </div>
+
+          <div class="collapse p-0" id="collapseExample{{$post->id}}{{ $loop->iteration }}">
           <div class=" p-1">
-          
-      
-          <div class="card-text"> {{'...'}} {{ Str::unwrap($post->text_post, Str::before($e,  '...')) }}</div>
-        @if ($post->url_foto_2 !== null)
-      <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-        <img class=" img-fluid shadow " src="{{ $post->url_foto_2}}" alt="Фото потерялось">
-        </div>
-      </div>
-      <p class="card-text"> {{ $post->text_post_2}}</p>
-    @endif
-        @if ($post->url_foto_3 !== null)
-      <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-        <img class=" img-fluid shadow " src="{{ $post->url_foto_3}}" alt="Фото потерялось">
-        </div>
-      </div>
-      <p class="card-text "> {{ $post->text_post_3}}         <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
-            data-bs-target="#collapseExample{{$post->id}}{{ $loop->iteration }}" aria-expanded="false"
-            aria-controls="collapseExample"> &nbsp &nbsp свернуть </a></p>
-    @endif
 
-    </div>
+
+            <div class="card-text"> {{'...'}} {{ Str::unwrap($post->text_post, Str::before($e, '...')) }}</div>
+            @if ($post->url_foto_2 !== null)
+        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+          <img class=" img-fluid shadow " src="{{ $post->url_foto_2}}" alt="Фото потерялось">
         </div>
         </div>
+        <p class="card-text"> {{ $post->text_post_2}}</p>
+      @endif
+            @if ($post->url_foto_3 !== null)
+        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+        <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+          <img class=" img-fluid shadow " src="{{ $post->url_foto_3}}" alt="Фото потерялось">
+        </div>
+        </div>
+        <p class="card-text "> {{ $post->text_post_3}} <a class="link-underline-light p-0"
+          href="#collapseExample1" data-bs-toggle="collapse"
+          data-bs-target="#collapseExample{{$post->id}}{{ $loop->iteration }}" aria-expanded="false"
+          aria-controls="collapseExample"> &nbsp &nbsp свернуть </a></p>
+      @endif
+
+          </div>
+          </div>
+        </div>
+
 
 
         <div class="card-footer text-muted p-1 p-lg-3 ">
-        <div class="row">
-          <div class="col-auto pe-3"> <a class="link-underline-light" href="#collapseExample1"> <i
-            class="bi bi-hand-thumbs-up"></i> 15</a> </div>
+          <div class="row">
+          <!-- ЛАЙК -->
+          <div class="col-auto pe-2"> <a class="link-underline-light" href='javascript:;'> <i
+              id='butlike{{$post->id}}' value="{{$post->id}}" class="bi bi-hand-thumbs-up"> 5</i></a>
+          </div>
+          <!-- РЕПОСТ -->
           <div class="col-auto me-auto p-0"> <a class="link-underline-light" href="#collapseExample1"><i
-            class="bi bi-share"></i> Поделится</a> </div>
+              class="bi bi-share"></i> Поделится</a> </div>
           <div class="col-auto">
-          <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
+            <!-- КОМЕНТАРИИ КНОПКА -->
+            <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
             data-bs-target="#collapseExample{{$post->id}}" aria-expanded="false"
             aria-controls="collapseExample"><i class="bi bi-chat-dots"></i> Коментарии 23 </a>
 
 
           </div>
-        </div>
-
-        <div class="collapse p-0" id="collapseExample{{$post->id}}">
-          <div class="card card-body p-1">
-          Комментарии
           </div>
-        </div>
+
+          <div class="collapse p-0" id="collapseExample{{$post->id}}">
+          <div class="card card-body p-1">
+            Комментарии
+          </div>
+          </div>
 
         </div>
+        </div>
+
+      @endforeach
+        </div>
+
       </div>
+      <div id=li class="col-lg-2 ">
 
-    @endforeach
 
 
-      </div>
-      <div class="col-lg-2 ">
-
+        <script>
 
 
 
 
 
-        <!-- <i class="bi bi-pencil"></i>
-        <i class="bi bi-hand-thumbs-up"></i>
-        <i class="bi bi-chat-dots"></i>
-        <i class="bi bi-chat"></i> 
-          <i class="bi bi-reply"></i>
-      <i class="bi bi-piggy-bank"></i>
-        
-        -->
+
+
+
+        </script>
+
+
+        <script>
+
+           let lik = null;
+          const wrapper = document.getElementById('wrapper');
+
+          wrapper.addEventListener('click', (event) => {
+            let like = event.target.textContent;
+            let li =  event.target.getAttribute('value');
+            fetch('/likes/?id_post='+li+'&id_user={{$post->id_user}}')
+              .then(response => response.json())
+              .then(commits => {
+                if (commits == 1) {
+                  lik = +like + 1;
+                } else {
+                  lik = +like - 1;
+                }
+                event.target.textContent = ' ' + lik;
+                console.dir(commits);
+              });
+          })
+        </script>
+
+
 
       </div>
     </div>
@@ -179,10 +214,6 @@ rel="stylesheet" -->
 
 
 
-  <!-- <a class="link-underline-light" href="#collapseExample1" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" ><i class="bi bi-chat-dots"></i> Коментарии 23 </a>
 
-<div class="collapse" id="collapseExample">
-  <div class="card card-body">
-    Некоторый заполнитель для компонента сворачивания. Эта панель по умолчанию скрыта, но открывается, когда пользователь активирует соответствующий триггер.
-  </div>
-</div> -->
+
+
