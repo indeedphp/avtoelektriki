@@ -19,6 +19,10 @@ class Post extends Model
         'date',
         'text_post',
         'url_foto',
+        'text_post_2',
+        'url_foto_2',
+        'text_post_3',
+        'url_foto_3',
         'stuff',
     ];
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -37,7 +38,7 @@ Route::get('/1', function () {
 // Create_post::create(['user_name' => $user_name, 'name_post' => $text, 'id_user' => $id_user, 'id_post' => $id_post, 'date' => $date]);
 
 Route::get('/likes', [LikeController::class, 'create'])->name('create');
-
+Route::post('/comments', [CommentController::class, 'create'])->name('comments');
 
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');

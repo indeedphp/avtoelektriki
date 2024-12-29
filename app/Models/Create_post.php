@@ -11,6 +11,8 @@ class Create_post extends Model
 
 
     protected $fillable = [
+        'created_at',
+        'updated_at',
         'user_name',
         'name_post',
         'id_user',
@@ -18,8 +20,12 @@ class Create_post extends Model
         'date',
         'text_post',
         'url_foto',
-        'stuff',
+        'text_post_2',
+        'url_foto_2',
+        'text_post_3',
+        'url_foto_3',
         'step',
+        'stuff',
     ];
 
 

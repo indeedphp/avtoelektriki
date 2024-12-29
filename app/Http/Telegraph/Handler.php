@@ -219,7 +219,7 @@ class Handler extends WebhookHandler
             $id = DB::table('posts')->insertGetId([
                 'created_at' => $date,
                 'updated_at' => $date,
-                'data' => $create_post->date,
+                'date' => $create_post->date,
                 'user_name' => $create_post->user_name,
                 'name_post' => $create_post->name_post,
                 'id_user' => $create_post->id_user,
@@ -230,7 +230,7 @@ class Handler extends WebhookHandler
                 'url_foto_2' => $create_post->url_foto_2,
                 'text_post_3' => $create_post->text_post_3,
                 'url_foto_3' => $create_post->url_foto_3,
-                'stuff' => '1',
+                'stuff' =>  '1',
             ]);
 
             // Post::create([
@@ -248,7 +248,7 @@ class Handler extends WebhookHandler
         }
     }
 
-    public function new_post()
+    public function new_post()  // идем через команду /new_post
     {
         $id_user = $this->message->from()->id();
         $create_post = Create_post::where('id_user', $id_user)->first();
