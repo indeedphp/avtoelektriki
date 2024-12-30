@@ -24,7 +24,7 @@
 
       <nav class="navbar navbar-expand-lg  fixed-top navbar bg-primary" data-bs-theme="dark">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Автоэлектрики</a>
+            <a class="navbar-brand" href="/">Автоэлектрики</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
               aria-label="Переключатель навигации">
@@ -68,8 +68,8 @@
 
 
 
-
-      <form method="POST" action="{{ route('registerCreate') }}">
+<h2>Регистрация пока только через телеграмм бота   <a href="https://t.me/sky_bob_bot "> @sky_bob_bot</a>  </h2>
+      <!-- <form method="POST" action="{{ route('registerCreate') }}">
   @csrf
 
   <div class="mb-3">
@@ -110,7 +110,7 @@
   </div>
 
   <button type="submit" class="btn btn-primary">Отправить</button>
-</form>
+</form> -->
 
       </div>
 

@@ -30,6 +30,16 @@ Route::get('/1', function () {
     // return view('index');
 });
 
+Route::get('/2', function () {
+
+    return view('welcome');
+});
+
+
+
+
+
+
 // $id = $this->message->toArray();
 
 // file_put_contents('1.json', json_encode($id));
