@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('id_post')->nullable();
-            $table->integer('like')->nullable();
-            $table->integer('dislike')->nullable();
-            $table->string('Id_user')->nullable();
+            $table->integer('post_id')->nullable();
+            $table->boolean('like')->nullable();
+            $table->boolean('dislike')->nullable();
+            $table->string('id_user')->nullable();
             $table->text('text')->nullable();
         });
     }

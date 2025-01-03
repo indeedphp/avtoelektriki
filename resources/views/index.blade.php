@@ -77,7 +77,7 @@ rel="stylesheet" -->
         <div class=" card-header text-muted py-1 p-lg-3">
           <div class="row">
           <!-- <div class="col-auto p-0 px-lg-3 "><a class="link-underline-light" href="#"> <i
-        class="bi bi-card-text" value="www"></i> {{ $post->id}} </a> </div> -->
+      class="bi bi-card-text" value="www"></i> {{ $post->id}} </a> </div> -->
           <div class="col-auto me-auto p-0 "><i class="bi bi-clock p-lg-1" value="www"> </i>@php echo
             date('d-m-Y',
             strtotime($post->created_at)); @endphp </div>
@@ -139,7 +139,8 @@ rel="stylesheet" -->
           <div class="row">
           <!-- ЛАЙК -->
           <div class="col-auto pe-2"> <a class="link-underline-light" style="cursor: pointer;"> <i
-              id='butlike{{$post->id}}' value="{{$post->id}}" class="bi bi-hand-thumbs-up"> 5</i></a>
+              id='butlike{{$post->id}}' value="{{$post->id}}" class="bi bi-hand-thumbs-up">
+              {{$post->like}}</i></a>
           </div>
           <!-- РЕПОСТ -->
           <div class="col-auto me-auto p-0">
@@ -178,7 +179,8 @@ rel="stylesheet" -->
             <div class="row">
               <div class="col-auto me-auto pe-0 flex-fill">
               <input type="text" name="comment" class="form-control" placeholder="Напишите комментарий">
-              <input type="hidden" name="id_post" value="{{$post->id}}">
+              <input type="hidden" name="post_id" value="{{$post->id}}">
+              <input type="hidden" name="user_name" value="{{$post->user_name}}">
               <input type="hidden" name="id_user" value="{{$post->id_user}}">
               </div>
               <div class="col-auto  ps-0">
@@ -188,14 +190,14 @@ rel="stylesheet" -->
             </div>
             </form>
             @foreach ($comments as $comment)
-            <li>{{$comment->comment}}</li>
-            @endforeach
+        <li>{{$comment->comment}}</li>
+      @endforeach
 
             <div class="col-auto">
             <a class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
-            data-bs-target="#collapseExample{{$post->id}}" aria-expanded="false"
-            aria-controls="collapseExample"><i class="bi bi-chat-dots" value="www"></i></i> Свернуть </a>
-          </div>
+              data-bs-target="#collapseExample{{$post->id}}" aria-expanded="false"
+              aria-controls="collapseExample"><i class="bi bi-chat-dots" value="www"></i></i> Свернуть </a>
+            </div>
 
           </div>
           </div>
@@ -229,22 +231,23 @@ rel="stylesheet" -->
               body: formData
             })
           })
-
+          // id_post
           let lik = null;
           wrapper.addEventListener('click', (event) => {
             const isButton = event.target.nodeName === 'I';
             let li = event.target.getAttribute('value');
             if (isButton && li != 'www') {
               let like = event.target.textContent;
-              fetch('/likes/?id_post=' + li + '&id_user={{$post->id_user}}')
+              fetch('/likes/?post_id=' + li + '&id_user={{Auth::user()->name}}')
                 .then(response => response.json())
                 .then(commits => {
                   if (commits == 1) {
                     lik = +like + 1;
-                  } else {
+                  } else if (commits == 0 && like != 0) {
                     lik = +like - 1;
                   }
                   event.target.textContent = ' ' + lik;
+                  console.dir(commits);
                 });
             }
           })

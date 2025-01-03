@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('id_post')->nullable();
+            $table->integer('post_id')->nullable();
+            $table->string('user_name')->nullable();
             $table->text('comment')->nullable();
             $table->integer('num')->nullable();
-            $table->string('Id_user')->nullable();
+            $table->string('id_user')->nullable();
             $table->text('stuff')->nullable();
         });
     }

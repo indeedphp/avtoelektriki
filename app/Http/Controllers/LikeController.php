@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 
 class LikeController extends Controller
 {
@@ -21,13 +22,14 @@ class LikeController extends Controller
      */
     public function create(Request $request)
     {
-        $id_post = $request->get('id_post');
+        $post_id = $request->get('post_id');
         $id_user = $request->get('id_user');
-        $likes = Like::where('id_post', $id_post)->first();
-        info($request);
+        $likes = Like::where('post_id', $post_id)->where('id_user', $id_user)->first();
+
+        info($likes);
+
         if (empty($likes)) {
-            $www = Like::create(['id_post' => $id_post, 'like' => 1, 'id_user' => $id_user]);
-            $www = $www->like;
+            $www =  Like::create(['post_id' => $post_id, 'like' => 1, 'id_user' => $id_user]);
         } else {
             switch ($likes->like) {
                 case 0:
@@ -38,11 +40,11 @@ class LikeController extends Controller
                     break;
             }
 
-            $www = Like::where('id_post', $id_post)->first();
-            $www = $www->like;
+            $www = Like::where('post_id', $post_id)->first();
+
             info($www . 'rrr');
         }
-        return $www;
+        return $www->like ;
 
     }
 
@@ -88,3 +90,15 @@ class LikeController extends Controller
 }
 
 
+// if($likes == null) {
+//     $www = Like::create(['post_id' => $post_id, 'like' => 1, 'id_user' => $id_user]);
+// }else{
+//     // dd($likes);
+//     info($likes);
+
+// // foreach($likes as $like){
+// //     // dd($like);
+//    if($likes->id_user !== $id_user ) {
+//     $www = Like::create(['post_id' => $post_id, 'like' => 1, 'id_user' => $id_user]);
+
+// // }

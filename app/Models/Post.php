@@ -4,10 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Like;
+use App\Models\Comment;
+
 
 class Post extends Model
 {
     use HasFactory;
+
+//     public function comment_plus()
+//     {
+
+//         return $this->hasMany(Comment::class);
+// // dd(123456);
+//     }
+
+
+
+    public function like_plus()
+    {
+// dd($this->hasMany(Like::class));
+        return $this->hasMany(Like::class);
+
+    }
+
+
+
+
+
 
     protected $fillable = [
         'created_at',
