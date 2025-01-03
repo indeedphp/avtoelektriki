@@ -40,7 +40,7 @@ class LikeController extends Controller
                     break;
             }
 
-            $www = Like::where('post_id', $post_id)->first();
+            $www = Like::where('post_id', $post_id)->where('id_user', $id_user)->first();
 
             info($www . 'rrr');
         }
