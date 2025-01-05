@@ -7,29 +7,37 @@ use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     public function show()  {
+        // dd(Auth::user()->user_name);
         $qq = 0;
+        $qqq = 0;
         $posts = Post::all();
         $posts = $posts->reverse();
         foreach ($posts as $post) { 
         $post->like_plus();
-       
+        $post->comment_plus();
         
         foreach ($post->like_plus as $like) { 
             if($like->like == 1)$qq++;
             // dump($like->like);
         }
+        foreach ($post->comment_plus as $comment) { 
+            $qqq++;
+            // dump($like->like);
+        }
         // dump($post->like_plus);
         // dump($post);
+        $post->comment = $qqq;
         $post->like = $qq;
         $qq = 0;
-        
+        $qqq = 0;
         }
-        $comments = Comment::all();
-        dump($posts); 
+        // $comments = Comment::all();
+        // dump($posts); 
    
-        return view('index',compact('posts', 'comments'));
+        return view('index',compact('posts'));
     } 
 }

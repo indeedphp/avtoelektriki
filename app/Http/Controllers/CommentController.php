@@ -20,9 +20,11 @@ class CommentController extends Controller
      */
     public function create(Request $request)
     {
-  info($request);
-           Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
+        info($request);
+        $www = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
 
+        info($www->comment);
+        return response()->json($www, 200);
     }
 
     /**

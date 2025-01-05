@@ -12,12 +12,12 @@ class Post extends Model
 {
     use HasFactory;
 
-//     public function comment_plus()
-//     {
+    public function comment_plus()
+    {
 
-//         return $this->hasMany(Comment::class);
-// // dd(123456);
-//     }
+        return $this->hasMany(Comment::class);
+// dd(123456);
+    }
 
 
 
