@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Профпортал Автоэлектрики">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="bootstrap.js" integrity="" crossorigin="anonymous"></script>
     <link href="bootstrap.css" rel="stylesheet">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -142,17 +143,27 @@ rel="stylesheet" -->
                                 </div>
                             </div>
 
+ 
+
+
+
+
                             <div class="card-footer text-muted p-1 p-lg-3 ">
                                 <div class="row">
-                                    <!-- ЛАЙК -->
-                                    <div class="col-auto pe-2"> <a class="link-underline-light"
-                                            style="cursor: pointer;"> <i id='butlike{{ $post->id }}'
-                                                value="{{ $post->id }}" class="bi bi-hand-thumbs-up">
-                                                {{ $post->like }}</i></a>
+                                    <!-- ЛАЙК "bi bi-hand-thumbs-up-fill"-->
+                                    <div class="col-auto pe-2"> <a class="link-underline-light" title="Поставить лайк"
+                                            style="cursor: pointer;"> <i id='butlike{{ $post->id }}' value="{{ $post->id }}"   
+                                              class="
+                                              @if($post->like_up) 
+                                                 {{"bi bi-hand-thumbs-up-fill"}} 
+                                                 @else
+                                                  {{"bi bi-hand-thumbs-up"}} 
+                                                 @endif 
+                                                 "> {{ $post->like }}</i></a>
                                     </div>
                                     <!-- РЕПОСТ -->
                                     <div class="col-auto me-auto p-0">
-                                        <a class="link-underline-light" href="#collapseExample1"
+                                        <a class="link-underline-light" title="Репост" href="#collapseExample1"
                                             data-bs-toggle="collapse" data-bs-target="#collapse{{ $post->id }}"
                                             aria-expanded="false" aria-controls="collapseExample">
                                             <i class="bi bi-share" value="www"></i></i>
@@ -161,15 +172,16 @@ rel="stylesheet" -->
                                     </div>
                                     <!-- КОМЕНТАРИИ КНОПКА -->
                                     <div class="col-auto">
-                                        <a class="link-underline-light p-0" href="#collapseExample1"
+                                        <a class="link-underline-light p-0" title="Написать, прочитать комментарии" href="#collapseExample1"
                                             data-bs-toggle="collapse"
                                             data-bs-target="#collapseExample{{ $post->id }}"
                                             aria-expanded="false" aria-controls="collapseExample"><i
                                                 class="bi bi-chat-dots" value="www"></i></i> Коментарии
-                                            {{ $post->comment }} </a>
+                                           <i id="comm_count{{ $post->id }}"> {{ $post->comment }} </i></a>
                                     </div>
                                 </div>
 
+  {{-- РЕПОСТЫ  ===================================================================================================================================================== --}}
                                 <div class="collapse py-0" id="collapse{{ $post->id }}">
                                     <div class="card card-body px-3 py-1">
                                         <div class="row p-0">
@@ -187,10 +199,10 @@ rel="stylesheet" -->
                                         </div>
                                     </div>
                                 </div>
-
+{{-- ФОРМА ВВОДА СООБЩЕНИЯ  ===================================================================================================================================================== --}}
                                 <div class="collapse p-0" id="collapseExample{{ $post->id }}">
                                     <div class="card card-body p-1">
-                                        <form id="form{{ $post->id }}" val="{{ $post->id }}">
+                                        <form id="form{{ $post->id }}" val="{{ $post->id }}" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-auto me-auto pe-0 flex-fill">
                                                     <input type="text" name="comment" class="form-control"
@@ -203,18 +215,50 @@ rel="stylesheet" -->
                                                         @auth value="{{ Auth::user()->name }}" @endauth>
                                                 </div>
                                                 <div class="col-auto  ps-0">
-                                                    <button id='butw{{ $post->id }}' class="btn btn-primary" type="submit"><i
+                                                    <button id='butw{{ $post->id }}' class="btn btn-primary"  title="Отправить" type="submit"><i
                                                             class="bi bi-arrow-return-left"
                                                             value="www"></i></button>
                                                 </div>
                                             </div>
                                         </form>
+
+
+
+
+  {{-- КОМЕНТАРИИ ===================================================================================================================================================== --}}                                       
                                         <div id='wr{{ $post->id }}'>
                                             @foreach ($post->comment_plus as $comment)
                                                 <li> @php
                                                     echo date('d.m.Y', strtotime($comment->created_at));
                                                 @endphp
-                                                    {{ $comment->user_name }} {{ $comment->comment }}</li>
+                                                   <b>{{ $comment->user_name }}</b> <i> {{ $comment->comment }}	</i>
+                                                   <a  data-bs-toggle="collapse" href="#{{ $post->id }}coll{{$loop->iteration}}" role="button" aria-expanded="false" aria-controls="collapseExample" title="Редактировать, удалить комментарий"  style="cursor: pointer;"> изменить</a>
+                                                </li>
+<!-- ==================================================================================== -->
+   <div class="collapse" id="{{ $post->id }}coll{{$loop->iteration}}">
+  <div class="card card-body">
+  <form id="form_reply{{ $post->id }}" val="{{ $post->id }}" loop="{{$loop->iteration}}" >
+                                            <div class="row">
+                                                <div class="col-auto me-auto pe-0 flex-fill">
+                                                    <input type="text" name="comment" class="form-control"
+                                                    value="{{ $comment->comment }}">
+                                                    <input type="hidden" name="post_id"
+                                                        value="{{ $post->id }}">
+                                                    <input type="hidden" name="user_name"
+                                                        @auth value="{{ Auth::user()->user_name }}" @endauth>
+                                                    <input type="hidden" name="id_user"
+                                                        @auth value="{{ Auth::user()->name }}" @endauth>
+                                                </div>
+                                                <div class="col-auto  ps-0">
+                                                    <button id='butw{{ $post->id }}' class="btn btn-primary"  title="Отправить" type="submit"><i
+                                                            class="bi bi-arrow-return-left"
+                                                            value="www"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+  </div>
+</div>
+<!-- ========================================================================== -->
                                             @endforeach
                                         </div>
                                         <div class="col-auto">
@@ -252,43 +296,61 @@ rel="stylesheet" -->
 
 
 
-
+  
 
     <script>
+
+
+
+
+   {{-- =================================================================== ОТПРАВКА  КОМЕНТАРИЯ  ================================================================================== --}}         
         const wrapper = document.getElementById('wrapper');
         wrapper.addEventListener('submit', function(event) {
             event.preventDefault();
             let val = event.target.getAttribute('val');
             let wr = document.getElementById('wr' + val);
+            let comm_count = document.getElementById('comm_count' + val);
+            //  console.dir(+comm_count.textContent + 1);
             let formData = new FormData(document.getElementById("form" + val));
+              console.dir(formData);
             let text_empty = formData.entries().next().value;
             let button = document.getElementById('butw'+val);
-            // console.dir(button.textContent);
+            // console.dir(+button.textContent);
             button.className = "btn btn-success";
             if (text_empty[1].trim() != '') {
                 fetch('/comments/', {
                         method: 'POST',
-                        headers: {
+                        headers: {   
+                            // 'Content-Type': 'application/x-www-form-urlencoded',
                             'Accept': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
+                        },     
                         body: formData
                     })
                     .then(response => response.json())
                     .then(commits => {
                         let li = document.createElement('li');
-                        li.textContent = new Date().toLocaleString().slice(0, -10) + ' ' + commits[
-                            'user_name'] + ' ' + commits['comment'];
+                        let b = document.createElement('b');
+                        let i = document.createElement('i');
+                        li.textContent = new Date().toLocaleString().slice(0, -10) + ' ';
+                        b.textContent = commits['user_name'] + ' ';
+                        i.textContent = commits['comment'];
+                        li.appendChild(b);
+                        li.appendChild(i);
                         wr.appendChild(li);
+                        comm_count.textContent = +comm_count.textContent + 1; // прибавляем счет комментариев
                         // console.dir(commits);
                     });
             } else {
                 alert("Напишите коментарий");
             }
             event.target.reset();
+            setTimeout(function() { button.className = "btn btn-primary" }, 3000);
         });
 
  
+ {{-- ===================================================================   ОТПРАВКА ЛАЙКА  ================================================================================== --}}   
+
         let lik = null;
         wrapper.addEventListener('click', (event) => {
             const isButton = event.target.nodeName === 'I';

@@ -49,6 +49,22 @@ Route::get('/2', function () {
 
 Route::get('/likes', [LikeController::class, 'create'])->name('create');
 Route::post('/comments', [CommentController::class, 'create'])->name('comments');
+// Route::put('/comments', [CommentController::class, 'create'])->name('comments');
+// Route::put('/comments', [CommentController::class, 'update'])->name('update');
+// Route::patch('/comments', [CommentController::class, 'create'])->name('update');
+
+// Route::put('/comments', function () {
+
+//     file_put_contents('20.json', json_encode('5555555555555'));
+// });
+
+
+
+
+
+
+
+
 
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');

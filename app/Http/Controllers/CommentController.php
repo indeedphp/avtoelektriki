@@ -21,9 +21,10 @@ class CommentController extends Controller
     public function create(Request $request)
     {
         info($request);
+        file_put_contents('22.json', json_encode($request));
         $www = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
 
-        info($www->comment);
+        // info($www->comment);
         return response()->json($www, 200);
     }
 
@@ -54,9 +55,13 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request)
     {
-        //
+        // info($request);
+        // $www = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
+
+        
+        // return response()->json($www, 200);
     }
 
     /**
