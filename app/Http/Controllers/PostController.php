@@ -16,6 +16,8 @@ class PostController extends Controller
         $qq = 0;
         $qqq = 0;
         $like_up = false;
+        $name = 0;
+        if(!empty(Auth::user()->name)) $name = Auth::user()->name;
 
         $posts = Post::all();
         $posts = $posts->reverse();
@@ -26,7 +28,7 @@ class PostController extends Controller
             foreach ($post->like_plus as $like) {
                 if ($like->like == 1)
                     $qq++;
-                if (Auth::user()->name == $like->id_user && $like->like == 1){
+                if ($name == $like->id_user && $like->like == 1){
                     $like_up = true;
                 }
                     

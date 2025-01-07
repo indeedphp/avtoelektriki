@@ -199,16 +199,17 @@ rel="stylesheet" -->
                                         </div>
                                     </div>
                                 </div>
-{{-- ФОРМА ВВОДА СООБЩЕНИЯ  ===================================================================================================================================================== --}}
+{{-- ФОРМА ВВОДА КОММЕНТАРИЕВ  ===================================================================================================================================================== --}}
                                 <div class="collapse p-0" id="collapseExample{{ $post->id }}">
                                     <div class="card card-body p-1">
-                                        <form id="form{{ $post->id }}" val="{{ $post->id }}" enctype="multipart/form-data">
+                                        <form id="form{{ $post->id }}" val="{{ $post->id }}"  form_type="1"  enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-auto me-auto pe-0 flex-fill">
                                                     <input type="text" name="comment" class="form-control"
                                                         placeholder="Напишите комментарий">
                                                     <input type="hidden" name="post_id"
                                                         value="{{ $post->id }}">
+                                                        
                                                     <input type="hidden" name="user_name"
                                                         @auth value="{{ Auth::user()->user_name }}" @endauth>
                                                     <input type="hidden" name="id_user"
@@ -225,29 +226,33 @@ rel="stylesheet" -->
 
 
 
-  {{-- КОМЕНТАРИИ ===================================================================================================================================================== --}}                                       
-                                        <div id='wr{{ $post->id }}'>
-                                            @foreach ($post->comment_plus as $comment)
-                                                <li> @php
-                                                    echo date('d.m.Y', strtotime($comment->created_at));
-                                                @endphp
-                                                   <b>{{ $comment->user_name }}</b> <i> {{ $comment->comment }}	</i>
-                                                   <a  data-bs-toggle="collapse" href="#{{ $post->id }}coll{{$loop->iteration}}" role="button" aria-expanded="false" aria-controls="collapseExample" title="Редактировать, удалить комментарий"  style="cursor: pointer;"> изменить</a>
-                                                </li>
-<!-- ==================================================================================== -->
-   <div class="collapse" id="{{ $post->id }}coll{{$loop->iteration}}">
-  <div class="card card-body">
-  <form id="form_reply{{ $post->id }}" val="{{ $post->id }}" loop="{{$loop->iteration}}" >
+{{-- КОМЕНТАРИИ ===================================================================================================================================================== --}}                                       
+<div id='wr{{ $post->id }}'>
+    @foreach ($post->comment_plus as $comment)
+        <li id="one_comment{{ $comment->id }}" > @php
+            echo date('d.m.Y', strtotime($comment->created_at));
+        @endphp
+            <b>{{ $comment->user_name }}</b> <i i id="comment_i{{ $comment->id }}"  > {{ $comment->comment }}	</i>
+            @auth
+            @if($comment->id_user == Auth::user()->name)
+            <a  data-bs-toggle="collapse" href="#coment_collapse{{ $comment->id }}" role="button" 
+                aria-expanded="false" aria-controls="collapseExample" title="Редактировать, удалить комментарий"  style="cursor: pointer;"> изменить
+            </a>
+            @endif
+            @endauth
+
+        </li>
+<!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+                              <div class="collapse" id="coment_collapse{{ $comment->id }}">
+                                 <div class="card card-body">
+                                   <form id="form_coment{{ $comment->id }}" form_type="2" coment_id="{{ $comment->id }}"  >
                                             <div class="row">
                                                 <div class="col-auto me-auto pe-0 flex-fill">
                                                     <input type="text" name="comment" class="form-control"
                                                     value="{{ $comment->comment }}">
-                                                    <input type="hidden" name="post_id"
-                                                        value="{{ $post->id }}">
-                                                    <input type="hidden" name="user_name"
-                                                        @auth value="{{ Auth::user()->user_name }}" @endauth>
-                                                    <input type="hidden" name="id_user"
-                                                        @auth value="{{ Auth::user()->name }}" @endauth>
+                                                    <input type="hidden" name="comment_id"
+                                                        value="{{ $comment->id }}">
+                                                        <input name="_method" type="hidden" value="PUT"> 
                                                 </div>
                                                 <div class="col-auto  ps-0">
                                                     <button id='butw{{ $post->id }}' class="btn btn-primary"  title="Отправить" type="submit"><i
@@ -256,11 +261,27 @@ rel="stylesheet" -->
                                                 </div>
                                             </div>
                                         </form>
-  </div>
-</div>
-<!-- ========================================================================== -->
+                                        <form id="form_coment_del{{ $comment->id }}" form_type="3" coment_id="{{ $comment->id }}"  >
+                                            <div class="row">
+                                                <div class="col-auto me-auto pe-0 flex-fill">
+                      
+                                                    <input type="hidden" name="comment_id"
+                                                        value="{{ $comment->id }}">
+                                                        <input name="_method" type="hidden" value="DELETE"> 
+                                                </div>
+                                                <div class="col-auto  ps-0">
+                                                    <button id='butw{{ $post->id }}' class="btn btn-link"  title="Отправить" type="submit">удалить комментарий</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                   </div>
+                             </div>
+
                                             @endforeach
+                                            
                                         </div>
+<!-- ========================================================================== -->
+
                                         <div class="col-auto">
                                             <a class="link-underline-light p-0" href="#collapseExample1"
                                                 data-bs-toggle="collapse"
@@ -279,6 +300,58 @@ rel="stylesheet" -->
 
 
             </div>
+
+            <div id="test_co" hidden>
+            <li id="test_comment" > 
+
+            <b></b> <i> 	</i>
+
+            <a  data-bs-toggle="collapse" href="#coment_collapse" role="button" 
+                aria-expanded="false" aria-controls="collapseExample" title="Редактировать, удалить комментарий"  style="cursor: pointer;"> изменить
+            </a>
+
+
+        </li>
+
+                              <div class="collapse" id="coment_collapse">
+                                 <div class="card card-body">
+                                   <form id="form_coment" form_type="2" coment_id=""  >
+                                            <div class="row">
+                                                <div class="col-auto me-auto pe-0 flex-fill">
+                                                    <input type="text" name="comment" class="form-control"
+                                                    value="">
+                                                    <input type="hidden" name="comment_id"
+                                                        value="">
+                                                        <input name="_method" type="hidden" value="PUT"> 
+                                                </div>
+                                                <div class="col-auto  ps-0">
+                                                    <button id='butw' class="btn btn-primary"  title="Отправить" type="submit"><i
+                                                            class="bi bi-arrow-return-left"
+                                                            value="www"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form id="form_coment_del" form_type="3" coment_id=""  >
+                                            <div class="row">
+                                                <div class="col-auto me-auto pe-0 flex-fill">
+                      
+                                                    <input type="hidden" name="comment_id"
+                                                        value="">
+                                                        <input name="_method" type="hidden" value="DELETE"> 
+                                                </div>
+                                                <div class="col-auto  ps-0">
+                                                    <button id='butw' class="btn btn-link"  title="Отправить" type="submit">удалить комментарий</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                   </div>
+                             </div>
+                             </div>
+
+                             <div id="fff" hidden> ggg</div>
+
+                            
+
             <div id=li class="col-lg-2 ">
 
 
@@ -307,21 +380,27 @@ rel="stylesheet" -->
         const wrapper = document.getElementById('wrapper');
         wrapper.addEventListener('submit', function(event) {
             event.preventDefault();
+            let form_type = event.target.getAttribute('form_type');
+            let test_comment = document.getElementById('test_comment');
+            let fff = document.getElementById('fff');
+            
+            console.dir(form_type);
+
+            switch (form_type) {
+                case '1':
             let val = event.target.getAttribute('val');
             let wr = document.getElementById('wr' + val);
             let comm_count = document.getElementById('comm_count' + val);
-            //  console.dir(+comm_count.textContent + 1);
             let formData = new FormData(document.getElementById("form" + val));
-              console.dir(formData);
+            //   console.dir(val);
             let text_empty = formData.entries().next().value;
             let button = document.getElementById('butw'+val);
-            // console.dir(+button.textContent);
             button.className = "btn btn-success";
+            // formData.append("_method", "PATCH");
             if (text_empty[1].trim() != '') {
                 fetch('/comments/', {
                         method: 'POST',
                         headers: {   
-                            // 'Content-Type': 'application/x-www-form-urlencoded',
                             'Accept': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },     
@@ -332,12 +411,26 @@ rel="stylesheet" -->
                         let li = document.createElement('li');
                         let b = document.createElement('b');
                         let i = document.createElement('i');
+                       
                         li.textContent = new Date().toLocaleString().slice(0, -10) + ' ';
                         b.textContent = commits['user_name'] + ' ';
                         i.textContent = commits['comment'];
+                        //  fff.removeAttribute("hidden"); 
+                       
                         li.appendChild(b);
                         li.appendChild(i);
+
+                        // let clone = test_comment.cloneNode(true);
+                        // clone.textContent = ' ggggggggggg';
+                        // clone.querySelector('b').textContent = commits['user_name'] + ' '; 
+                        // clone.querySelector('i').textContent = commits['comment']; 
+
+                        // document.getElementById('foo').children
+                        // li.appendChild(clone);
+                        
                         wr.appendChild(li);
+                        // wr.appendChild(clone);
+                        
                         comm_count.textContent = +comm_count.textContent + 1; // прибавляем счет комментариев
                         // console.dir(commits);
                     });
@@ -346,6 +439,99 @@ rel="stylesheet" -->
             }
             event.target.reset();
             setTimeout(function() { button.className = "btn btn-primary" }, 3000);
+
+            break;
+
+            case '2':
+        
+          let coment_id = event.target.getAttribute('coment_id');
+          let comment_i = document.getElementById('comment_i' + coment_id);
+          let coment_collapse = document.getElementById('coment_collapse' + coment_id);
+           console.dir(coment_id);
+          let formData2 = new FormData(document.getElementById("form_coment" + coment_id));
+      
+          let text_empty2 = formData2.entries().next().value;
+        //   let button = document.getElementById('butw'+val);
+          // console.dir(+button.textContent);
+        //   button.className = "btn btn-success";
+          // formData.append("_method", "PATCH");
+          if (text_empty2[1].trim() != '') {
+              fetch('/comments/', {
+                      method: 'POST',
+                      headers: {   
+                          'Accept': 'application/json',
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                      },     
+                      body: formData2
+                  })
+                  .then(response => response.json())
+                  .then(commits => {
+                    //   let li = document.createElement('li');
+                    //   let b = document.createElement('b');
+                    //   let i = document.createElement('i');
+                    //   li.textContent = new Date().toLocaleString().slice(0, -10) + ' ';
+                    //   b.textContent = commits['user_name'] + ' ';
+                    //   i.textContent = commits['comment'];
+                    //   li.appendChild(b);
+                    //   li.appendChild(i);
+                    //   wr.appendChild(li);
+                    coment_collapse.className = "collapse";
+                      comment_i.textContent = commits['comment']; 
+                      console.dir(commits);
+                  });
+          } else {
+              alert("Напишите комений");
+          }
+        //   event.target.reset();
+        //   setTimeout(function() { button.className = "btn btn-primary" }, 3000);
+                break;
+
+                case '3':
+        
+        let coment_id2 = event.target.getAttribute('coment_id');
+        let one_comment = document.getElementById('one_comment' + coment_id2);
+        let coment_collapse2 = document.getElementById('coment_collapse' + coment_id2);
+         console.dir(coment_id2);
+        let formData3 = new FormData(document.getElementById("form_coment_del" + coment_id2));
+    
+       
+      //   let button = document.getElementById('butw'+val);
+        console.dir(one_comment);
+      //   button.className = "btn btn-success";
+        // formData.append("_method", "PATCH");
+     
+            fetch('/comments/', {
+                    method: 'POST',
+                    headers: {   
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },     
+                    body: formData3
+                })
+                .then(response => response.json())
+                .then(commits => {
+                  //   let li = document.createElement('li');
+                  //   let b = document.createElement('b');
+                  //   let i = document.createElement('i');
+                  //   li.textContent = new Date().toLocaleString().slice(0, -10) + ' ';
+                  //   b.textContent = commits['user_name'] + ' ';
+                  //   i.textContent = commits['comment'];
+                  //   li.appendChild(b);
+                  //   li.appendChild(i);
+                  //   wr.appendChild(li);
+                  coment_collapse2.className = "collapse";
+                  one_comment.remove();
+                    console.dir(commits);
+                });
+ 
+      //   event.target.reset();
+      //   setTimeout(function() { button.className = "btn btn-primary" }, 3000);
+              break;
+
+
+        }
+
+
         });
 
  

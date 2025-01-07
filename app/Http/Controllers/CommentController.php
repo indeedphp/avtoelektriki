@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class CommentController extends Controller
 {
     /**
@@ -20,12 +20,12 @@ class CommentController extends Controller
      */
     public function create(Request $request)
     {
-        info($request);
-        file_put_contents('22.json', json_encode($request));
-        $www = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
+        // info($request->all());
+        // file_put_contents('22.json', json_encode($request));
+        $db_comment = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
 
         // info($www->comment);
-        return response()->json($www, 200);
+        return response()->json($db_comment, 200);
     }
 
     /**
@@ -58,17 +58,36 @@ class CommentController extends Controller
     public function update(Request $request)
     {
         // info($request);
-        // $www = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
+        $comment = $request->input('comment');
+        $comment_id = $request->input('comment_id');
 
-        
-        // return response()->json($www, 200);
+
+        // $comment = Comment::find($comment_id);
+        // $comment->comment = $comment;  // в колонке титле меняем запись на новую
+        // $comment->save();  // сохраняем
+
+
+
+        DB::table('comments')
+            ->where('id', $comment_id)
+            ->update(['comment' => $comment]);
+
+
+            $db_comment = Comment::where('id', $comment_id)->first();
+
+            info($db_comment);
+
+        return response()->json($db_comment, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function delete(Request $request)
     {
-        //
+       
+        Comment::find($request->input('comment_id'))->delete();
+
+        return response()->json('ok', 200);
     }
 }
