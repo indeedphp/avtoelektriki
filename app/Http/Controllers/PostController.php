@@ -8,6 +8,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 class PostController extends Controller
 {
     public function show()
@@ -17,7 +18,7 @@ class PostController extends Controller
         $qqq = 0;
         $like_up = false;
         $name = 0;
-        if(!empty(Auth::user()->name)) $name = Auth::user()->name;
+        if (!empty(Auth::user()->name)) $name = Auth::user()->name;
 
         $posts = Post::all();
         $posts = $posts->reverse();
@@ -28,10 +29,10 @@ class PostController extends Controller
             foreach ($post->like_plus as $like) {
                 if ($like->like == 1)
                     $qq++;
-                if ($name == $like->id_user && $like->like == 1){
+                if ($name == $like->id_user && $like->like == 1) {
                     $like_up = true;
                 }
-                    
+
                 // dump($like->like);
             }
             foreach ($post->comment_plus as $comment) {
