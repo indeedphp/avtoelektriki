@@ -12067,5 +12067,15 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+div[data-placeholder]:not(:focus):not([data-div-placeholder-content]):before {
 
+  content: attr(data-placeholder);
+
+  float: left;
+
+  margin-left: 2px;
+
+  color: #b3b3b3;
+
+}
 /*# sourceMappingURL=bootstrap.css.map */

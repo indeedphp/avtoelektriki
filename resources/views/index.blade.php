@@ -14,6 +14,10 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 rel="stylesheet" -->
     <link rel="stylesheet" href="bootstrap-icons-1.10.5/font/bootstrap-icons.min.css">
+    <style>
+
+
+    </style>
 </head>
 
 <body>
@@ -205,9 +209,12 @@ rel="stylesheet" -->
                                         <form id="form{{ $post->id }}" val="{{ $post->id }}" form_type="1"
                                             enctype="multipart/form-data">
                                             <div class="row">
-                                                <div class="col-auto me-auto pe-0 flex-fill">
-                                                    <input type="text" name="comment" class="form-control"
-                                                        placeholder="Напишите комментарий">
+                                                <div class="col-7 me-auto pe-1 flex-fill">
+                                                    <div class="card card-body p-1 pb-2  "
+                                                        id="text_div_comm{{ $post->id }}" contenteditable="true"
+                                                        data-placeholder="Напишите комментарий"></div>
+                                                    {{-- <input type="text" name="comment" class="form-control"
+                                                        placeholder="Напишите комментарий"> --}}
                                                     <input type="hidden" name="post_id"
                                                         value="{{ $post->id }}">
 
@@ -232,88 +239,110 @@ rel="stylesheet" -->
                                         <div id='wr{{ $post->id }}'>
                                             @foreach ($post->comment_plus as $comment)
                                                 <div>
-                                                    <li id="one_comment{{ $comment->id }}">
-                                                        <nobr> @php
-                                                            echo date('d.m.Y', strtotime($comment->created_at));
-                                                        @endphp </nobr>
-                                                        <b>{{ $comment->user_name }}</b> <i
-                                                            id="comment_i{{ $comment->id }}">
-                                                            {{ $comment->comment }}
-                                                        </i>
-                                                        @auth
-                                                            @if ($comment->id_user == Auth::user()->name)
-                                                                <a data-bs-toggle="collapse"
-                                                                    href="#coment_collapse{{ $comment->id }}"
-                                                                    role="button" aria-expanded="false"
-                                                                    aria-controls="collapseExample"
-                                                                    title="Редактировать, удалить комментарий"
-                                                                    style="cursor: pointer;"> изменить
-                                                                </a>
-                                                            @endif
-                                                        @endauth
+                                                    <div class="card  m-1">
+                                                        <div class="card-header p-0 ">
+                                                            <div class="row">
+                                                                <div class="col-auto me-auto pe-0 flex-fill">
+                                                                    <b class="small">{{ $comment->user_name }} </b>
+                                                                </div>
+                                                                <div class="col-auto  ps-0">
+                                                                    <nobr class="small"> @php
+                                                                        echo date(
+                                                                            'd.m.Y',
+                                                                            strtotime($comment->created_at),
+                                                                        );
+                                                                    @endphp </nobr>
+                                                                </div>
 
-                                                    </li>
-                                                    <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
-                                                    <div class="collapse" id="coment_collapse{{ $comment->id }}">
-                                                        <div class="card card-body">
-                                                            <form id="form_coment{{ $comment->id }}" form_type="2"
-                                                                coment_id="{{ $comment->id }}">
-                                                                <div class="row">
+                                                            </div>
+                                                        </div>
+                                                        <ul class="list-group list-group-flush p-0">
+                                                            <li class="list-group-item p-0">
+                                                                <i id="comment_i{{ $comment->id }} " value="www">
+                                                                    {{ $comment->comment }}
+                                                                </i>
+                                                            </li>
+                                                            <li class="list-group-item p-0">
+                                                                <div class="row small">
                                                                     <div class="col-auto me-auto pe-0 flex-fill">
-                                                                        <input type="text" name="comment"
-                                                                            class="form-control"
-                                                                            value="{{ $comment->comment }}">
-                                                                        <input type="hidden" name="comment_id"
-                                                                            value="{{ $comment->id }}">
-                                                                        <input name="_method" type="hidden"
-                                                                            value="PUT">
+                                                                        <i class='bi bi-hand-thumbs-up'> 5 </i>
+                                                                        <i class="bi bi-hand-thumbs-down"> 2</i>
                                                                     </div>
                                                                     <div class="col-auto  ps-0">
-                                                                        <button id='butw{{ $post->id }}'
-                                                                            class="btn btn-primary" title="Отправить"
-                                                                            type="submit"><i
-                                                                                class="bi bi-arrow-return-left"
-                                                                                value="www"></i></button>
+                                                                        <a title="Редактировать, удалить комментарий"
+                                                                            style="cursor: pointer;">ответить
+                                                                        </a>
+                                                                        @auth
+                                                                            @if ($comment->id_user == Auth::user()->name)
+                                                                                <a data-bs-toggle="collapse"
+                                                                                    href="#coment_collapse{{ $comment->id }}"
+                                                                                    role="button" aria-expanded="false"
+                                                                                    aria-controls="collapseExample"
+                                                                                    title="Редактировать, удалить комментарий"
+                                                                                    style="cursor: pointer;"> изменить
+                                                                                </a>
+                                                                            @endif
+                                                                        @endauth
                                                                     </div>
                                                                 </div>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+                                                    <div class="collapse" id="coment_collapse{{ $comment->id }}">
+                                                        <div class="card card-body p-1">
+
+                                                            <form id="form_coment{{ $comment->id }}" form_type="2"
+                                                                coment_id="{{ $comment->id }}">
+                                                                <div class="card card-body p-1 m-0"
+                                                                    id="text_div{{ $comment->id }}"
+                                                                    contenteditable="true">{{ $comment->comment }}
+                                                                </div>
+                                                                <input type="hidden" name="comment_id"
+                                                                    value="{{ $comment->id }}">
+                                                                <input name="_method" type="hidden" value="PUT">
+                                                                <button id='butw{{ $post->id }}'
+                                                                    class="btn btn-primary mt-2"
+                                                                    title="Изменение комментария"
+                                                                    type="submit">Изменить комментарий</button>
                                                             </form>
 
                                                             <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
 
                                                             <form id="form_coment_del{{ $comment->id }}"
                                                                 form_type="3" coment_id="{{ $comment->id }}">
-                                                                <div class="row">
-                                                                    <div class="col-auto me-auto pe-0 flex-fill">
-
-                                                                        <input type="hidden" name="comment_id"
-                                                                            value="{{ $comment->id }}">
-                                                                        <input name="_method" type="hidden"
-                                                                            value="DELETE">
-                                                                    </div>
-                                                                    <div class="col-auto  ps-0">
-                                                                        <button id='butw{{ $post->id }}'
-                                                                            class="btn btn-link" title="Отправить"
-                                                                            type="submit">удалить комментарий</button>
-                                                                    </div>
-                                                                </div>
+                                                                <input type="hidden" name="comment_id"
+                                                                    value="{{ $comment->id }}">
+                                                                <input name="_method" type="hidden" value="DELETE">
+                                                                <button id='butw{{ $post->id }}'
+                                                                    class="btn btn-link m-0 p-0"
+                                                                    title="Удаление комментария"
+                                                                    type="submit">удалить</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </div>
-                                              
                                             @endforeach
 
                                         </div>
                                         <!-- ========================================================================== -->
 
                                         <div class="col-auto">
-                                            <a class="link-underline-light p-0" href="#collapseExample1"
-                                                data-bs-toggle="collapse"
-                                                data-bs-target="#collapseExample{{ $post->id }}"
-                                                aria-expanded="false" aria-controls="collapseExample"><i
-                                                    class="bi bi-chat-dots" value="www"></i></i> Свернуть </a>
+                                            <div class="row">
+                                                <div class="col-auto me-auto pe-0 flex-fill">
+                                                    *</div>
+                                                <div class="col-auto  ps-0">
+                                                    <a class="link-underline-light p-0" href="#collapseExample1"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseExample{{ $post->id }}"
+                                                        aria-expanded="false" aria-controls="collapseExample"><i
+                                                            class="bi bi-chat-dots" value="www"></i></i> Свернуть
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -375,6 +404,90 @@ rel="stylesheet" -->
             </div>
 
 
+            <div hidden 2>
+                <div id="test_comment2">
+
+                <div class="card  m-1">
+                    <div class="card-header p-0 ">
+                        <div class="row">
+                            <div class="col-auto me-auto pe-0 flex-fill">
+                                <b class="small"> </b>
+                            </div>
+                            <div class="col-auto  ps-0">
+                                <nobr class="small">  </nobr>
+                            </div>
+
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush p-0">
+                        <li class="list-group-item p-0">
+                            <i id="comment_i " value="www">
+                               
+                            </i>
+                        </li>
+                        <li class="list-group-item p-0">
+                            <div class="row small">
+                                <div class="col-auto me-auto pe-0 flex-fill">
+                                    <i class='bi bi-hand-thumbs-up'> 5 </i>
+                                    <i class="bi bi-hand-thumbs-down"> 2</i>
+                                </div>
+                                <div class="col-auto  ps-0">
+                                    <a title="Редактировать, удалить комментарий"
+                                        style="cursor: pointer;">ответить
+                                    </a>
+
+                                            <a data-bs-toggle="collapse"
+                                                href="#coment_collapse{{ $comment->id }}"
+                                                role="button" aria-expanded="false"
+                                                aria-controls="collapseExample"
+                                                title="Редактировать, удалить комментарий"
+                                                style="cursor: pointer;"> изменить
+                                            </a>
+ 
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+                <div class="collapse" id="coment_collapse">
+                    <div class="card card-body p-1">
+
+                        <form id="form_coment" form_type="2"
+                            coment_id="">
+                            <div class="card card-body p-1 m-0"
+                                id="text_div"
+                                contenteditable="true">
+                            </div>
+                            <input type="hidden" name="comment_id"
+                                value="">
+                            <input name="_method" type="hidden" value="PUT">
+                            <button id='butw'
+                                class="btn btn-primary mt-2"
+                                title="Изменение комментария"
+                                type="submit">Изменить комментарий</button>
+                        </form>
+
+                        <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+
+                        <form id="form_coment_del"
+                            form_type="3" coment_id="">
+                            <input type="hidden" name="comment_id"
+                                value="">
+                            <input name="_method" type="hidden" value="DELETE">
+                            <button id='butw'
+                                class="btn btn-link m-0 p-0"
+                                title="Удаление комментария"
+                                type="submit">удалить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
 
             <div id="user_name_id" hidden> @auth {{ Auth::user()->name }} @endauth </div>
 
@@ -398,7 +511,6 @@ rel="stylesheet" -->
 
 
 
-
     <script>
         {{-- =================================================================== ОТПРАВКА  КОМЕНТАРИЯ  ================================================================================== --}}
         const wrapper = document.getElementById('wrapper');
@@ -413,14 +525,18 @@ rel="stylesheet" -->
             switch (form_type) {
                 case '1':
                     let val = event.target.getAttribute('val');
+                    let text_div_comm = document.getElementById('text_div_comm' + val);
                     let wr = document.getElementById('wr' + val);
                     let comm_count = document.getElementById('comm_count' + val);
                     let formData = new FormData(document.getElementById("form" + val));
+
                     // console.dir(val);
                     let text_empty = formData.entries().next().value;
                     let button = document.getElementById('butw' + val);
                     button.className = "btn btn-success";
                     // formData.append("_method", "PATCH");
+                    formData.append("comment", text_div_comm.textContent);
+                    text_div_comm.textContent = null;
                     if (text_empty[1].trim() != '') {
                         fetch('/comments/', {
                                 method: 'POST',
@@ -464,7 +580,8 @@ rel="stylesheet" -->
                                 clone.querySelector('#input1').value = commits['comment'];
                                 clone.querySelector('#input2').value = commits['id'];
                                 clone.querySelector('#but1').id = "butw" + val;
-                                clone.querySelector('#form_coment_del').setAttribute('coment_id', commits['id']);
+                                clone.querySelector('#form_coment_del').setAttribute('coment_id', commits[
+                                'id']);
                                 clone.querySelector('#form_coment_del').id = "form_coment_del" + commits['id'];
                                 clone.querySelector('#input3').value = commits['id'];
                                 clone.querySelector('#but2').id = "butw" + val;
@@ -489,11 +606,12 @@ rel="stylesheet" -->
                     }, 3000);
 
                     break;
-
+                    // ======================================================================================================================
                 case '2':
 
                     let coment_id = event.target.getAttribute('coment_id');
                     let comment_i = document.getElementById('comment_i' + coment_id);
+                    let text_div = document.getElementById('text_div' + coment_id).textContent;
                     let coment_collapse = document.getElementById('coment_collapse' + coment_id);
                     console.dir(coment_id);
                     let formData2 = new FormData(document.getElementById("form_coment" + coment_id));
@@ -502,7 +620,7 @@ rel="stylesheet" -->
                     // let button = document.getElementById('butw'+val);
                     // console.dir(+button.textContent);
                     // button.className = "btn btn-success";
-                    // formData.append("_method", "PATCH");
+                    formData2.append("text_comment", text_div);
                     if (text_empty2[1].trim() != '') {
                         fetch('/comments/', {
                                 method: 'POST',

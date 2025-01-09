@@ -57,10 +57,10 @@ class CommentController extends Controller
      */
     public function update(Request $request)
     {
-        // info($request);
+        info($request);
         $comment = $request->input('comment');
         $comment_id = $request->input('comment_id');
-
+        $text_comment = $request->input('text_comment');
 
         // $comment = Comment::find($comment_id);
         // $comment->comment = $comment;  // в колонке титле меняем запись на новую
@@ -70,12 +70,12 @@ class CommentController extends Controller
 
         DB::table('comments')
             ->where('id', $comment_id)
-            ->update(['comment' => $comment]);
+            ->update(['comment' => $text_comment]);
 
 
             $db_comment = Comment::where('id', $comment_id)->first();
 
-            info($db_comment);
+            // info($db_comment);
 
         return response()->json($db_comment, 200);
     }
