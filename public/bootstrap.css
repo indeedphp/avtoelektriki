@@ -12067,15 +12067,11 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-div[data-placeholder]:not(:focus):not([data-div-placeholder-content]):before {
 
+div[contentEditable=true]:empty:before {
   content: attr(data-placeholder);
-
-  float: left;
-
-  margin-left: 2px;
-
-  color: #b3b3b3;
-
+  opacity: 0.6;
 }
+
+
 /*# sourceMappingURL=bootstrap.css.map */
