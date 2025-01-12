@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\LikeCommentController;
 use App\Http\Controllers\CommentController;
+
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -62,8 +64,8 @@ Route::delete('/comments', [CommentController::class, 'delete'])->name('delete')
 // });
 
 
-
-
+Route::get('/dislike_comment', [LikeCommentController::class, 'create_dislike'])->name('create_dislike');
+Route::get('/like_comment', [LikeCommentController::class, 'create_like'])->name('create_like');
 
 
 

@@ -15,8 +15,8 @@
 rel="stylesheet" -->
     <link rel="stylesheet" href="bootstrap-icons-1.10.5/font/bootstrap-icons.min.css">
     <style>
- /* body { overflow-x: hidden; } */
-        </style>
+        /* body { overflow-x: hidden; } */
+    </style>
 </head>
 
 <body>
@@ -157,7 +157,8 @@ rel="stylesheet" -->
                                     <!-- ЛАЙК "bi bi-hand-thumbs-up-fill"-->
                                     <div class="col-auto pe-2">&nbsp;<a class="link-underline-light"
                                             title="Поставить лайк" style="cursor: pointer;"> <i
-                                                id='butlike{{ $post->id }}' value="{{ $post->id }}"
+                                                id='butlike{{ $post->id }}' value="1"
+                                                post_id="{{ $post->id }}"
                                                 class="
                                               @if ($post->like_up) {{ 'bi bi-hand-thumbs-up-fill' }} 
                                                  @else
@@ -181,7 +182,7 @@ rel="stylesheet" -->
                                             data-bs-target="#collapseExample{{ $post->id }}"
                                             aria-expanded="false" aria-controls="collapseExample"><i
                                                 class="bi bi-chat-dots" value="www"></i></i> Коментарии
-                                            <i id="comm_count{{ $post->id }}">{{$post->comment}}</i>&nbsp;</a>
+                                            <i id="comm_count{{ $post->id }}">{{ $post->comment }}</i>&nbsp;</a>
                                     </div>
                                 </div>
 
@@ -207,58 +208,58 @@ rel="stylesheet" -->
                                     <div class="card card-body p-1 ">
                                         <form id="form{{ $post->id }}" val="{{ $post->id }}" form_type="1"
                                             enctype="multipart/form-data">
-                                            
-                                               
-                                                    <div class="card card-body p-1 "
-                                                        id="text_div_comm{{ $post->id }}" contenteditable="true"
-                                                        data-placeholder="Напишите комментарий"></div>
-                                                    {{-- <input type="text" name="comment" class="form-control"
-                                                        placeholder="Напишите комментарий"> --}}
-                                                    <input type="hidden" name="post_id"
-                                                        value="{{ $post->id }}">
 
-                                                    <input type="hidden" name="user_name"
-                                                        @auth value="{{ Auth::user()->user_name }}" @endauth>
-                                                    <input type="hidden" name="id_user"
-                                                        @auth value="{{ Auth::user()->name }}" @endauth>
-                                                
-                                                <div class="row p-1 ">
-                                                    <div class="col-7 me-auto  flex-fill">
-                                                        <span vall="{{ $post->id }}" class="smile">😀</span>
-                                                        <span vall="{{ $post->id }}" class="smile">👍</span>
-                                                        <span vall="{{ $post->id }}" class="smile">👌</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😂</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😎</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😇</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😝</span>
-                                                        <div>
-                                                            <span vall="{{ $post->id }}" class="smile">👎</span>
-                                                            <span vall="{{ $post->id }}" class="smile">💩</span>
-                                                            <span vall="{{ $post->id }}" class="smile">😈</span>
-                                                            <span vall="{{ $post->id }}" class="smile">☠</span>
-                                                            <span vall="{{ $post->id }}" class="smile">😪</span>
-                                                            <span vall="{{ $post->id }}" class="smile">😬</span>
-                                                            <span vall="{{ $post->id }}" class="smile">😭</span>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                            <div class="col-auto p-0 pe-2 pt-1">
-                                                                <button id='butw{{ $post->id }}' class="btn btn-primary"
-                                                                    title="Отправить" type="submit">Отправить</button>
-                                                            </div>
+
+                                            <div class="card card-body p-1 " id="text_div_comm{{ $post->id }}"
+                                                contenteditable="true" data-placeholder="Напишите комментарий"></div>
+                                            {{-- <input type="text" name="comment" class="form-control"
+                                                        placeholder="Напишите комментарий"> --}}
+                                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+
+                                            <input type="hidden" name="user_name"
+                                                @auth value="{{ Auth::user()->user_name }}" @endauth>
+                                            <input type="hidden" name="id_user"
+                                                @auth value="{{ Auth::user()->name }}" @endauth>
+
+                                            <div class="row p-1 ">
+                                                <div class="col-7 me-auto  flex-fill">
+                                                    <span vall="{{ $post->id }}" class="smile">😀</span>
+                                                    <span vall="{{ $post->id }}" class="smile">👍</span>
+                                                    <span vall="{{ $post->id }}" class="smile">👌</span>
+                                                    <span vall="{{ $post->id }}" class="smile">😂</span>
+                                                    <span vall="{{ $post->id }}" class="smile">😎</span>
+                                                    <span vall="{{ $post->id }}" class="smile">😇</span>
+                                                    <span vall="{{ $post->id }}" class="smile">😝</span>
+                                                    <div>
+                                                        <span vall="{{ $post->id }}" class="smile">👎</span>
+                                                        <span vall="{{ $post->id }}" class="smile">💩</span>
+                                                        <span vall="{{ $post->id }}" class="smile">😈</span>
+                                                        <span vall="{{ $post->id }}" class="smile">☠</span>
+                                                        <span vall="{{ $post->id }}" class="smile">😪</span>
+                                                        <span vall="{{ $post->id }}" class="smile">😬</span>
+                                                        <span vall="{{ $post->id }}" class="smile">😭</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-auto p-0 pe-2 pt-1">
+                                                    <button id='butw{{ $post->id }}' class="btn btn-primary"
+                                                        title="Отправить" type="submit">Отправить</button>
+                                                </div>
                                             </div>
                                         </form>
 
-                                        
+
                                         {{-- КОМЕНТАРИИ ===================================================================================================================================================== --}}
-                                        <div id='wr{{ $post->id }}' class="overflow-x-hidden p-0  " style="max-height: 300px;">
+                                        <div id='wr{{ $post->id }}' class="overflow-x-hidden p-0  "
+                                            style="max-height: 300px;">
                                             @foreach ($post->comment_plus as $comment)
-                                                <div >
-                                                    <div class="card mb-2 p-1 m-0">
+                                                <div>
+                                                    <div class="card mb-2 p-0 m-0">
                                                         <div class="card-header p-0 ">
                                                             <div class="row">
                                                                 <div class="col-auto me-auto pe-0 flex-fill">
-                                                                    &nbsp; <b class="small">{{ $comment->user_name }} </b>
+                                                                    &nbsp; <b class="small">{{ $comment->user_name }}
+                                                                    </b>
                                                                 </div>
                                                                 <div class="col-auto  ps-0">
                                                                     <nobr class="small"> @php
@@ -267,24 +268,40 @@ rel="stylesheet" -->
                                                                             strtotime($comment->created_at),
                                                                         );
                                                                     @endphp </nobr>
-                                                            &nbsp;    </div>
+                                                                    &nbsp;
+                                                                </div>
 
                                                             </div>
                                                         </div>
                                                         <ul class="list-group list-group-flush p-0">
                                                             <li class="list-group-item p-0">
-                                                                <span id="comment_i{{ $comment->id }}" value="www">
+                                                                <span id="comment_i{{ $comment->id }}"
+                                                                    value="www">
                                                                     {{ $comment->comment }}
                                                                 </span>
                                                             </li>
                                                             <li class="list-group-item p-0">
                                                                 <div class="row small">
                                                                     <div class="col-auto me-auto pe-0 flex-fill">
-                                                                        <i class='bi bi-hand-thumbs-up'> 5 </i>&nbsp;
-                                                                        <i class="bi bi-hand-thumbs-down"> 2</i>
+                                                                        {{-- ЛАЙК ДИЗЛАЙК КОМЕНТ==========================================================================    --}}
+
+
+                                                                        <i class="
+                                                                        @if ($comment->like_comment_up) {{ 'bi bi-hand-thumbs-up-fill' }} 
+                                                                           @else
+                                                                            {{ 'bi bi-hand-thumbs-up' }} @endif "
+                                                                            style="cursor: pointer;" value="3"
+                                                                            comment_id="{{ $comment->id }}">
+                                                                            {{ $comment->comment_like }}</i>&nbsp;
+                                                                            <i class="
+                                                                            @if ($comment->dislike_comment_up) {{ 'bi bi-hand-thumbs-down-fill' }} 
+                                                                               @else
+                                                                                {{ 'bi bi-hand-thumbs-down' }} @endif "
+                                                                            style="cursor: pointer;" value="4"
+                                                                            comment_id="{{ $comment->id }}"> {{ $comment->comment_dislike }}</i>
                                                                     </div>
                                                                     <div class="col-auto  ps-0">
-                                                         
+
                                                                         @auth
                                                                             @if ($comment->id_user == Auth::user()->name)
                                                                                 <a data-bs-toggle="collapse"
@@ -297,8 +314,8 @@ rel="stylesheet" -->
                                                                             @endif
                                                                         @endauth
                                                                         <a title="Редактировать, удалить комментарий"
-                                                                        style=" cursor: pointer;"> &ensp; ответить
-                                                                    </a>
+                                                                            style=" cursor: pointer;"> &ensp; ответить
+                                                                        </a>
 
                                                                     </div>
                                                                 </div>
@@ -349,7 +366,7 @@ rel="stylesheet" -->
                                         <div class="col-auto">
                                             <div class="row">
                                                 <div class="col-auto me-auto pe-0 flex-fill">
-                                                    </div>
+                                                </div>
                                                 <div class="col-auto  ps-0">
                                                     <a class="link-underline-light p-0" href="#collapseExample1"
                                                         data-bs-toggle="collapse"
@@ -371,96 +388,92 @@ rel="stylesheet" -->
 
             </div>
 
-{{-- =================================================================================================================================================== --}}
+            {{-- =================================================================================================================================================== --}}
 
-            <div hidden >
+            <div hidden>
                 <div id="test_comment">
 
-                <div class="card  m-1">
-                    <div class="card-header p-0 ">
-                        <div class="row">
-                            <div class="col-auto me-auto pe-0 flex-fill">
-                                &nbsp;    <b class="small"> </b>
-                            </div>
-                            <div class="col-auto  ps-0">
-                                <nobr class="small">  </nobr>
-                                &nbsp;  </div>
-
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush p-0">
-                        <li class="list-group-item p-0">
-                            <span id="comment_i" value="www">
-                               
-                            </span>
-                        </li>
-                        <li class="list-group-item p-0">
-                            <div class="row small">
+                    <div class="card  m-1">
+                        <div class="card-header p-0 ">
+                            <div class="row">
                                 <div class="col-auto me-auto pe-0 flex-fill">
-                                    <i class='bi bi-hand-thumbs-up'> 5 </i>&nbsp;
-                                    <i class="bi bi-hand-thumbs-down"> 2</i>
+                                    &nbsp; <b class="small"> </b>
                                 </div>
                                 <div class="col-auto  ps-0">
-  
-
-                                            <a data-bs-toggle="collapse"
-                                                href="#coment_collapse{{ $comment->id }}"
-                                                role="button" aria-expanded="false"
-                                                aria-controls="collapseExample"
-                                                title="Редактировать, удалить комментарий"
-                                                style="cursor: pointer;">изменить
-                                            </a>
-
-                                            <a title="Редактировать, удалить комментарий"
-                                            style="cursor: pointer;"> &ensp; ответить
-                                        </a>
- 
+                                    <nobr class="small"> </nobr>
+                                    &nbsp;
                                 </div>
+
                             </div>
-                        </li>
+                        </div>
+                        <ul class="list-group list-group-flush p-0">
+                            <li class="list-group-item p-0">
+                                <span id="comment_i" value="www">
 
-                    </ul>
-                </div>
+                                </span>
+                            </li>
+                            <li class="list-group-item p-0">
+                                <div class="row small">
+                                    <div class="col-auto me-auto pe-0 flex-fill">
+                                        <i id="like_comment" class='bi bi-hand-thumbs-up '
+                                        style="cursor: pointer;" value="3"
+                                        comment_id="">
+                                        0</i>&nbsp;
+                                    <i id="dislike_comment" class="bi bi-hand-thumbs-down"
+                                        style="cursor: pointer;" value="4"
+                                        comment_id=""> 0</i>
+                                    </div>
+                                    <div class="col-auto  ps-0">
 
-                <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
-                <div class="collapse" id="collap">
-                    <div class="card card-body p-1">
 
-                        <form id="form_coment" form_type="2"
-                            coment_id="">
-                            <div  class="card card-body p-1 m-0"
-                                id="text_div"
-                                contenteditable="true">
-                            </div>
-                            <input id="input2" type="hidden" name="comment_id"
-                                value="">
-                            <input name="_method" type="hidden" value="PUT">
-                            <button id='but1' 
-                                class="btn btn-primary mt-2"
-                                title="Изменение комментария"
-                                type="submit">Изменить комментарий</button>
-                        </form>
+                                        <a data-bs-toggle="collapse" href="#coment_collapse" role="button"
+                                            aria-expanded="false" aria-controls="collapseExample"
+                                            title="Редактировать, удалить комментарий"
+                                            style="cursor: pointer;">изменить
+                                        </a>
 
-                        <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+                                        <a title="Редактировать, удалить комментарий" style="cursor: pointer;"> &ensp;
+                                            ответить
+                                        </a>
 
-                        <form id="form_coment_del"
-                            form_type="3" coment_id="">
-                            <input type="hidden" name="comment_id"
-                                value="">
-                            <input id="input3"  name="_method" type="hidden" value="DELETE">
-                            <button id='but2' 
-                                class="btn btn-link m-0 p-0"
-                                title="Удаление комментария"
-                                type="submit">удалить</button>
-                        </form>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+                    <div class="collapse" id="collap">
+                        <div class="card card-body p-1">
+
+                            <form id="form_coment" form_type="2" coment_id="">
+                                <div class="card card-body p-1 m-0" id="text_div" contenteditable="true">
+                                </div>
+                                <input id="input2" type="hidden" name="comment_id" value="">
+                                <input name="_method" type="hidden" value="PUT">
+                                <button id='but1' class="btn btn-primary mt-2" title="Изменение комментария"
+                                    type="submit">Изменить комментарий</button>
+                            </form>
+
+                            <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+
+                            <form id="form_coment_del" form_type="3" coment_id="">
+                                <input type="hidden" name="comment_id" value="">
+                                <input id="input3" name="_method" type="hidden" value="DELETE">
+                                <button id='but2' class="btn btn-link m-0 p-0" title="Удаление комментария"
+                                    type="submit">удалить</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-</div>
 
 
 
-            <div id="user_name_id" hidden> @auth {{ Auth::user()->name }} @endauth </div>
+            <div id="user_name_id" hidden> @auth {{ Auth::user()->name }}
+                @else
+                0 @endauth </div>
 
 
 
@@ -475,19 +488,17 @@ rel="stylesheet" -->
 
 
     <script>
+        window.addEventListener('click', function(event) {
+            // console.log('even');
+            if (event.target.classList.contains('smile')) {
 
-window.addEventListener('click', function(event){
-    console.log('even');
-      if (event.target.classList.contains('smile'))
-      {
-        
-        let vall = event.target.getAttribute('vall');
+                let vall = event.target.getAttribute('vall');
 
-        let text_div_c = document.getElementById('text_div_comm' + vall);
-  
-        text_div_c.textContent += event.target.textContent;
-      }
-    });
+                let text_div_c = document.getElementById('text_div_comm' + vall);
+
+                text_div_c.textContent += event.target.textContent;
+            }
+        });
 
 
 
@@ -517,7 +528,7 @@ window.addEventListener('click', function(event){
                     let button = document.getElementById('butw' + val);
                     button.className = "btn btn-success";
                     formData.append("comment", text_div_comm.textContent);
-                    
+
                     if (text_div_comm.textContent.trim() != '') {
                         fetch('/comments/', {
                                 method: 'POST',
@@ -529,7 +540,7 @@ window.addEventListener('click', function(event){
                             })
                             .then(response => response.json())
                             .then(commits => {
-     
+
                                 text_div_comm.textContent = null;
                                 let clone = test_comment.cloneNode(true);
                                 console.dir(clone);
@@ -546,19 +557,22 @@ window.addEventListener('click', function(event){
                                 clone.querySelector('#form_coment').setAttribute('coment_id', commits['id']);
                                 clone.querySelector('#form_coment').id = "form_coment" + commits['id'];
                                 clone.querySelector('#text_div').textContent = commits['comment'];
-                                clone.querySelector('#text_div').id= 'text_div' + commits['id'];
+                                clone.querySelector('#text_div').id = 'text_div' + commits['id'];
                                 clone.querySelector('#input2').value = commits['id'];
                                 clone.querySelector('#but1').id = "butw" + val;
                                 clone.querySelector('#form_coment_del').setAttribute('coment_id', commits[
-                                'id']);
+                                    'id']);
                                 clone.querySelector('#form_coment_del').id = "form_coment_del" + commits['id'];
                                 clone.querySelector('#input3').value = commits['id'];
                                 clone.querySelector('#but2').id = "butw" + val;
+                                clone.querySelector('#like_comment').setAttribute('comment_id', commits['id']);
+                                clone.querySelector('#dislike_comment').setAttribute('comment_id', commits['id']);
                                 clone.id = 'clone_mess';
 
                                 wr.appendChild(clone);
 
-                                comm_count.textContent = +comm_count.textContent + 1; // прибавляем счет комментариев 
+                                comm_count.textContent = +comm_count.textContent +
+                                1; // прибавляем счет комментариев 
                                 clone = null;
                             });
                     } else {
@@ -596,14 +610,14 @@ window.addEventListener('click', function(event){
                             .then(commits => {
                                 coment_collapse.className = "collapse";
                                 comment_i.textContent = commits['comment'];
-                                
+
                             });
                     } else {
                         alert("Напишите комений");
                     }
 
                     break;
-// Удаление комментария ======================================================================================================================
+                    // Удаление комментария ======================================================================================================================
                 case '3':
 
                     let coment_id2 = event.target.getAttribute('coment_id');
@@ -637,24 +651,74 @@ window.addEventListener('click', function(event){
         let lik = null;
         wrapper.addEventListener('click', (event) => {
             const isButton = event.target.nodeName === 'I';
-            let li = event.target.getAttribute('value');
-            let litr = document.getElementById("butlike" + li)
+            let type_element_like = event.target.getAttribute('value');
+            let post_id = event.target.getAttribute('post_id');
+            let litr = document.getElementById("butlike" + post_id)
             let user_name_id = document.getElementById("user_name_id").textContent;
-            if (isButton && li != 'www') {
-                let like = event.target.textContent;
-                fetch('/likes/?post_id=' + li + '&id_user=' + user_name_id)
-                    .then(response => response.json())
-                    .then(commits => {
-                        if (commits == 1) {
-                            lik = +like + 1;
-                            litr.className = "bi bi-hand-thumbs-up-fill";
-                        } else if (commits == 0 && like != 0) {
-                            lik = +like - 1;
-                            litr.className = "bi bi-hand-thumbs-up";
-                        }
-                        event.target.textContent = ' ' + lik;
-                        console.dir(user_name_id);
-                    });
+            if (isButton && type_element_like != 'www') {
+                console.dir(user_name_id);
+
+                if (user_name_id == 0) alert("Зарегистрируйтесь");
+                else {
+
+                    if (type_element_like == 1) {  // лайк на пост  
+                        let like = event.target.textContent;
+                        
+                        console.dir(litr);
+                        fetch('/likes/?post_id=' + post_id + '&id_user=' + user_name_id)
+                            .then(response => response.json())
+                            .then(commits => {
+                                if (commits == 1) {
+                                    lik = +like + 1;
+                                    litr.className = "bi bi-hand-thumbs-up-fill";
+                                } else if (commits == 0 && like != 0) {
+                                    lik = +like - 1;
+                                    litr.className = "bi bi-hand-thumbs-up";
+                                }
+                                event.target.textContent = ' ' + lik;
+
+                            });
+                    }
+
+
+                    if (type_element_like == 3) { // лайки на комментарии
+                        let like_comment_content = +event.target.textContent;
+                        let comment_id = event.target.getAttribute('comment_id');
+                        fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
+                            .then(response => response.json())
+                            .then(commits => {
+                                // console.dir(commits);
+                                if (commits == 1) {
+                                    event.target.textContent = ' ' + (like_comment_content + 1);
+                                    event.target.className = "bi bi-hand-thumbs-up-fill";
+                                } else if (commits == 0 && like_comment_content != 0) {
+                                    event.target.textContent = ' ' + (like_comment_content - 1);
+                                    event.target.className = "bi bi-hand-thumbs-up";
+                                }
+                            });
+                    }
+
+                    if (type_element_like == 4) { // дизлайки на коментарии
+                        let dislike_comment_content = +event.target.textContent;
+                        let comment_id = event.target.getAttribute('comment_id');
+                        fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
+                            .then(response => response.json())
+                            .then(commits => {
+                                // console.dir(commits);
+                                if (commits == 1) {
+                                    event.target.textContent = ' ' + (dislike_comment_content + 1);
+                                    event.target.className = "bi bi-hand-thumbs-down-fill";
+                                } else if (commits == 0 && dislike_comment_content != 0) {
+                                    event.target.textContent = ' ' + (dislike_comment_content - 1);
+                                    event.target.className = "bi bi-hand-thumbs-down";
+                                }
+                            });
+                    }
+
+
+
+                }
+
             }
         })
     </script>
