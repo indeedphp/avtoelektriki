@@ -42,6 +42,7 @@ class PostController extends Controller
 
             foreach ($post->comment_plus as $comment) {
                 $comment->like_comment_plus();
+                $comment->reply_comment_plus();
                 // dump($comment->like_comment_plus);
                 foreach ($comment->like_comment_plus as $like_comment) {
                 if ($like_comment->like == 1)$qqqq++;

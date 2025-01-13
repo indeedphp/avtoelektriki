@@ -293,18 +293,20 @@ rel="stylesheet" -->
                                                                             style="cursor: pointer;" value="3"
                                                                             comment_id="{{ $comment->id }}">
                                                                             {{ $comment->comment_like }}</i>&nbsp;
-                                                                            <i class="
+                                                                        <i class="
                                                                             @if ($comment->dislike_comment_up) {{ 'bi bi-hand-thumbs-down-fill' }} 
                                                                                @else
                                                                                 {{ 'bi bi-hand-thumbs-down' }} @endif "
                                                                             style="cursor: pointer;" value="4"
-                                                                            comment_id="{{ $comment->id }}"> {{ $comment->comment_dislike }}</i>
+                                                                            comment_id="{{ $comment->id }}">
+                                                                            {{ $comment->comment_dislike }}</i>
                                                                     </div>
                                                                     <div class="col-auto  ps-0">
 
                                                                         @auth
                                                                             @if ($comment->id_user == Auth::user()->name)
-                                                                                <a data-bs-toggle="collapse"
+                                                                                <a class="link-underline-light p-0"
+                                                                                    data-bs-toggle="collapse"
                                                                                     href="#coment_collapse{{ $comment->id }}"
                                                                                     role="button" aria-expanded="false"
                                                                                     aria-controls="collapseExample"
@@ -313,7 +315,12 @@ rel="stylesheet" -->
                                                                                 </a>
                                                                             @endif
                                                                         @endauth
-                                                                        <a title="Редактировать, удалить комментарий"
+                                                                        <a class="link-underline-light p-0"
+                                                                            data-bs-toggle="collapse"
+                                                                            href="#coment_reply_collapse{{ $comment->id }}"
+                                                                            role="button" aria-expanded="false"
+                                                                            aria-controls="collapseExample"
+                                                                            title="Редактировать, удалить комментарий"
                                                                             style=" cursor: pointer;"> &ensp; ответить
                                                                         </a>
 
@@ -324,6 +331,31 @@ rel="stylesheet" -->
                                                         </ul>
                                                     </div>
 
+          <!-- \\\\\\\\\\\\\\\\\\\\\\\\ ФОРМА ОТВЕТА НА КОММЕНТАРИИ ==================================================================================== -->
+                                                    <div class="collapse"
+                                                        id="coment_reply_collapse{{ $comment->id }}">
+                                                        <div class="card card-body p-1">
+
+                                                            <form id="form_reply_comment{{ $comment->id }}"
+                                                                form_type="4" coment_id="{{ $comment->id }}">
+                                                                <div class="card card-body p-1 m-0"
+                                                                    id="text_reply_div{{ $comment->id }}"
+                                                                    contenteditable="true"
+                                                                    data-placeholder="Напишите ваш ответ">
+                                                                    {{ $comment->user_name }} &ensp;
+                                                                </div>
+                                                                <input type="hidden" name="comment_id"
+                                                                    value="{{ $comment->id }}">
+
+                                                                <button class="btn btn-primary mt-2"
+                                                                    title="Изменение комментария"
+                                                                    type="submit">Ответить
+                                                                </button>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+
                                                     <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
                                                     <div class="collapse" id="coment_collapse{{ $comment->id }}">
                                                         <div class="card card-body p-1">
@@ -332,7 +364,9 @@ rel="stylesheet" -->
                                                                 coment_id="{{ $comment->id }}">
                                                                 <div class="card card-body p-1 m-0"
                                                                     id="text_div{{ $comment->id }}"
-                                                                    contenteditable="true">{{ $comment->comment }}
+                                                                    contenteditable="true"
+                                                                    data-placeholder="Напишите новый текст">
+                                                                    {{ $comment->comment }}
                                                                 </div>
                                                                 <input type="hidden" name="comment_id"
                                                                     value="{{ $comment->id }}">
@@ -358,10 +392,154 @@ rel="stylesheet" -->
                                                         </div>
                                                     </div>
                                                 </div>
+
+  {{-- -------------------------------------------------------------------КОЛХОЗ --}}
+  <div id="reply{{ $comment->id }}">
+    @foreach ($comment->reply_comment_plus as $reply)
+    <div class="card mb-2 p-0 ms-2">
+        <div class="card-header p-0 ">
+            <div class="row">
+                <div class="col-auto me-auto pe-0 flex-fill">
+                    &nbsp; <b class="small">{{ $reply->user_name }}
+                    </b>
+                </div>
+                <div class="col-auto  ps-0">
+                    <nobr class="small"> @php
+                        echo date(
+                            'd.m.Y',
+                            strtotime($reply->created_at),
+                        );
+                    @endphp </nobr>
+                    &nbsp;
+                </div>
+
+            </div>
+        </div>
+        <ul class="list-group list-group-flush p-0">
+            <li class="list-group-item p-0">
+                <span id="comment_i{{ $reply->id }}"
+                    value="www">
+                    {{ $reply->reply }}
+                </span>
+            </li>
+            <li class="list-group-item p-0">
+                <div class="row small">
+                    <div class="col-auto me-auto pe-0 flex-fill">
+                        {{-- ЛАЙК ДИЗЛАЙК КОМЕНТ==========================================================================    --}}
+
+
+                        <i class="
+                        @if ($comment->like_comment_up) {{ 'bi bi-hand-thumbs-up-fill' }} 
+                           @else
+                            {{ 'bi bi-hand-thumbs-up' }} @endif "
+                            style="cursor: pointer;" value="3"
+                            comment_id="{{ $comment->id }}">
+                            {{ $comment->comment_like }}</i>&nbsp;
+                        <i class="
+                            @if ($comment->dislike_comment_up) {{ 'bi bi-hand-thumbs-down-fill' }} 
+                               @else
+                                {{ 'bi bi-hand-thumbs-down' }} @endif "
+                            style="cursor: pointer;" value="4"
+                            comment_id="{{ $comment->id }}">
+                            {{ $comment->comment_dislike }}</i>
+                    </div>
+                    <div class="col-auto  ps-0">
+
+                        @auth
+                            @if ($reply->id_user == Auth::user()->name)
+                                <a class="link-underline-light p-0"
+                                    data-bs-toggle="collapse"
+                                    href="#reply_collapse_edit{{ $reply->id }}"
+                                    role="button" aria-expanded="false"
+                                    aria-controls="collapseExample"
+                                    title="Редактировать, удалить комментарий"
+                                    style="cursor: pointer;">изменить
+                                </a>
+                            @endif
+                        @endauth
+                        <a class="link-underline-light p-0"
+                            data-bs-toggle="collapse"
+                            href="#reply_collapse{{ $reply->id }}"
+                            role="button" aria-expanded="false"
+                            aria-controls="collapseExample"
+                            title="Редактировать, удалить комментарий"
+                            style=" cursor: pointer;"> &ensp; ответить
+                        </a>
+
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\ ФОРМА ОТВЕТА НА ОТВЕТ ==================================================================================== -->
+    <div class="collapse"
+        id="reply_collapse{{ $reply->id }}">
+        <div class="card card-body p-1">
+
+            <form id="form_reply_reply{{ $reply->id }}"
+                form_type="4" coment_id="{{ $reply->id }}">
+                <div class="card card-body p-1 m-0"
+                    id="text_reply_div{{ $reply->id }}"
+                    contenteditable="true"
+                    data-placeholder="Напишите ваш ответ">
+                    {{ $reply->user_name }} &ensp;
+                </div>
+                <input type="hidden" name="comment_id"
+                    value="{{ $reply->id }}">
+
+                <button class="btn btn-primary mt-2"
+                    title="Изменение комментария"
+                    type="submit">Ответить
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ФОРМА ИСПРАВЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
+    <div class="collapse" id="reply_collapse_edit{{ $reply->id }}">
+        <div class="card card-body p-1">
+
+            <form id="form_coment{{ $reply->id }}" form_type="2"
+                coment_id="{{ $reply->id }}">
+                <div class="card card-body p-1 m-0"
+                    id="text_div{{ $reply->id }}"
+                    contenteditable="true"
+                    data-placeholder="Напишите новый текст">
+                    {{ $reply->reply }}
+                </div>
+                <input type="hidden" name="comment_id"
+                    value="{{ $reply->id }}">
+                <input name="_method" type="hidden" value="PUT">
+                <button 
+                    class="btn btn-primary mt-2"
+                    title="Изменение комментария"
+                    type="submit">Изменить</button>
+            </form>
+
+            <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+
+            <form id="form_coment_del{{ $reply->id }}"
+                form_type="3" coment_id="{{ $reply->id }}">
+                <input type="hidden" name="comment_id"
+                    value="{{ $reply->id }}">
+                <input name="_method" type="hidden" value="DELETE">
+                <button id='butw{{ $post->id }}'
+                    class="btn btn-link m-0 p-0"
+                    title="Удаление комментария"
+                    type="submit">удалить</button>
+            </form>
+        </div>
+    </div>
+    @endforeach
+</div>
+                                                {{-- ---------------------------------------------------------------------------------------------- --}}
                                             @endforeach
 
                                         </div>
-                                        <!-- ========================================================================== -->
+                                        <!-- ==================================== КНОПКА СВЕРНУТЬ В КОНЦЕ КОММЕНТОВ ====================================== -->
 
                                         <div class="col-auto">
                                             <div class="row">
@@ -415,13 +593,11 @@ rel="stylesheet" -->
                             <li class="list-group-item p-0">
                                 <div class="row small">
                                     <div class="col-auto me-auto pe-0 flex-fill">
-                                        <i id="like_comment" class='bi bi-hand-thumbs-up '
-                                        style="cursor: pointer;" value="3"
-                                        comment_id="">
-                                        0</i>&nbsp;
-                                    <i id="dislike_comment" class="bi bi-hand-thumbs-down"
-                                        style="cursor: pointer;" value="4"
-                                        comment_id=""> 0</i>
+                                        <i id="like_comment" class='bi bi-hand-thumbs-up ' style="cursor: pointer;"
+                                            value="3" comment_id="">
+                                            0</i>&nbsp;
+                                        <i id="dislike_comment" class="bi bi-hand-thumbs-down"
+                                            style="cursor: pointer;" value="4" comment_id=""> 0</i>
                                     </div>
                                     <div class="col-auto  ps-0">
 
@@ -468,6 +644,149 @@ rel="stylesheet" -->
                     </div>
                 </div>
             </div>
+
+
+{{-- ========================================================================================================================================= --}}
+
+            <div hidden>
+                <div id="replu_hidden">
+
+
+                    <div class="card mb-2 p-0 ms-2">
+                        <div class="card-header p-0 ">
+                            <div class="row">
+                                <div class="col-auto me-auto pe-0 flex-fill">
+                                    &nbsp; <b class="small">
+                                    </b>
+                                </div>
+                                <div class="col-auto  ps-0">
+                                    <nobr class="small">  </nobr>
+                                    &nbsp;
+                                </div>
+                
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush p-0">
+                            <li class="list-group-item p-0">
+                                <span id="comment_i"
+                                    value="www">
+                                   uytutyutyutyutyyt
+                                </span>
+                            </li>
+                            <li class="list-group-item p-0">
+                                <div class="row small">
+                                    <div class="col-auto me-auto pe-0 flex-fill">
+                                        {{-- ЛАЙК ДИЗЛАЙК КОМЕНТ==========================================================================    --}}
+                
+                
+                                        <i class="bi bi-hand-thumbs-up"
+                                            style="cursor: pointer;" value="3"
+                                            comment_id="">
+                                            </i>&nbsp;
+                                        <i class=" bi bi-hand-thumbs-down "
+                                            style="cursor: pointer;" value="4"
+                                            comment_id="">
+                                            </i>
+                                    </div>
+                                    <div class="col-auto  ps-0">
+                
+                                    
+                                                <a id="hidden_reply_collapse_edit" class="link-underline-light p-0"
+                                                    data-bs-toggle="collapse"
+                                                    href="#reply_collapse_edit"
+                                                    role="button" aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                    title="Редактировать, удалить комментарий"
+                                                    style="cursor: pointer;">изменить
+                                                </a>
+        
+                                        <a id="hidden_reply_collapse" class="link-underline-light p-0"
+                                            data-bs-toggle="collapse"
+                                            href="#reply_collapse"
+                                            role="button" aria-expanded="false"
+                                            aria-controls="collapseExample"
+                                            title="Редактировать, удалить комментарий"
+                                            style=" cursor: pointer;"> &ensp; ответить
+                                        </a>
+                
+                                    </div>
+                                </div>
+                            </li>
+                
+                        </ul>
+                    </div>
+                
+                <!-- \\\\\\\\\\\\\\\\\\\\\\\\ ФОРМА ОТВЕТА НА ОТВЕТ ==================================================================================== -->
+                    <div class="collapse"
+                        id="reply_collapse">
+                        <div class="card card-body p-1">
+                
+                            <form id="form_reply_reply"
+                                form_type="4" coment_id="">
+                                <div class="card card-body p-1 m-0"
+                                    id="text_reply_div"
+                                    contenteditable="true"
+                                    data-placeholder="Напишите ваш ответ">
+                                    &ensp;
+                                </div>
+                                <input type="hidden" name="comment_id"
+                                    value="">
+                
+                                <button class="btn btn-primary mt-2"
+                                    title="Изменение комментария"
+                                    type="submit">Ответить
+                                </button>
+                            </form>
+                
+                        </div>
+                    </div>
+                
+                    <!-- ФОРМА ИСПРАВЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
+                    <div class="collapse" id="reply_collapse_edit">
+                        <div class="card card-body p-1">
+                
+                            <form id="form_coment" form_type="2"
+                                coment_id="">
+                                <div class="card card-body p-1 m-0"
+                                    id="text_div"
+                                    contenteditable="true"
+                                    data-placeholder="Напишите новый текст">
+                                    
+                                </div>
+                                <input type="hidden" name="comment_id"
+                                    value="">
+                                <input name="_method" type="hidden" value="PUT">
+                                <button 
+                                    class="btn btn-primary mt-2"
+                                    title="Изменение комментария"
+                                    type="submit">Изменить</button>
+                            </form>
+                
+                            <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+                
+                            <form id="form_coment_del"
+                                form_type="3" coment_id="">
+                                <input type="hidden" name="comment_id"
+                                    value="">
+                                <input name="_method" type="hidden" value="DELETE">
+                                <button 
+                                    class="btn btn-link m-0 p-0"
+                                    title="Удаление комментария"
+                                    type="submit">удалить</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+ 
+                </div>
+            </div>
+{{-- ====================================================================================================================================================== --}}
+
+
+
+
+
 
 
 
@@ -566,13 +885,14 @@ rel="stylesheet" -->
                                 clone.querySelector('#input3').value = commits['id'];
                                 clone.querySelector('#but2').id = "butw" + val;
                                 clone.querySelector('#like_comment').setAttribute('comment_id', commits['id']);
-                                clone.querySelector('#dislike_comment').setAttribute('comment_id', commits['id']);
+                                clone.querySelector('#dislike_comment').setAttribute('comment_id', commits[
+                                    'id']);
                                 clone.id = 'clone_mess';
 
                                 wr.appendChild(clone);
 
                                 comm_count.textContent = +comm_count.textContent +
-                                1; // прибавляем счет комментариев 
+                                    1; // прибавляем счет комментариев 
                                 clone = null;
                             });
                     } else {
@@ -642,6 +962,61 @@ rel="stylesheet" -->
                         });
 
                     break;
+
+                    // Ответ на комментарий ======================================================================================================================
+                case '4':
+
+                    let coment_id4 = event.target.getAttribute('coment_id');
+                    let replu_hidden = document.getElementById('replu_hidden');
+                    let reply = document.getElementById('reply' + coment_id4);
+                    // console.dir(coment_id);
+                    // let comment_i = document.getElementById('comment_i' + coment_id);
+                    // console.dir(comment_i);
+                    let text_reply_div = document.getElementById('text_reply_div' + coment_id4).textContent;
+                    let coment_reply_collapse = document.getElementById('coment_reply_collapse' + coment_id4);
+                    // // console.dir(coment_id);
+                    let formData4 = new FormData(document.getElementById("form_reply_comment" + coment_id4));
+                    formData4.append("reply", text_reply_div);
+                    // console.dir(formData4);
+
+
+                    if (true) {
+                        fetch('/reply_comment/', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: formData4
+                            })
+                            .then(response => response.json())
+                            .then(commits => {
+                                 console.dir(commits);
+                                 let clone_replu = replu_hidden.cloneNode(true);
+                                 clone_replu.querySelector('b').textContent = commits['user_name'] + ' ';
+                                 clone_replu.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
+                                 clone_replu.querySelector('#comment_i').textContent = commits['reply'];
+                                 clone_replu.querySelector('#comment_i').id = "comment_i" + commits['id'];
+                                 clone_replu.querySelector('#hidden_reply_collapse_edit').href = "#reply_collapse_edit" + commits['id'];
+                                 clone_replu.querySelector('#reply_collapse_edit').id = "reply_collapse_edit" + commits['id'];
+                                 clone_replu.querySelector('#hidden_reply_collapse').href = "#reply_collapse" + commits['id'];
+                                 clone_replu.querySelector('#reply_collapse').id = "reply_collapse" + commits['id'];
+
+                                 clone_replu.id = 'reply_clon';
+                                reply.appendChild(clone_replu);
+
+                                coment_reply_collapse.className = "collapse";
+                                // comment_i.textContent = commits['comment'];
+                            });
+                    } else {
+                        alert("Напишите комений");
+                    }
+
+                    break;
+
+
+
+
             }
         });
 
@@ -656,15 +1031,15 @@ rel="stylesheet" -->
             let litr = document.getElementById("butlike" + post_id)
             let user_name_id = document.getElementById("user_name_id").textContent;
             if (isButton && type_element_like != 'www') {
-                console.dir(user_name_id);
+                // console.dir(user_name_id);
 
                 if (user_name_id == 0) alert("Зарегистрируйтесь");
                 else {
 
-                    if (type_element_like == 1) {  // лайк на пост  
+                    if (type_element_like == 1) { // лайк на пост  
                         let like = event.target.textContent;
-                        
-                        console.dir(litr);
+
+                        // console.dir(litr);
                         fetch('/likes/?post_id=' + post_id + '&id_user=' + user_name_id)
                             .then(response => response.json())
                             .then(commits => {
