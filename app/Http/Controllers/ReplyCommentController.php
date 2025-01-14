@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ReplyComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReplyCommentController extends Controller
 {
@@ -64,16 +65,33 @@ class ReplyCommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ReplyComment $replyComment)
+    public function update(Request $request)
     {
-        //
+        info($request);
+        $reply_id = $request->input('reply_id');
+        $reply = $request->input('reply');
+
+
+        DB::table('reply_comments')
+            ->where('id', $reply_id)
+            ->update(['reply' => $reply]);
+
+
+            $db_reply = ReplyComment::where('id', $reply_id)->first();
+
+            // info($db_comment);
+
+        return response()->json($db_reply, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ReplyComment $replyComment)
+    public function delete(Request $request)
     {
-        //
+        info($request);
+        ReplyComment::find($request->input('reply_id'))->delete();
+
+        return response()->json('ok', 200);
     }
 }

@@ -69,8 +69,8 @@ Route::get('/like_comment', [LikeCommentController::class, 'create_like'])->name
 
 
 Route::post('/reply_comment', [ReplyCommentController::class, 'create'])->name('reply_comment');
-
-
+Route::put('/reply_comment', [ReplyCommentController::class, 'update'])->name('reply_comment_update');
+Route::delete('/reply_comment', [ReplyCommentController::class, 'delete'])->name('reply_comment_delete');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [LoginController::class, 'register'])->name('register');
