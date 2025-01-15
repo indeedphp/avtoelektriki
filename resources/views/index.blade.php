@@ -242,8 +242,9 @@ rel="stylesheet" -->
 
                                                 </div>
                                                 <div class="col-auto p-0 pe-2 pt-1">
-                                                    <button id='butw{{ $post->id }}' class="btn btn-primary btn-sm"
-                                                        title="Отправить" type="submit">Отправить</button>
+                                                    <button id='butw{{ $post->id }}'
+                                                        class="btn btn-primary btn-sm" title="Отправить"
+                                                        type="submit">Отправить</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -393,7 +394,7 @@ rel="stylesheet" -->
                                                     </div>
                                                 </div>
 
-                                                {{-- -------------------------------------------------------------------КОЛХОЗ --}}
+                                                {{-- ----------------------------------------------------------------------------------------------------------------------------Вставляем ответы на комментарии --}}
 
                                                 <div id="reply{{ $comment->id }}">
                                                     @foreach ($comment->reply_comment_plus as $reply)
@@ -424,31 +425,32 @@ rel="stylesheet" -->
                                                                         <span id="reply_text{{ $reply->id }}"
                                                                             value="www">
                                                                             {{ $reply->reply }}
+                                                                            {{ $reply->like_comment_active }}
                                                                         </span>
                                                                     </li>
                                                                     <li class="list-group-item p-0">
                                                                         <div class="row small">
                                                                             <div
                                                                                 class="col-auto me-auto pe-0 flex-fill">
-                                                                                {{-- ЛАЙК ДИЗЛАЙК КОМЕНТ==========================================================================    --}}
+                                                                                {{-- ЛАЙК ДИЗЛАЙК ответ==========================================================================    --}}
 
 
                                                                                 <i class="
-                        @if ($comment->like_comment_up) {{ 'bi bi-hand-thumbs-up-fill' }} 
-                           @else
-                            {{ 'bi bi-hand-thumbs-up' }} @endif "
+                                                                               @if ($reply->like_reply_active) {{ 'bi bi-hand-thumbs-up-fill' }} 
+                                                                              @else
+                                                                              {{ 'bi bi-hand-thumbs-up' }} @endif "
                                                                                     style="cursor: pointer;"
-                                                                                    value="3"
-                                                                                    comment_id="{{ $comment->id }}">
-                                                                                    {{ $comment->comment_like }}</i>&nbsp;
+                                                                                    value="5"
+                                                                                    reply_id="{{ $reply->id }}">
+                                                                                    {{ $reply->count_like_reply }}</i>&nbsp;
                                                                                 <i class="
-                            @if ($comment->dislike_comment_up) {{ 'bi bi-hand-thumbs-down-fill' }} 
-                               @else
-                                {{ 'bi bi-hand-thumbs-down' }} @endif "
+                                                                               @if ($reply->dislike_reply_active) {{ 'bi bi-hand-thumbs-down-fill' }} 
+                                                                                  @else
+                                                                                {{ 'bi bi-hand-thumbs-down' }} @endif "
                                                                                     style="cursor: pointer;"
-                                                                                    value="4"
-                                                                                    comment_id="{{ $comment->id }}">
-                                                                                    {{ $comment->comment_dislike }}</i>
+                                                                                    value="6"
+                                                                                    reply_id="{{ $reply->id }}">
+                                                                                    {{ $reply->count_dislike_reply }}</i>
                                                                             </div>
                                                                             <div class="col-auto  ps-0">
 
@@ -491,6 +493,7 @@ rel="stylesheet" -->
                                                                     <form id="form_reply_reply{{ $reply->id }}"
                                                                         form_type="4"
                                                                         coment_id="{{ $reply->id }}">
+                                                                        {{-- //////// ппосмотреть позже --}}
                                                                         <div class="card card-body p-1 m-0"
                                                                             id="text_reply_div{{ $reply->id }}"
                                                                             contenteditable="true"
@@ -620,8 +623,8 @@ rel="stylesheet" -->
 
                                         <a data-bs-toggle="collapse" href="#coment_collapse" role="button"
                                             aria-expanded="false" aria-controls="collapseExample"
-                                            title="Редактировать, удалить комментарий" class="link-underline-light p-0"
-                                            style="cursor: pointer;">изменить
+                                            title="Редактировать, удалить комментарий"
+                                            class="link-underline-light p-0" style="cursor: pointer;">изменить
                                         </a>
 
 
@@ -669,8 +672,8 @@ rel="stylesheet" -->
                                 </div>
                                 <input id="input2" type="hidden" name="comment_id" value="">
                                 <input name="_method" type="hidden" value="PUT">
-                                <button id='but1' class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
-                                    type="submit">Изменить комментарий</button>
+                                <button id='but1' class="btn btn-primary mt-2 btn-sm"
+                                    title="Изменение комментария" type="submit">Изменить комментарий</button>
                             </form>
 
                             <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
@@ -683,11 +686,11 @@ rel="stylesheet" -->
                             </form>
                         </div>
                     </div>
-                
-            <div id="reply">
+
+                    <div id="reply">
+                    </div>
+                </div>
             </div>
-</div>
-</div>
 
             {{-- ========================================================================================================================================= --}}
 
@@ -720,11 +723,12 @@ rel="stylesheet" -->
                                         {{-- ЛАЙК ДИЗЛАЙК КОМЕНТ==========================================================================    --}}
 
 
-                                        <i class="bi bi-hand-thumbs-up" style="cursor: pointer;" value="3"
-                                            comment_id="">
+
+                                        <i id="like_reply" class="bi bi-hand-thumbs-up" style="cursor: pointer;"
+                                            value="5" reply_id=""> 0
                                         </i>&nbsp;
-                                        <i class=" bi bi-hand-thumbs-down " style="cursor: pointer;" value="4"
-                                            comment_id="">
+                                        <i id="dislike_reply" class=" bi bi-hand-thumbs-down "
+                                            style="cursor: pointer;" value="6" reply_id=""> 0
                                         </i>
                                     </div>
                                     <div class="col-auto  ps-0">
@@ -1035,6 +1039,11 @@ rel="stylesheet" -->
                                 clone_replu.querySelector('#reply_collapse_edit').id = "reply_collapse_edit" +
                                     commits['id'];
                                 clone_replu.querySelector('#input_reply3').value = commits['id'];
+                                clone_replu.querySelector('#like_reply').setAttribute('reply_id', commits[
+                                    'id']);
+                                clone_replu.querySelector('#dislike_reply').setAttribute('reply_id', commits[
+                                    'id']);
+
                                 clone_replu.querySelector('#reply_div').textContent = commits['reply'];
                                 clone_replu.querySelector('#reply_div').id = "reply_div" + commits[
                                     'id'];
@@ -1048,7 +1057,7 @@ rel="stylesheet" -->
                                 clone_replu.querySelector('#input_reply1').value = commits['id'];
                                 clone_replu.querySelector('#form_reply_del').id = "form_reply_del" + commits[
                                     'id'];
-                                
+
                                 clone_replu.id = 'one_reply' + commits['id'];
                                 reply.appendChild(clone_replu);
 
@@ -1189,6 +1198,41 @@ rel="stylesheet" -->
                             });
                     }
 
+                    if (type_element_like == 5) { // лайки на ответы
+                        let like_reply_content = +event.target.textContent;
+                        let reply_id = event.target.getAttribute('reply_id');
+                        fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
+                            .then(response => response.json())
+                            .then(commits => {
+                                // console.dir(commits);
+                                if (commits == 1) {
+                                    event.target.textContent = ' ' + (like_reply_content + 1);
+                                    event.target.className = "bi bi-hand-thumbs-up-fill";
+                                } else if (commits == 0 && like_reply_content != 0) {
+                                    event.target.textContent = ' ' + (like_reply_content - 1);
+                                    event.target.className = "bi bi-hand-thumbs-up";
+                                }
+                            });
+                    }
+
+
+
+                    if (type_element_like == 6) { // дизлайки на ответы
+                        let dislike_reply_content = +event.target.textContent;
+                        let reply_id = event.target.getAttribute('reply_id');
+                        fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
+                            .then(response => response.json())
+                            .then(commits => {
+                                // console.dir(commits);
+                                if (commits == 1) {
+                                    event.target.textContent = ' ' + (dislike_reply_content + 1);
+                                    event.target.className = "bi bi-hand-thumbs-down-fill";
+                                } else if (commits == 0 && dislike_reply_content != 0) {
+                                    event.target.textContent = ' ' + (dislike_reply_content - 1);
+                                    event.target.className = "bi bi-hand-thumbs-down";
+                                }
+                            });
+                    }
 
 
                 }

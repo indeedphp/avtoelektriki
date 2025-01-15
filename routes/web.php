@@ -7,6 +7,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LikeCommentController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyCommentController;
+use App\Http\Controllers\LikeReplyController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -66,6 +67,9 @@ Route::delete('/comments', [CommentController::class, 'delete'])->name('delete')
 
 Route::get('/dislike_comment', [LikeCommentController::class, 'create_dislike'])->name('create_dislike');
 Route::get('/like_comment', [LikeCommentController::class, 'create_like'])->name('create_like');
+
+Route::get('/dislike_reply', [LikeReplyController::class, 'create_dislike'])->name('create_dislike_reply');
+Route::get('/like_reply', [LikeReplyController::class, 'create_like'])->name('create_like_reply');
 
 
 Route::post('/reply_comment', [ReplyCommentController::class, 'create'])->name('reply_comment');
