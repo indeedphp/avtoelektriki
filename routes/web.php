@@ -75,6 +75,9 @@ Route::get('/like_reply', [LikeReplyController::class, 'create_like'])->name('cr
 Route::post('/reply_comment', [ReplyCommentController::class, 'create'])->name('reply_comment');
 Route::put('/reply_comment', [ReplyCommentController::class, 'update'])->name('reply_comment_update');
 Route::delete('/reply_comment', [ReplyCommentController::class, 'delete'])->name('reply_comment_delete');
+// Route::post('/reply_reply', [ReplyCommentController::class, 'create2'])->name('reply_reply');
+
+
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [LoginController::class, 'register'])->name('register');

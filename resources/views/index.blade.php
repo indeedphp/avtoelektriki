@@ -338,9 +338,10 @@ rel="stylesheet" -->
                                                         <div class="card card-body p-1">
 
                                                             <form id="form_reply_comment{{ $comment->id }}"
-                                                                form_type="4" coment_id="{{ $comment->id }}">
+                                                                form_type="4" coment_id="{{ $comment->id }}"
+                                                                reply_id="0">
                                                                 <div class="card card-body p-1 m-0"
-                                                                    id="text_reply_div{{ $comment->id }}"
+                                                                    id="text_reply_div"
                                                                     contenteditable="true"
                                                                     data-placeholder="Напишите ваш ответ">
                                                                     {{ $comment->user_name }} &ensp;
@@ -405,6 +406,9 @@ rel="stylesheet" -->
                                                                         <div class="col-auto me-auto pe-0 flex-fill">
                                                                             &nbsp; <b
                                                                                 class="small">{{ $reply->user_name }}
+                                                                                @if ($reply->stuff != 0)
+                                                                                    ответ {{ $reply->stuff }}
+                                                                                @endif
                                                                             </b>
                                                                         </div>
                                                                         <div class="col-auto  ps-0">
@@ -485,23 +489,26 @@ rel="stylesheet" -->
                                                                 </ul>
                                                             </div>
 
+
                                                             <!-- \\\\\\\\\\\\\\\\\\\\\\\\ ФОРМА ОТВЕТА НА ОТВЕТ ==================================================================================== -->
                                                             <div class="collapse"
                                                                 id="reply_collapse{{ $reply->id }}">
                                                                 <div class="card card-body p-1">
 
-                                                                    <form id="form_reply_reply{{ $reply->id }}"
+                                                                    <form id="form_reply_comment{{ $comment->id }}"
                                                                         form_type="4"
-                                                                        coment_id="{{ $reply->id }}">
-                                                                        {{-- //////// ппосмотреть позже --}}
+                                                                        coment_id="{{ $comment->id }}"
+                                                                        reply_id="{{ $reply->id }}">
+
                                                                         <div class="card card-body p-1 m-0"
-                                                                            id="text_reply_div{{ $reply->id }}"
+                                                                            id="text_reply_div"
                                                                             contenteditable="true"
                                                                             data-placeholder="Напишите ваш ответ">
                                                                             {{ $reply->user_name }} &ensp;
                                                                         </div>
-                                                                        <input type="hidden" name="comment_id"
-                                                                            value="{{ $reply->id }}">
+                                       
+                                                                        <input type="hidden" name="name_opponent"
+                                                                            value="{{ $reply->user_name }}">
 
                                                                         <button class="btn btn-primary mt-2 btn-sm"
                                                                             title="Изменение комментария"
@@ -511,6 +518,7 @@ rel="stylesheet" -->
 
                                                                 </div>
                                                             </div>
+
 
                                                             <!-- ФОРМА ИСПРАВЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
                                                             <div class="collapse"
@@ -759,12 +767,13 @@ rel="stylesheet" -->
                     <div class="collapse" id="reply_collapse">
                         <div class="card card-body p-1">
 
-                            <form id="form_reply_reply" form_type="4" coment_id="">
+                            <form id="form_reply_reply" form_type="4" coment_id="" reply_id="">
                                 <div class="card card-body p-1 m-0" id="text_reply_div" contenteditable="true"
                                     data-placeholder="Напишите ваш ответ">
                                     &ensp;
                                 </div>
-                                <input id="input_reply3" type="hidden" name="comment_id" value="">
+                                
+                                 <input id="input_reply3" type="hidden" name="name_opponent" value="">
 
                                 <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
                                     type="submit">Ответить
@@ -854,12 +863,16 @@ rel="stylesheet" -->
         const wrapper = document.getElementById('wrapper');
         wrapper.addEventListener('submit', function(event) {
             event.preventDefault();
+            const formData9 = new FormData(event.target);
             let form_type = event.target.getAttribute('form_type');
             let test_comment = document.getElementById('test_comment');
             let fff = document.getElementById('fff');
             let csrf_token = document.getElementById("csrf_token").textContent;
             let comment_id = event.target.getAttribute('coment_id');
-            console.dir(form_type);
+            let reply_id = event.target.getAttribute('reply_id');
+
+
+            console.dir(reply_id + 'hgghjg');
             switch (form_type) {
                 case '1':
                     let val = event.target.getAttribute('val');
@@ -908,7 +921,7 @@ rel="stylesheet" -->
                                 clone.querySelector('#form_reply_comment').id = "form_reply_comment" + commits[
                                     'id'];
                                 clone.querySelector('#text_reply_div').textContent = commits['user_name'] + ' ';
-                                clone.querySelector('#text_reply_div').id = "text_reply_div" + commits['id'];
+                                {{-- clone.querySelector('#text_reply_div').id = "text_reply_div" + commits['id']; --}}
                                 clone.querySelector('#input4').value = commits['id'];
                                 clone.querySelector('#collap').id = "coment_collapse" + commits['id'];
                                 clone.querySelector('#form_coment').setAttribute('coment_id', commits['id']);
@@ -1005,12 +1018,25 @@ rel="stylesheet" -->
                     // Ответ на комментарий ======================================================================================================================
                 case '4':
 
-                    let replu_hidden = document.getElementById('replu_hidden');
+                    text_reply_div2 = event.target.querySelector('#text_reply_div').textContent;
+                    formData9.append("reply", text_reply_div2);
+                    formData9.append("reply_id", reply_id);
+                    formData9.append("comment_id", comment_id);
                     let reply = document.getElementById('reply' + comment_id);
+                    console.dir(comment_id+'reply');
+                    let coment_reply_collapse = document.getElementById('coment_reply_collapse' + comment_id);
+                    if (reply_id != "0") {  // закрываем инпут после отправки ответа на ответ
+                        let reply_collapse = document.getElementById('reply_collapse' + reply_id);
+                        reply_collapse.className = "collapse";
+                    }
+
+
+                    {{-- let replu_hidden = document.getElementById('replu_hidden');
+                    
                     let text_reply_div = document.getElementById('text_reply_div' + comment_id).textContent;
                     let coment_reply_collapse = document.getElementById('coment_reply_collapse' + comment_id);
                     let formData4 = new FormData(document.getElementById("form_reply_comment" + comment_id));
-                    formData4.append("reply", text_reply_div);
+                    formData4.append("reply", text_reply_div); --}}
 
                     if (true) {
                         fetch('/reply_comment/', {
@@ -1019,7 +1045,7 @@ rel="stylesheet" -->
                                     'Accept': 'application/json',
                                     'X-CSRF-TOKEN': csrf_token
                                 },
-                                body: formData4
+                                body: formData9
                             })
                             .then(response => response.json())
                             .then(commits => {
@@ -1029,6 +1055,9 @@ rel="stylesheet" -->
                                 clone_replu.querySelector('nobr').textContent = new Date().toLocaleString()
                                     .slice(0, -10) + ' ';
                                 clone_replu.querySelector('#reply_text').textContent = commits['reply'];
+                                clone_replu.querySelector('#form_reply_reply').setAttribute('coment_id', commits['comment_id']);
+                                clone_replu.querySelector('#form_reply_reply').setAttribute('reply_id', commits['id']);
+                                {{-- clone_replu.querySelector('#text_reply_div').id = "text_reply_div" + commits['id']; --}}
                                 clone_replu.querySelector('#form_reply_edit').setAttribute('reply_id', commits[
                                     'id']);
                                 clone_replu.querySelector('#form_reply_edit').id = "form_reply_edit" + commits[
@@ -1038,15 +1067,14 @@ rel="stylesheet" -->
                                     "#reply_collapse_edit" + commits['id'];
                                 clone_replu.querySelector('#reply_collapse_edit').id = "reply_collapse_edit" +
                                     commits['id'];
-                                clone_replu.querySelector('#input_reply3').value = commits['id'];
+                                clone_replu.querySelector('#input_reply3').value = commits['user_name'];
                                 clone_replu.querySelector('#like_reply').setAttribute('reply_id', commits[
                                     'id']);
                                 clone_replu.querySelector('#dislike_reply').setAttribute('reply_id', commits[
                                     'id']);
 
                                 clone_replu.querySelector('#reply_div').textContent = commits['reply'];
-                                clone_replu.querySelector('#reply_div').id = "reply_div" + commits[
-                                    'id'];
+                                clone_replu.querySelector('#reply_div').id = "reply_div" + commits['id'];
                                 clone_replu.querySelector('#hidden_reply_collapse').href = "#reply_collapse" +
                                     commits['id'];
                                 clone_replu.querySelector('#reply_collapse').id = "reply_collapse" + commits[
@@ -1062,6 +1090,7 @@ rel="stylesheet" -->
                                 reply.appendChild(clone_replu);
 
                                 coment_reply_collapse.className = "collapse";
+
                                 // comment_i.textContent = commits['comment'];
                             });
                     } else {
@@ -1072,7 +1101,7 @@ rel="stylesheet" -->
                     // Изменение ответа ======================================================================================================================
                 case '5':
 
-                    let reply_id = event.target.getAttribute('reply_id');
+                    {{-- let reply_id = event.target.getAttribute('reply_id'); --}}
                     let reply_text = document.getElementById('reply_text' + reply_id);
                     let reply_div = document.getElementById('reply_div' + reply_id).textContent;
                     let reply_collapse_edit = document.getElementById('reply_collapse_edit' + reply_id);
@@ -1124,6 +1153,7 @@ rel="stylesheet" -->
                         });
 
                     break;
+
 
             }
         });

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('create_posts', function (Blueprint $table) {
+        Schema::create('create_posts', function (Blueprint $table) {  // создаем таблицу в которой пост создается из бота
             $table->id();
             $table->timestamps();
             $table->string('user_name')->nullable();

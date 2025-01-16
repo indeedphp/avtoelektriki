@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Models\ReplyComment;
 use Illuminate\Support\Facades\DB;
 class CommentController extends Controller
 {
@@ -85,7 +86,9 @@ class CommentController extends Controller
      */
     public function delete(Request $request)
     {
-       
+        $comment_id = $request->input('comment_id');
+
+        ReplyComment::where('comment_id', '=', $comment_id)->delete();
         Comment::find($request->input('comment_id'))->delete();
 
         return response()->json('ok', 200);

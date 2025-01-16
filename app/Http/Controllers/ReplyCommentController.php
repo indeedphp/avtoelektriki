@@ -23,20 +23,44 @@ class ReplyCommentController extends Controller
      */
     public function create(Request $request)
     {
-               info($request->all());
-               $reply = $request->input('reply');
-               $comment_id = $request->input('comment_id');
-               $id_user = Auth::user()->name;
-               $user_name = Auth::user()->user_name;
+        info($request);
+        $reply = $request->input('reply');
+        $comment_id = $request->input('comment_id');
+        $id_user = Auth::user()->name;
+        $user_name = Auth::user()->user_name;
+        if (!empty($request->input('reply_id'))) $reply_id = $request->input('reply_id');
+        else $reply_id = 0;
+        if (!empty($request->input('name_opponent'))) $name_opponent = $request->input('name_opponent');
+        else $name_opponent = 0;
 
-               $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'id_user' => $id_user ,'user_name' => $user_name]);
+        $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'id_user' => $id_user, 'user_name' => $user_name, 'num' => $reply_id, 'stuff' => $name_opponent]);
 
         // file_put_contents('22.json', json_encode($request));
-   
+
 
         // info($www->comment);
         return response()->json($db_reply, 200);
     }
+
+
+    // public function create2(Request $request)
+    // {
+    //            info($request->all());
+    //            $reply = $request->input('reply');
+    //            $comment_id = $request->input('comment_id');
+    //            $id_user = Auth::user()->name;
+    //            $user_name = Auth::user()->user_name;
+
+    //            $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'id_user' => $id_user ,'user_name' => $user_name]);
+
+    //     // file_put_contents('22.json', json_encode($request));
+
+
+    //     // info($www->comment);
+    //     return response()->json($db_reply, 200);
+    // }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -77,9 +101,9 @@ class ReplyCommentController extends Controller
             ->update(['reply' => $reply]);
 
 
-            $db_reply = ReplyComment::where('id', $reply_id)->first();
+        $db_reply = ReplyComment::where('id', $reply_id)->first();
 
-            // info($db_comment);
+        // info($db_comment);
 
         return response()->json($db_reply, 200);
     }
@@ -89,8 +113,16 @@ class ReplyCommentController extends Controller
      */
     public function delete(Request $request)
     {
-        info($request);
-        ReplyComment::find($request->input('reply_id'))->delete();
+
+        $reply_id = $request->input('reply_id');
+
+        ReplyComment::where('num', '=', $reply_id)->delete();
+        
+        // $replyComment = ReplyComment::find($request->input('reply_id'))->first();
+        if(ReplyComment::where('id', $reply_id)->exists())ReplyComment::where('id', $reply_id)->delete();
+
+
+        // if (!empty($replyComment)) $replyComment->delete();
 
         return response()->json('ok', 200);
     }

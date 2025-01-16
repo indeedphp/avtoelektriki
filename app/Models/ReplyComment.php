@@ -24,6 +24,8 @@ class ReplyComment extends Model
         'id_user',
         'reply',
         'user_name',
+        'num',
+        'stuff',
     ];
 
 }

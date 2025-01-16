@@ -10,47 +10,23 @@
 <body>
 
  
-  
-  <span class="smile">😀</span>
-  <span class="smile">👍</span>
-  <span class="smile">👌</span>
-  <span class="smile">😂</span>
-  <span class="smile">😎</span>
-  <div>
-    <span class="smile">👎</span>
-    <span class="smile">💩</span>
-    <span class="smile">😈</span>
-    <span class="smile">☠</span>
-    <span class="smile">😪</span>
-    </div>
+<form id="myForm">
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <button type="submit">Submit</button>
+</form>
 
+<script>
+  const form = document.getElementById('myForm');
 
-
-  <form name="form1" method="post" action="">
-    <input type="text" name="textfield" class = 'edit'>
-  </form>
-
-  <script>
-    window.addEventListener('click', function(event){
-      if (event.target.classList.contains('smile'))
-      {
-     
-        let edit = document.querySelector('.edit');
-        edit.value += event.target.textContent;
-      }
-    });
-
-    </script>
+  form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы
+const formData = new FormData(event.target);
+    {{-- const formData = new FormData(form); --}}
+    console.log(formData);
+    {{-- console.log('Password:', formData.get('password')); --}}
+  });
+</script>
 
 </body>
 </html>
-<span class="">'😀'</span>
-
-<code class="  language-javascript"><span class="token punctuation">[</span><span class="">'😀'</span><span class="token punctuation">,</span> <span class="">'😁'</span><span class="token punctuation">,</span> <span class="">'😂'</span><span class="token punctuation">,</span> <span class="">'😃'</span><span class="token punctuation">,</span> <span class="">'😄'</span><span class="token punctuation">,</span> <span class="">'😅'</span><span class="token punctuation">,</span> <span class="">'😆'</span><span class="token punctuation">,</span> <span class="">'😇'</span><span class="token punctuation">,</span> <span class="">'😈'</span><span class="token punctuation">,</span>
-  <span class="">'😉'</span><span class="token punctuation">,</span> <span class="">'😊'</span><span class="token punctuation">,</span> <span class="">'😋'</span><span class="token punctuation">,</span> <span class="">'😌'</span><span class="token punctuation">,</span> <span class="">'😍'</span><span class="token punctuation">,</span> <span class="">'😎'</span><span class="token punctuation">,</span> <span class="">'😏'</span><span class="token punctuation">,</span> <span class="">'😐'</span><span class="token punctuation">,</span> <span class="">'😑'</span><span class="token punctuation">,</span>
-  <span class="">'😒'</span><span class="token punctuation">,</span> <span class="">'😓'</span><span class="token punctuation">,</span> <span class="">'😔'</span><span class="token punctuation">,</span> <span class="">'😕'</span><span class="token punctuation">,</span> <span class="">'😖'</span><span class="token punctuation">,</span> <span class="">'😗'</span><span class="token punctuation">,</span> <span class="">'😘'</span><span class="token punctuation">,</span> <span class="">'😙'</span><span class="token punctuation">,</span> <span class="">'😚'</span><span class="token punctuation">,</span>
-  <span class="">'😛'</span><span class="token punctuation">,</span> <span class="">'😜'</span><span class="token punctuation">,</span> <span class="">'😝'</span><span class="token punctuation">,</span> <span class="">'😞'</span><span class="token punctuation">,</span> <span class="">'😟'</span><span class="token punctuation">,</span> <span class="">'😠'</span><span class="token punctuation">,</span> <span class="">'😡'</span><span class="token punctuation">,</span> <span class="">'😢'</span><span class="token punctuation">,</span> <span class="">'😣'</span><span class="token punctuation">,</span>
-  <span class="">'😤'</span><span class="token punctuation">,</span> <span class="">'😥'</span><span class="token punctuation">,</span> <span class="">'😦'</span><span class="token punctuation">,</span> <span class="">'😧'</span><span class="token punctuation">,</span> <span class="">'😨'</span><span class="token punctuation">,</span> <span class="">'😩'</span><span class="token punctuation">,</span> <span class="">'😪'</span><span class="token punctuation">,</span> <span class="">'😫'</span><span class="token punctuation">,</span> <span class="">'😬'</span><span class="token punctuation">,</span>
-  <span class="">'😭'</span><span class="token punctuation">,</span> <span class="">'😮'</span><span class="token punctuation">,</span> <span class="">'😯'</span><span class="token punctuation">,</span> <span class="">'😰'</span><span class="token punctuation">,</span> <span class="">'😱'</span><span class="token punctuation">,</span> <span class="">'😲'</span><span class="token punctuation">,</span> <span class="">'😳'</span><span class="token punctuation">,</span> <span class="">'😴'</span><span class="token punctuation">,</span> <span class="">'😵'</span><span class="token punctuation">,</span>
-  <span class="">'😶'</span><span class="token punctuation">,</span> <span class="">'😷'</span><span class="token punctuation">,</span> <span class="">'😸'</span><span class="token punctuation">,</span> <span class="">'😹'</span><span class="token punctuation">,</span> <span class="">'😺'</span><span class="token punctuation">,</span> <span class="">'😻'</span><span class="token punctuation">,</span> <span class="">'😼'</span><span class="token punctuation">,</span> <span class="">'😽'</span><span class="token punctuation">,</span> <span class="">'😾'</span><span class="token punctuation">,</span> <span class="">'😿'</span><span class="token punctuation">,</span>
-  <span class="">'🙀'</span><span class="token punctuation">,</span> <span class="">'💩'</span><span class="token punctuation">,</span> <span class="">'☠'</span><span class="token punctuation">,</span> <span class="">'👌'</span><span class="token punctuation">,</span> <span class="">'👍'</span><span class="token punctuation">,</span> <span class="">'👎'</span><span class="token punctuation">,</span> <span class="">'🙈'</span><span class="token punctuation">,</span> <span class="">'🙉'</span><span class="token punctuation">,</span> <span class="">'🙊'</span><span class="token punctuation">]</span></code>
