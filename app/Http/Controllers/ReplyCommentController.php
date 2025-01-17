@@ -9,18 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReplyCommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-  
-     */
     public function create(Request $request)
     {
         info($request);
@@ -35,60 +24,10 @@ class ReplyCommentController extends Controller
 
         $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'id_user' => $id_user, 'user_name' => $user_name, 'num' => $reply_id, 'stuff' => $name_opponent]);
 
-        // file_put_contents('22.json', json_encode($request));
-
-
-        // info($www->comment);
         return response()->json($db_reply, 200);
     }
 
 
-    // public function create2(Request $request)
-    // {
-    //            info($request->all());
-    //            $reply = $request->input('reply');
-    //            $comment_id = $request->input('comment_id');
-    //            $id_user = Auth::user()->name;
-    //            $user_name = Auth::user()->user_name;
-
-    //            $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'id_user' => $id_user ,'user_name' => $user_name]);
-
-    //     // file_put_contents('22.json', json_encode($request));
-
-
-    //     // info($www->comment);
-    //     return response()->json($db_reply, 200);
-    // }
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ReplyComment $replyComment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ReplyComment $replyComment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
         info($request);
@@ -103,14 +42,10 @@ class ReplyCommentController extends Controller
 
         $db_reply = ReplyComment::where('id', $reply_id)->first();
 
-        // info($db_comment);
-
         return response()->json($db_reply, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function delete(Request $request)
     {
 
@@ -118,11 +53,7 @@ class ReplyCommentController extends Controller
 
         ReplyComment::where('num', '=', $reply_id)->delete();
         
-        // $replyComment = ReplyComment::find($request->input('reply_id'))->first();
         if(ReplyComment::where('id', $reply_id)->exists())ReplyComment::where('id', $reply_id)->delete();
-
-
-        // if (!empty($replyComment)) $replyComment->delete();
 
         return response()->json('ok', 200);
     }
