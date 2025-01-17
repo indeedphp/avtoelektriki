@@ -404,7 +404,7 @@ rel="stylesheet" -->
   
 
                                             <a data-bs-toggle="collapse"
-                                                href="#coment_collapse{{ $comment->id }}"
+                                                href="#coment_collapse"
                                                 role="button" aria-expanded="false"
                                                 aria-controls="collapseExample"
                                                 title="Редактировать, удалить комментарий"
