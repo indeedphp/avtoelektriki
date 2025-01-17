@@ -6,6 +6,8 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\ReplyComment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class CommentController extends Controller
 {
     /**
@@ -23,7 +25,15 @@ class CommentController extends Controller
     {
         // info($request->all());
         // file_put_contents('22.json', json_encode($request));
-        $db_comment = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
+        $comment = $request->input('comment');
+        $post_id = $request->input('post_id');
+        $id_user = Auth::user()->name;
+        $user_name = Auth::user()->user_name;
+
+        $db_comment = Comment::create(['comment' => $comment, 'post_id' => $post_id, 'id_user' => $id_user, 'user_name' => $user_name]);
+
+
+        // $db_comment = Comment::create($request->only(['comment', 'post_id', 'id_user', 'user_name']));
 
         // info($www->comment);
         return response()->json($db_comment, 200);

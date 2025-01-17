@@ -74,13 +74,12 @@ rel="stylesheet" -->
 
                 <!-- <img src="storage/app/bot/images/7124124425-1735118651.jpg" class="img-fluid" alt="..."> -->
                 <div id='wrapper'>
-
+<p>логин 2183900510@5303500659 пароль 5303500659  бот @sky_bob_bot</p>
                     @foreach ($posts as $post)
                         <div class="card  mb-3  shadow ">
                             <div class=" card-header text-muted py-1 p-lg-3">
                                 <div class="row">
-                                    <!-- <div class="col-auto p-0 px-lg-3 "><a class="link-underline-light" href="#"> <i
-      class="bi bi-card-text" value="www"></i> {{ $post->id }} </a> </div> -->
+   
                                     <div class="col-auto me-auto p-0 "><i class="bi bi-clock p-lg-1" value="www">
                                         </i>@php echo date('d-m-Y', strtotime($post->created_at)); @endphp </div>
 
@@ -206,20 +205,10 @@ rel="stylesheet" -->
                                 {{-- ФОРМА ВВОДА КОММЕНТАРИЕВ  ===================================================================================================================================================== --}}
                                 <div class="collapse p-0" id="collapseExample{{ $post->id }}">
                                     <div class="card card-body p-1 ">
-                                        <form id="form{{ $post->id }}" val="{{ $post->id }}" form_type="1"
-                                            enctype="multipart/form-data">
+                                        <form post_id="{{ $post->id }}" form_type="1">
 
-
-                                            <div class="card card-body p-1 " id="text_div_comm{{ $post->id }}"
-                                                contenteditable="true" data-placeholder="Напишите комментарий"></div>
-                                            {{-- <input type="text" name="comment" class="form-control"
-                                                        placeholder="Напишите комментарий"> --}}
-                                            <input type="hidden" name="post_id" value="{{ $post->id }}">
-
-                                            <input type="hidden" name="user_name"
-                                                @auth value="{{ Auth::user()->user_name }}" @endauth>
-                                            <input type="hidden" name="id_user"
-                                                @auth value="{{ Auth::user()->name }}" @endauth>
+                                            <div class="card card-body p-1 " id="text_div" contenteditable="true"
+                                                data-placeholder="Напишите комментарий"></div>
 
                                             <div class="row p-1 ">
                                                 <div class="col-7 me-auto  flex-fill">
@@ -242,8 +231,7 @@ rel="stylesheet" -->
 
                                                 </div>
                                                 <div class="col-auto p-0 pe-2 pt-1">
-                                                    <button id='butw{{ $post->id }}'
-                                                        class="btn btn-primary btn-sm" title="Отправить"
+                                                    <button class="btn btn-primary btn-sm" title="Отправить"
                                                         type="submit">Отправить</button>
                                                 </div>
                                             </div>
@@ -251,7 +239,7 @@ rel="stylesheet" -->
 
 
                                         {{-- КОМЕНТАРИИ ===================================================================================================================================================== --}}
-                                        <div id='wr{{ $post->id }}' class="overflow-x-hidden p-0  "
+                                        <div id='comments{{ $post->id }}' class="overflow-x-hidden p-0  "
                                             style="max-height: 300px;">
                                             @foreach ($post->comment_plus as $comment)
                                                 <div id="one_comment{{ $comment->id }}">
@@ -276,7 +264,7 @@ rel="stylesheet" -->
                                                         </div>
                                                         <ul class="list-group list-group-flush p-0">
                                                             <li class="list-group-item p-0">
-                                                                <span id="comment_i{{ $comment->id }}"
+                                                                <span id="comment_text{{ $comment->id }}"
                                                                     value="www">
                                                                     {{ $comment->comment }}
                                                                 </span>
@@ -337,17 +325,15 @@ rel="stylesheet" -->
                                                         id="coment_reply_collapse{{ $comment->id }}">
                                                         <div class="card card-body p-1">
 
-                                                            <form id="form_reply_comment{{ $comment->id }}"
-                                                                form_type="4" coment_id="{{ $comment->id }}"
+                                                            <form form_type="4" coment_id="{{ $comment->id }}"
                                                                 reply_id="0">
-                                                                <div class="card card-body p-1 m-0"
-                                                                    id="text_reply_div"
+                                                                <div class="card card-body p-1 m-0" id="text_div"
                                                                     contenteditable="true"
                                                                     data-placeholder="Напишите ваш ответ">
                                                                     {{ $comment->user_name }} &ensp;
                                                                 </div>
-                                                                <input type="hidden" name="comment_id"
-                                                                    value="{{ $comment->id }}">
+                                                                {{-- <input type="hidden" name="comment_id"
+                                                                    value="{{ $comment->id }}"> --}}
 
                                                                 <button class="btn btn-primary mt-2 btn-sm"
                                                                     title="Изменение комментария"
@@ -362,32 +348,27 @@ rel="stylesheet" -->
                                                     <div class="collapse" id="coment_collapse{{ $comment->id }}">
                                                         <div class="card card-body p-1">
 
-                                                            <form id="form_coment{{ $comment->id }}" form_type="2"
-                                                                coment_id="{{ $comment->id }}">
-                                                                <div class="card card-body p-1 m-0"
-                                                                    id="text_div{{ $comment->id }}"
+                                                            <form form_type="2" coment_id="{{ $comment->id }}">
+                                                                <div class="card card-body p-1 m-0" id="text_div"
                                                                     contenteditable="true"
                                                                     data-placeholder="Напишите новый текст">
                                                                     {{ $comment->comment }}
                                                                 </div>
-                                                                <input type="hidden" name="comment_id"
-                                                                    value="{{ $comment->id }}">
+                                                                {{-- <input type="hidden" name="comment_id"
+                                                                    value="{{ $comment->id }}"> --}}
                                                                 <input name="_method" type="hidden" value="PUT">
-                                                                <button id='butw{{ $post->id }}'
-                                                                    class="btn btn-primary mt-2 btn-sm"
+                                                                <button class="btn btn-primary mt-2 btn-sm"
                                                                     title="Изменение комментария"
-                                                                    type="submit">Изменить комментарий</button>
+                                                                    type="submit">Изменить</button>
                                                             </form>
 
                                                             <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
 
-                                                            <form id="form_coment_del{{ $comment->id }}"
-                                                                form_type="3" coment_id="{{ $comment->id }}">
-                                                                <input type="hidden" name="comment_id"
-                                                                    value="{{ $comment->id }}">
+                                                            <form form_type="3" coment_id="{{ $comment->id }}">
+                                                                {{-- <input type="hidden" name="comment_id"
+                                                                    value="{{ $comment->id }}"> --}}
                                                                 <input name="_method" type="hidden" value="DELETE">
-                                                                <button id='butw{{ $post->id }}'
-                                                                    class="btn btn-link m-0 p-0"
+                                                                <button class="btn btn-link m-0 p-0"
                                                                     title="Удаление комментария"
                                                                     type="submit">удалить</button>
                                                             </form>
@@ -501,12 +482,11 @@ rel="stylesheet" -->
                                                                         reply_id="{{ $reply->id }}">
 
                                                                         <div class="card card-body p-1 m-0"
-                                                                            id="text_reply_div"
-                                                                            contenteditable="true"
+                                                                            id="text_div" contenteditable="true"
                                                                             data-placeholder="Напишите ваш ответ">
                                                                             {{ $reply->user_name }} &ensp;
                                                                         </div>
-                                       
+
                                                                         <input type="hidden" name="name_opponent"
                                                                             value="{{ $reply->user_name }}">
 
@@ -525,17 +505,15 @@ rel="stylesheet" -->
                                                                 id="reply_collapse_edit{{ $reply->id }}">
                                                                 <div class="card card-body p-1">
 
-                                                                    <form id="form_reply_edit{{ $reply->id }}"
-                                                                        form_type="5"
+                                                                    <form form_type="5"
                                                                         reply_id="{{ $reply->id }}">
                                                                         <div class="card card-body p-1 m-0"
-                                                                            id="reply_div{{ $reply->id }}"
-                                                                            contenteditable="true"
+                                                                            id="text_div" contenteditable="true"
                                                                             data-placeholder="Напишите новый текст">
                                                                             {{ $reply->reply }}
                                                                         </div>
-                                                                        <input type="hidden" name="reply_id"
-                                                                            value="{{ $reply->id }}">
+                                                                        {{-- <input type="hidden" name="reply_id"
+                                                                            value="{{ $reply->id }}"> --}}
                                                                         <input name="_method" type="hidden"
                                                                             value="PUT">
                                                                         <button class="btn btn-primary mt-2 btn-sm"
@@ -545,11 +523,10 @@ rel="stylesheet" -->
 
                                                                     <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
 
-                                                                    <form id="form_reply_del{{ $reply->id }}"
-                                                                        form_type="6"
+                                                                    <form form_type="6"
                                                                         reply_id="{{ $reply->id }}">
-                                                                        <input type="hidden" name="reply_id"
-                                                                            value="{{ $reply->id }}">
+                                                                        {{-- <input type="hidden" name="reply_id"
+                                                                            value="{{ $reply->id }}"> --}}
                                                                         <input name="_method" type="hidden"
                                                                             value="DELETE">
                                                                         <button class="btn btn-link m-0 p-0"
@@ -613,7 +590,7 @@ rel="stylesheet" -->
                         </div>
                         <ul class="list-group list-group-flush p-0">
                             <li class="list-group-item p-0">
-                                <span id="comment_i" value="www">
+                                <span id="comment_text" value="www">
 
                                 </span>
                             </li>
@@ -654,12 +631,12 @@ rel="stylesheet" -->
                     <div class="collapse" id="coment_reply_collapse_hidden">
                         <div class="card card-body p-1">
 
-                            <form id="form_reply_comment" form_type="4" coment_id="">
-                                <div class="card card-body p-1 m-0" id="text_reply_div" contenteditable="true"
+                            <form id="form_reply_comment" form_type="4" coment_id="" reply_id="0">
+                                <div class="card card-body p-1 m-0" id="text_div" contenteditable="true"
                                     data-placeholder="Напишите ваш ответ">
                                     &ensp;
                                 </div>
-                                <input id="input4" type="hidden" name="comment_id" value="">
+                                {{-- <input id="input4" type="hidden" name="comment_id" value=""> --}}
 
                                 <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
                                     type="submit">Ответить
@@ -672,16 +649,16 @@ rel="stylesheet" -->
 
 
                     <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
-                    <div class="collapse" id="collap">
+                    <div class="collapse" id="coment_collapse">
                         <div class="card card-body p-1">
 
                             <form id="form_coment" form_type="2" coment_id="">
-                                <div class="card card-body p-1 m-0" id="text_div" contenteditable="true">
+                                <div class="card card-body p-1 m-0" id="text_div_comment" contenteditable="true">
                                 </div>
-                                <input id="input2" type="hidden" name="comment_id" value="">
+                                {{-- <input id="input2" type="hidden" name="comment_id" value=""> --}}
                                 <input name="_method" type="hidden" value="PUT">
-                                <button id='but1' class="btn btn-primary mt-2 btn-sm"
-                                    title="Изменение комментария" type="submit">Изменить комментарий</button>
+                                <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
+                                    type="submit">Изменить</button>
                             </form>
 
                             <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
@@ -728,7 +705,7 @@ rel="stylesheet" -->
                             <li class="list-group-item p-0">
                                 <div class="row small">
                                     <div class="col-auto me-auto pe-0 flex-fill">
-                                        {{-- ЛАЙК ДИЗЛАЙК КОМЕНТ==========================================================================    --}}
+                                        {{-- ЛАЙК ДИЗЛАЙК ОТВЕТ==========================================================================    --}}
 
 
 
@@ -768,12 +745,12 @@ rel="stylesheet" -->
                         <div class="card card-body p-1">
 
                             <form id="form_reply_reply" form_type="4" coment_id="" reply_id="">
-                                <div class="card card-body p-1 m-0" id="text_reply_div" contenteditable="true"
+                                <div class="card card-body p-1 m-0" id="text_div" contenteditable="true"
                                     data-placeholder="Напишите ваш ответ">
                                     &ensp;
                                 </div>
-                                
-                                 <input id="input_reply3" type="hidden" name="name_opponent" value="">
+
+                                <input id="input_name_opponent" type="hidden" name="name_opponent" value="">
 
                                 <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
                                     type="submit">Ответить
@@ -788,11 +765,11 @@ rel="stylesheet" -->
                         <div class="card card-body p-1">
 
                             <form id="form_reply_edit" form_type="5" reply_id="">
-                                <div class="card card-body p-1 m-0" id="reply_div" contenteditable="true"
+                                <div class="card card-body p-1 m-0" id="text_div_reply" contenteditable="true"
                                     data-placeholder="Напишите новый текст">
 
                                 </div>
-                                <input id="input_reply2" type="hidden" name="reply_id" value="">
+                                {{-- <input id="input_reply2" type="hidden" name="reply_id" value=""> --}}
                                 <input name="_method" type="hidden" value="PUT">
                                 <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
                                     type="submit">Изменить</button>
@@ -801,7 +778,7 @@ rel="stylesheet" -->
                             <!-- ФОРМА УДАЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
 
                             <form id="form_reply_del" form_type="6" reply_id="">
-                                <input id="input_reply1" type="hidden" name="reply_id" value="">
+                                {{-- <input id="input_reply1" type="hidden" name="reply_id" value=""> --}}
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button class="btn btn-link m-0 p-0" title="Удаление комментария"
                                     type="submit">удалить</button>
@@ -814,14 +791,6 @@ rel="stylesheet" -->
                 </div>
             </div>
             {{-- ====================================================================================================================================================== --}}
-
-
-
-
-
-
-
-
 
 
             <div id=li class="col-lg-2 ">
@@ -843,435 +812,6 @@ rel="stylesheet" -->
 
 
     <script defer src="client.js"></script>
-
-    <script>
-        window.addEventListener('click', function(event) {
-            // console.log('even');
-            if (event.target.classList.contains('smile')) {
-
-                let vall = event.target.getAttribute('vall');
-
-                let text_div_c = document.getElementById('text_div_comm' + vall);
-
-                text_div_c.textContent += event.target.textContent;
-            }
-        });
-
-
-
-        {{-- =================================================================== ОТПРАВКА  КОМЕНТАРИЯ  ================================================================================== --}}
-        const wrapper = document.getElementById('wrapper');
-        wrapper.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData9 = new FormData(event.target);
-            let form_type = event.target.getAttribute('form_type');
-            let test_comment = document.getElementById('test_comment');
-            let fff = document.getElementById('fff');
-            let csrf_token = document.getElementById("csrf_token").textContent;
-            let comment_id = event.target.getAttribute('coment_id');
-            let reply_id = event.target.getAttribute('reply_id');
-
-
-            console.dir(reply_id + 'hgghjg');
-            switch (form_type) {
-                case '1':
-                    let val = event.target.getAttribute('val');
-                    let text_div_comm = document.getElementById('text_div_comm' + val);
-                    let wr = document.getElementById('wr' + val);
-                    let comm_count = document.getElementById('comm_count' + val);
-                    console.log(val);
-                    let formData = new FormData(document.getElementById("form" + val));
-                    // console.dir(val);
-                    // let text_empty = formData.entries().next().value;
-                    let button = document.getElementById('butw' + val);
-                    button.className = "btn btn-success";
-                    formData.append("comment", text_div_comm.textContent);
-
-                    if (text_div_comm.textContent.trim() != '') {
-                        fetch('/comments/', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                body: formData
-                            })
-                            .then(response => response.json())
-                            .then(commits => {
-
-                                text_div_comm.textContent = null;
-                                let clone = test_comment.cloneNode(true);
-                                console.dir(clone);
-                                // clone.querySelector('li').id = 'one_comment' + commits['id'];
-                                clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, -
-                                    10) + ' ';
-                                clone.querySelector('b').textContent = commits['user_name'] + ' ';
-                                clone.querySelector('#comment_i').textContent = commits['comment'];
-                                clone.querySelector('#comment_i').id = "comment_i" + commits['id'];
-                                clone.querySelector('a').setAttribute('href', "#coment_collapse" + commits[
-                                    'id']);
-                                // console.dir(clone.querySelector('#collap'));
-
-                                clone.querySelector('#coment_reply_collapse').href =
-                                    "#coment_reply_collapse" + commits['id'];
-                                clone.querySelector('#coment_reply_collapse_hidden').id =
-                                    "coment_reply_collapse" + commits['id'];
-                                clone.querySelector('#form_reply_comment').setAttribute('coment_id', commits[
-                                    'id']);
-                                clone.querySelector('#form_reply_comment').id = "form_reply_comment" + commits[
-                                    'id'];
-                                clone.querySelector('#text_reply_div').textContent = commits['user_name'] + ' ';
-                                {{-- clone.querySelector('#text_reply_div').id = "text_reply_div" + commits['id']; --}}
-                                clone.querySelector('#input4').value = commits['id'];
-                                clone.querySelector('#collap').id = "coment_collapse" + commits['id'];
-                                clone.querySelector('#form_coment').setAttribute('coment_id', commits['id']);
-                                clone.querySelector('#form_coment').id = "form_coment" + commits['id'];
-                                clone.querySelector('#text_div').textContent = commits['comment'];
-                                clone.querySelector('#text_div').id = 'text_div' + commits['id'];
-                                clone.querySelector('#input2').value = commits['id'];
-                                clone.querySelector('#but1').id = "butw" + val;
-                                clone.querySelector('#form_coment_del').setAttribute('coment_id', commits[
-                                    'id']);
-                                clone.querySelector('#form_coment_del').id = "form_coment_del" + commits['id'];
-                                clone.querySelector('#input3').value = commits['id'];
-                                clone.querySelector('#but2').id = "butw" + val;
-                                clone.querySelector('#like_comment').setAttribute('comment_id', commits['id']);
-                                clone.querySelector('#dislike_comment').setAttribute('comment_id', commits[
-                                    'id']);
-                                clone.querySelector('#reply').id = "reply" + commits['id'];
-                                clone.id = 'one_comment' + commits['id'];
-
-                                wr.appendChild(clone);
-
-                                comm_count.textContent = +comm_count.textContent +
-                                    1; // прибавляем счет комментариев 
-                                clone = null;
-                            });
-                    } else {
-                        alert("Напишите коментарий");
-                    }
-                    event.target.reset();
-                    setTimeout(function() {
-                        button.className = "btn btn-primary"
-                    }, 3000);
-
-                    break;
-                    // Изменение комментария ======================================================================================================================
-                case '2':
-
-                    let coment_id = event.target.getAttribute('coment_id');
-                    console.dir(coment_id);
-                    let comment_i = document.getElementById('comment_i' + coment_id);
-                    console.dir(comment_i);
-                    let text_div = document.getElementById('text_div' + coment_id).textContent;
-                    let coment_collapse = document.getElementById('coment_collapse' + coment_id);
-                    // console.dir(coment_id);
-                    let formData2 = new FormData(document.getElementById("form_coment" + coment_id));
-                    formData2.append("text_comment", text_div);
-
-                    if (text_div.trim() != '') {
-                        fetch('/comments/', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                body: formData2
-                            })
-                            .then(response => response.json())
-                            .then(commits => {
-                                coment_collapse.className = "collapse";
-                                comment_i.textContent = commits['comment'];
-
-                            });
-                    } else {
-                        alert("Напишите комений");
-                    }
-
-                    break;
-                    // Удаление комментария ======================================================================================================================
-                case '3':
-
-                    let coment_id2 = event.target.getAttribute('coment_id');
-                    let one_comment = document.getElementById('one_comment' + coment_id2);
-                    let coment_collapse2 = document.getElementById('coment_collapse' + coment_id2);
-                    let formData3 = new FormData(document.getElementById("form_coment_del" + coment_id2));
-                    // console.dir(one_comment);
-
-                    fetch('/comments/', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: formData3
-                        })
-                        .then(response => response.json())
-                        .then(commits => {
-                            coment_collapse2.className = "collapse";
-                            one_comment.remove();
-                            console.dir(commits);
-                        });
-
-                    break;
-
-                    // Ответ на комментарий ======================================================================================================================
-                case '4':
-
-                    text_reply_div2 = event.target.querySelector('#text_reply_div').textContent;
-                    formData9.append("reply", text_reply_div2);
-                    formData9.append("reply_id", reply_id);
-                    formData9.append("comment_id", comment_id);
-                    let reply = document.getElementById('reply' + comment_id);
-                    console.dir(comment_id+'reply');
-                    let coment_reply_collapse = document.getElementById('coment_reply_collapse' + comment_id);
-                    if (reply_id != "0") {  // закрываем инпут после отправки ответа на ответ
-                        let reply_collapse = document.getElementById('reply_collapse' + reply_id);
-                        reply_collapse.className = "collapse";
-                    }
-
-
-                    {{-- let replu_hidden = document.getElementById('replu_hidden');
-                    
-                    let text_reply_div = document.getElementById('text_reply_div' + comment_id).textContent;
-                    let coment_reply_collapse = document.getElementById('coment_reply_collapse' + comment_id);
-                    let formData4 = new FormData(document.getElementById("form_reply_comment" + comment_id));
-                    formData4.append("reply", text_reply_div); --}}
-
-                    if (true) {
-                        fetch('/reply_comment/', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'X-CSRF-TOKEN': csrf_token
-                                },
-                                body: formData9
-                            })
-                            .then(response => response.json())
-                            .then(commits => {
-                                //  console.dir(commits);
-                                let clone_replu = replu_hidden.cloneNode(true);
-                                clone_replu.querySelector('b').textContent = commits['user_name'] + ' ';
-                                clone_replu.querySelector('nobr').textContent = new Date().toLocaleString()
-                                    .slice(0, -10) + ' ';
-                                clone_replu.querySelector('#reply_text').textContent = commits['reply'];
-                                clone_replu.querySelector('#form_reply_reply').setAttribute('coment_id', commits['comment_id']);
-                                clone_replu.querySelector('#form_reply_reply').setAttribute('reply_id', commits['id']);
-                                {{-- clone_replu.querySelector('#text_reply_div').id = "text_reply_div" + commits['id']; --}}
-                                clone_replu.querySelector('#form_reply_edit').setAttribute('reply_id', commits[
-                                    'id']);
-                                clone_replu.querySelector('#form_reply_edit').id = "form_reply_edit" + commits[
-                                    'id'];
-                                clone_replu.querySelector('#reply_text').id = "reply_text" + commits['id'];
-                                clone_replu.querySelector('#hidden_reply_collapse_edit').href =
-                                    "#reply_collapse_edit" + commits['id'];
-                                clone_replu.querySelector('#reply_collapse_edit').id = "reply_collapse_edit" +
-                                    commits['id'];
-                                clone_replu.querySelector('#input_reply3').value = commits['user_name'];
-                                clone_replu.querySelector('#like_reply').setAttribute('reply_id', commits[
-                                    'id']);
-                                clone_replu.querySelector('#dislike_reply').setAttribute('reply_id', commits[
-                                    'id']);
-
-                                clone_replu.querySelector('#reply_div').textContent = commits['reply'];
-                                clone_replu.querySelector('#reply_div').id = "reply_div" + commits['id'];
-                                clone_replu.querySelector('#hidden_reply_collapse').href = "#reply_collapse" +
-                                    commits['id'];
-                                clone_replu.querySelector('#reply_collapse').id = "reply_collapse" + commits[
-                                    'id'];
-                                clone_replu.querySelector('#input_reply2').value = commits['id'];
-                                clone_replu.querySelector('#form_reply_del').setAttribute('reply_id', commits[
-                                    'id']);
-                                clone_replu.querySelector('#input_reply1').value = commits['id'];
-                                clone_replu.querySelector('#form_reply_del').id = "form_reply_del" + commits[
-                                    'id'];
-
-                                clone_replu.id = 'one_reply' + commits['id'];
-                                reply.appendChild(clone_replu);
-
-                                coment_reply_collapse.className = "collapse";
-
-                                // comment_i.textContent = commits['comment'];
-                            });
-                    } else {
-                        alert("Напишите комений");
-                    }
-
-                    break;
-                    // Изменение ответа ======================================================================================================================
-                case '5':
-
-                    {{-- let reply_id = event.target.getAttribute('reply_id'); --}}
-                    let reply_text = document.getElementById('reply_text' + reply_id);
-                    let reply_div = document.getElementById('reply_div' + reply_id).textContent;
-                    let reply_collapse_edit = document.getElementById('reply_collapse_edit' + reply_id);
-                    let formData5 = new FormData(document.getElementById("form_reply_edit" + reply_id));
-                    formData5.append("reply", reply_div);
-
-                    if (reply_div.trim() != '') {
-                        fetch('/reply_comment/', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'X-CSRF-TOKEN': csrf_token
-                                },
-                                body: formData5
-                            })
-                            .then(response => response.json())
-                            .then(commits => {
-                                reply_collapse_edit.className = "collapse";
-                                reply_text.textContent = commits['reply'];
-
-                            });
-                    } else {
-                        alert("Напишите ответ");
-                    }
-
-                    break;
-
-                    // Удаление ответа ======================================================================================================================
-                case '6':
-
-                    let reply_id2 = event.target.getAttribute('reply_id');
-                    let one_reply = document.getElementById('one_reply' + reply_id2);
-                    let reply_collapse_edit2 = document.getElementById('reply_collapse_edit' + reply_id2);
-                    let formData6 = new FormData(document.getElementById("form_reply_del" + reply_id2));
-
-                    fetch('/reply_comment/', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': csrf_token
-                            },
-                            body: formData6
-                        })
-                        .then(response => response.json())
-                        .then(commits => {
-                            reply_collapse_edit2.className = "collapse";
-                            one_reply.remove();
-                            console.dir(commits);
-                        });
-
-                    break;
-
-
-            }
-        });
-
-
-        {{-- ===================================================================   ОТПРАВКА ЛАЙКА  ================================================================================== --}}
-
-        let lik = null;
-        wrapper.addEventListener('click', (event) => {
-            const isButton = event.target.nodeName === 'I';
-            let type_element_like = event.target.getAttribute('value');
-            let post_id = event.target.getAttribute('post_id');
-            let litr = document.getElementById("butlike" + post_id)
-            let user_name_id = document.getElementById("user_name_id").textContent;
-            if (isButton && type_element_like != 'www') {
-                // console.dir(user_name_id);
-
-                if (user_name_id == 0) alert("Зарегистрируйтесь");
-                else {
-
-                    if (type_element_like == 1) { // лайк на пост  
-                        let like = event.target.textContent;
-
-                        // console.dir(litr);
-                        fetch('/likes/?post_id=' + post_id + '&id_user=' + user_name_id)
-                            .then(response => response.json())
-                            .then(commits => {
-                                if (commits == 1) {
-                                    lik = +like + 1;
-                                    litr.className = "bi bi-hand-thumbs-up-fill";
-                                } else if (commits == 0 && like != 0) {
-                                    lik = +like - 1;
-                                    litr.className = "bi bi-hand-thumbs-up";
-                                }
-                                event.target.textContent = ' ' + lik;
-
-                            });
-                    }
-
-
-                    if (type_element_like == 3) { // лайки на комментарии
-                        let like_comment_content = +event.target.textContent;
-                        let comment_id = event.target.getAttribute('comment_id');
-                        fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
-                            .then(response => response.json())
-                            .then(commits => {
-                                // console.dir(commits);
-                                if (commits == 1) {
-                                    event.target.textContent = ' ' + (like_comment_content + 1);
-                                    event.target.className = "bi bi-hand-thumbs-up-fill";
-                                } else if (commits == 0 && like_comment_content != 0) {
-                                    event.target.textContent = ' ' + (like_comment_content - 1);
-                                    event.target.className = "bi bi-hand-thumbs-up";
-                                }
-                            });
-                    }
-
-                    if (type_element_like == 4) { // дизлайки на коментарии
-                        let dislike_comment_content = +event.target.textContent;
-                        let comment_id = event.target.getAttribute('comment_id');
-                        fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
-                            .then(response => response.json())
-                            .then(commits => {
-                                // console.dir(commits);
-                                if (commits == 1) {
-                                    event.target.textContent = ' ' + (dislike_comment_content + 1);
-                                    event.target.className = "bi bi-hand-thumbs-down-fill";
-                                } else if (commits == 0 && dislike_comment_content != 0) {
-                                    event.target.textContent = ' ' + (dislike_comment_content - 1);
-                                    event.target.className = "bi bi-hand-thumbs-down";
-                                }
-                            });
-                    }
-
-                    if (type_element_like == 5) { // лайки на ответы
-                        let like_reply_content = +event.target.textContent;
-                        let reply_id = event.target.getAttribute('reply_id');
-                        fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
-                            .then(response => response.json())
-                            .then(commits => {
-                                // console.dir(commits);
-                                if (commits == 1) {
-                                    event.target.textContent = ' ' + (like_reply_content + 1);
-                                    event.target.className = "bi bi-hand-thumbs-up-fill";
-                                } else if (commits == 0 && like_reply_content != 0) {
-                                    event.target.textContent = ' ' + (like_reply_content - 1);
-                                    event.target.className = "bi bi-hand-thumbs-up";
-                                }
-                            });
-                    }
-
-
-
-                    if (type_element_like == 6) { // дизлайки на ответы
-                        let dislike_reply_content = +event.target.textContent;
-                        let reply_id = event.target.getAttribute('reply_id');
-                        fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
-                            .then(response => response.json())
-                            .then(commits => {
-                                // console.dir(commits);
-                                if (commits == 1) {
-                                    event.target.textContent = ' ' + (dislike_reply_content + 1);
-                                    event.target.className = "bi bi-hand-thumbs-down-fill";
-                                } else if (commits == 0 && dislike_reply_content != 0) {
-                                    event.target.textContent = ' ' + (dislike_reply_content - 1);
-                                    event.target.className = "bi bi-hand-thumbs-down";
-                                }
-                            });
-                    }
-
-
-                }
-
-            }
-        })
-    </script>
-
-
 
 
 
