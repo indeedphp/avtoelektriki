@@ -1,13 +1,41 @@
 window.addEventListener('click', function (event) {
     // console.log('even');
-    if (event.target.classList.contains('smile')) {
 
-        let vall = event.target.getAttribute('vall');
+  
 
-        let text_div_c = document.getElementById('text_div_comm' + vall);
-
+    if (event.target.classList.contains('post_smile')) {
+        let post_id = event.target.getAttribute('post_id');
+        let text_div_c = document.getElementById('text_div_post' + post_id);
         text_div_c.textContent += event.target.textContent;
     }
+
+    if (event.target.classList.contains('comment_smile')) {
+        let comment_id = event.target.getAttribute('comment_id');
+        let text_div_c = document.getElementById('text_div_comment' + comment_id);
+        text_div_c.textContent += event.target.textContent;
+       
+    }
+
+    if (event.target.classList.contains('comment_edit_smile')) {
+        let comment_id = event.target.getAttribute('comment_id');
+        let text_div_c = document.getElementById('text_div_comment_edit' + comment_id);
+        text_div_c.textContent += event.target.textContent;
+        
+    }
+    if (event.target.classList.contains('reply_smile')) {
+        let comment_id = event.target.getAttribute('reply_id');
+        let text_div_c = document.getElementById('text_div_reply' + comment_id);
+        text_div_c.textContent += event.target.textContent;
+    
+    }
+    if (event.target.classList.contains('reply_edit_smile')) {
+        let comment_id = event.target.getAttribute('reply_id');
+        let text_div_c = document.getElementById('text_div_reply_edit' + comment_id);
+        text_div_c.textContent += event.target.textContent;
+    
+    }
+
+
 });
 
 let user_name_id = document.getElementById("user_name_id").textContent;
@@ -22,11 +50,12 @@ wrapper.addEventListener('submit', function (event) {
         const formData = new FormData(event.target);
         let form_type = event.target.getAttribute('form_type');
         let test_comment = document.getElementById('test_comment');
-        let fff = document.getElementById('fff');
+        // let fff = document.getElementById('fff');
         let csrf_token = document.getElementById("csrf_token").textContent;
         let comment_id = event.target.getAttribute('coment_id');
         let reply_id = event.target.getAttribute('reply_id');
-        let text_div = event.target.querySelector('#text_div');
+        let text_div = event.target.querySelector('[text_div]');
+        //    console.log(text_div);
 
         switch (form_type) {
             case '1':
@@ -52,7 +81,11 @@ wrapper.addEventListener('submit', function (event) {
 
                             text_div.textContent = null;
                             let clone = test_comment.cloneNode(true);
-                            console.dir(clone);
+
+                            var enu = clone.querySelectorAll('span');
+                            enu.forEach(function (item, i, enu) {  // перебираем смайлики
+                                item.setAttribute('comment_id', commits['id']);
+                            });
 
                             clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
                             clone.querySelector('b').textContent = commits['user_name'] + ' ';
@@ -62,11 +95,12 @@ wrapper.addEventListener('submit', function (event) {
                             clone.querySelector('#coment_reply_collapse').href = "#coment_reply_collapse" + commits['id'];
                             clone.querySelector('#coment_reply_collapse_hidden').id = "coment_reply_collapse" + commits['id'];
                             clone.querySelector('#form_reply_comment').setAttribute('coment_id', commits['id']);
-                            clone.querySelector('#text_div').textContent = commits['user_name'] + ' ';
+                            clone.querySelector('#text_div_comment').textContent = commits['user_name'] + ' ';
+                            clone.querySelector('#text_div_comment').id = 'text_div_comment' + commits['id'];
                             clone.querySelector('#coment_collapse').id = "coment_collapse" + commits['id'];
                             clone.querySelector('#form_coment').setAttribute('coment_id', commits['id']);
-                            clone.querySelector('#text_div_comment').textContent = commits['comment'];
-                            clone.querySelector('#text_div_comment').id = 'text_div';
+                            clone.querySelector('#text_div_comment_edit').textContent = commits['comment'];
+                            clone.querySelector('#text_div_comment_edit').id = 'text_div_comment_edit' + commits['id'];
                             clone.querySelector('#form_coment_del').setAttribute('coment_id', commits['id']);
                             clone.querySelector('#input3').value = commits['id'];
                             clone.querySelector('#but2').id = "butw" + post_id;
@@ -171,6 +205,12 @@ wrapper.addEventListener('submit', function (event) {
                         .then(commits => {
                             //  console.dir(commits);
                             let clone_replu = replu_hidden.cloneNode(true);
+
+                            var span = clone_replu.querySelectorAll('span');
+                            span.forEach(function (item, i, span) {  // перебираем смайлики
+                                item.setAttribute('reply_id', commits['id']);
+                            });
+
                             clone_replu.querySelector('b').textContent = commits['user_name'] + ' ';
                             clone_replu.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, -10) + ' ';
                             clone_replu.querySelector('#reply_text').textContent = commits['reply'];
@@ -183,9 +223,10 @@ wrapper.addEventListener('submit', function (event) {
                             clone_replu.querySelector('#input_name_opponent').value = commits['user_name'];
                             clone_replu.querySelector('#like_reply').setAttribute('reply_id', commits['id']);
                             clone_replu.querySelector('#dislike_reply').setAttribute('reply_id', commits['id']);
-                            clone_replu.querySelector('#text_div').textContent = commits['user_name'];
-                            clone_replu.querySelector('#text_div_reply').textContent = commits['reply'];
-                            clone_replu.querySelector('#text_div_reply').id = "text_div";
+                            clone_replu.querySelector('#text_div_reply').textContent = commits['user_name'];
+                            clone_replu.querySelector('#text_div_reply').id = "text_div_reply" + commits['id'];
+                            clone_replu.querySelector('#text_div_reply_edit').textContent = commits['reply'];
+                            clone_replu.querySelector('#text_div_reply_edit').id = "text_div_reply_edit" + commits['id'];
                             clone_replu.querySelector('#hidden_reply_collapse').href = "#reply_collapse" + commits['id'];
                             clone_replu.querySelector('#reply_collapse').id = "reply_collapse" + commits['id'];
                             clone_replu.querySelector('#form_reply_del').setAttribute('reply_id', commits['id']);

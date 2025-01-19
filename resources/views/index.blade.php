@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Профпортал Автоэлектрики">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="bootstrap.js" integrity="" crossorigin="anonymous"></script>
+    <script src="bootstrap.bundle.js" integrity="" crossorigin="anonymous"></script>
     <link href="bootstrap.css" rel="stylesheet">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 rel="stylesheet" -->
@@ -207,28 +207,35 @@ rel="stylesheet" -->
                                     <div class="card card-body p-1 ">
                                         <form post_id="{{ $post->id }}" form_type="1">
 
-                                            <div class="card card-body p-1 " id="text_div" contenteditable="true"
+
+
+
+                                            <div text_div class="card card-body p-1 " id="text_div_post{{ $post->id }}" contenteditable="true"
                                                 data-placeholder="Напишите комментарий"></div>
 
                                             <div class="row p-1 ">
-                                                <div class="col-7 me-auto  flex-fill">
-                                                    <span vall="{{ $post->id }}" class="smile">😀</span>
-                                                    <span vall="{{ $post->id }}" class="smile">👍</span>
-                                                    <span vall="{{ $post->id }}" class="smile">👌</span>
-                                                    <span vall="{{ $post->id }}" class="smile">😂</span>
-                                                    <span vall="{{ $post->id }}" class="smile">😎</span>
-                                                    <span vall="{{ $post->id }}" class="smile">😇</span>
-                                                    <span vall="{{ $post->id }}" class="smile">😝</span>
-                                                    <div>
-                                                        <span vall="{{ $post->id }}" class="smile">👎</span>
-                                                        <span vall="{{ $post->id }}" class="smile">💩</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😈</span>
-                                                        <span vall="{{ $post->id }}" class="smile">☠</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😪</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😬</span>
-                                                        <span vall="{{ $post->id }}" class="smile">😭</span>
-                                                    </div>
+                                                <div class="col-7 me-auto  flex-fill ">
+                                                    <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_post_smile{{ $post->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
 
+                                                    <div class="collapse" id="collapse_post_smile{{ $post->id }}">
+                                                      
+                                                        <span post_id="{{ $post->id }}" class="post_smile">😀</span>
+                                                        <span post_id="{{ $post->id }}" class="post_smile">👍</span>
+                                                        <span post_id="{{ $post->id }}" class="post_smile">👌</span>
+                                                        <span post_id="{{ $post->id }}" class="post_smile">😂</span>
+                                                        <span post_id="{{ $post->id }}" class="post_smile">😎</span>
+                                                        <span post_id="{{ $post->id }}" class="post_smile">😇</span>
+                                                        <span post_id="{{ $post->id }}" class="post_smile">😝</span>
+                                                        
+                                                            <span post_id="{{ $post->id }}" class="post_smile">👎</span>
+                                                            <span post_id="{{ $post->id }}" class="post_smile">💩</span>
+                                                            <span post_id="{{ $post->id }}" class="post_smile">😈</span>
+                                                            <span post_id="{{ $post->id }}" class="post_smile">☠</span>
+                                                            <span post_id="{{ $post->id }}" class="post_smile">😪</span>
+                                                            <span post_id="{{ $post->id }}" class="post_smile">😬</span>
+                                                            <span post_id="{{ $post->id }}" class="post_smile">😭</span>
+                                                      
+                                                    </div>
                                                 </div>
                                                 <div class="col-auto p-0 pe-2 pt-1">
                                                     <button class="btn btn-primary btn-sm" title="Отправить"
@@ -263,11 +270,8 @@ rel="stylesheet" -->
                                                             </div>
                                                         </div>
                                                         <ul class="list-group list-group-flush p-0">
-                                                            <li class="list-group-item p-0">
-                                                                <span id="comment_text{{ $comment->id }}"
-                                                                    value="www">
+                                                            <li id="comment_text{{ $comment->id }}" class="list-group-item p-0">
                                                                     {{ $comment->comment }}
-                                                                </span>
                                                             </li>
                                                             <li class="list-group-item p-0">
                                                                 <div class="row small">
@@ -327,18 +331,41 @@ rel="stylesheet" -->
 
                                                             <form form_type="4" coment_id="{{ $comment->id }}"
                                                                 reply_id="0">
-                                                                <div class="card card-body p-1 m-0" id="text_div"
+                                                                <div text_div  class="card card-body p-1 m-0" id="text_div_comment{{ $comment->id }}"
                                                                     contenteditable="true"
                                                                     data-placeholder="Напишите ваш ответ">
                                                                     {{ $comment->user_name }} &ensp;
                                                                 </div>
-                                                                {{-- <input type="hidden" name="comment_id"
-                                                                    value="{{ $comment->id }}"> --}}
+                                                                <div class="row p-1 ">
+                                                                    <div class="col-7 me-auto  flex-fill ">
 
-                                                                <button class="btn btn-primary mt-2 btn-sm"
-                                                                    title="Изменение комментария"
-                                                                    type="submit">Ответить
-                                                                </button>
+                                                                        <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_comment_smile{{ $comment->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+
+                                                                        <div class="collapse" id="collapse_comment_smile{{ $comment->id }}">
+                                                                          
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_smile">😀</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_smile">👍</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_smile">👌</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_smile">😂</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_smile">😎</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_smile">😇</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_smile">😝</span>
+                                                                            
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_smile">👎</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_smile">💩</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_smile">😈</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_smile">☠</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_smile">😪</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_smile">😬</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_smile">😭</span>
+                                                                          
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-auto p-0 pe-2 pt-1">
+                                                                        <button class="btn btn-primary btn-sm" title="Ответить"
+                                                                            type="submit">Отправить</button>
+                                                                    </div>
+                                                                </div>
                                                             </form>
 
                                                         </div>
@@ -349,17 +376,41 @@ rel="stylesheet" -->
                                                         <div class="card card-body p-1">
 
                                                             <form form_type="2" coment_id="{{ $comment->id }}">
-                                                                <div class="card card-body p-1 m-0" id="text_div"
+                                                                <div text_div class="card card-body p-1 m-0" id="text_div_comment_edit{{ $comment->id }}"
                                                                     contenteditable="true"
                                                                     data-placeholder="Напишите новый текст">
                                                                     {{ $comment->comment }}
                                                                 </div>
-                                                                {{-- <input type="hidden" name="comment_id"
-                                                                    value="{{ $comment->id }}"> --}}
-                                                                <input name="_method" type="hidden" value="PUT">
-                                                                <button class="btn btn-primary mt-2 btn-sm"
-                                                                    title="Изменение комментария"
-                                                                    type="submit">Изменить</button>
+                                                                <div class="row p-1 ">
+                                                                    <div class="col-7 me-auto  flex-fill ">
+
+                                                                        <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_comment_edit_smile{{ $comment->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+
+                                                                        <div class="collapse" id="collapse_comment_edit_smile{{ $comment->id }}">
+                                                                          
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😀</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_edit_smile">👍</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_edit_smile">👌</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😂</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😎</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😇</span>
+                                                                            <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😝</span>
+                                                                            
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_edit_smile">👎</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_edit_smile">💩</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😈</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_edit_smile">☠</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😪</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😬</span>
+                                                                                <span comment_id="{{ $comment->id }}" class="comment_edit_smile">😭</span>
+                                                                          
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-auto p-0 pe-2 pt-1">
+                                                                        <button class="btn btn-primary btn-sm" title="Ответить"
+                                                                            type="submit">Изменить</button>
+                                                                    </div>
+                                                                </div>
                                                             </form>
 
                                                             <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
@@ -405,14 +456,10 @@ rel="stylesheet" -->
 
                                                                     </div>
                                                                 </div>
-                                                                <ul class="list-group list-group-flush p-0">
-                                                                    <li class="list-group-item p-0">
-                                                                        <span id="reply_text{{ $reply->id }}"
-                                                                            value="www">
-                                                                            {{ $reply->reply }}
-                                                                            {{ $reply->like_comment_active }}
-                                                                        </span>
-                                                                    </li>
+                                                                <ul class="list-group list-group-flush p-0">                                           
+                                                                    <li id="reply_text{{ $reply->id }}"class="list-group-item p-0">
+                                                                        {{ $reply->reply }}
+                                                                </li>
                                                                     <li class="list-group-item p-0">
                                                                         <div class="row small">
                                                                             <div
@@ -481,8 +528,8 @@ rel="stylesheet" -->
                                                                         coment_id="{{ $comment->id }}"
                                                                         reply_id="{{ $reply->id }}">
 
-                                                                        <div class="card card-body p-1 m-0"
-                                                                            id="text_div" contenteditable="true"
+                                                                        <div text_div class="card card-body p-1 m-0"
+                                                                            id="text_div_reply{{ $reply->id }}" contenteditable="true"
                                                                             data-placeholder="Напишите ваш ответ">
                                                                             {{ $reply->user_name }} &ensp;
                                                                         </div>
@@ -490,10 +537,36 @@ rel="stylesheet" -->
                                                                         <input type="hidden" name="name_opponent"
                                                                             value="{{ $reply->user_name }}">
 
-                                                                        <button class="btn btn-primary mt-2 btn-sm"
-                                                                            title="Изменение комментария"
-                                                                            type="submit">Ответить
-                                                                        </button>
+                                                                            <div class="row p-1 ">
+                                                                                <div class="col-7 me-auto  flex-fill ">
+            
+                                                                                    <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_smile{{ $reply->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+            
+                                                                                    <div class="collapse" id="collapse_reply_smile{{ $reply->id }}">
+                                                                                      
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_smile">😀</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_smile">👍</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_smile">👌</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_smile">😂</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_smile">😎</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_smile">😇</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_smile">😝</span>
+                                                                                        
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_smile">👎</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_smile">💩</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_smile">😈</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_smile">☠</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_smile">😪</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_smile">😬</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_smile">😭</span>
+                                                                                      
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-auto p-0 pe-2 pt-1">
+                                                                                    <button class="btn btn-primary btn-sm" title="Ответить"
+                                                                                        type="submit">Ответить</button>
+                                                                                </div>
+                                                                            </div>
                                                                     </form>
 
                                                                 </div>
@@ -507,18 +580,43 @@ rel="stylesheet" -->
 
                                                                     <form form_type="5"
                                                                         reply_id="{{ $reply->id }}">
-                                                                        <div class="card card-body p-1 m-0"
-                                                                            id="text_div" contenteditable="true"
+                                                                        <div text_div class="card card-body p-1 m-0"
+                                                                            id="text_div_reply_edit{{ $reply->id }}" contenteditable="true"
                                                                             data-placeholder="Напишите новый текст">
                                                                             {{ $reply->reply }}
                                                                         </div>
-                                                                        {{-- <input type="hidden" name="reply_id"
-                                                                            value="{{ $reply->id }}"> --}}
                                                                         <input name="_method" type="hidden"
                                                                             value="PUT">
-                                                                        <button class="btn btn-primary mt-2 btn-sm"
-                                                                            title="Изменение комментария"
-                                                                            type="submit">Изменить</button>
+                                                                            <div class="row p-1 ">
+                                                                                <div class="col-7 me-auto  flex-fill ">
+            
+                                                                                    <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_edit_smile{{ $reply->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+            
+                                                                                    <div class="collapse" id="collapse_reply_edit_smile{{ $reply->id }}">
+                                                                                      
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😀</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_edit_smile">👍</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_edit_smile">👌</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😂</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😎</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😇</span>
+                                                                                        <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😝</span>
+                                                                                        
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_edit_smile">👎</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_edit_smile">💩</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😈</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_edit_smile">☠</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😪</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😬</span>
+                                                                                            <span reply_id="{{ $reply->id }}" class="reply_edit_smile">😭</span>
+                                                                                      
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-auto p-0 pe-2 pt-1">
+                                                                                    <button class="btn btn-primary btn-sm" title="Ответить"
+                                                                                        type="submit">Изменить</button>
+                                                                                </div>
+                                                                            </div>
                                                                     </form>
 
                                                                     <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
@@ -589,10 +687,7 @@ rel="stylesheet" -->
                             </div>
                         </div>
                         <ul class="list-group list-group-flush p-0">
-                            <li class="list-group-item p-0">
-                                <span id="comment_text" value="www">
-
-                                </span>
+                            <li id="comment_text"  class="list-group-item p-0"> 
                             </li>
                             <li class="list-group-item p-0">
                                 <div class="row small">
@@ -632,15 +727,40 @@ rel="stylesheet" -->
                         <div class="card card-body p-1">
 
                             <form id="form_reply_comment" form_type="4" coment_id="" reply_id="0">
-                                <div class="card card-body p-1 m-0" id="text_div" contenteditable="true"
+                                <div text_div class="card card-body p-1 m-0" id="text_div_comment" contenteditable="true"
                                     data-placeholder="Напишите ваш ответ">
                                     &ensp;
                                 </div>
-                                {{-- <input id="input4" type="hidden" name="comment_id" value=""> --}}
+                                <div class="row p-1 ">
+                                    <div class="col-7 me-auto  flex-fill ">
 
-                                <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
-                                    type="submit">Ответить
-                                </button>
+                                        <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_comment_smile" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+
+                                        <div class="collapse" id="collapse_comment_smile">
+                                          
+                                            <span comment_id="" class="comment_smile">😀</span>
+                                            <span comment_id="" class="comment_smile">👍</span>
+                                            <span comment_id="" class="comment_smile">👌</span>
+                                            <span comment_id="" class="comment_smile">😂</span>
+                                            <span comment_id="" class="comment_smile">😎</span>
+                                            <span comment_id="" class="comment_smile">😇</span>
+                                            <span comment_id="" class="comment_smile">😝</span>
+                                            
+                                                <span comment_id="" class="comment_smile">👎</span>
+                                                <span comment_id="" class="comment_smile">💩</span>
+                                                <span comment_id="" class="comment_smile">😈</span>
+                                                <span comment_id="" class="comment_smile">☠</span>
+                                                <span comment_id="" class="comment_smile">😪</span>
+                                                <span comment_id="" class="comment_smile">😬</span>
+                                                <span comment_id="" class="comment_smile">😭</span>
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0 pe-2 pt-1">
+                                        <button class="btn btn-primary btn-sm" title="Ответить"
+                                            type="submit">Отправить</button>
+                                    </div>
+                                </div>
                             </form>
 
                         </div>
@@ -653,12 +773,39 @@ rel="stylesheet" -->
                         <div class="card card-body p-1">
 
                             <form id="form_coment" form_type="2" coment_id="">
-                                <div class="card card-body p-1 m-0" id="text_div_comment" contenteditable="true">
+                                <div text_div class="card card-body p-1 m-0" id="text_div_comment_edit" contenteditable="true">
                                 </div>
-                                {{-- <input id="input2" type="hidden" name="comment_id" value=""> --}}
                                 <input name="_method" type="hidden" value="PUT">
-                                <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
-                                    type="submit">Изменить</button>
+                                <div class="row p-1 ">
+                                    <div class="col-7 me-auto  flex-fill ">
+
+                                        <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_comment_edit_smile" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+
+                                        <div class="collapse" id="collapse_comment_edit_smile">
+                                          
+                                            <span comment_id="" class="comment_edit_smile">😀</span>
+                                            <span comment_id="" class="comment_edit_smile">👍</span>
+                                            <span comment_id="" class="comment_edit_smile">👌</span>
+                                            <span comment_id="" class="comment_edit_smile">😂</span>
+                                            <span comment_id="" class="comment_edit_smile">😎</span>
+                                            <span comment_id="" class="comment_edit_smile">😇</span>
+                                            <span comment_id="" class="comment_edit_smile">😝</span>
+                                            
+                                                <span comment_id="" class="comment_edit_smile">👎</span>
+                                                <span comment_id="" class="comment_edit_smile">💩</span>
+                                                <span comment_id="" class="comment_edit_smile">😈</span>
+                                                <span comment_id="" class="comment_edit_smile">☠</span>
+                                                <span comment_id="" class="comment_edit_smile">😪</span>
+                                                <span comment_id="" class="comment_edit_smile">😬</span>
+                                                <span comment_id="" class="comment_edit_smile">😭</span>
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0 pe-2 pt-1">
+                                        <button class="btn btn-primary btn-sm" title="Ответить"
+                                            type="submit">Изменить</button>
+                                    </div>
+                                </div>
                             </form>
 
                             <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
@@ -698,9 +845,7 @@ rel="stylesheet" -->
                             </div>
                         </div>
                         <ul class="list-group list-group-flush p-0">
-                            <li class="list-group-item p-0">
-                                <span id="reply_text">
-                                </span>
+                            <li id="reply_text" class="list-group-item p-0">
                             </li>
                             <li class="list-group-item p-0">
                                 <div class="row small">
@@ -745,16 +890,43 @@ rel="stylesheet" -->
                         <div class="card card-body p-1">
 
                             <form id="form_reply_reply" form_type="4" coment_id="" reply_id="">
-                                <div class="card card-body p-1 m-0" id="text_div" contenteditable="true"
+                                <div text_div class="card card-body p-1 m-0" id="text_div_reply" contenteditable="true"
                                     data-placeholder="Напишите ваш ответ">
                                     &ensp;
                                 </div>
 
                                 <input id="input_name_opponent" type="hidden" name="name_opponent" value="">
 
-                                <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
-                                    type="submit">Ответить
-                                </button>
+                                <div class="row p-1 ">
+                                    <div class="col-7 me-auto  flex-fill ">
+
+                                        <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_smile" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+
+                                        <div class="collapse" id="collapse_reply_smile">
+                                          
+                                            <span reply_id="" class="reply_smile">😀</span>
+                                            <span reply_id="" class="reply_smile">👍</span>
+                                            <span reply_id="" class="reply_smile">👌</span>
+                                            <span reply_id="" class="reply_smile">😂</span>
+                                            <span reply_id="" class="reply_smile">😎</span>
+                                            <span reply_id="" class="reply_smile">😇</span>
+                                            <span reply_id="" class="reply_smile">😝</span>
+                                            
+                                                <span reply_id="" class="reply_smile">👎</span>
+                                                <span reply_id="" class="reply_smile">💩</span>
+                                                <span reply_id="" class="reply_smile">😈</span>
+                                                <span reply_id="" class="reply_smile">☠</span>
+                                                <span reply_id="" class="reply_smile">😪</span>
+                                                <span reply_id="" class="reply_smile">😬</span>
+                                                <span reply_id="" class="reply_smile">😭</span>
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0 pe-2 pt-1">
+                                        <button class="btn btn-primary btn-sm" title="Ответить"
+                                            type="submit">Ответить</button>
+                                    </div>
+                                </div>
                             </form>
 
                         </div>
@@ -765,20 +937,45 @@ rel="stylesheet" -->
                         <div class="card card-body p-1">
 
                             <form id="form_reply_edit" form_type="5" reply_id="">
-                                <div class="card card-body p-1 m-0" id="text_div_reply" contenteditable="true"
+                                <div text_div class="card card-body p-1 m-0" id="text_div_reply_edit" contenteditable="true"
                                     data-placeholder="Напишите новый текст">
-
                                 </div>
-                                {{-- <input id="input_reply2" type="hidden" name="reply_id" value=""> --}}
                                 <input name="_method" type="hidden" value="PUT">
-                                <button class="btn btn-primary mt-2 btn-sm" title="Изменение комментария"
-                                    type="submit">Изменить</button>
+                                <div class="row p-1 ">
+                                    <div class="col-7 me-auto  flex-fill ">
+
+                                        <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_edit_smile" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+
+                                        <div class="collapse" id="collapse_reply_edit_smile">
+                                          
+                                            <span reply_id="" class="reply_edit_smile">😀</span>
+                                            <span reply_id="" class="reply_edit_smile">👍</span>
+                                            <span reply_id="" class="reply_edit_smile">👌</span>
+                                            <span reply_id="" class="reply_edit_smile">😂</span>
+                                            <span reply_id="" class="reply_edit_smile">😎</span>
+                                            <span reply_id="" class="reply_edit_smile">😇</span>
+                                            <span reply_id="" class="reply_edit_smile">😝</span>
+                                            
+                                                <span reply_id="" class="reply_edit_smile">👎</span>
+                                                <span reply_id="" class="reply_edit_smile">💩</span>
+                                                <span reply_id="" class="reply_edit_smile">😈</span>
+                                                <span reply_id="" class="reply_edit_smile">☠</span>
+                                                <span reply_id="" class="reply_edit_smile">😪</span>
+                                                <span reply_id="" class="reply_edit_smile">😬</span>
+                                                <span reply_id="" class="reply_edit_smile">😭</span>
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-auto p-0 pe-2 pt-1">
+                                        <button class="btn btn-primary btn-sm" title="Ответить"
+                                            type="submit">Изменить</button>
+                                    </div>
+                                </div>
                             </form>
 
                             <!-- ФОРМА УДАЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
 
                             <form id="form_reply_del" form_type="6" reply_id="">
-                                {{-- <input id="input_reply1" type="hidden" name="reply_id" value=""> --}}
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button class="btn btn-link m-0 p-0" title="Удаление комментария"
                                     type="submit">удалить</button>

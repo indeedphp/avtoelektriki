@@ -4,29 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resizable Textarea</title>
-
-
+   
+    <link href="bootstrap.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="bootstrap-icons-1.10.5/font/bootstrap-icons.min.css">
 </head>
 <body>
 
- 
-<form id="myForm">
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <button type="submit">Submit</button>
-</form>
+  
+
+
+{{-- type="button"  --}}
+
+
+
+
+
+  {{-- popover --}}
+
+  <i class="bi bi-emoji-smile  " data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">  </i>
+
+  <div class="collapse" id="collapseExample">
+    
+      <span vall="" class="smile">😀</span>
+      <span vall="" class="smile">👍</span>
+      <span vall="" class="smile">👌</span>
+      <span vall="" class="smile">😂</span>
+      <span vall="" class="smile">😎</span>
+      <span vall="" class="smile">😇</span>
+      <span vall="" class="smile">😝</span>
+      
+          <span vall="" class="smile">👎</span>
+          <span vall="" class="smile">💩</span>
+          <span vall="" class="smile">😈</span>
+          <span vall="" class="smile">☠</span>
+          <span vall="" class="smile">😪</span>
+          <span vall="" class="smile">😬</span>
+          <span vall="" class="smile">😭</span>
+    
+  </div>
+
+
+
+
+
+  
+
+
+<script src="bootstrap.bundle.js" integrity="" crossorigin="anonymous"></script>
 
 <script>
-  const form = document.getElementById('myForm');
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Предотвращаем отправку формы
-const formData = new FormData(event.target);
-    {{-- const formData = new FormData(form); --}}
-    console.log(formData);
-    {{-- console.log('Password:', formData.get('password')); --}}
-  });
+
+
+
 </script>
+
 
 </body>
 </html>
