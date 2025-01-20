@@ -8,12 +8,12 @@
     <link rel="shortcut icon" href="favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Профпортал Автоэлектрики">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="bootstrap.bundle.js" integrity="" crossorigin="anonymous"></script>
-    <link href="bootstrap.css" rel="stylesheet">
+    
+    <script src="{{ url('bootstrap.bundle.js') }} " integrity="" crossorigin="anonymous"></script>
+    <link href="{{ url('bootstrap.css') }}" rel="stylesheet">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 rel="stylesheet" -->
-    <link rel="stylesheet" href="bootstrap-icons-1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url('bootstrap-icons-1.10.5/font/bootstrap-icons.min.css') }}">
     <style>
         /* body { overflow-x: hidden; } */
     </style>
@@ -86,8 +86,8 @@ rel="stylesheet" -->
                                     <div class="col-auto p-0"> <a class="link-underline-light" href="#"> <i
                                                 class="bi bi-geo-alt" value="www"></i>{{ 'Алматы' }}</a> </div>
 
-                                    <div class="col-auto p-0 ps-1 px-lg-3 "> <a class="link-underline-light"  target="_blank" 
-                                            href="{{url('channel')}}/{{$post->id_user}}"><i class="bi bi-universal-access ms-auto"
+                                    <div class="col-auto p-0 ps-1 px-lg-3 "> <a class="link-underline-light"
+                                            href="#collapseExample1"><i class="bi bi-universal-access ms-auto"
                                                 value="www"></i>{{ $post->user_name }} </a> </div>
 
 
@@ -97,7 +97,7 @@ rel="stylesheet" -->
                                 <h5 class="card-title">{{ $post->name_post }}</h5>
                                 <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
                                     <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-                                        <img class=" img-fluid shadow " src="{{ $post->url_foto }}"
+                                        <img class=" img-fluid shadow " src=" {{ url($post->url_foto ) }} "
                                             alt="Фото потерялось">
                                     </div>
                                 </div>
@@ -1008,10 +1008,11 @@ rel="stylesheet" -->
 
 
 
-    <script defer src="client.js"></script>
-
+    <script defer src="{{ url('client.js') }}"></script>
+    
 
 
 </body>
 
 </html>
+

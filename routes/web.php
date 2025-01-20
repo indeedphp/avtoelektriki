@@ -8,6 +8,7 @@ use App\Http\Controllers\LikeCommentController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyCommentController;
 use App\Http\Controllers\LikeReplyController;
+use App\Http\Controllers\ChannelController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -22,7 +23,7 @@ use App\Models\Post;
 |
 */
 Route::get('/', [PostController::class, 'show'])->name('show');
-
+Route::get('/channel/{id}', [ChannelController::class, 'show'])->name('channelshow');
 
 Route::get('/1', function () {
     $create_post = Create_post::where('id_user', '7124124425')->first();
@@ -33,7 +34,7 @@ Route::get('/1', function () {
     // return view('index');
 });
 
-Route::get('/2', function () {
+Route::get('/www/{slug}', function () {
 
     return view('welcome');
 });

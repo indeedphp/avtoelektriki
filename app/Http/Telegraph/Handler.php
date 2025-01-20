@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class Handler extends WebhookHandler
 {
@@ -200,6 +201,7 @@ class Handler extends WebhookHandler
 
     public function feedback_2()// получаем запросы от кнопок из text_post_create()
     {
+        $id_user = $this->message->from()->id();  // добавил без проверки
         $arr_chat = $this->chat->toArray();
         $value_button = $this->data->get('value');
         $create_post = Create_post::where('id_user', $arr_chat["chat_id"])->first();
@@ -216,6 +218,7 @@ class Handler extends WebhookHandler
         }
 
         if ($value_button == '2') {
+            $db_user = User::where('name', $id_user)->first();  // добавил без проверки
             $date = date('Y-m-d H:i:s');
             $id = DB::table('posts')->insertGetId([
                 'created_at' => $date,
@@ -223,7 +226,8 @@ class Handler extends WebhookHandler
                 'date' => $create_post->date,
                 'user_name' => $create_post->user_name,
                 'name_post' => $create_post->name_post,
-                'id_user' => $create_post->id_user,
+                'id_user' => $db_user->id,   // добавил без проверки
+                // 'id_user' => $create_post->id_user,   // добавил без проверки
                 'id_post' => $create_post->id_post,
                 'text_post' => $create_post->text_post,
                 'url_foto' => $create_post->url_foto,

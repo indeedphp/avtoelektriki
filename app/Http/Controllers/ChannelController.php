@@ -9,10 +9,36 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-
-class PostController extends Controller
+class ChannelController extends Controller
 {
-    public function show()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
     {
         $post_like_count = 0;
         $post_comment_count = 0;
@@ -30,8 +56,8 @@ class PostController extends Controller
 
         if (!empty(Auth::user()->name)) $name = Auth::user()->name;
         else $name = 0;
-        
-        $posts = Post::all();
+        $posts = Post::where('id_user', '=', $id)->get(); 
+        // $posts = Post::all();
         $posts = $posts->reverse();
 
         foreach ($posts as $post) {
@@ -95,6 +121,30 @@ class PostController extends Controller
             $post_like_count = 0;
         }
 
-        return view('index', compact('posts'));
+        return view('channel', compact('posts'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
