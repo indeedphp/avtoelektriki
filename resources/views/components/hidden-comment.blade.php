@@ -1,0 +1,149 @@
+<div hidden>
+    <div id="test_comment">
+
+        <div class="card  card mb-2 p-0 m-0">
+            <div class="card-header p-0 ">
+                <div class="row">
+                    <div class="col-auto me-auto pe-0 flex-fill">
+                        &nbsp; <b class="small"> </b>
+                    </div>
+                    <div class="col-auto  ps-0">
+                        <nobr class="small"> </nobr>
+                        &nbsp;
+                    </div>
+
+                </div>
+            </div>
+            <ul class="list-group list-group-flush p-0">
+                <li id="comment_text" class="list-group-item p-0">
+                </li>
+                <li class="list-group-item p-0">
+                    <div class="row small">
+                        <div class="col-auto me-auto pe-0 flex-fill">
+                            <i id="like_comment" class='bi bi-hand-thumbs-up ' style="cursor: pointer;" value="3"
+                                comment_id="">
+                                0</i>&nbsp;
+                            <i id="dislike_comment" class="bi bi-hand-thumbs-down" style="cursor: pointer;"
+                                value="4" comment_id=""> 0</i>
+                        </div>
+                        <div class="col-auto  ps-0">
+
+                            <a data-bs-toggle="collapse" href="#coment_collapse" role="button" aria-expanded="false"
+                                aria-controls="collapseExample" title="Редактировать, удалить комментарий"
+                                class="link-underline-light p-0" style="cursor: pointer;">изменить
+                            </a>
+
+                            <a id="coment_reply_collapse" class="link-underline-light p-0" data-bs-toggle="collapse"
+                                href="#coment_reply_collapse" role="button" aria-expanded="false"
+                                aria-controls="collapseExample" title="Редактировать, удалить комментарий"
+                                style=" cursor: pointer;">
+                                &ensp; ответить
+                            </a>
+
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <!-- \\\\\\\\\\\\\\\\\\\\\\\\ ФОРМА ОТВЕТА НА КОММЕНТАРИИ ==================================================================================== -->
+        <div class="collapse" id="coment_reply_collapse_hidden">
+            <div class="card card-body p-1">
+
+                <form id="form_reply_comment" form_type="4" coment_id="" reply_id="0">
+                    <div text_div class="card card-body p-1 m-0" id="text_div_comment" contenteditable="true"
+                        data-placeholder="Напишите ваш ответ">
+                        &ensp;
+                    </div>
+                    <div class="row p-1 ">
+                        <div class="col-7 me-auto  flex-fill ">
+
+                            <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_comment_smile"
+                                role="button" aria-expanded="false" aria-controls="collapseExample"> </i>
+
+                            <div class="collapse" id="collapse_comment_smile">
+
+                                <span comment_id="" class="comment_smile">😀</span>
+                                <span comment_id="" class="comment_smile">👍</span>
+                                <span comment_id="" class="comment_smile">👌</span>
+                                <span comment_id="" class="comment_smile">😂</span>
+                                <span comment_id="" class="comment_smile">😎</span>
+                                <span comment_id="" class="comment_smile">😇</span>
+                                <span comment_id="" class="comment_smile">😝</span>
+
+                                <span comment_id="" class="comment_smile">👎</span>
+                                <span comment_id="" class="comment_smile">💩</span>
+                                <span comment_id="" class="comment_smile">😈</span>
+                                <span comment_id="" class="comment_smile">☠</span>
+                                <span comment_id="" class="comment_smile">😪</span>
+                                <span comment_id="" class="comment_smile">😬</span>
+                                <span comment_id="" class="comment_smile">😭</span>
+
+                            </div>
+                        </div>
+                        <div class="col-auto p-0 pe-2 pt-1">
+                            <button class="btn btn-primary btn-sm" title="Ответить" type="submit">Отправить</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ФОРМА ИСПРАВЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+
+        <div class="collapse" id="coment_collapse">
+            <div class="card card-body p-1">
+
+                <form id="form_coment" form_type="2" coment_id="">
+                    <div text_div class="card card-body p-1 m-0" id="text_div_comment_edit" contenteditable="true">
+                    </div>
+                    <input name="_method" type="hidden" value="PUT">
+                    <div class="row p-1 ">
+                        <div class="col-7 me-auto  flex-fill ">
+
+                            <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse"
+                                href="#collapse_comment_edit_smile" role="button" aria-expanded="false"
+                                aria-controls="collapseExample"> </i>
+
+                            <div class="collapse" id="collapse_comment_edit_smile">
+
+                                <span comment_id="" class="comment_edit_smile">😀</span>
+                                <span comment_id="" class="comment_edit_smile">👍</span>
+                                <span comment_id="" class="comment_edit_smile">👌</span>
+                                <span comment_id="" class="comment_edit_smile">😂</span>
+                                <span comment_id="" class="comment_edit_smile">😎</span>
+                                <span comment_id="" class="comment_edit_smile">😇</span>
+                                <span comment_id="" class="comment_edit_smile">😝</span>
+
+                                <span comment_id="" class="comment_edit_smile">👎</span>
+                                <span comment_id="" class="comment_edit_smile">💩</span>
+                                <span comment_id="" class="comment_edit_smile">😈</span>
+                                <span comment_id="" class="comment_edit_smile">☠</span>
+                                <span comment_id="" class="comment_edit_smile">😪</span>
+                                <span comment_id="" class="comment_edit_smile">😬</span>
+                                <span comment_id="" class="comment_edit_smile">😭</span>
+
+                            </div>
+                        </div>
+                        <div class="col-auto p-0 pe-2 pt-1">
+                            <button class="btn btn-primary btn-sm" title="Ответить" type="submit">Изменить</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
+
+                <form id="form_coment_del" form_type="3" coment_id="">
+                    <input type="hidden" name="comment_id" value="">
+                    <input id="input3" name="_method" type="hidden" value="DELETE">
+                    <button id='but2' class="btn btn-link m-0 p-0" title="Удаление комментария"
+                        type="submit">удалить</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="reply">
+        </div>
+    </div>
+</div>

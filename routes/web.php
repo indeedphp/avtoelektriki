@@ -23,7 +23,7 @@ use App\Models\Post;
 |
 */
 Route::get('/', [PostController::class, 'show'])->name('show');
-Route::get('/channel/{id}', [ChannelController::class, 'show'])->name('channelshow');
+Route::get('/channel/{id}', [ChannelController::class, 'show'])->name('channel_show');
 
 Route::get('/1', function () {
     $create_post = Create_post::where('id_user', '7124124425')->first();
@@ -34,7 +34,7 @@ Route::get('/1', function () {
     // return view('index');
 });
 
-Route::get('/www/{slug}', function () {
+Route::get('/2', function () {
 
     return view('welcome');
 });

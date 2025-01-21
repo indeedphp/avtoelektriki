@@ -1,0 +1,154 @@
+<div hidden>
+    <div id="replu_hidden">
+
+        <div class="card mb-2 p-0 ms-2">
+            <div class="card-header p-0 ">
+                <div class="row">
+                    <div class="col-auto me-auto pe-0 flex-fill">
+                        &nbsp; <b class="small">
+                        </b>
+                    </div>
+                    <div class="col-auto  ps-0">
+                        <nobr class="small"> </nobr>
+                        &nbsp;
+                    </div>
+
+                </div>
+            </div>
+            <ul class="list-group list-group-flush p-0">
+                <li id="reply_text" class="list-group-item p-0">
+                </li>
+                <li class="list-group-item p-0">
+                    <div class="row small">
+                        <div class="col-auto me-auto pe-0 flex-fill">
+                            {{-- ЛАЙК ДИЗЛАЙК ОТВЕТ==========================================================================    --}}
+
+                            <i id="like_reply" class="bi bi-hand-thumbs-up" style="cursor: pointer;" value="5"
+                                reply_id=""> 0
+                            </i>&nbsp;
+                            <i id="dislike_reply" class=" bi bi-hand-thumbs-down " style="cursor: pointer;"
+                                value="6" reply_id=""> 0
+                            </i>
+                        </div>
+                        <div class="col-auto  ps-0">
+
+                            <a id="hidden_reply_collapse_edit" class="link-underline-light p-0"
+                                data-bs-toggle="collapse" href="#reply_collapse_edit" role="button"
+                                aria-expanded="false" aria-controls="collapseExample"
+                                title="Редактировать, удалить комментарий" style="cursor: pointer;">изменить
+                            </a>
+
+                            <a id="hidden_reply_collapse" class="link-underline-light p-0" data-bs-toggle="collapse"
+                                href="#reply_collapse" role="button" aria-expanded="false"
+                                aria-controls="collapseExample" title="Ответить на комментарий"
+                                style=" cursor: pointer;">
+                                &ensp; ответить
+                            </a>
+
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- \\\\\\\\\\\\\\\\\\\\\\\\ ФОРМА ОТВЕТА НА ОТВЕТ ==================================================================================== -->
+        <div class="collapse" id="reply_collapse">
+            <div class="card card-body p-1">
+
+                <form id="form_reply_reply" form_type="4" coment_id="" reply_id="">
+                    <div text_div class="card card-body p-1 m-0" id="text_div_reply" contenteditable="true"
+                        data-placeholder="Напишите ваш ответ">
+                        &ensp;
+                    </div>
+
+                    <input id="input_name_opponent" type="hidden" name="name_opponent" value="">
+
+                    <div class="row p-1 ">
+                        <div class="col-7 me-auto  flex-fill ">
+
+                            <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_smile"
+                                role="button" aria-expanded="false" aria-controls="collapseExample"> </i>
+
+                            <div class="collapse" id="collapse_reply_smile">
+
+                                <span reply_id="" class="reply_smile">😀</span>
+                                <span reply_id="" class="reply_smile">👍</span>
+                                <span reply_id="" class="reply_smile">👌</span>
+                                <span reply_id="" class="reply_smile">😂</span>
+                                <span reply_id="" class="reply_smile">😎</span>
+                                <span reply_id="" class="reply_smile">😇</span>
+                                <span reply_id="" class="reply_smile">😝</span>
+
+                                <span reply_id="" class="reply_smile">👎</span>
+                                <span reply_id="" class="reply_smile">💩</span>
+                                <span reply_id="" class="reply_smile">😈</span>
+                                <span reply_id="" class="reply_smile">☠</span>
+                                <span reply_id="" class="reply_smile">😪</span>
+                                <span reply_id="" class="reply_smile">😬</span>
+                                <span reply_id="" class="reply_smile">😭</span>
+
+                            </div>
+                        </div>
+                        <div class="col-auto p-0 pe-2 pt-1">
+                            <button class="btn btn-primary btn-sm" title="Ответить" type="submit">Ответить</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ФОРМА ИСПРАВЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
+        <div class="collapse" id="reply_collapse_edit">
+            <div class="card card-body p-1">
+
+                <form id="form_reply_edit" form_type="5" reply_id="">
+                    <div text_div class="card card-body p-1 m-0" id="text_div_reply_edit" contenteditable="true"
+                        data-placeholder="Напишите новый текст">
+                    </div>
+                    <input name="_method" type="hidden" value="PUT">
+                    <div class="row p-1 ">
+                        <div class="col-7 me-auto  flex-fill ">
+
+                            <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse"
+                                href="#collapse_reply_edit_smile" role="button" aria-expanded="false"
+                                aria-controls="collapseExample"> </i>
+
+                            <div class="collapse" id="collapse_reply_edit_smile">
+
+                                <span reply_id="" class="reply_edit_smile">😀</span>
+                                <span reply_id="" class="reply_edit_smile">👍</span>
+                                <span reply_id="" class="reply_edit_smile">👌</span>
+                                <span reply_id="" class="reply_edit_smile">😂</span>
+                                <span reply_id="" class="reply_edit_smile">😎</span>
+                                <span reply_id="" class="reply_edit_smile">😇</span>
+                                <span reply_id="" class="reply_edit_smile">😝</span>
+
+                                <span reply_id="" class="reply_edit_smile">👎</span>
+                                <span reply_id="" class="reply_edit_smile">💩</span>
+                                <span reply_id="" class="reply_edit_smile">😈</span>
+                                <span reply_id="" class="reply_edit_smile">☠</span>
+                                <span reply_id="" class="reply_edit_smile">😪</span>
+                                <span reply_id="" class="reply_edit_smile">😬</span>
+                                <span reply_id="" class="reply_edit_smile">😭</span>
+
+                            </div>
+                        </div>
+                        <div class="col-auto p-0 pe-2 pt-1">
+                            <button class="btn btn-primary btn-sm" title="Ответить" type="submit">Изменить</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- ФОРМА УДАЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
+
+                <form id="form_reply_del" form_type="6" reply_id="">
+                    <input name="_method" type="hidden" value="DELETE">
+                    <button class="btn btn-link m-0 p-0" title="Удаление комментария" type="submit">удалить</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
