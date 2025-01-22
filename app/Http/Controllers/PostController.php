@@ -31,6 +31,8 @@ class PostController extends Controller
         if (!empty(Auth::user()->name)) $name = Auth::user()->name;
         else $name = 0;
         
+        // $posts = Post::orderBy('id', 'desc')->paginate(5);
+
         $posts = Post::all();
         $posts = $posts->reverse();
 

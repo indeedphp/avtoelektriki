@@ -1,12 +1,14 @@
 @extends('layouts/main') 
 
-@section('comments')  
+@section('posts')  
 
 
 
 <x-posts :posts="$posts"/>
 
+@section('hidden') 
 <x-hidden-comment />
 <x-hidden-reply />
+@endsection 
 
  @endsection 

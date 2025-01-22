@@ -85,6 +85,42 @@ rel="stylesheet" -->
         0 @endauth </div>
 
 <script defer src="{{ url('client.js') }}"></script>
+<script>
+window.addEventListener('scroll', event => {
+  if (scrollY + innerHeight <= document.body.scrollHeight + 3  &&  scrollY + innerHeight >= document.body.scrollHeight - 3 ) {
+    console.log('fff222f');
+    
+  }
+});
+// console.log(scrollX);
+// function handleScroll() {
+//     var div = document.getElementById("div-id");
+//     if(Math.abs(Math.round(div.scrollHeight - div.scrollTop) - div.clientHeight) > 3) {
+//         console.log("Scroll bar reached bottom end");   
+//         return true;
+//     }
+//     return false;
+// };
 
+// var scroll = document.getElementById('scroll');
+// var content = document.getElementById('content');
+
+// scroll.onscroll = function(){
+//     var total = scroll.scrollTop + scroll.clientHeight;
+
+//     if(total == content.clientHeight)
+//         alert('Reached bottom!');
+// }
+
+// (function(scroll){
+//   scroll.onscroll = function(){
+//     if (scroll.scrollTop + scroll.clientHeight == scroll.scrollHeight) {
+//       console.log('hither!');
+//     }
+//   }
+// })(document.getElementById('scroll'));
+
+
+</script>
 </body>
 </html>
