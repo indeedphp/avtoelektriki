@@ -1,181 +1,215 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts/main') 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-    <script src="{{ url('bootstrap.bundle.js') }} " integrity="" crossorigin="anonymous"></script>
-    <link href="{{ url('bootstrap.css') }}" rel="stylesheet">
-    <title>Document</title>
-</head>
+@section('posts')  
 
-<body>
+<div id="posts">
+kjhkh
+    
+</div>
+<div hidden>
+    
+<div id='wrapper'>
+    {{-- foreach posts as post) --}}
+        <div class="card  mb-3  shadow ">
+            <div class=" card-header text-muted py-1 p-lg-3">
+                <div class="row">
 
-    <div id="comments">
+                    <div class="col-auto me-auto p-0 ">
+                        <i id="i_clock" class="bi bi-clock p-lg-1" value="www">js время</i>
+                    </div>
+
+                    <div class="col-auto p-0"> <a class="link-underline-light" href="#"> <i class="bi bi-geo-alt"
+                                value="www"></i> Алматы </a> </div>
+
+                    <div class="col-auto p-0 ps-1 px-lg-3 "> 
+                        <a id="a_channel" class="link-underline-light" target="_blank" href="ссылка на канал юзера">
+                            <i id="i_human" class="bi bi-universal-access ms-auto" value="www">js юзер нейм</i>
+                            </a> </div>
+                </div>
+            </div>
+            <div class="card-body px-1 px-lg-5 py-1">
+                <h5 id="h_name_post" class="card-title">
+                   js название поста
+                </h5>
+                <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                    <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                        <img id="img_url1" class=" img-fluid shadow " 
+                        src="" alt="Фото потерялось">
+                    </div>
+                </div>
+
+                <div class="card-text"> <span id="span_text_post">выводим текст под фото</span>
+                    <a id="a_collapse_post" class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
+                        data-bs-target="js collapse" aria-expanded="false"
+                        aria-controls="collapseExample"> развернуть </a>
+                </div>
+
+                <div id="div_collapse_post" class="collapse p-0" >
+                    <div class=" p-1">
+
+                        <div class="card-text"> 
+                        </div>
+                    
+                            <div hidden id="div_hidden_post" class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                                <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                                    <img id="img_url2" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                                </div>
+                                <p id="p_text_post_2" class="card-text"></p>
+                            </div>
+
+                            <div hidden id="div_hidden_post2" class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                                <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                                    <img id="img_url3" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                                </div>
+                                <p id="p_text_post_3" class="card-text"></p>
+                            </div>
+  
+                                <a id="a_collapse_post_end" class="link-underline-light p-0"
+                                    href="#collapseExample1" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample" aria-expanded="false" 
+                                    aria-controls="collapseExample"> &nbsp &nbsp свернуть </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted p-0 m-0 p-lg-3 ">
+                <div class="row">
+                    
+                    <div class="col-auto pe-2">
+                        <i id="like_post" class="bi bi-hand-thumbs-up"
+                            style="cursor: pointer;" value="1"
+                            post_id="js"></i>&nbsp;
+                    </div>
 
 
-    </div>
+                    <!-- РЕПОСТ -->
+                    <div class="col-auto me-auto p-0">
+                        <a id="a_collapse_repost" class="link-underline-light" title="Репост" href="#collapseExample1"
+                            data-bs-toggle="collapse" data-bs-target="#collapse"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            <i class="bi bi-share" value="www"></i></i>
+                            Поделится
+                        </a>
+                    </div>
+                    <!-- КОМЕНТАРИИ КНОПКА -->
+                    <div class="col-auto ">
+                        <a id="a_collapse_comment"  class="link-underline-light p-0" title="Написать, прочитать комментарии"
+                            href="#collapseExample1" data-bs-toggle="collapse"
+                            data-bs-target="#collapseComment" aria-expanded="false"
+                            aria-controls="collapseExample"><i class="bi bi-chat-dots" value="www"></i></i>
+                            Коментарии
+                            <i id="comm_count
+                            {{-- post->id  --}}
+                             ">
+                             {{-- post->post_comment_count  --}}
+                            </i>&nbsp;</a>
+                    </div>
+                </div>
+                {{-- РЕПОСТЫ  ===================================================================================================================================================== --}}
+                <div id="div_repost" class="collapse py-0" >
+                    <div class="card card-body px-3 py-1">
+                        <div class="row p-0">
+                            <div class="col-auto px-1"><a class="link-underline-light" href="#"> <i id="i_repost_post" 
+                                        class="bi bi-card-text" value="www"> Пост</i> </a> 
+                                    </div>
+                            <div class="col-auto px-1"><a class="link-underline-light" href="#"> <i
+                                        class="bi bi-telegram" value="www">
+                                        Телеграмм</i></a>
+                                     </div>
+                            <div class="col-auto px-1"><a class="link-underline-light" href="#"> <i
+                                        class="bi bi-whatsapp" value="www">
+                                        Whatsapp</i> </a> 
+                                     </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- ФОРМА ВВОДА КОММЕНТАРИЕВ  ===================================================================================================================================================== --}}
+                <div  id="div_comment" class="collapse p-0" >
+                    <div  class="card card-body p-1 ">
+                        <form id="form" post_id="js" form_type="1">
 
-	<button id="button" type="button" class="btn btn-primary">Primary</button>
+                            <div text_div class="card card-body p-1 " id="text_div_post"  
+                            contenteditable="true" data-placeholder="Напишите комментарий">
+                        </div>
+                                <div class="row p-1 ">
+                                <div class="col-7 me-auto  flex-fill ">
+                                    <i id="i_smile_collapse" class="bi bi-emoji-smile h3 " data-bs-toggle="collapse"
+                                        href="collapse_post_smile" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample"> </i>
 
-    <div hidden>
-        <div id="test" class="card m-2" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-                <p class="card-text"></p>
+                                    <div id="div_smile" class="collapse">
+
+                                        <span post_id="" class="post_smile">😀</span>
+                                        <span post_id="" class="post_smile">👍</span>
+                                        <span post_id="" class="post_smile">👌</span>
+                                        <span post_id="" class="post_smile">😂</span>
+                                        <span post_id="" class="post_smile">😎</span>
+                                        <span post_id="" class="post_smile">😇</span>
+                                        <span post_id="" class="post_smile">😝</span>
+
+                                        <span post_id="" class="post_smile">👎</span>
+                                        <span post_id="" class="post_smile">💩</span>
+                                        <span post_id="" class="post_smile">😈</span>
+                                        <span post_id="" class="post_smile">☠</span>
+                                        <span post_id="" class="post_smile">😪</span>
+                                        <span post_id="" class="post_smile">😬</span>
+                                        <span post_id="" class="post_smile">😭</span>
+
+                                    </div>
+                                </div>
+                                <div class="col-auto p-0 pe-2 pt-1">
+                                    <button class="btn btn-primary btn-sm" title="Отправить"
+                                        type="submit">Отправить</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="comm">
+{{-- КОМЕНТАРИИ ===================================================================================================================================================== --}}
+                        {{-- <x-comments :post="$post"/> --}}
+                        <!-- ==================================== КНОПКА СВЕРНУТЬ В КОНЦЕ КОММЕНТОВ ====================================== -->
+
+
+                        </div>
+                        
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto me-auto pe-0 flex-fill">
+                                </div>
+                                <div class="col-auto  ps-0">
+                                    <a id="a_collapse_comment_end" class="link-underline-light p-0" href="#collapseExample1"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseComment
+                                        {{-- post-id  --}}
+                                         " aria-expanded="false"
+                                        aria-controls="collapseExample"><i class="bi bi-chat-dots"
+                                            value="www"></i></i> Свернуть
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-
-    <script>
-	let tes = 1;
-
-        let test = document.getElementById('test');
-        let comments = document.getElementById('comments');
-let button = document.getElementById('button');
+    {{-- endforeach --}}
+</div>
+</div>
 
 
+@section('hidden') 
+<x-hidden-comment />
 
+@endsection 
 
 
 
-window.addEventListener('scroll', event => {
-  if (scrollY + innerHeight - 2 <= document.body.scrollHeight && scrollY + innerHeight + 1 >= document.body.scrollHeight) {
-	fetch(tes)
-            .then(response => response.json())
-            .then(commits => {
-                console.dir(commits.last_page);
-console.dir(commits);
-                commits.data.forEach(function(item, i, enu) { // перебираем смайлики
-                    let clone = test.cloneNode(true);
-tes = commits.next_page_url;
-
-                    clone.querySelector('h5').textContent = item['user_name'];
-                    clone.querySelector('h6').textContent = item['name_post'];
-                    clone.querySelector('p').textContent = item['text_post'];
-                    clone.id = 'one';
-                    comments.appendChild(clone);
-
-                    // console.dir(item);
-
-                });
+@endsection 
 
 
 
-            });
-  }
-});
 
 
 
-button.addEventListener('click', (event) => {
-	fetch(tes)
-            .then(response => response.json())
-            .then(commits => {
-                console.dir(commits.last_page);
-console.dir(commits);
-                commits.data.forEach(function(item, i, enu) { // перебираем смайлики
-                    let clone = test.cloneNode(true);
-
-					tes = commits.next_page_url;
-                    clone.querySelector('h5').textContent = item['user_name'];
-                    clone.querySelector('h6').textContent = item['name_post'];
-                    clone.querySelector('p').textContent = item['text_post'];
-                    clone.id = 'one';
-                    comments.appendChild(clone);
-
-                    // console.dir(item);
-
-                });
 
 
 
-            });
-
-
-
-});
-
-
-        fetch('/api/')
-            .then(response => response.json())
-            .then(commits => {
-                console.dir(commits.last_page);
-				tes = commits.next_page_url;
-console.dir(commits.next_page_url);
-console.dir(commits);
-                commits.data.forEach(function(item, i, enu) { // перебираем смайлики
-                    // let clone = test.cloneNode(true);
-
-
-                    // clone.querySelector('h5').textContent = item['user_name'];
-                    // clone.querySelector('h6').textContent = item['name_post'];
-                    // clone.querySelector('p').textContent = item['text_post'];
-                    // clone.id = 'one';
-                    // comments.appendChild(clone);
-
-                    // console.dir(prev_page_url);
-					func(test, item)
-                });
-
-
-
-            });
-
-			function func(test, item) {
-				let clone = test.cloneNode(true);
-
-
-clone.querySelector('h5').textContent = item['user_name'];
-clone.querySelector('h6').textContent = item['name_post'];
-clone.querySelector('p').textContent = item['text_post'];
-clone.id = 'one';
-comments.appendChild(clone);
-}
-
-
-
-        // clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
-        //         clone.querySelector('b').textContent = commits['user_name'] + ' ';
-        //         clone.querySelector('#comment_text').textContent = commits['comment'];
-        //         clone.querySelector('#comment_text').id = "comment_text" + commits['id'];
-        //         clone.querySelector('a').setAttribute('href', "#coment_collapse" + commits['id']);
-        //         clone.querySelector('#coment_reply_collapse').href = "#coment_reply_collapse" + commits['id'];
-        //         clone.querySelector('#coment_reply_collapse_hidden').id = "coment_reply_collapse" + commits['id'];
-        //         clone.querySelector('#form_reply_comment').setAttribute('coment_id', commits['id']);
-        //         clone.querySelector('#text_div_comment').textContent = commits['user_name'] + ' ';
-        //         clone.querySelector('#text_div_comment').id = 'text_div_comment' + commits['id'];
-        //         clone.querySelector('#coment_collapse').id = "coment_collapse" + commits['id'];
-        //         clone.querySelector('#form_coment').setAttribute('coment_id', commits['id']);
-        //         clone.querySelector('#text_div_comment_edit').textContent = commits['comment'];
-        //         clone.querySelector('#text_div_comment_edit').id = 'text_div_comment_edit' + commits['id'];
-        //         clone.querySelector('#form_coment_del').setAttribute('coment_id', commits['id']);
-        //         clone.querySelector('#input3').value = commits['id'];
-        //         clone.querySelector('#but2').id = "butw" + post_id;
-        //         clone.querySelector('#like_comment').setAttribute('comment_id', commits['id']);
-        //         clone.querySelector('#dislike_comment').setAttribute('comment_id', commits['id']);
-        //         clone.querySelector('#reply').id = "reply" + commits['id'];
-        //         clone.id = 'one_comment' + commits['id'];
-
-
-
-        // fetch('/api/', {
-        // 	method: 'POST',
-        // 	headers: {
-        // 		'Accept': 'application/json',
-        // 		'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        // 	},
-        // 	body: ''
-        // })
-        // 	.then(response => response.json())
-        // 	.then(commits => {
-        // 		console.dir(commits);
-
-        // 	});
-    </script>
-</body>
-
-</html>

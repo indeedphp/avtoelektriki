@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,8 +22,10 @@ use Illuminate\Support\Facades\Route;
 //     return ['user' => 'bob'];
 //     });
 
-    Route::get('/', function () {  // апи, из базы берем все
-        return App\Models\Test::orderBy('id', 'desc')->cursorPaginate(5);
+Route::get('/', [PostController::class, 'show'])->name('show');
+
+    // Route::get('/', function () {  // апи, из базы берем все
+    //     return App\Models\Post::orderBy('id')->cursorPaginate(3);
 
 
-        });
+    //     });

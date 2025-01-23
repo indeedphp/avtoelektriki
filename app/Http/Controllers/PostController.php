@@ -31,10 +31,10 @@ class PostController extends Controller
         if (!empty(Auth::user()->name)) $name = Auth::user()->name;
         else $name = 0;
         
-        // $posts = Post::orderBy('id', 'desc')->paginate(5);
+        $posts = Post::orderBy('id')->paginate(5);
 
-        $posts = Post::all();
-        $posts = $posts->reverse();
+        // $posts = Post::all();
+        // $posts = $posts->reverse();
 
         foreach ($posts as $post) {
             $post->like_plus();
@@ -97,6 +97,7 @@ class PostController extends Controller
             $post_like_count = 0;
         }
 
-        return view('index', compact('posts'));
+        // return view('index', compact('posts'));
+        return $posts;
     }
 }

@@ -11,7 +11,7 @@
                         <nobr class="small"> </nobr>
                         &nbsp;
                     </div>
-
+                    {{-- comment_text --}}
                 </div>
             </div>
             <ul class="list-group list-group-flush p-0">
