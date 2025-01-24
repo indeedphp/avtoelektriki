@@ -3,8 +3,7 @@
 @section('posts')  
 
 <div id="posts">
-kjhkh
-    
+
 </div>
 <div hidden>
     
@@ -97,7 +96,7 @@ kjhkh
                             data-bs-target="#collapseComment" aria-expanded="false"
                             aria-controls="collapseExample"><i class="bi bi-chat-dots" value="www"></i></i>
                             Коментарии
-                            <i id="comm_count
+                            <i id="i_comment_count" id="comm_count
                             {{-- post->id  --}}
                              ">
                              {{-- post->post_comment_count  --}}
@@ -162,7 +161,7 @@ kjhkh
                                 </div>
                             </div>
                         </form>
-                        <div id="comm">
+                        <div id="comm" class="overflow-x-hidden p-0" style="max-height: 300px;">
 {{-- КОМЕНТАРИИ ===================================================================================================================================================== --}}
                         {{-- <x-comments :post="$post"/> --}}
                         <!-- ==================================== КНОПКА СВЕРНУТЬ В КОНЦЕ КОММЕНТОВ ====================================== -->
@@ -198,7 +197,7 @@ kjhkh
 
 @section('hidden') 
 <x-hidden-comment />
-
+<x-hidden-reply />
 @endsection 
 
 

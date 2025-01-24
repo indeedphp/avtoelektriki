@@ -22,11 +22,14 @@ class PostController extends Controller
         $comment_dislike_count = 0;
         $comment_like_active = false;
         $comment_dislike_active = false;
+        $comment_made_user = false;
 
         $reply_like_count = 0;
         $reply_dislike_count = 0;
         $reply_like_active = false;
         $reply_dislike_active = false;
+        $reply_made_user = false;
+        
 
         if (!empty(Auth::user()->name)) $name = Auth::user()->name;
         else $name = 0;
@@ -39,7 +42,9 @@ class PostController extends Controller
         foreach ($posts as $post) {
             $post->like_plus();
             $post->comment_plus();
-     
+           
+            $post->time = date('d-m-Y', strtotime($post->created_at)); 
+
             foreach ($post->like_plus as $like) {
                 if ($like->like == 1)
                     $post_like_count++;
@@ -51,8 +56,12 @@ class PostController extends Controller
             foreach ($post->comment_plus as $comment) {
                 $comment->like_comment_plus();
                 $comment->reply_comment_plus();
+                $comment->time = date('d-m-Y', strtotime($comment->created_at)); 
+                if ($name == $comment->id_user) $comment_made_user = true;
                 foreach ($comment->reply_comment_plus as $reply_comment) {
                     $reply_comment->reply_like_plus();
+                    $reply_comment->time = date('d-m-Y', strtotime($reply_comment->created_at)); 
+                    if ($name == $reply_comment->id_user) $reply_made_user = true;
                     foreach ($reply_comment->reply_like_plus as $reply_like) {
                         if ($reply_like->like == 1)$reply_like_count++;
                         if ($reply_like->dislike == 1)$reply_dislike_count++;
@@ -69,6 +78,8 @@ class PostController extends Controller
                     $reply_like_count = 0;
                     $reply_dislike_count = 0;
                     $post_comment_count++;
+                    $reply_comment->reply_made_user = $reply_made_user;
+                    $reply_made_user = false;
                 }
 
                 foreach ($comment->like_comment_plus as $like_comment) {
@@ -84,9 +95,11 @@ class PostController extends Controller
                 $comment_like_active = false;
                 $comment_dislike_active = false;
                 $comment->comment_like_count = $comment_like_count;
-                $comment->comment_dislike = $comment_dislike_count;
+                $comment->comment_dislike_count = $comment_dislike_count;
                 $comment_like_count = 0;
                 $comment_dislike_count = 0;
+                $comment->comment_made_user = $comment_made_user;
+                $comment_made_user = false;
             }
 
             $post->post_like_active = $post_like_active;

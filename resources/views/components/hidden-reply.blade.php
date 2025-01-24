@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-auto  ps-0">
 
-                            <a id="hidden_reply_collapse_edit" class="link-underline-light p-0"
+                            <a hidden id="hidden_reply_collapse_edit" class="link-underline-light p-0"
                                 data-bs-toggle="collapse" href="#reply_collapse_edit" role="button"
                                 aria-expanded="false" aria-controls="collapseExample"
                                 title="Редактировать, удалить комментарий" style="cursor: pointer;">изменить
@@ -67,7 +67,7 @@
                     <div class="row p-1 ">
                         <div class="col-7 me-auto  flex-fill ">
 
-                            <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_smile"
+                            <i id="i_reply_reply_collapse_smile" class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_smile"
                                 role="button" aria-expanded="false" aria-controls="collapseExample"> </i>
 
                             <div class="collapse" id="collapse_reply_smile">
@@ -111,7 +111,7 @@
                     <div class="row p-1 ">
                         <div class="col-7 me-auto  flex-fill ">
 
-                            <i class="bi bi-emoji-smile h3 " data-bs-toggle="collapse"
+                            <i id="i_reply_edit_collapse_smile" class="bi bi-emoji-smile h3 " data-bs-toggle="collapse"
                                 href="#collapse_reply_edit_smile" role="button" aria-expanded="false"
                                 aria-controls="collapseExample"> </i>
 

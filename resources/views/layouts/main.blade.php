@@ -85,6 +85,6 @@ rel="stylesheet" -->
         0 @endauth </div>
 
 <script defer src="{{ url('client2.js') }}"></script>
-
+{{-- <script defer src="{{ url('client.js') }}"></script> --}}
 </body>
 </html>
