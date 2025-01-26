@@ -27,7 +27,7 @@ rel="stylesheet" -->
 
                 <nav class="navbar navbar-expand-lg  fixed-top navbar bg-primary" data-bs-theme="dark">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Автоэлектрики</a>
+                        <a class="navbar-brand" href="{{ url('/') }}">Автоэлектрики</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Переключатель навигации">
@@ -44,9 +44,9 @@ rel="stylesheet" -->
                                     @endauth
                                 </li>
                                 <li class="nav-item ms-auto">
-                                    @auth
+                                    {{-- @auth
                                         <a class="nav-link active " aria-current="page" href="#">Главная</a>
-                                    @endauth
+                                    @endauth --}}
                                     @guest
                                         <a class="nav-link active " href="{{ route('login') }}">Вход</a>
                                     @endguest
@@ -66,10 +66,10 @@ rel="stylesheet" -->
                 </nav>
 
                 <div class=" my-3 py-3"></div> {{-- отодвигатор --}}
-
+                <div id='content'>
  @yield('posts')  
 
-</div>
+</div></div>
 
 <div id=li class="col-lg-2 "> </div>
 </div></div>
@@ -85,6 +85,6 @@ rel="stylesheet" -->
         0 @endauth </div>
 
 <script defer src="{{ url('client2.js') }}"></script>
-{{-- <script defer src="{{ url('client.js') }}"></script> --}}
+<script defer src="{{ url('client.js') }}"></script>
 </body>
 </html>

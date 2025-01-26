@@ -1,4 +1,4 @@
-<div id='wrapper'>
+<div id='wrapp'>
     @foreach ($posts as $post)
         <div class="card  mb-3  shadow ">
             <div class=" card-header text-muted py-1 p-lg-3">
@@ -170,7 +170,7 @@
                         </div>
                     </div>
                 </div>
-
+                
             </div>
         </div>
     @endforeach

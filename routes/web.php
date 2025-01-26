@@ -22,7 +22,7 @@ use App\Models\Post;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [PostController::class, 'show'])->name('show');
+Route::get('/api_post', [PostController::class, 'show'])->name('show');
 Route::get('/channel/{id}', [ChannelController::class, 'show'])->name('channel_show');
 
 Route::get('/1', function () {
@@ -34,12 +34,15 @@ Route::get('/1', function () {
     // return view('index');
 });
 
-Route::get('/2', function () {
+Route::get('/', function () {
 
     return view('welcome');
 });
 
+Route::get('/5', function () {
 
+    return view('index');
+});
 
 
 

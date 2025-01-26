@@ -41,9 +41,9 @@ window.addEventListener('click', function (event) {
 let user_name_id = document.getElementById("user_name_id").textContent;
 
 // =================================================================== ОТПРАВКА  КОМЕНТАРИЯ  ================================================================================== 
-const wrapper = document.getElementById('wrapper');
+const content = document.getElementById('content');
 
-wrapper.addEventListener('submit', function (event) {
+content.addEventListener('submit', function (event) {
     event.preventDefault();
     if (user_name_id == 0) alert("Зарегистрируйтесь");
     else {
@@ -55,13 +55,17 @@ wrapper.addEventListener('submit', function (event) {
         let comment_id = event.target.getAttribute('coment_id');
         let reply_id = event.target.getAttribute('reply_id');
         let text_div = event.target.querySelector('[text_div]');
-        //    console.log(text_div);
+        let post_id = event.target.getAttribute('post_id');
+        console.log(post_id);
+        let comm_count = document.getElementById('comm_count' + post_id);  // счет комментариев в посте
+        //    console.log(comm_count);
 
         switch (form_type) {
             case '1':
-                let post_id = event.target.getAttribute('post_id');
-                let comments = document.getElementById('comments' + post_id);  // блок комментариев под постом
-                let comm_count = document.getElementById('comm_count' + post_id);  // счет комментариев в посте
+                
+                // let comments = document.getElementById('comments' + post_id);  // блок комментариев под постом
+                let comm = document.getElementById('comm' + post_id);
+                
                 let button = event.target.querySelector('button');
                 button.className = "btn btn-success btn-sm";
                 formData.append("comment", text_div.textContent);
@@ -88,13 +92,15 @@ wrapper.addEventListener('submit', function (event) {
                             });
 
                             clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
-                            clone.querySelector('b').textContent = commits['user_name'] + ' ';
+                            clone.querySelector('#b_post_name_user').textContent = commits['user_name'] + ' ';
+                            clone.querySelector('#b_post_name_user').setAttribute('coment_id', commits['id']);
                             clone.querySelector('#comment_text').textContent = commits['comment'];
                             clone.querySelector('#comment_text').id = "comment_text" + commits['id'];
                             clone.querySelector('a').setAttribute('href', "#coment_collapse" + commits['id']);
                             clone.querySelector('#coment_reply_collapse').href = "#coment_reply_collapse" + commits['id'];
                             clone.querySelector('#coment_reply_collapse_hidden').id = "coment_reply_collapse" + commits['id'];
                             clone.querySelector('#form_reply_comment').setAttribute('coment_id', commits['id']);
+                            clone.querySelector('#form_reply_comment').setAttribute('post_id', post_id);
                             clone.querySelector('#text_div_comment').textContent = commits['user_name'] + ' ';
                             clone.querySelector('#text_div_comment').id = 'text_div_comment' + commits['id'];
                             clone.querySelector('#coment_collapse').id = "coment_collapse" + commits['id'];
@@ -102,15 +108,17 @@ wrapper.addEventListener('submit', function (event) {
                             clone.querySelector('#text_div_comment_edit').textContent = commits['comment'];
                             clone.querySelector('#text_div_comment_edit').id = 'text_div_comment_edit' + commits['id'];
                             clone.querySelector('#form_coment_del').setAttribute('coment_id', commits['id']);
-                            clone.querySelector('#input3').value = commits['id'];
-                            clone.querySelector('#but2').id = "butw" + post_id;
+                            clone.querySelector('#form_coment_del').setAttribute('post_id', post_id);
+                            clone.querySelector('#a_comment_edit').removeAttribute('hidden');
+                            // clone.querySelector('#input3').value = commits['id'];
+                            // clone.querySelector('#but2').id = "butw" + post_id;
                             clone.querySelector('#like_comment').setAttribute('comment_id', commits['id']);
                             clone.querySelector('#dislike_comment').setAttribute('comment_id', commits['id']);
                             clone.querySelector('#reply').id = "reply" + commits['id'];
                             clone.id = 'one_comment' + commits['id'];
 
-                            comments.appendChild(clone);
-
+                            comm.appendChild(clone);
+                            // console.dir(comm_count);
                             comm_count.textContent = +comm_count.textContent +
                                 1; // прибавляем счет комментариев 
                             clone = null;
@@ -146,7 +154,6 @@ wrapper.addEventListener('submit', function (event) {
                         .then(commits => {
                             coment_collapse.className = "collapse";
                             comment_text.textContent = commits['comment'];
-
                         });
                 } else {
                     alert("Напишите комений");
@@ -173,7 +180,10 @@ wrapper.addEventListener('submit', function (event) {
                     .then(commits => {
                         coment_collapse2.className = "collapse";
                         one_comment.remove();
-                        console.dir(commits);
+                        // console.dir(commits);
+                        // console.dir(comm_count);
+                        comm_count.textContent = +comm_count.textContent - 1; // счет комментариев 
+                        
                     });
 
                 break;
@@ -185,7 +195,7 @@ wrapper.addEventListener('submit', function (event) {
                 formData.append("comment_id", comment_id);
                 formData.append("reply", text_div.textContent);
                 let reply = document.getElementById('reply' + comment_id);
-                console.dir(comment_id + 'reply');
+                // console.dir(comment_id + 'reply');
                 let coment_reply_collapse = document.getElementById('coment_reply_collapse' + comment_id);
                 if (reply_id != "0") {  // закрываем инпут после отправки ответа на ответ
                     let reply_collapse = document.getElementById('reply_collapse' + reply_id);
@@ -216,6 +226,7 @@ wrapper.addEventListener('submit', function (event) {
                             clone_replu.querySelector('#reply_text').textContent = commits['reply'];
                             clone_replu.querySelector('#form_reply_reply').setAttribute('coment_id', commits['comment_id']);
                             clone_replu.querySelector('#form_reply_reply').setAttribute('reply_id', commits['id']);
+                            clone_replu.querySelector('#form_reply_reply').setAttribute('post_id', post_id);
                             clone_replu.querySelector('#form_reply_edit').setAttribute('reply_id', commits['id']);
                             clone_replu.querySelector('#reply_text').id = "reply_text" + commits['id'];
                             clone_replu.querySelector('#hidden_reply_collapse_edit').href = "#reply_collapse_edit" + commits['id'];
@@ -230,11 +241,16 @@ wrapper.addEventListener('submit', function (event) {
                             clone_replu.querySelector('#hidden_reply_collapse').href = "#reply_collapse" + commits['id'];
                             clone_replu.querySelector('#reply_collapse').id = "reply_collapse" + commits['id'];
                             clone_replu.querySelector('#form_reply_del').setAttribute('reply_id', commits['id']);
+                            clone_replu.querySelector('#form_reply_del').setAttribute('post_id', post_id);
+                            clone_replu.querySelector('#hidden_reply_collapse_edit').removeAttribute('hidden');
+                           
                             clone_replu.id = 'one_reply' + commits['id'];
 
                             reply.appendChild(clone_replu);
 
                             coment_reply_collapse.className = "collapse";
+                            comm_count.textContent = +comm_count.textContent +
+                            1; // прибавляем счет комментариев 
 
                         });
                 } else {
@@ -294,6 +310,7 @@ wrapper.addEventListener('submit', function (event) {
                         reply_collapse_edit2.className = "collapse";
                         one_reply.remove();
                         console.dir(commits);
+                        comm_count.textContent = +comm_count.textContent - 1; // счет комментариев 
                     });
 
                 break;
@@ -301,23 +318,23 @@ wrapper.addEventListener('submit', function (event) {
     }
 });
 
-
+console.dir('hhhh');
 // ===================================================================   ОТПРАВКА ЛАЙКА  ================================================================================== 
 
 let lik = null;
-wrapper.addEventListener('click', (event) => {
-    const isButton = event.target.nodeName === 'I';
-    let type_element_like = event.target.getAttribute('value');
-    let post_id = event.target.getAttribute('post_id');
-    let litr = document.getElementById("butlike" + post_id)
+content.addEventListener('click', (event) => {
 
-    if (isButton && type_element_like != 'www') {
-        // console.dir(user_name_id);
+    const isButton = event.target.nodeName === 'I';
+    let type_element = event.target.getAttribute('value');
+    // console.dir(type_element_like);
+    let post_id = event.target.getAttribute('post_id');
+    if (isButton && type_element != null) {
+        // console.dir('hhtthh');
 
         if (user_name_id == 0) alert("Зарегистрируйтесь");
         else {
 
-            if (type_element_like == 1) { // лайк на пост  
+            if (type_element == 1) { // лайк на пост  
                 let like = event.target.textContent;
 
                 // console.dir(litr);
@@ -326,10 +343,10 @@ wrapper.addEventListener('click', (event) => {
                     .then(commits => {
                         if (commits == 1) {
                             lik = +like + 1;
-                            litr.className = "bi bi-hand-thumbs-up-fill";
+                            event.target.className = "bi bi-hand-thumbs-up-fill";
                         } else if (commits == 0 && like != 0) {
                             lik = +like - 1;
-                            litr.className = "bi bi-hand-thumbs-up";
+                            event.target.className = "bi bi-hand-thumbs-up";
                         }
                         event.target.textContent = ' ' + lik;
 
@@ -337,7 +354,7 @@ wrapper.addEventListener('click', (event) => {
             }
 
 
-            if (type_element_like == 3) { // лайки на комментарии
+            if (type_element == 3) { // лайки на комментарии
                 let like_comment_content = +event.target.textContent;
                 let comment_id = event.target.getAttribute('comment_id');
                 fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
@@ -354,7 +371,7 @@ wrapper.addEventListener('click', (event) => {
                     });
             }
 
-            if (type_element_like == 4) { // дизлайки на коментарии
+            if (type_element == 4) { // дизлайки на коментарии
                 let dislike_comment_content = +event.target.textContent;
                 let comment_id = event.target.getAttribute('comment_id');
                 fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
@@ -371,7 +388,7 @@ wrapper.addEventListener('click', (event) => {
                     });
             }
 
-            if (type_element_like == 5) { // лайки на ответы
+            if (type_element == 5) { // лайки на ответы
                 let like_reply_content = +event.target.textContent;
                 let reply_id = event.target.getAttribute('reply_id');
                 fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
@@ -390,7 +407,7 @@ wrapper.addEventListener('click', (event) => {
 
 
 
-            if (type_element_like == 6) { // дизлайки на ответы
+            if (type_element == 6) { // дизлайки на ответы
                 let dislike_reply_content = +event.target.textContent;
                 let reply_id = event.target.getAttribute('reply_id');
                 fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
@@ -407,8 +424,24 @@ wrapper.addEventListener('click', (event) => {
                     });
             }
 
+            if (type_element == 10) { // дизлайки на ответы
+                let id_user_post = event.target.getAttribute('id_user_post');            
+                 window.open("channel/" + id_user_post, "_blank");
+            }
+
+
+
+
+
 
         }
 
     }
 })
+
+
+// var element = document.getElementById("b_post_name_user");
+    
+// element.addEventListener("click", function() {
+//     window.location.href = "channel_show";  // Переход на Google
+// });

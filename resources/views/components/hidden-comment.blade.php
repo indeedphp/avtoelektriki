@@ -5,13 +5,12 @@
             <div class="card-header p-0 ">
                 <div class="row">
                     <div class="col-auto me-auto pe-0 flex-fill">
-                        &nbsp; <b class="small"> </b>
+                        &nbsp;  <i id="b_post_name_user" class="bi bi-universal-access ms-auto small" id_user_post="" value="10"></i>
                     </div>
                     <div class="col-auto  ps-0">
                         <nobr class="small"> </nobr>
                         &nbsp;
-                    </div>
-                    {{-- comment_text --}}
+                    </div> 
                 </div>
             </div>
             <ul class="list-group list-group-flush p-0">
@@ -50,7 +49,7 @@
         <div class="collapse" id="coment_reply_collapse_hidden">
             <div class="card card-body p-1">
 
-                <form id="form_reply_comment" form_type="4" coment_id="" reply_id="0">
+                <form id="form_reply_comment" form_type="4" coment_id="" reply_id="0" post_id="">
                     <div text_div class="card card-body p-1 m-0" id="text_div_comment" contenteditable="true"
                         data-placeholder="Напишите ваш ответ">
                         &ensp;
@@ -106,7 +105,7 @@
                                 href="#collapse_comment_edit_smile" role="button" aria-expanded="false"
                                 aria-controls="collapseExample"> </i>
 
-                            <div class="collapse" id="collapse_comment_edit_smile">
+                            <div id="div_comment_edit_smile" class="collapse">
 
                                 <span comment_id="" class="comment_edit_smile">😀</span>
                                 <span comment_id="" class="comment_edit_smile">👍</span>
@@ -134,10 +133,10 @@
 
                 <!-- ФОРМА УДАЛЕНИЯ КОММЕНТАРИЕВ ==================================================================================== -->
 
-                <form id="form_coment_del" form_type="3" coment_id="">
-                    <input type="hidden" name="comment_id" value="">
-                    <input id="input3" name="_method" type="hidden" value="DELETE">
-                    <button id='but2' class="btn btn-link m-0 p-0" title="Удаление комментария"
+                <form id="form_coment_del" form_type="3" coment_id="" post_id="">
+                    {{-- <input id="input3" type="hidden" name="comment_id" value=""> --}}
+                    <input name="_method" type="hidden" value="DELETE">
+                    <button class="btn btn-link m-0 p-0" title="Удаление комментария"
                         type="submit">удалить</button>
                 </form>
             </div>

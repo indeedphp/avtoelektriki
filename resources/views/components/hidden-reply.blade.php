@@ -143,7 +143,7 @@
 
                 <!-- ФОРМА УДАЛЕНИЯ ОТВЕТОВ ==================================================================================== -->
 
-                <form id="form_reply_del" form_type="6" reply_id="">
+                <form id="form_reply_del" form_type="6" reply_id="" post_id="">
                     <input name="_method" type="hidden" value="DELETE">
                     <button class="btn btn-link m-0 p-0" title="Удаление комментария" type="submit">удалить</button>
                 </form>
