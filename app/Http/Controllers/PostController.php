@@ -8,7 +8,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -44,6 +44,16 @@ class PostController extends Controller
             $post->comment_plus();
            
             $post->time = date('d-m-Y', strtotime($post->created_at)); 
+            $text_post = Str::limit($post->text_post, 173); 
+            $text_post_end = Str::unwrap($post->text_post, Str::before($text_post, '...'));
+            $post->text_post = $text_post;
+            $post->text_post_end = $text_post_end;
+
+            $text = null;
+            if($text_post_end != null)$text = 'развернуть текст'; 
+            if($post->text_post_2 != null)$text = 'развернуть текст и фото'; 
+            if($post->text_post_3 != null)$text = 'развернуть текст и 2 фото';
+            $post->text_post_link = $text;
 
             foreach ($post->like_plus as $like) {
                 if ($like->like == 1)

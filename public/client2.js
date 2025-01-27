@@ -1,4 +1,5 @@
 let url = '/api_post';
+let server_url = document.getElementById("server_url").textContent;
 
 let isRequesting = false; // Флаг, чтобы избежать нескольких запросов
 window.addEventListener('scroll', function () {  // Код срабатывает при достижении низа страницы
@@ -38,12 +39,14 @@ function posts_loading(data) {
         let clone_post = post.cloneNode(true);
 
         clone_post.querySelector('#i_clock').textContent = ' ' + item['time'];
-        clone_post.querySelector('#a_channel').href = "http://localhost:3000/channel/" + item['id_user'];
-        clone_post.querySelector('#i_human').textContent = item['user_name'];
+        clone_post.querySelector('#a_channel').href = server_url + '/channel/' + item['id_user'];
+        clone_post.querySelector('#a_channel').textContent = item['user_name'];
         clone_post.querySelector('#h_name_post').textContent = item['name_post'];
         clone_post.querySelector('#img_url1').src = item['url_foto'];
         clone_post.querySelector('#span_text_post').textContent = item['text_post'];
+        clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
         clone_post.querySelector('#a_collapse_post').setAttribute('data-bs-target', '#collapseExample' + item['id']);
+        clone_post.querySelector('#a_collapse_post').textContent = item['text_post_link'];
         clone_post.querySelector('#div_collapse_post').id = 'collapseExample' + item['id'];
         if (item['url_foto_2'] != null) {
             clone_post.querySelector('#div_hidden_post').removeAttribute('hidden');
@@ -61,7 +64,8 @@ function posts_loading(data) {
         if (item['post_like_active']) clone_post.querySelector('#like_post').className = "bi bi-hand-thumbs-up-fill";
         clone_post.querySelector('#a_collapse_repost').setAttribute('data-bs-target', '#collapse' + item['id']);
         clone_post.querySelector('#div_repost').id = 'collapse' + item['id'];
-        clone_post.querySelector('#i_repost_post').textContent = " Пост " + item['id'];
+        clone_post.querySelector('#i_repost_post').textContent = item['id'] + ' ';
+        clone_post.querySelector('#a_post_url').setAttribute('post_url', server_url);
         clone_post.querySelector('#a_collapse_comment').setAttribute('data-bs-target', '#collapseComment' + item['id']);
         clone_post.querySelector('#i_comment_count').textContent = item['post_comment_count'];
         clone_post.querySelector('#i_comment_count').id = 'comm_count' + item['id'];
@@ -78,20 +82,21 @@ function posts_loading(data) {
         clone_post.querySelector('#a_collapse_comment_end').setAttribute('data-bs-target', '#collapseComment' + item['id']);
         clone_post.id = 'one_post';
         posts.appendChild(clone_post);
-        comments_loading(item.comment_plus, item['id']);  // вставляем комментарии
+        comments_loading(item.comment_plus, item['id'], item['id_user']);  // вставляем комментарии
         clone_post = null;
     });
 }
 
-function comments_loading(data, post_id) {
+function comments_loading(data, post_id, id_user) {
     let comm = document.getElementById('comm' + post_id);
     let test_comment = document.getElementById('test_comment');
 
     data.forEach(function (item3, i, enu) {   // перебираем комметарии
         let clone_comment = test_comment.cloneNode(true);
        
-        clone_comment.querySelector('#b_post_name_user').textContent = item3['user_name'];
-        clone_comment.querySelector('#b_post_name_user').setAttribute('id_user_post', 4);
+      
+        clone_comment.querySelector('#a_post_name_user').textContent =  ' ' + item3['user_name'];
+        clone_comment.querySelector('#a_post_name_user').href = server_url + '/channel/' + id_user;
         clone_comment.querySelector('nobr').textContent = item3['time'];
         clone_comment.querySelector('#comment_text').textContent = item3['comment'];
         clone_comment.querySelector('#comment_text').id = "comment_text" + item3['id'];
@@ -129,19 +134,20 @@ function comments_loading(data, post_id) {
 
         comm.appendChild(clone_comment);
         // comm.id = 'one_commentddd';
-        replys_loading(item3.reply_comment_plus, item3['id'], post_id);  // вставляем ответы
+        replys_loading(item3.reply_comment_plus, item3['id'], post_id, id_user);  // вставляем ответы
         clone_comment = null;
     });
 };
 
-function replys_loading(data, id_comment, post_id) {
+function replys_loading(data, id_comment, post_id, id_user) {
     let reply = document.getElementById('reply' + id_comment);
     let replu_hidden = document.getElementById('replu_hidden');
 
     data.forEach(function (item4, i, enu) {   // перебираем ответы
         let clone_reply = replu_hidden.cloneNode(true);
 
-        clone_reply.querySelector('b').textContent = item4['user_name'] + ' ';
+        clone_reply.querySelector('#a_post_name_user').textContent =  ' ' + item4['user_name'];
+        clone_reply.querySelector('#a_post_name_user').href = server_url + '/channel/' + id_user;
         clone_reply.querySelector('nobr').textContent = item4['time'];
         clone_reply.querySelector('#reply_text').textContent = item4['reply'];
         if (item4['reply_like_active']) clone_reply.querySelector('#like_reply').className = "bi bi-hand-thumbs-up-fill";

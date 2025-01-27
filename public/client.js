@@ -1,7 +1,11 @@
 window.addEventListener('click', function (event) {
-    // console.log('even');
-
   
+    
+    if (event.target.classList.contains('post')) {  // копируем ссылку в буфер обмена
+        let post = event.target.getAttribute('post_url');
+        navigator.clipboard.writeText(post);
+        alert("Ссылка скопирована в буфер обмена");
+    }
 
     if (event.target.classList.contains('post_smile')) {
         let post_id = event.target.getAttribute('post_id');
@@ -56,7 +60,7 @@ content.addEventListener('submit', function (event) {
         let reply_id = event.target.getAttribute('reply_id');
         let text_div = event.target.querySelector('[text_div]');
         let post_id = event.target.getAttribute('post_id');
-        console.log(post_id);
+        // console.log(post_id);
         let comm_count = document.getElementById('comm_count' + post_id);  // счет комментариев в посте
         //    console.log(comm_count);
 
@@ -278,7 +282,7 @@ content.addEventListener('submit', function (event) {
                     })
                         .then(response => response.json())
                         .then(commits => {
-                            console.dir(commits);
+                            // console.dir(commits);
                             reply_collapse_edit.className = "collapse";
                             reply_text.textContent = commits['reply'];
 
@@ -309,7 +313,7 @@ content.addEventListener('submit', function (event) {
                     .then(commits => {
                         reply_collapse_edit2.className = "collapse";
                         one_reply.remove();
-                        console.dir(commits);
+                        // console.dir(commits);
                         comm_count.textContent = +comm_count.textContent - 1; // счет комментариев 
                     });
 
@@ -318,45 +322,44 @@ content.addEventListener('submit', function (event) {
     }
 });
 
-console.dir('hhhh');
 // ===================================================================   ОТПРАВКА ЛАЙКА  ================================================================================== 
 
-let lik = null;
 content.addEventListener('click', (event) => {
-
     const isButton = event.target.nodeName === 'I';
     let type_element = event.target.getAttribute('value');
-    // console.dir(type_element_like);
     let post_id = event.target.getAttribute('post_id');
-    if (isButton && type_element != null) {
-        // console.dir('hhtthh');
 
-        if (user_name_id == 0) alert("Зарегистрируйтесь");
+    if (isButton && type_element != null) {
+        let comment_id = event.target.getAttribute('comment_id');
+        let reply_id = event.target.getAttribute('reply_id');
+
+      if (user_name_id == 0) alert("Зарегистрируйтесь");
         else {
 
-            if (type_element == 1) { // лайк на пост  
+        switch (type_element) {
+        case '0':
+  
+            break;
+            case '1':
+             // лайк на пост  
                 let like = event.target.textContent;
-
-                // console.dir(litr);
                 fetch('/likes/?post_id=' + post_id + '&id_user=' + user_name_id)
                     .then(response => response.json())
                     .then(commits => {
                         if (commits == 1) {
-                            lik = +like + 1;
+                            event.target.textContent = ' ' + (+like + 1);
                             event.target.className = "bi bi-hand-thumbs-up-fill";
                         } else if (commits == 0 && like != 0) {
-                            lik = +like - 1;
+                            event.target.textContent = ' ' + (+like - 1);
                             event.target.className = "bi bi-hand-thumbs-up";
                         }
-                        event.target.textContent = ' ' + lik;
-
                     });
-            }
+                    break;
 
-
-            if (type_element == 3) { // лайки на комментарии
+                    case '3':
+             // лайки на комментарии
                 let like_comment_content = +event.target.textContent;
-                let comment_id = event.target.getAttribute('comment_id');
+                // let comment_id = event.target.getAttribute('comment_id');
                 fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
                     .then(response => response.json())
                     .then(commits => {
@@ -369,11 +372,12 @@ content.addEventListener('click', (event) => {
                             event.target.className = "bi bi-hand-thumbs-up";
                         }
                     });
-            }
+                    break;
 
-            if (type_element == 4) { // дизлайки на коментарии
+                    case '4':
+            // дизлайки на коментарии
                 let dislike_comment_content = +event.target.textContent;
-                let comment_id = event.target.getAttribute('comment_id');
+                // let comment_id = event.target.getAttribute('comment_id');
                 fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
                     .then(response => response.json())
                     .then(commits => {
@@ -386,11 +390,12 @@ content.addEventListener('click', (event) => {
                             event.target.className = "bi bi-hand-thumbs-down";
                         }
                     });
-            }
+                    break;
 
-            if (type_element == 5) { // лайки на ответы
+                    case '5':
+            // лайки на ответы
                 let like_reply_content = +event.target.textContent;
-                let reply_id = event.target.getAttribute('reply_id');
+                // let reply_id = event.target.getAttribute('reply_id');
                 fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
                     .then(response => response.json())
                     .then(commits => {
@@ -403,17 +408,15 @@ content.addEventListener('click', (event) => {
                             event.target.className = "bi bi-hand-thumbs-up";
                         }
                     });
-            }
+                    break;
 
-
-
-            if (type_element == 6) { // дизлайки на ответы
+                    case '6':
+            // дизлайки на ответы
                 let dislike_reply_content = +event.target.textContent;
-                let reply_id = event.target.getAttribute('reply_id');
+                // let reply_id = event.target.getAttribute('reply_id');
                 fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
                     .then(response => response.json())
                     .then(commits => {
-                        // console.dir(commits);
                         if (commits == 1) {
                             event.target.textContent = ' ' + (dislike_reply_content + 1);
                             event.target.className = "bi bi-hand-thumbs-down-fill";
@@ -422,26 +425,8 @@ content.addEventListener('click', (event) => {
                             event.target.className = "bi bi-hand-thumbs-down";
                         }
                     });
-            }
-
-            if (type_element == 10) { // дизлайки на ответы
-                let id_user_post = event.target.getAttribute('id_user_post');            
-                 window.open("channel/" + id_user_post, "_blank");
-            }
-
-
-
-
-
-
+            break;
         }
-
+        }
     }
 })
-
-
-// var element = document.getElementById("b_post_name_user");
-    
-// element.addEventListener("click", function() {
-//     window.location.href = "channel_show";  // Переход на Google
-// });

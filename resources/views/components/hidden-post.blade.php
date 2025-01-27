@@ -14,9 +14,8 @@
                                     ></i> Алматы </a> </div>
     
                         <div class="col-auto p-0 ps-1 px-lg-3 "> 
-                            <a id="a_channel" class="link-underline-light" target="_blank" href="ссылка на канал юзера">
-                                <i id="i_human" class="bi bi-universal-access ms-auto" >js юзер нейм</i>
-                                </a> </div>
+                                <a id="a_channel" href="ссылка js" class="bi bi-universal-access ms-auto" style="text-decoration: none" target="_blank"></a>
+                            </div>
                     </div>
                 </div>
                 <div class="card-body px-1 px-lg-5 py-1">
@@ -30,16 +29,18 @@
                         </div>
                     </div>
     
-                    <div class="card-text"> <span id="span_text_post">выводим текст под фото</span>
-                        <a id="a_collapse_post" class="link-underline-light p-0" href="#collapseExample1" data-bs-toggle="collapse"
+                    <div class="card-text">
+                         <span id="span_text_post">выводим текст под фото</span>
+                        <div class="text-end">    <a id="a_collapse_post" class="link-underline-light p-0 " href="#collapseExample1" data-bs-toggle="collapse"
                             data-bs-target="js collapse" aria-expanded="false"
-                            aria-controls="collapseExample"> развернуть </a>
+                            aria-controls="collapseExample"></a>
+                        </div>
                     </div>
     
                     <div id="div_collapse_post" class="collapse p-0" >
                         <div class=" p-1">
     
-                            <div class="card-text"> 
+                            <div id="div_text_post_end" class="card-text"> 
                             </div>
                         
                                 <div hidden id="div_hidden_post" class="card-body px-0 mx-lg-5 px-lg-5 py-0">
@@ -100,21 +101,22 @@
                     <div id="div_repost" class="collapse py-0" >
                         <div class="card card-body px-3 py-1">
                             <div class="row p-0">
-                                <div class="col-auto px-1"><a class="link-underline-light" href="#"> <i id="i_repost_post" 
-                                            class="bi bi-card-text" > Пост</i> </a> 
+                                <div class="col-auto px-1">
+                                    <i id="i_repost_post"></i> 
+                                            <a role="button" id="a_post_url" class="post" post_url="gggg3333" class="bi bi-card-text" style="text-decoration: none" target="_blank" > Ссылка</a>
                                         </div>
-                                <div class="col-auto px-1"><a class="link-underline-light" href="#"> <i
+                                <div class="col-auto px-1"><a class="link-underline-light" href="https://telegram.me/share/url?url=https://bootstrap-5.ru/docs/5.3/utilities/link/" target="_blank"> <i
                                             class="bi bi-telegram" >
-                                            Телеграмм</i></a>
+                                            Телеграм</i></a>
                                          </div>
-                                <div class="col-auto px-1"><a class="link-underline-light" href="#"> <i
+                                <div class="col-auto px-1"><a class="link-underline-light" href="whatsapp://send?text=https://bootstrap-5.ru/docs/5.3/utilities/link/"> <i
                                             class="bi bi-whatsapp" >
                                             Whatsapp</i> </a> 
                                          </div>
                             </div>
                         </div>
                     </div>
-                    {{-- ФОРМА ВВОДА КОММЕНТАРИЕВ  ===================================================================================================================================================== --}}
+                    {{-- ФОРМА ВВОДА КОММЕНТАРИЕВ  tg://resolve ===================================================================================================================================================== --}}
                     <div  id="div_comment" class="collapse p-0" >
                         <div  class="card card-body p-1 ">
                             <form id="form" post_id="js" form_type="1">
