@@ -1,10 +1,10 @@
 window.addEventListener('click', function (event) {
   
     
-    if (event.target.classList.contains('post')) {  // копируем ссылку в буфер обмена
+    if (event.target.id == "a_post_url") {  // копируем ссылку в буфер обмена
         let post = event.target.getAttribute('post_url');
         navigator.clipboard.writeText(post);
-        alert("Ссылка скопирована в буфер обмена");
+        alert("Ссылка на пост скопирована в буфер обмена");
     }
 
     if (event.target.classList.contains('post_smile')) {

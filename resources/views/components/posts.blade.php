@@ -18,8 +18,25 @@
             <div class="card-body px-1 px-lg-5 py-1">
                 <h5 class="card-title">{{ $post->name_post }}</h5>
                 <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+
+                    <div class="row">
+                        <div class="col-1 "></div>
+                        <div class="col-lg-8 ">
+                            <img class=" img-fluid shadow " src="{{ url($post->url_foto) }}" alt="Фото потерялось">
+                        </div>
+                        <div  class="d-none d-lg-block  col-lg-2 p-0" >
+                             <img  class=" img-fluid shadow " src="{{ url($post->url_foto) }}"  alt="Фото потерялось">
+                             <img  class=" img-fluid shadow mt-2 " src="{{ url($post->url_foto) }}" alt="Фото потерялось">
+                        </div>
+
+                        <div class="col-1 "></div>
+                    </div>
+
+
+
                     <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
-                        <img class=" img-fluid shadow " src="{{ url($post->url_foto) }}" alt="Фото потерялось">
+                        
+                       
                     </div>
                 </div>
 

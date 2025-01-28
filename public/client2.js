@@ -43,6 +43,17 @@ function posts_loading(data) {
         clone_post.querySelector('#a_channel').textContent = item['user_name'];
         clone_post.querySelector('#h_name_post').textContent = item['name_post'];
         clone_post.querySelector('#img_url1').src = item['url_foto'];
+
+        if(item['url_foto_2'] == null){
+             clone_post.querySelector('#foto1').className = 'col-lg-12';
+             clone_post.querySelector('#foto').remove(); 
+        }
+       else{
+        clone_post.querySelector('#img_url4').src = item['url_foto_2'];
+        if(item['url_foto_3'] != null){
+        clone_post.querySelector('#img_url5').removeAttribute('hidden');   
+        clone_post.querySelector('#img_url5').src = item['url_foto_3'];
+       }}
         clone_post.querySelector('#span_text_post').textContent = item['text_post'];
         clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
         clone_post.querySelector('#a_collapse_post').setAttribute('data-bs-target', '#collapseExample' + item['id']);
@@ -58,7 +69,7 @@ function posts_loading(data) {
             clone_post.querySelector('#img_url3').src = item['url_foto_3'];
             clone_post.querySelector('#p_text_post_3').textContent = item['text_post_3'];
         }
-        clone_post.querySelector('#a_collapse_post_end').setAttribute('data-bs-target', '#collapseExample' + item['id']);
+        // clone_post.querySelector('#a_collapse_post_end').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#like_post').textContent = ' ' + item['post_like_count'];
         clone_post.querySelector('#like_post').setAttribute('post_id', item['id']);
         if (item['post_like_active']) clone_post.querySelector('#like_post').className = "bi bi-hand-thumbs-up-fill";
@@ -116,7 +127,7 @@ function comments_loading(data, post_id, id_user) {
         clone_comment.querySelector('#coment_reply_collapse_hidden').id = "coment_reply_collapse" + item3['id'];
         clone_comment.querySelector('#form_reply_comment').setAttribute('coment_id', item3['id']);
         clone_comment.querySelector('#form_reply_comment').setAttribute('post_id', post_id);
-        clone_comment.querySelector('#text_div_comment').textContent = item3['user_name'] + ' ';
+        clone_comment.querySelector('#text_div_comment').textContent = item3['user_name'] + " ";
         clone_comment.querySelector('#text_div_comment').id = 'text_div_comment' + item3['id'];
         clone_comment.querySelector('#coment_collapse').id = "coment_collapse" + item3['id'];
         clone_comment.querySelector('#form_coment').setAttribute('coment_id', item3['id']);
@@ -173,7 +184,7 @@ function replys_loading(data, id_comment, post_id, id_user) {
         reply_smile.forEach(function (smile, i, enu) {  // перебираем смайлики
             smile.setAttribute('reply_id', item4['id']);
         });
-        clone_reply.querySelector('#text_div_reply').textContent = item4['user_name'];
+        clone_reply.querySelector('#text_div_reply').textContent = item4['user_name'] + ' ';
         clone_reply.querySelector('#text_div_reply').id = "text_div_reply" + item4['id'];
         clone_reply.querySelector('#text_div_reply_edit').textContent = item4['reply'];
         clone_reply.querySelector('#text_div_reply_edit').id = "text_div_reply_edit" + item4['id'];

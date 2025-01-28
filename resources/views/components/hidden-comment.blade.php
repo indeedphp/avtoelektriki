@@ -50,9 +50,7 @@
             <div class="card card-body p-1">
 
                 <form id="form_reply_comment" form_type="4" coment_id="" reply_id="0" post_id="">
-                    <div text_div class="card card-body p-1 m-0" id="text_div_comment" contenteditable="true"
-                        data-placeholder="Напишите ваш ответ">
-                        &ensp;
+                    <div text_div class="card card-body p-1 m-0" id="text_div_comment" contenteditable="true" style="white-space: pre-wrap">
                     </div>
                     <div class="row p-1 ">
                         <div class="col-7 me-auto  flex-fill ">

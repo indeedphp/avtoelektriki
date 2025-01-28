@@ -19,14 +19,10 @@ rel="stylesheet" -->
 
 <body>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-2 "></div>
 
-            <div class="col p-1 p-lg-avto">
 
-                <nav class="navbar navbar-expand-lg  fixed-top navbar bg-primary" data-bs-theme="dark">
-                    <div class="container-fluid">
+                <nav class="navbar navbar-expand-xl fixed-top bg-primary " data-bs-theme="dark">
+                    <div class="container-fluid ">
                         <a class="navbar-brand" href="{{ url('/') }}">Автоэлектрики</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -65,13 +61,25 @@ rel="stylesheet" -->
                     </div>
                 </nav>
 
-                <div class=" my-3 py-3"></div> {{-- отодвигатор --}}
-                <div id='content'>
+                <div class="container-fluid p-1 overflow-x-hidden">
+                    <div class="row ">
+                        
+                        <div class="col-xl-2 "></div>
+            
+                        <div class="col  p-xl-3 px-2">
+                            <div class=" my-3 py-3"></div>
+
+
+
+
+
+                
+                <div id='content' class="">
  @yield('posts')  
 
 </div></div>
 
-<div id=li class="col-lg-2 "> </div>
+<div  class="col-xl-2 "> </div>
 </div></div>
 
 @yield('hidden') 
@@ -85,6 +93,9 @@ rel="stylesheet" -->
         0 @endauth </div>
 
         <div id="server_url" hidden>{{ url('/') }}</div>
+
+      
+
 
 <script defer src="{{ url('client2.js') }}"></script>
 <script defer src="{{ url('client.js') }}"></script>

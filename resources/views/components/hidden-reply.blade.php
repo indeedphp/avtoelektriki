@@ -1,7 +1,7 @@
 <div hidden>
     <div id="replu_hidden">
 
-        <div class="card mb-2 p-0 ms-2">
+        <div class="card mb-2 p-0 ms-3">
             <div class="card-header p-0 ">
                 <div class="row">
                     <div class="col-auto me-auto pe-0 flex-fill">
@@ -56,10 +56,7 @@
             <div class="card card-body p-1">
 
                 <form id="form_reply_reply" form_type="4" coment_id="" reply_id="">
-                    <div text_div class="card card-body p-1 m-0" id="text_div_reply" contenteditable="true"
-                        data-placeholder="Напишите ваш ответ">
-                        &ensp;
-                    </div>
+                    <div text_div class="card card-body p-1 m-0" id="text_div_reply" contenteditable="true"style="white-space: pre-wrap"></div>
 
                     <input id="input_name_opponent" type="hidden" name="name_opponent" value="">
 

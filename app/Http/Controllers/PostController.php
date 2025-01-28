@@ -42,7 +42,7 @@ class PostController extends Controller
         foreach ($posts as $post) {
             $post->like_plus();
             $post->comment_plus();
-           
+         
             $post->time = date('d-m-Y', strtotime($post->created_at)); 
             $text_post = Str::limit($post->text_post, 173); 
             $text_post_end = Str::unwrap($post->text_post, Str::before($text_post, '...'));
