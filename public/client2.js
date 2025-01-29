@@ -1,4 +1,5 @@
-let url = '/api_post';
+let page_url = document.getElementById("page_url").textContent;
+let url = '';
 let server_url = document.getElementById("server_url").textContent;
 
 let isRequesting = false; // Флаг, чтобы избежать нескольких запросов
@@ -21,7 +22,7 @@ window.addEventListener('scroll', function () {  // Код срабатывае�
 });
 
 document.addEventListener('DOMContentLoaded', function () {  // код срабатывает 1 раз при загрузке страницы
-    fetch(url)
+    fetch(page_url)
         .then(response => response.json())
         .then(received => {
             url = received.next_page_url;
@@ -42,17 +43,19 @@ function posts_loading(data) {
         clone_post.querySelector('#a_channel').href = server_url + '/channel/' + item['id_user'];
         clone_post.querySelector('#a_channel').textContent = item['user_name'];
         clone_post.querySelector('#h_name_post').textContent = item['name_post'];
-        clone_post.querySelector('#img_url1').src = item['url_foto'];
+        clone_post.querySelector('#a_url_post').href = server_url + '/post/' + item['id'];
+        clone_post.querySelector('#i_repost_post').href = server_url + '/post/' + item['id'];
+        clone_post.querySelector('#img_url1').src = server_url + '/' + item['url_foto'];
 
         if(item['url_foto_2'] == null){
              clone_post.querySelector('#foto1').className = 'col-lg-12';
              clone_post.querySelector('#foto').remove(); 
         }
        else{
-        clone_post.querySelector('#img_url4').src = item['url_foto_2'];
+        clone_post.querySelector('#img_url4').src = server_url + '/' + item['url_foto_2'];
         if(item['url_foto_3'] != null){
         clone_post.querySelector('#img_url5').removeAttribute('hidden');   
-        clone_post.querySelector('#img_url5').src = item['url_foto_3'];
+        clone_post.querySelector('#img_url5').src = server_url + '/' + item['url_foto_3'];
        }}
         clone_post.querySelector('#span_text_post').textContent = item['text_post'];
         clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
@@ -61,12 +64,12 @@ function posts_loading(data) {
         clone_post.querySelector('#div_collapse_post').id = 'collapseExample' + item['id'];
         if (item['url_foto_2'] != null) {
             clone_post.querySelector('#div_hidden_post').removeAttribute('hidden');
-            clone_post.querySelector('#img_url2').src = item['url_foto_2'];
+            clone_post.querySelector('#img_url2').src = server_url + '/' + item['url_foto_2'];
             clone_post.querySelector('#p_text_post_2').textContent = item['text_post_2'];
         }
         if (item['url_foto_3'] != null) {
             clone_post.querySelector('#div_hidden_post2').removeAttribute('hidden');
-            clone_post.querySelector('#img_url3').src = item['url_foto_3'];
+            clone_post.querySelector('#img_url3').src = server_url + '/' + item['url_foto_3'];
             clone_post.querySelector('#p_text_post_3').textContent = item['text_post_3'];
         }
         // clone_post.querySelector('#a_collapse_post_end').setAttribute('data-bs-target', '#collapseExample' + item['id']);
@@ -75,8 +78,10 @@ function posts_loading(data) {
         if (item['post_like_active']) clone_post.querySelector('#like_post').className = "bi bi-hand-thumbs-up-fill";
         clone_post.querySelector('#a_collapse_repost').setAttribute('data-bs-target', '#collapse' + item['id']);
         clone_post.querySelector('#div_repost').id = 'collapse' + item['id'];
-        clone_post.querySelector('#i_repost_post').textContent = item['id'] + ' ';
-        clone_post.querySelector('#a_post_url').setAttribute('post_url', server_url);
+        clone_post.querySelector('#i_repost_post').textContent = ' ' + item['id'];
+        clone_post.querySelector('#a_post_url').setAttribute('post_url', server_url + '/post/' + item['id']);
+        clone_post.querySelector('#i_repost_telegram').href = 'https://telegram.me/share/url?url=' + server_url + '/post/' + item['id'];
+        clone_post.querySelector('#i_repost_whatsap').href = 'whatsapp://send?text=' + server_url + '/post/' + item['id'];
         clone_post.querySelector('#a_collapse_comment').setAttribute('data-bs-target', '#collapseComment' + item['id']);
         clone_post.querySelector('#i_comment_count').textContent = item['post_comment_count'];
         clone_post.querySelector('#i_comment_count').id = 'comm_count' + item['id'];

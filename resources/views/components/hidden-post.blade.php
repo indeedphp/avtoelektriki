@@ -7,7 +7,7 @@
                     <div class="row">
     
                         <div class="col-auto me-auto p-0 ">
-                            <i id="i_clock" class="bi bi-clock p-lg-3 ps-1 text-black" >js время</i>
+                            <i id="i_clock" class="bi bi-clock p-lg-3 ps-1 text-black-80" >js время</i>
                         </div>
                     
                         <div class="col-auto p-0"> <a class="link-underline-light" href="#"> <i class="bi bi-geo-alt"
@@ -26,7 +26,7 @@
                     <div class="row">
                       
                         <div id="foto1" class="col-lg-10 ">
-                            <img id="img_url1" class=" img-fluid shadow" src="" alt="Фото потерялось">                       
+                          <a id="a_url_post" class="" href="http://localhost:3000/post/4" target="_blank">  <img id="img_url1" class=" img-fluid shadow" src="" alt="Фото потерялось">    </a>                   
                          </div>
                         <div id="foto" class="d-none d-lg-block  col-lg-2 p-0" >
                             <img id="img_url4" class="img-fluid shadow" src="" alt="Фото потерялось">  
@@ -62,7 +62,7 @@
                                     </div>
                                     <p id="p_text_post_3" class="card-text py-2"></p>
                                 </div>
-      
+                             
                                   
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                 <div class="card-footer text-muted px-0 py-1 p-lg-3 ">
                     <div class="row">
                         
-                        <div class="col-auto pe-2 text-black">
+                        <div class="col-auto pe-2 text-black-80">
                             <i id="like_post" class="bi bi-hand-thumbs-up ps-1"
                                 style="cursor: pointer;" value="1"
                                 post_id="js"></i>&nbsp;
@@ -80,7 +80,7 @@
                         <!-- РЕПОСТ -->
                         <div class="col-auto me-auto ps-0">
 
-                            <i id="a_collapse_repost" class="bi bi-share text-black" title="Репост" data-bs-toggle="collapse"
+                            <i id="a_collapse_repost" class="bi bi-share text-black-80" title="Репост" data-bs-toggle="collapse"
                              role="button" data-bs-target="#collapse"
                             aria-expanded="false" aria-controls="collapseExample">  Поделится</i>
 
@@ -88,30 +88,25 @@
                         <!-- КОМЕНТАРИИ КНОПКА -->
                         <div class="col-auto">
 
-                            <i id="a_collapse_comment" class="bi bi-chat-dots text-black" title="Написать, прочитать комментарии" data-bs-toggle="collapse"
+                            <i id="a_collapse_comment" class="bi bi-chat-dots text-black-80" title="Написать, прочитать комментарии" data-bs-toggle="collapse"
                             role="button" data-bs-target="#collapseComment"
                             aria-expanded="false" aria-controls="collapseExample"> Комментарии </i>
-                            <i id="i_comment_count" class="text-black pe-1"></i>
+                            <i id="i_comment_count" class="text-black-80 pe-1"></i>
 
                         </div>
                     </div>
                     {{-- РЕПОСТЫ  ===================================================================================================================================================== --}}
                     <div id="div_repost" class="collapse py-0" >
-                        <div class="card card-body px-3 py-1">
-                            <div class="row p-0">
-                                <div class="col-auto px-1">
-                                    <i id="i_repost_post" class="pe-1"></i> 
-                                            <a class="bi bi-card-text link-underline-light" role="button" id="a_post_url" class="post" post_url="js" > Ссылка </a>
-                                        </div>
-                                <div class="col-auto px-1">
-                                    <a class="bi bi-telegram link-underline-light" href="https://telegram.me/share/url?url=https://bootstrap-5.ru/docs/5.3/utilities/link/" target="_blank"> Телеграм</a>
-                                         </div>
-                                <div class="col-auto px-1">
-                                    <a class="bi bi-whatsapp link-underline-light" href="whatsapp://send?text=https://bootstrap-5.ru/docs/5.3/utilities/link/" target="_blank"> Whatsapp </a> 
-                                         </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="card card-body ps-1 p-0 py-1">
+                          
+                                <div class="col-auto p-0">
+                                    <a id="i_repost_post" class="bi bi-card-text link-underline-light px-lg-3" href="http://localhost:3000/post/4" target="_blank"> </a> 
+                                    <a id="a_post_url"  class="bi bi-share link-underline-light px-lg-2" role="button" class="post" post_url="js" > Ссылка </a>
+                                    <a id="i_repost_telegram" class="bi bi-telegram link-underline-light px-lg-2" href="https://telegram.me/share/url?url=https://bootstrap-5.ru/docs/5.3/utilities/link/" target="_blank"> Телеграм </a>
+                                    <a id="i_repost_whatsap" class="bi bi-whatsapp link-underline-light px-lg-2" href="whatsapp://send?text=https://bootstrap-5.ru/docs/5.3/utilities/link/" target="_blank"> Whatsapp</a> 
+                                 </div>
+                       
+                    </div> </div>
                     {{-- ФОРМА ВВОДА КОММЕНТАРИЕВ  tg://resolve ===================================================================================================================================================== --}}
                     <div  id="div_comment" class="collapse p-0" >
                         <div  class="card card-body p-1 ">

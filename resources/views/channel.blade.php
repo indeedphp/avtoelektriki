@@ -2,13 +2,16 @@
 
 @section('posts')  
 
+<div id="posts">
 
+</div>
 
-<x-posts :posts="$posts"/>
-
-@section('hidden') 
-<x-hidden-comment />
-<x-hidden-reply />
 @endsection 
 
- @endsection 
+@section('hidden') 
+<x-hidden-post />
+<x-hidden-comment />
+<x-hidden-reply />
+<div id="page_url" hidden>/api_channel/{{$id}}</div>
+@endsection 
+

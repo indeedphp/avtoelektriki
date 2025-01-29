@@ -1,4 +1,4 @@
-@extends('layouts/main') 
+{{-- @extends('layouts/main') 
 
 @section('posts')  
 
@@ -12,7 +12,7 @@
 <x-hidden-post />
 <x-hidden-comment />
 <x-hidden-reply />
-@endsection 
+@endsection  --}}
 
 
 

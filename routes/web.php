@@ -22,8 +22,13 @@ use App\Models\Post;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/api_post', [PostController::class, 'show'])->name('show');
-Route::get('/channel/{id}', [ChannelController::class, 'show'])->name('channel_show');
+Route::get('/api_index', [PostController::class, 'show'])->name('show');
+Route::get('/channel/{id}', [ChannelController::class, 'index'])->name('channel');
+
+Route::get('/api_channel/{id}', [ChannelController::class, 'show'])->name('channel_show');
+
+Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel');
+Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel_show');
 
 Route::get('/1', function () {
     $create_post = Create_post::where('id_user', '7124124425')->first();
@@ -34,12 +39,12 @@ Route::get('/1', function () {
     // return view('index');
 });
 
+// Route::get('/channel', function () {
+
+//     return view('channel');
+// });
+
 Route::get('/', function () {
-
-    return view('welcome');
-});
-
-Route::get('/5', function () {
 
     return view('index');
 });

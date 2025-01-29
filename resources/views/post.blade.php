@@ -12,9 +12,5 @@
 <x-hidden-post />
 <x-hidden-comment />
 <x-hidden-reply />
-<div id="page_url" hidden>/api_index</div>
+<div id="page_url" hidden>/api_post/{{$id}}</div>
 @endsection 
-
-
-
-   
