@@ -162,8 +162,8 @@ function replys_loading(data, id_comment, post_id, id_user) {
     data.forEach(function (item4, i, enu) {   // перебираем ответы
         let clone_reply = replu_hidden.cloneNode(true);
 
-        clone_reply.querySelector('#a_post_name_user').textContent =  ' ' + item4['user_name'];
-        clone_reply.querySelector('#a_post_name_user').href = server_url + '/channel/' + id_user;
+        clone_reply.querySelector('#a_reply_name_user').textContent =  ' ' + item4['user_name'];
+        clone_reply.querySelector('#a_reply_name_user').href = server_url + '/channel/' + id_user;
         clone_reply.querySelector('nobr').textContent = item4['time'];
         clone_reply.querySelector('#reply_text').textContent = item4['reply'];
         if (item4['reply_like_active']) clone_reply.querySelector('#like_reply').className = "bi bi-hand-thumbs-up-fill";

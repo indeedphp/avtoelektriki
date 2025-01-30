@@ -5,7 +5,7 @@
             <div class="card-header p-0 ">
                 <div class="row">
                     <div class="col-auto me-auto pe-0 flex-fill">
-                         <a href="ссылка js" id="a_post_name_user" class="bi bi-universal-access  small" style="text-decoration: none" target="_blank" ></a>
+                         <a href="ссылка js" id="a_reply_name_user" class="bi bi-universal-access  small" style="text-decoration: none" target="_blank" ></a>
                     </div>
                     <div class="col-auto  ps-0">
                         <nobr class="small"> </nobr>

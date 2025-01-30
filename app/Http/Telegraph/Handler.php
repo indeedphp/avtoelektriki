@@ -20,6 +20,7 @@ class Handler extends WebhookHandler
     {
         $id_user = $this->message->from()->id();
         $user_name = $this->message->from()->firstName();
+        info($user_name);
         $email = 'email@'.$id_user;
         $create_post = Create_post::where('id_user', $id_user)->first();
         if ($create_post !== null)
@@ -201,7 +202,9 @@ class Handler extends WebhookHandler
 
     public function feedback_2()// получаем запросы от кнопок из text_post_create()
     {
-        $id_user = $this->message->from()->id();  // добавил без проверки
+       $id_user = $this->chat->chat_id;  // добавил без проверки
+       $user_data = User::where('name', $id_user)->first();
+       info($id_user);
         $arr_chat = $this->chat->toArray();
         $value_button = $this->data->get('value');
         $create_post = Create_post::where('id_user', $arr_chat["chat_id"])->first();
@@ -218,7 +221,7 @@ class Handler extends WebhookHandler
         }
 
         if ($value_button == '2') {
-            $db_user = User::where('name', $id_user)->first();  // добавил без проверки
+           // $db_user = User::where('name', $id_user)->first();  // добавил без проверки
             $date = date('Y-m-d H:i:s');
             $id = DB::table('posts')->insertGetId([
                 'created_at' => $date,
@@ -226,7 +229,7 @@ class Handler extends WebhookHandler
                 'date' => $create_post->date,
                 'user_name' => $create_post->user_name,
                 'name_post' => $create_post->name_post,
-                'id_user' => $db_user->id,   // добавил без проверки
+                'id_user' => $user_data->id,   // добавил без проверки
                 // 'id_user' => $create_post->id_user,   // добавил без проверки
                 'id_post' => $create_post->id_post,
                 'text_post' => $create_post->text_post,

@@ -86,18 +86,19 @@ content.addEventListener('submit', function (event) {
                     })
                         .then(response => response.json())
                         .then(commits => {
-
+console.dir(commits);
                             text_div.textContent = null;
                             let clone = test_comment.cloneNode(true);
+                            // console.dir(clone);
 
                             var enu = clone.querySelectorAll('span');
                             enu.forEach(function (item, i, enu) {  // перебираем смайлики
                                 item.setAttribute('comment_id', commits['id']);
                             });
-
+                           
                             clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
-                            clone.querySelector('#b_post_name_user').textContent = commits['user_name'] + ' ';
-                            clone.querySelector('#b_post_name_user').setAttribute('coment_id', commits['id']);
+                            clone.querySelector('#a_post_name_user').textContent = commits['user_name'] + ' ';
+                            clone.querySelector('#a_post_name_user').setAttribute('coment_id', commits['id']);
                             clone.querySelector('#comment_text').textContent = commits['comment'];
                             clone.querySelector('#comment_text').id = "comment_text" + commits['id'];
                             clone.querySelector('a').setAttribute('href', "#coment_collapse" + commits['id']);
@@ -114,6 +115,7 @@ content.addEventListener('submit', function (event) {
                             clone.querySelector('#form_coment_del').setAttribute('coment_id', commits['id']);
                             clone.querySelector('#form_coment_del').setAttribute('post_id', post_id);
                             clone.querySelector('#a_comment_edit').removeAttribute('hidden');
+                            clone.querySelector('#a_comment_edit').setAttribute('href', "#coment_collapse" + commits['id']);
                             // clone.querySelector('#input3').value = commits['id'];
                             // clone.querySelector('#but2').id = "butw" + post_id;
                             clone.querySelector('#like_comment').setAttribute('comment_id', commits['id']);
@@ -225,7 +227,7 @@ content.addEventListener('submit', function (event) {
                                 item.setAttribute('reply_id', commits['id']);
                             });
 
-                            clone_replu.querySelector('b').textContent = commits['user_name'] + ' ';
+                            clone_replu.querySelector('#a_reply_name_user').textContent = commits['user_name'] + ' ';
                             clone_replu.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, -10) + ' ';
                             clone_replu.querySelector('#reply_text').textContent = commits['reply'];
                             clone_replu.querySelector('#form_reply_reply').setAttribute('coment_id', commits['comment_id']);

@@ -107,13 +107,16 @@
                                  </div>
                        
                     </div> </div>
+
+                  
+
                     {{-- ФОРМА ВВОДА КОММЕНТАРИЕВ  tg://resolve ===================================================================================================================================================== --}}
                     <div  id="div_comment" class="collapse p-0" >
                         <div  class="card card-body p-1 ">
                             <form id="form" post_id="js" form_type="1">
     
                                 <div text_div class="card card-body p-1 " id="text_div_post"  
-                                contenteditable="true" data-placeholder="Напишите комментарий"></div>
+                                contenteditable="true" data-placeholder=" Напишите комментарий"></div>
                                     <div class="row p-1 ">
                                     <div class="col-7 me-auto  flex-fill ">
                                         <i id="i_smile_collapse" class="bi bi-emoji-smile h3 " data-bs-toggle="collapse"
