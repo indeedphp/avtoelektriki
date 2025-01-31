@@ -134,8 +134,8 @@
                 <form id="form_coment_del" form_type="3" coment_id="" post_id="">
                     {{-- <input id="input3" type="hidden" name="comment_id" value=""> --}}
                     <input name="_method" type="hidden" value="DELETE">
-                    <button class="btn btn-link m-0 p-0" title="Удаление комментария"
-                        type="submit">удалить</button>
+                    <button class="btn m-0 p-0" title="Удаление комментария"
+                        type="submit">удалить комментарий</button>
                 </form>
             </div>
         </div>

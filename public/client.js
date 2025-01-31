@@ -350,10 +350,10 @@ content.addEventListener('click', (event) => {
                     .then(commits => {
                         if (commits == 1) {
                             event.target.textContent = ' ' + (+like + 1);
-                            event.target.className = "bi bi-hand-thumbs-up-fill";
+                            event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
                         } else if (commits == 0 && like != 0) {
                             event.target.textContent = ' ' + (+like - 1);
-                            event.target.className = "bi bi-hand-thumbs-up";
+                            event.target.className = "bi bi-hand-thumbs-up ps-1";
                         }
                     });
                     break;

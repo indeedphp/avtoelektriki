@@ -39,10 +39,10 @@ Route::get('/1', function () {
     // return view('index');
 });
 
-// Route::get('/channel', function () {
+Route::get('/5', function () {
 
-//     return view('channel');
-// });
+    return view('welcome');
+});
 
 Route::get('/', function () {
 

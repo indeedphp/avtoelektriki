@@ -58,7 +58,7 @@ function posts_loading(data) {
         clone_post.querySelector('#img_url5').src = server_url + '/' + item['url_foto_3'];
        }}
         clone_post.querySelector('#span_text_post').textContent = item['text_post'];
-        clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
+       if(item['text_post_end'] != '') clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
         clone_post.querySelector('#a_collapse_post').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#a_collapse_post').textContent = item['text_post_link'];
         clone_post.querySelector('#div_collapse_post').id = 'collapseExample' + item['id'];
@@ -75,7 +75,7 @@ function posts_loading(data) {
         // clone_post.querySelector('#a_collapse_post_end').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#like_post').textContent = ' ' + item['post_like_count'];
         clone_post.querySelector('#like_post').setAttribute('post_id', item['id']);
-        if (item['post_like_active']) clone_post.querySelector('#like_post').className = "bi bi-hand-thumbs-up-fill";
+        if (item['post_like_active']) clone_post.querySelector('#like_post').className = "bi bi-hand-thumbs-up-fill ps-1";
         clone_post.querySelector('#a_collapse_repost').setAttribute('data-bs-target', '#collapse' + item['id']);
         clone_post.querySelector('#div_repost').id = 'collapse' + item['id'];
         clone_post.querySelector('#i_repost_post').textContent = ' ' + item['id'];
@@ -119,7 +119,7 @@ function comments_loading(data, post_id, id_user) {
         if (item3['comment_like_active']) clone_comment.querySelector('#like_comment').className = "bi bi-hand-thumbs-up-fill";
         if (item3['comment_dislike_active']) clone_comment.querySelector('#dislike_comment').className = "bi bi-hand-thumbs-down-fill";
         if (item3['comment_made_user']) clone_comment.querySelector('#a_comment_edit').removeAttribute('hidden');
-        clone_comment.querySelector('#i_collapse_smile')
+        clone_comment.querySelector('#i_collapse_smile').setAttribute('href', "#collapse_comment_edit_smile" + item3['id']);
         var comment_edit_smile = clone_comment.querySelectorAll('span');
         comment_edit_smile.forEach(function (smile, i, enu) {  // перебираем смайлики
             smile.setAttribute('comment_id', item3['id']);
