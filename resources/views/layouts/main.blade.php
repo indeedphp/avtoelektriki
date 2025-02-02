@@ -40,9 +40,9 @@ rel="stylesheet" -->
                                     @endauth
                                 </li>
                                 <li class="nav-item ms-auto">
-                                    {{-- @auth
-                                        <a class="nav-link active " aria-current="page" href="#">Главная</a>
-                                    @endauth --}}
+                                    @auth
+                                        <a class="nav-link active " aria-current="page" href="{{route('cabinet_index')}}">Кабинет</a>
+                                    @endauth
                                     @guest
                                         <a class="nav-link active " href="{{ route('login') }}">Вход</a>
                                     @endguest
@@ -66,8 +66,8 @@ rel="stylesheet" -->
                         
                         <div class="col-xl-2 "></div>
             
-                        <div class="col  p-xl-3 px-2">
-                            <div class=" my-3 py-3"></div>
+                        <div class="col  p-3 px-2">
+                            <div class=" my-2 py-3"></div>
 
 
 

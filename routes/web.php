@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyCommentController;
 use App\Http\Controllers\LikeReplyController;
 use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\CabinetController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -51,6 +52,16 @@ Route::get('/', function () {
 
 
 
+Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet_index');
+Route::get('/cabinet_edit_post', [CabinetController::class, 'cabinet_edit_post'])->name('cabinet_edit_post');
+Route::post('/cabinet_edit_post', [CabinetController::class, 'edit_post'])->name('cabinet_edit_post2');
+
+
+
+Route::get('/2', function () {
+
+    return view('cabinet');
+});
 
 // $id = $this->message->toArray();
 

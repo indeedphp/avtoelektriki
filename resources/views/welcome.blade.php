@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -19,41 +19,47 @@
 </head>
 <body>
     ytyu
+    <div id="ff43444f">
+    <div id="fff">
     <div contenteditable="true" id="editable" style="border: 1px solid #ccc; padding: 10px; min-height: 100px;">
         Напишите что-то здесь...
-    </div>
+    </div> 
     <!-- Кнопка для вставки смайлика -->
     <button onclick="insertEmoji3('😊')">😊</button>
-
+</div></div> --}}
     <script>
-        function insertEmoji3(eji) {
+        // function insertEmoji3(eji) {
+        //     const element = document.elementFromPoint(event.clientX, event.clientY);
+        //     let parent = element.parentNode;
+        //     console.log(parent);
 
-            const element = document.elementFromPoint(event.clientX, event.clientY);
-            console.log(element);
+
+            // const element = document.elementFromPoint(event.clientX, event.clientY);
+            // console.log(element);
 // document.addEventListener('mousemove', function(event) {
 //     const element = document.elementFromPoint(event.clientX, event.clientY);
 //     console.log(element);  // Выводим элемент в консоль
 // });
 
     
-        }
+//         }
 
         
-function SetCursorAfterElement(element)
-{
-    var selection = window.getSelection();
-    selection.removeAllRanges();
-    var range = document.createRange();
-    range.setStartAfter(element);
-    selection.addRange(range);
-} 
+// function SetCursorAfterElement(element)
+// {
+//     var selection = window.getSelection();
+//     selection.removeAllRanges();
+//     var range = document.createRange();
+//     range.setStartAfter(element);
+//     selection.addRange(range);
+// } 
 
 
 
 
     </script>
- </body>
- </html>
+ {{-- </body>
+ </html> --}}
 
 
 {{-- <!DOCTYPE html>
@@ -177,3 +183,29 @@ function SetCursorAfterElement(element)
                                             selection.addRange(range);
                                         } --}}
                                                                            
+
+                                    <script>
+                                        window.addEventListener('click', function(event){
+                                            if (event.target.classList.contains('smile'))
+                                            {
+                                              let edit = document.querySelector('.edit');
+                                              edit.value += event.target.attributes['my-data-smile'].value;
+                                            }
+                                          });
+                                          .smile {
+                                            display: inline-block;
+                                            width: 15px;
+                                            height: 15px;
+                                            margin-right: 5px;
+                                            cursor: pointer;
+                                          }
+                                        </script>
+
+                                          <div class = 'smile' my-data-smile = '&#128512;'>&#128512;</div>
+                                          <div class = 'smile' my-data-smile = '&#128517;'>&#128517;</div>
+                                          <div class = 'smile' my-data-smile = '&#128554;'>&#128554;</div>
+                                          <div class = 'smile' my-data-smile = '&#129397;'>&#129397;</div>
+                                          
+                                          <form name="form1" method="post" action="">
+                                            <input type="text" name="textfield" class = 'edit'>
+                                          </form>
