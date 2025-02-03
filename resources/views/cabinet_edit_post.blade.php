@@ -6,29 +6,29 @@
 
 <nav class="navbar navbar-expand-lg  p-0 pe-2">
  
-    <a></a>
+    <a class="navbar-brand ps-3">Кабинет пользователя:</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ps-2">
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('cabinet_index') }}">Статистика</a>
-        </li>
-        <li class="nav-item">
-            <a class="link-danger nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Все посты</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Сайт</a>
+            <a class="nav-link" href="{{ route('cabinet_index') }}">Настройки</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Новый пост</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Настройки</a>
+            <a class="nav-link" href="#">Все посты</a>
+        </li>
+        <li class="nav-item">
+            <a class="link-danger nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Сайт</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Статистика</a>
         </li>
       </ul>
     </div>
@@ -45,24 +45,30 @@
 
   <img class=" img-fluid shadow " src="{{ url($post->url_foto) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 1</p>
+  <input type="file" name="foto_1">
+  <p class="link-danger">Изменить фото 1</p>
   <p></p>
   <div class="card card-body p-1 " id="div_text_post" contenteditable="true"
   data-placeholder=" Напишите комментарий">  {{ $post->text_post}}</div>
   <p class="link-danger">Правим текст под фото 1</p>
   <p></p>
   <br>
-
+  <hr>
   <img class=" img-fluid shadow " src="{{ url($post->url_foto_2) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 2</p>
+  <input type="file" name="foto_2">
+  <p class="link-danger">Изменить фото 2</p>
   <p></p>
   <div class="card card-body p-1 " id="div_text_post_2" contenteditable="true"
   data-placeholder=" Напишите комментарий">  {{ $post->text_post_2}}</div>
   <p class="link-danger">Правим текст под фото 2</p>
   <p></p>
   <br>
-
+  <hr>
   <img class=" img-fluid shadow " src="{{ url($post->url_foto_3) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 3</p>
+  <input type="file" name="foto_3">
+  <p class="link-danger">Изменить фото 3</p>
   <p></p>
   <div class="card card-body p-1 " id="div_text_post_3" contenteditable="true"
   data-placeholder=" Напишите комментарий">  {{ $post->text_post_3}}</div>
@@ -95,12 +101,14 @@ document.addEventListener('submit', function (event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     let div_name_post = event.target.querySelector('#div_name_post');
-
+    let div_text_post = event.target.querySelector('#div_text_post');
+    let div_text_post_2 = event.target.querySelector('#div_text_post_2');
+    let div_text_post_3 = event.target.querySelector('#div_text_post_3');
 
                 formData.append("name_post", div_name_post.textContent);
-                formData.append("text_post", div_name_post.textContent);
-                formData.append("text_post_2", div_name_post.textContent);
-                formData.append("text_post_3", div_name_post.textContent);
+                formData.append("text_post", div_text_post.textContent);
+                formData.append("text_post_2", div_text_post_2.textContent);
+                formData.append("text_post_3", div_text_post_3.textContent);
 
               
                     fetch('/cabinet_edit_post', {
