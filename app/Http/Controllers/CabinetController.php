@@ -7,9 +7,11 @@ use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Draft_post;
 
 class CabinetController extends Controller
 {
+ 
     public function index()
     {
 
@@ -17,6 +19,13 @@ class CabinetController extends Controller
         return view('cabinet');
     }
 
+
+  public function cabinet_new_post()
+    {
+
+        // Storage::disk('local')->put('file.txt', 'Contents');
+        return view('cabinet_new_post');
+    }
     public function cabinet_edit_post()
     {
 
@@ -89,4 +98,7 @@ class CabinetController extends Controller
 
         return response()->json('eee', 200);
     }
+
+
+
 }

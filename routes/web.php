@@ -10,6 +10,7 @@ use App\Http\Controllers\ReplyCommentController;
 use App\Http\Controllers\LikeReplyController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\CabinetController;
+use App\Http\Controllers\DraftPostController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -53,6 +54,13 @@ Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel
 Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet_index');
 Route::get('/cabinet_edit_post', [CabinetController::class, 'cabinet_edit_post'])->name('cabinet_edit_post');
 Route::post('/cabinet_edit_post', [CabinetController::class, 'edit_post'])->name('cabinet_edit_post2');
+Route::get('/cabinet_new_post', [CabinetController::class, 'cabinet_new_post'])->name('cabinet_new_post');
+Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('cabinet_new_post2');
+
+Route::get('/draft_post', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
+Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->name('draft_post_create'); // создаем черновик поста
+
+
 
 Route::get('/likes', [LikeController::class, 'create'])->name('create');
 

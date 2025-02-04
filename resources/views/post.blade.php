@@ -14,3 +14,9 @@
 <x-hidden-reply />
 <div id="page_url" hidden>/api_post/{{$id}}</div>
 @endsection 
+
+
+@section('js') 
+<script defer src="{{ url('client2.js') }}"></script>
+<script defer src="{{ url('client.js') }}"></script>
+@endsection  

@@ -15,3 +15,7 @@
 <div id="page_url" hidden>/api_channel/{{$id}}</div>
 @endsection 
 
+@section('js') 
+<script defer src="{{ url('client2.js') }}"></script>
+<script defer src="{{ url('client.js') }}"></script>
+@endsection  

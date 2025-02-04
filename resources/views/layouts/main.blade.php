@@ -97,7 +97,8 @@ rel="stylesheet" -->
       
 
 
-<script defer src="{{ url('client2.js') }}"></script>
-<script defer src="{{ url('client.js') }}"></script>
+
+
+@yield('js') 
 </body>
 </html>

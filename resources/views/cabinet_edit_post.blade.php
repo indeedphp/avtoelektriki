@@ -16,7 +16,7 @@
             <a class="nav-link" href="{{ route('cabinet_index') }}">Настройки</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Новый пост</a>
+            <a class="nav-link" href="{{ route('cabinet_new_post') }}">Новый пост</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Все посты</a>
@@ -45,7 +45,7 @@
 
   <img class=" img-fluid shadow " src="{{ url($post->url_foto) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 1</p>
-  <input type="file" name="foto_1">
+  <input class="form-control" type="file" name="foto_1">
   <p class="link-danger">Изменить фото 1</p>
   <p></p>
   <div class="card card-body p-1 " id="div_text_post" contenteditable="true"
@@ -56,7 +56,7 @@
   <hr>
   <img class=" img-fluid shadow " src="{{ url($post->url_foto_2) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 2</p>
-  <input type="file" name="foto_2">
+  <input class="form-control" type="file" name="foto_2">
   <p class="link-danger">Изменить фото 2</p>
   <p></p>
   <div class="card card-body p-1 " id="div_text_post_2" contenteditable="true"
@@ -67,7 +67,7 @@
   <hr>
   <img class=" img-fluid shadow " src="{{ url($post->url_foto_3) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 3</p>
-  <input type="file" name="foto_3">
+  <input class="form-control" type="file" name="foto_3">
   <p class="link-danger">Изменить фото 3</p>
   <p></p>
   <div class="card card-body p-1 " id="div_text_post_3" contenteditable="true"
