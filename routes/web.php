@@ -11,6 +11,7 @@ use App\Http\Controllers\LikeReplyController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\DraftPostController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -57,10 +58,12 @@ Route::post('/cabinet_edit_post', [CabinetController::class, 'edit_post'])->name
 Route::get('/cabinet_new_post', [CabinetController::class, 'cabinet_new_post'])->name('cabinet_new_post');
 Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('cabinet_new_post2');
 
+
 Route::get('/draft_post', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
 Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->name('draft_post_create'); // создаем черновик поста
 
-
+Route::get('/cabinet_site', [SiteController::class, 'index'])->name('site_index');
+Route::get('/site', [SiteController::class, 'show'])->name('site_show');
 
 Route::get('/likes', [LikeController::class, 'create'])->name('create');
 

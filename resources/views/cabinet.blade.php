@@ -25,7 +25,7 @@
                     <a class="nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Сайт</a>
+                    <a class="nav-link" href="{{ route('site_index') }}">Сайт</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Статистика</a>
@@ -34,7 +34,7 @@
         </div>
 
     </nav>
-
+    <hr><hr><hr><hr>
     @endsection
 
-  
+    

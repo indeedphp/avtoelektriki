@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+/*
+|--------------------------------------------------------------------------
+| ReplyCommentController
+|--------------------------------------------------------------------------
+|
+| Работа с ответами на комментарии
+|
+*/
+
+
 class ReplyCommentController extends Controller
 {
 

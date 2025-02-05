@@ -20,6 +20,7 @@ class CabinetController extends Controller
     }
 
 
+
   public function cabinet_new_post()
     {
 
