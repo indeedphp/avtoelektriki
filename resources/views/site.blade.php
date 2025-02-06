@@ -12,10 +12,10 @@
 
  </head>
 
- <body>
+ <body  style = "background-color : #{{$site->color_body}}">
 
 
-    <div class="container-fluid fixed-top p-2 rounded  mr-3  "  style = "background-color : #5c1910";>
+    <div class="container-fluid fixed-top p-2 rounded  mr-3  "  style = "background-color : #{{$site->color_head}}";>
         <div class="row "  >
           <div class="col-sm-6 d-flex justify-content-center" >
            <h3 class="text-white">{{$site->heading}}</h3>
@@ -28,7 +28,7 @@
   
       </div>
     </div>
-
+    
      <div class="container-fluid p-1 overflow-x-hidden">
          <div class="row ">
 
@@ -42,7 +42,7 @@
 <h4 class="my-0 fw-normal ">{{$site->top_text}}</h4>
 
                     <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #1b4568";>
+                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}">
                           <h4 class="my-0 fw-normal text-white">{{$site->text_1_a}}</h4>
                         </div>
                         <div class="card-body p-1">
@@ -53,7 +53,7 @@
                      </div>
                      
                      <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #1b4568";>
+                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_2_a}}</h4>
                         </div>
                         <div class="card-body p-1">
@@ -64,7 +64,7 @@
                      </div>
 
                      <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #1b4568";>
+                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_3_a}}</h4>
                         </div>
                         <div class="card-body p-1">
@@ -75,7 +75,7 @@
                      </div>
 
                      <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #1b4568";>
+                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_4_a}}</h4>
                         </div>
                         <div class="card-body p-1">
@@ -86,7 +86,7 @@
                      </div>
 
                      <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #1b4568";>
+                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_5_a}}</h4>
                         </div>
                         <div class="card-body p-1">

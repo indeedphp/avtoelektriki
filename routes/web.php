@@ -64,6 +64,7 @@ Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->n
 
 Route::get('/cabinet_site', [SiteController::class, 'index'])->name('site_index');
 Route::get('/site', [SiteController::class, 'show'])->name('site_show');
+Route::post('/site', [SiteController::class, 'site_create'])->name('site_create'); // создаем 
 
 Route::get('/likes', [LikeController::class, 'create'])->name('create');
 

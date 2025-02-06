@@ -37,247 +37,305 @@
     <hr>
 
 
-    
-            
-            <p> Ваш сайт уже создан, только укажите свой номер телефона, посмотреть как выглядит сайт можно  <a class="" href="{{ route('site_show')}}" target="_blank">нажав тут</a>
-            </p>
-            <hr>
-            <form method="POST">
-                @csrf
-                <div class="card card-body p-1 " id="div_name_post" contenteditable="true"
-                    data-placeholder=" Напишите комментарий"></div>
-                <p class="link-danger">Напишите чем занимаетесь и где, в два-три слова например"Автоэлектрики Алматы"</p>
-                <p></p>
-    
-                <div class="card card-body p-1 " id="div_name_post" contenteditable="true"
-                data-placeholder=" Напишите комментарий"> </div>
-            <p class="link-danger">Напишите номер телефона для контактов, пример +70000000000</p>
-            <p></p>
-            <hr>
-            <div class="card card-body p-1 " id="div_name_post" contenteditable="true"
-            data-placeholder=" Напишите комментарий">  </div>
-        <p class="link-danger">Напишите коротко главные направления деятельности например "Срочный выезд для запуска автомобиля, диагностика на выезде, заправка и ремонт кондиционера и пр."</p>
+
+
+    <p> Ваш сайт уже создан, только укажите свой номер телефона, посмотреть как выглядит сайт можно <a class=""
+            href="{{ route('site_show') }}" target="_blank">нажав тут</a>
+    </p>
+    <hr>
+    <form method="POST">
+        @csrf
+
+        <div>
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #776300;">
+                <input type="radio" name="color_head" value="776300"
+                    @if ($site->color_head == '776300') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #3B0056;">
+                <input type="radio" name="color_head" value="3B0056"
+                    @if ($site->color_head == '3B0056') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #002655;">
+                <input type="radio" name="color_head" value="002655"
+                    @if ($site->color_head == '002655') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #001699;">
+                <input type="radio" name="color_head" value="001699"
+                    @if ($site->color_head == '001699') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #003F06;">
+                <input type="radio" name="color_head" value="003F06"
+                    @if ($site->color_head == '003F06') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #00770D;">
+                <input type="radio" name="color_head" value="00770D"
+                    @if ($site->color_head == '00770D') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #820000;">
+                <input type="radio" name="color_head" value="820000"
+                    @if ($site->color_head == '820000') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #560000;">
+                <input type="radio" name="color_head" value="560000"
+                    @if ($site->color_head == '560000') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #444444;">
+                <input type="radio" name="color_head" value="444444"
+                    @if ($site->color_head == '444444') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #000000;">
+                <input type="radio" name="color_head" value="000000"
+                    @if ($site->color_head == '000000') checked @endif></span>
+
+            <p class="link-danger">Выберите цвет верхней полосы сайта</p>
+        </div>
+
+        <div class="card card-body p-1 " id="heading" contenteditable="true">{{ $site->heading }}</div>
+        <p class="link-danger">Напишите чем занимаетесь и где, в два-три слова например"Автоэлектрики Алматы"</p>
+        <p></p>
+
+        <div class="card card-body p-1 " id="phone_1" contenteditable="true">{{ $site->phone_1 }}
+        </div>
+        <p class="link-danger">Напишите номер телефона для контактов, пример +70000000000</p>
         <p></p>
         <hr>
-        <div class="card card-body p-1 " id="div_name_post" contenteditable="true"
-        data-placeholder=" Напишите комментарий"> </div>
-    <p class="link-danger">Напишите заголовок карточки вида работ</p>
-    <p></p>
-                <img id="preview" class=" img-fluid shadow " src="plug.jpg" alt="Фото потерялось">
-    
-                <p class="link-danger">Выберите свое фото(обязательно для изменения)</p>
-    
-                <input class="form-control" type="file" id="fileInput" name="foto_1">
-                <br>
-                <div class="card card-body p-1 " id="div_text_post" contenteditable="true"
-                    data-placeholder=" Напишите комментарий"> </div>
-                <p class="link-danger">Напишите текст под фото (обязательное поле)</p>
-                <p></p>
-                {{-- <img id="preview" style="max-width: 300px; display: none;" alt="Предпросмотр"> --}}
-                <label>
-                    <input type="checkbox" id="toggleCheckbox" name="checkbox_1"> Добавить в пост второй блок фото плюс текст
-                </label>
-                <br><br>
-    
-    
-                <div id="myDiv" hidden>
-                    <img id="preview2" class=" img-fluid shadow " src="plug.jpg" alt="Фото потерялось">
-    
-                    <p class="link-danger">Выберите свое фото 2 (обязательно для изменения)</p>
-    
-                    <input class="form-control" type="file" id="fileInput2" name="foto_2">
-                    <br>
-                    <div class="card card-body p-1 " id="div_text_post_2" contenteditable="true"
-                        data-placeholder=" Напишите комментарий"> </div>
-                    <p class="link-danger">Напишите текст под фото 2 (обязательное поле)</p>
-                    <p></p>
-                                <label>
-                    <input type="checkbox" id="toggleCheckbox2" name="checkbox_2"> Добавить в пост третий блок фото плюс текст
-                </label>
-                </div>
-                <br><br>
-                <hr>
-    
-                <div id="myDiv2" hidden>
-                    <img id="preview3" class=" img-fluid shadow " src="plug.jpg" alt="Фото потерялось">
-    
-                    <p class="link-danger">Выберите свое фото 3 (обязательно для изменения)</p>
-    
-                    <input class="form-control" type="file" id="fileInput3" name="foto_3">
-                    <br>
-                    <div class="card card-body p-1 " id="div_text_post_3" contenteditable="true"
-                        data-placeholder=" Напишите комментарий"> </div>
-                    <p class="link-danger">Напишите текст под фото 3 (обязательное поле)</p>
-                    <p></p>
-      
-                </div>
-    
-    
-                <button class="btn btn-primary " title="Отправить" type="submit">Сохранить пост</button>
-            </form>
-            <hr>
-            <button class="btn btn-primary " title="Отправить" type="submit">Опубликовать пост</button>
-            <hr>
-    
-    
-            <script>
-                const checkbox = document.getElementById('toggleCheckbox');
-                const div = document.getElementById('myDiv');
-    
-                // Обработчик события для чекбокса
-                checkbox.addEventListener('change', function() {
-                    // Если чекбокс выбран, убираем атрибут hidden, показываем блок
-                    if (checkbox.checked) {
-                        div.removeAttribute('hidden');
-                    } else {
-                        div.setAttribute('hidden', true); // Добавляем атрибут hidden, скрываем блок
-                    }
-                });
-    //--------------------------------------------------------------------
-                const checkbox2 = document.getElementById('toggleCheckbox2');
-                const div2 = document.getElementById('myDiv2');
-    
-                // Обработчик события для чекбокса
-                checkbox2.addEventListener('change', function() {
-                    // Если чекбокс выбран, убираем атрибут hidden, показываем блок
-                    if (checkbox2.checked) {
-                        div2.removeAttribute('hidden');
-                    } else {
-                        div2.setAttribute('hidden', true); // Добавляем атрибут hidden, скрываем блок
-                    }
-                });
-    //================================================================================
-                const fileInput = document.getElementById('fileInput');
-                const preview = document.getElementById('preview');
-    
-                fileInput.addEventListener('change', function(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-    
-                        reader.onload = function(e) {
-                            preview.src = e.target.result;
-                            // preview.style.display = 'block'; // Показываем изображение
-                        };
-    
-                        reader.readAsDataURL(file); // Читаем файл как DataURL
-                    }
-                });
-    //----------------------------------------------------------------------------------
-                const fileInput2 = document.getElementById('fileInput2');
-                const preview2 = document.getElementById('preview2');
-    
-                fileInput2.addEventListener('change', function(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-    
-                        reader.onload = function(e) {
-                            preview2.src = e.target.result;
-                            // preview.style.display = 'block'; // Показываем изображение
-                        };
-    
-                        reader.readAsDataURL(file); // Читаем файл как DataURL
-                    }
-                });
-    //------------------------------------------------------------------------------
-    const fileInput3 = document.getElementById('fileInput3');
-                const preview3 = document.getElementById('preview3');
-    
-                fileInput3.addEventListener('change', function(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-    
-                        reader.onload = function(e) {
-                            preview3.src = e.target.result;
-                            // preview.style.display = 'block'; // Показываем изображение
-                        };
-    
-                        reader.readAsDataURL(file); // Читаем файл как DataURL
-                    }
-                });
-    
-    
-    //=======================================================================================
-                document.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const formData = new FormData(event.target);
-                    let div_name_post = event.target.querySelector('#div_name_post');
-                    let div_text_post = event.target.querySelector('#div_text_post');
-                    let div_text_post_2 = event.target.querySelector('#div_text_post_2');
-                    let div_text_post_3 = event.target.querySelector('#div_text_post_3');
-    
-                    formData.append("name_post", div_name_post.textContent);
-                    formData.append("text_post", div_text_post.textContent);
-                    formData.append("text_post_2", div_text_post_2.textContent);
-                    formData.append("text_post_3", div_text_post_3.textContent);
-    
-    
-                    fetch('/draft_post', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': csrf_token
-                            },
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(commits => {
-    
-                        });
-    
-    
+
+        <div>
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #FFF9DD;">
+                <input type="radio" name="color_body" value="FFF9DD"
+                    @if ($site->color_body == 'FFF9DD') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #F4DDFF;">
+                <input type="radio" name="color_body" value="F4DDFF"
+                    @if ($site->color_body == 'F4DDFF') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #BAC4FF;">
+                <input type="radio" name="color_body" value="BAC4FF"
+                    @if ($site->color_body == 'BAC4FF') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #DDE2FF;">
+                <input type="radio" name="color_body" value="DDE2FF"
+                    @if ($site->color_body == 'DDE2FF') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #C1FFC8;">
+                <input type="radio" name="color_body" value="C1FFC8"
+                    @if ($site->color_body == 'C1FFC8') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #DDFFE1;">
+                <input type="radio" name="color_body" value="DDFFE1"
+                    @if ($site->color_body == 'DDFFE1') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #FFC9C9;">
+                <input type="radio" name="color_body" value="FFC9C9"
+                    @if ($site->color_body == 'FFC9C9') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #FFDDDD;">
+                <input type="radio" name="color_body" value="FFDDDD"
+                    @if ($site->color_body == 'FFDDDD') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #FFFFFF;">
+                <input type="radio" name="color_body" value="FFFFFF"
+                    @if ($site->color_body == 'FFFFFF') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #D8D8D8;">
+                <input type="radio" name="color_body" value="D8D8D8"
+                    @if ($site->color_body == 'D8D8D8') checked @endif></span>
+
+            <p class="link-danger">Выберите цвет заднего фона сайта</p>
+        </div>
+
+        <div id="top_text" class="card card-body p-1 " contenteditable="true">{{ $site->top_text }} </div>
+        <p class="link-danger">Напишите коротко главные направления деятельности например "Срочный выезд для запуска
+            автомобиля, диагностика на выезде, заправка и ремонт кондиционера"</p>
+        <p></p>
+        <hr>
+        <div>
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #776300;">
+                <input type="radio" name="color_card" value="776300"
+                    @if ($site->color_card == '776300') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #3B0056;">
+                <input type="radio" name="color_card" value="3B0056"
+                    @if ($site->color_card == '3B0056') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #002655;">
+                <input type="radio" name="color_card" value="002655"
+                    @if ($site->color_card == '002655') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #001699;">
+                <input type="radio" name="color_card" value="001699"
+                    @if ($site->color_card == '001699') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #003F06;">
+                <input type="radio" name="color_card" value="003F06"
+                    @if ($site->color_card == '003F06') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #00770D;">
+                <input type="radio" name="color_card" value="00770D"
+                    @if ($site->color_card == '00770D') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #820000;">
+                <input type="radio" name="color_card" value="820000"
+                    @if ($site->color_card == '820000') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #560000;">
+                <input type="radio" name="color_card" value="560000"
+                    @if ($site->color_card == '560000') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #444444;">
+                <input type="radio" name="color_card" value="444444"
+                    @if ($site->color_card == '444444') checked @endif></span>
+
+            <span class="color-box" style="width: 30px; height: 30px; display: inline-block; background-color: #000000;">
+                <input type="radio" name="color_card" value="000000"
+                    @if ($site->color_card == '000000') checked @endif></span>
+
+            <p class="link-danger">Выберите цвет верхней полосы карточек</p>
+        </div>
+        <div id="text_1_a" class="card card-body p-1" contenteditable="true"> {{ $site->text_1_a }}</div>
+        <p class="link-danger">Напишите заголовок карточки вида работ</p>
+        <p></p>
+        <img id="preview" class=" img-fluid shadow " src="{{ $site->foto_1 }}" alt="Фото потерялось">
+        <br> <br>
+
+
+        <input class="form-control" type="file" id="fileInput" name="foto_1" value="plug.jpg">
+        <p class="link-danger">Выберите свое фото</p>
+        <br>
+        <div class="card card-body p-1 " id="text_1_b" contenteditable="true" data-placeholder=" Напишите комментарий">
+            {{ $site->text_1_b }}</div>
+        <p class="link-danger">Напишите текст под фото</p>
+        <p></p>
+        <hr>
+        <br><br>
+        {{-- ========================================================================== --}}
+        <div id="text_2_a" class="card card-body p-1" contenteditable="true"> {{ $site->text_2_a }}</div>
+        <p class="link-danger">Напишите заголовок карточки вида работ</p>
+        <p></p>
+        <img id="preview2" class=" img-fluid shadow " src="{{ $site->foto_2 }}" alt="Фото потерялось">
+        <br> <br>
+
+        <input class="form-control" type="file" id="fileInput2" name="foto_2">
+        <p class="link-danger">Выберите свое фото</p>
+        <br>
+        <div class="card card-body p-1 " id="text_2_b" contenteditable="true" data-placeholder=" Напишите комментарий">
+            {{ $site->text_2_b }}</div>
+        <p class="link-danger">Напишите текст под фото</p>
+        <p></p>
+        <hr>
+        <br><br>
+
+        {{-- ========================================================================== --}}
+        <div id="text_3_a" class="card card-body p-1" contenteditable="true"> {{ $site->text_3_a }}</div>
+        <p class="link-danger">Напишите заголовок карточки вида работ</p>
+        <p></p>
+        <img id="preview3" class=" img-fluid shadow " src="{{ $site->foto_3 }}" alt="Фото потерялось">
+        <br> <br>
+
+        <input class="form-control" type="file" id="fileInput3" name="foto_3">
+        <p class="link-danger">Выберите свое фото</p>
+        <br>
+        <div class="card card-body p-1 " id="text_3_b" contenteditable="true" data-placeholder=" Напишите комментарий">
+            {{ $site->text_3_b }}</div>
+        <p class="link-danger">Напишите текст под фото</p>
+        <p></p>
+        <hr>
+        <br><br>
+        {{-- ========================================================================== --}}
+        <div id="text_4_a" class="card card-body p-1" contenteditable="true"> {{ $site->text_4_a }}</div>
+        <p class="link-danger">Напишите заголовок карточки вида работ</p>
+        <p></p>
+        <img id="preview4" class=" img-fluid shadow " src="{{ $site->foto_4 }}" alt="Фото потерялось">
+        <br> <br>
+
+        <input class="form-control" type="file" id="fileInput4" name="foto_4">
+        <p class="link-danger">Выберите свое фото</p>
+        <br>
+        <div class="card card-body p-1 " id="text_4_b" contenteditable="true" data-placeholder=" Напишите комментарий">
+            {{ $site->text_4_b }}</div>
+        <p class="link-danger">Напишите текст под фото</p>
+        <p></p>
+        <hr>
+        <br><br>
+        {{-- ========================================================================== --}}
+        <div id="text_5_a" class="card card-body p-1" contenteditable="true"> {{ $site->text_5_a }}</div>
+        <p class="link-danger">Напишите заголовок карточки вида работ</p>
+        <p></p>
+        <img id="preview5" class=" img-fluid shadow " src="{{ $site->foto_5 }}" alt="Фото потерялось">
+        <br> <br>
+
+        <input class="form-control" type="file" id="fileInput5" name="foto_5">
+        <p class="link-danger">Выберите свое фото</p>
+        <br>
+        <div class="card card-body p-1 " id="text_5_b" contenteditable="true" data-placeholder=" Напишите комментарий">
+            {{ $site->text_5_b }}</div>
+        <p class="link-danger">Напишите текст под фото</p>
+        <p></p>
+        <hr>
+        <br><br>
+
+        <div id="bottom_text" class="card card-body p-1 " contenteditable="true">{{ $site->bottom_text }} </div>
+        <p class="link-danger">Подведите итоги, напишите доп контакты и пр.</p>
+        <p></p>
+        <hr>
+
+
+
+        <button class="btn btn-primary " title="Отправить" type="submit">Сохранить сайт</button>
+    </form>
+    <hr>
+
+
+
+    <script>
+        //================================================================================
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    // preview.style.display = 'block'; // Показываем изображение
+                };
+
+                reader.readAsDataURL(file); // Читаем файл как DataURL
+            }
+        });
+
+
+        //=======================================================================================
+        document.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+
+            formData.append("heading", event.target.querySelector('#heading').textContent);
+            formData.append("phone_1", event.target.querySelector('#phone_1').textContent);
+            formData.append("top_text", event.target.querySelector('#top_text').textContent);
+            formData.append("text_1_a", event.target.querySelector('#text_1_a').textContent);
+            formData.append("text_1_b", event.target.querySelector('#text_1_b').textContent);
+            formData.append("text_2_a", event.target.querySelector('#text_2_a').textContent);
+            formData.append("text_2_b", event.target.querySelector('#text_2_b').textContent);
+            formData.append("text_3_a", event.target.querySelector('#text_3_a').textContent);
+            formData.append("text_3_b", event.target.querySelector('#text_3_b').textContent);
+            formData.append("text_4_a", event.target.querySelector('#text_4_a').textContent);
+            formData.append("text_4_b", event.target.querySelector('#text_4_b').textContent);
+            formData.append("text_5_a", event.target.querySelector('#text_5_a').textContent);
+            formData.append("text_5_b", event.target.querySelector('#text_5_b').textContent);
+
+            fetch('/site', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrf_token
+                    },
+                    body: formData
                 })
-            </script>
-        
-    
-
-
-
-
-
-    @endsection
-
-
-
-
-    {{-- <div class="container-fluid fixed-top p-2 rounded  mr-3  " style="background-color : #1D1274" ;="">
-        <div class="row ">
-          <div class="col-sm-6 d-flex justify-content-center">
-           <h4 class="text-white">Автоэлектрика в Алматы</h4>
-         </div>
-         <div class="col-sm-6 d-flex justify-content-center">
-          <h4 class=" text-white"> <a class=" text-white" href="tel:+77074751000" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
-            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path>
-          </svg> +7-(707)-475-10-00</a></h4>
-        </div>
-  
-      </div>
-    </div> --}}
-
-
-
-
-
-{{-- 
-    <div class="card mb-4 rounded-3 shadow-sm border-dark ">
-        <div class="card-header py-3 " style="background-color : #418BC6" ;="">
-          <h4 class="my-0 fw-normal ">Не запускается автомобиль?</h4>
-        </div>
-        <div class="card-body">
-          <img src="1.jpg" height="300" class="rounded  mr-3">
-          <table class="table table-striped ">
-            <thead>
-              <tr><th><h5 class="text-center">Частые обращения к нам</h5></th></tr>
-            </thead>
-            <tbody>
-             <tr><td>Машина стояла и не запускается</td></tr>
-             <tr><td>На заправке остановились и не заводится</td> </tr>
-             <tr><td>Сходили в магазин и нет запуска</td> </tr>
-             <tr><td>Дети что то включили и все</td> </tr>
-           </tbody>
-         </table>
-         Частые ситуации с которыми нам приходится иметь дело, звоните разберемся обязательно.
-       </div>
-     </div> --}}
+                .then(response => response.json())
+                .then(commits => {});
+        });
+    </script>
+@endsection
