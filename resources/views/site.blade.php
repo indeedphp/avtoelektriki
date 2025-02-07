@@ -4,10 +4,11 @@
 
  <head>
      <meta charset="utf-8">
-     <title>Автоэлектр</title>
+     <title>Автоэлектрики</title>
      <link rel="shortcut icon" href="{{ url('favicon.ico') }}">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <meta name="description" content="Профпортал Автоэлектрики">
+     <meta name="description" content="{{$site->meta_1}}">
+     <link rel="image_src" href="">
      <link href="{{ url('bootstrap.css') }}" rel="stylesheet">
 
  </head>
@@ -15,7 +16,7 @@
  <body  style = "background-color : #{{$site->color_body}}">
 
 
-    <div class="container-fluid fixed-top p-2 rounded  mr-3  "  style = "background-color : #{{$site->color_head}}";>
+    <div class="container-fluid fixed-top rounded p-1"  style = "background-color : #{{$site->color_head}}";>
         <div class="row "  >
           <div class="col-sm-6 d-flex justify-content-center" >
            <h3 class="text-white">{{$site->heading}}</h3>
@@ -34,71 +35,89 @@
 
              <div class="col-xl-2 "></div>
 
-             <div class="col  p-3 px-2">
-                 <div class=" my-4 py-3"></div>
+             <div class="col ">
+                 <div class=" my-3 py-3 "></div>
+<div class="d-block d-sm-none  my-2 py-1"></div>
 
+                
+                <div><h4 class=" fw-normal ">{{$site->top_text}}</h4></div>
 
-                 <div id='content' class="">
-<h4 class="my-0 fw-normal ">{{$site->top_text}}</h4>
+                    <div class="card mb-3 my-lg-4 shadow">
+                        <div class="card-header" style = "background-color : #{{$site->color_card}}">
 
-                    <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}">
+                          
                           <h4 class="my-0 fw-normal text-white">{{$site->text_1_a}}</h4>
                         </div>
-                        <div class="card-body p-1">
-                            <img id="preview" class=" img-fluid shadow " src="{{$site->foto_1}}" alt="Фото потерялось">
-              
-                         <p class="card-text p-2">{{$site->text_1_b}}</p>
+                        <div class="card-body p-1" style = "background-color : #{{$site->color_back}}">
+
+                          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                            <img  class="mt-lg-3 img-fluid shadow rounded " src="{{url($site->foto_1)}}"  alt="Фото потерялось">
+                        </div>                       
+                         <p class="card-text p-2 py-lg-4 px-lg-5">{{$site->text_1_b}}</p>
                        </div>
                      </div>
                      
-                     <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
+                     <div class="card mb-3 my-lg-4  shadow">
+                        <div class="card-header" style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_2_a}}</h4>
                         </div>
-                        <div class="card-body p-1">
-                            <img id="preview" class=" img-fluid shadow " src="{{$site->foto_2}}" alt="Фото потерялось">
-              
-                         <p class="card-text p-2">{{$site->text_2_b}}</p>
+                        <div class="card-body p-1" style = "background-color : #{{$site->color_back}}">
+
+                          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                            <img  class="mt-lg-3 img-fluid shadow rounded" src="{{url($site->foto_2)}}" alt="Фото потерялось">
+                        </div>                       
+                         <p class="card-text p-2 py-lg-4 px-lg-5">{{$site->text_2_b}}</p>
+
                        </div>
                      </div>
 
-                     <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
+                     <div class="card mb-3 my-lg-4 shadow">
+                        <div class="card-header" style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_3_a}}</h4>
                         </div>
-                        <div class="card-body p-1">
-                            <img id="preview" class=" img-fluid shadow " src="{{$site->foto_3}}" alt="Фото потерялось">
-              
-                         <p class="card-text p-2">{{$site->text_3_b}}</p>
+                        <div class="card-body p-1" style = "background-color : #{{$site->color_back}}">
+                          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                            <img  class="mt-lg-3 img-fluid shadow rounded" src="{{url($site->foto_3)}}" alt="Фото потерялось">
+                        </div>                       
+                         <p class="card-text p-2 py-lg-4 px-lg-5">{{$site->text_3_b}}</p>
                        </div>
                      </div>
 
-                     <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
+                     <div class="card mb-3 my-lg-4 shadow">
+                        <div class="card-header" style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_4_a}}</h4>
                         </div>
-                        <div class="card-body p-1">
-                            <img id="preview" class=" img-fluid shadow " src="{{$site->foto_4}}" alt="Фото потерялось">
-              
-                         <p class="card-text p-2">{{$site->text_4_b}}</p>
+                        <div class="card-body p-1" style = "background-color : #{{$site->color_back}}">
+                          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                            <img  class="mt-lg-3 img-fluid shadow rounded" src="{{url($site->foto_4)}}" alt="Фото потерялось">
+                        </div>                       
+                         <p class="card-text p-2 py-lg-4  px-lg-5">{{$site->text_4_b}}</p>
                        </div>
                      </div>
 
-                     <div class="card mb-4 rounded-3 shadow">
-                        <div class="card-header py-3 " style = "background-color : #{{$site->color_card}}";>
+                     <div class="card mb-3 my-lg-4 shadow">
+                        <div class="card-header" style = "background-color : #{{$site->color_card}}";>
                           <h4 class="my-0 fw-normal text-white">{{$site->text_5_a}}</h4>
                         </div>
-                        <div class="card-body p-1">
-                            <img id="preview" class=" img-fluid shadow " src="{{$site->foto_5}}" alt="Фото потерялось">
-              
-                         <p class="card-text p-2">{{$site->text_5_b}}</p>
+                        <div class="card-body p-1" style = "background-color : #{{$site->color_back}}">
+                          <div class="card-body px-0 mx-lg-5 px-lg-5 py-0">
+                            <img  class="mt-lg-3 img-fluid shadow rounded" src="{{url($site->foto_5)}}" alt="Фото потерялось">
+                        </div>                       
+                         <p class="card-text p-2 py-lg-4 px-lg-5">{{$site->text_5_b}}</p>
                        </div>
                      </div>
 
-                     <h4 class="my-0 fw-normal ">{{$site->bottom_text}}</h4>
+                     <div class="">     </div>
 
-                   </div>
+                     <div class="row mx-0">
+                      <a href="{{ route('channel', Auth::user()->id) }}" class="btn text-white" target="_blank" role="button" style = "background-color : #{{$site->color_card}}" title="Перейти на портал Автоэлектрики">Наши недавние ремонты тут на портале</a>
+                    </div>
+
+                    
+                     <h4 class="p-2 fw-normal ">{{$site->bottom_text}}</h4>
+
+
+                   
 
                  </div>
             
@@ -114,7 +133,11 @@
 
 
 
-
+     <footer class=" text-white " style = "background-color : #{{$site->color_head}}";>
+      <div class="p-2"  >
+        <span class=" ">© 2024 Company, Inc</span>
+      </div>
+    </footer>
 
 
 

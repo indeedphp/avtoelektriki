@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone_2')->nullable();
             $table->string('color_body')->nullable();
             $table->string('color_card')->nullable();
+            $table->string('color_back')->nullable();
             $table->text('top_text')->nullable();
             $table->text('text_1_a')->nullable();
             $table->string('foto_1')->nullable();
@@ -43,7 +44,8 @@ return new class extends Migration
             $table->string('location_e')->nullable();
             $table->boolean('active')->nullable();
             $table->string('date')->nullable();
-            $table->string('stuff')->nullable();
+            $table->string('meta_1')->nullable();
+            $table->string('meta_2')->nullable();
             $table->timestamps();
         });
     }

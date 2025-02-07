@@ -21,6 +21,7 @@ class Site extends Model
         'phone_2',
         'color_body',
         'color_card',
+        'color_back',
         'top_text',
         'text_1_a',
         'foto_1',
@@ -42,7 +43,8 @@ class Site extends Model
         'location_e',
         'active',
         'date',
-        'stuff',
+        'meta_1',
+        'meta_2',
     ];
 }
 

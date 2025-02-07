@@ -49,7 +49,7 @@ Route::get('/api_index', [PostController::class, 'show'])->name('show');
 
 Route::get('/channel/{id}', [ChannelController::class, 'index'])->name('channel');
 Route::get('/api_channel/{id}', [ChannelController::class, 'show'])->name('channel_show');
-Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel');
+Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel2');
 Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel_show');
 
 Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet_index');
@@ -62,8 +62,8 @@ Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('
 Route::get('/draft_post', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
 Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->name('draft_post_create'); // создаем черновик поста
 
-Route::get('/cabinet_site', [SiteController::class, 'index'])->name('site_index');
-Route::get('/site', [SiteController::class, 'show'])->name('site_show');
+Route::get('/cabinet_site/{id}', [SiteController::class, 'index'])->name('site_index');
+Route::get('/site/{id}', [SiteController::class, 'show'])->name('site_show');
 Route::post('/site', [SiteController::class, 'site_create'])->name('site_create'); // создаем 
 
 Route::get('/likes', [LikeController::class, 'create'])->name('create');

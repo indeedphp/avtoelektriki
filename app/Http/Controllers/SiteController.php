@@ -21,9 +21,9 @@ class SiteController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index($id)
     {
-        $site = Site::where('id', 1)->first();
+        $site = Site::where('id_user', $id)->first();
 
         return view('cabinet_site', compact('site'));
     }
@@ -45,6 +45,7 @@ class SiteController extends Controller
         $color_head = $request->input('color_head');
         $color_body = $request->input('color_body');
         $color_card = $request->input('color_card');
+        $color_back = $request->input('color_back');
         $heading = $request->input('heading');
         $phone_1 = $request->input('phone_1');
         $top_text = $request->input('top_text');
@@ -58,21 +59,58 @@ class SiteController extends Controller
         $text_4_b = $request->input('text_4_b');
         $text_5_a = $request->input('text_5_a');
         $text_5_b = $request->input('text_5_b');
-       
+        $bottom_text = $request->input('bottom_text');
+        $meta_1 = $request->input('meta_1');
 
-        if (!empty($request->input('foto_1'))) $foto_1 = $request->input('foto_1');
+        function convert_foto($inputFile, $outputFile)
+        {
+            $img = imagecreatefromjpeg($inputFile);
+            $size = getimagesize($inputFile);
+            $size_k = $size[0] / 1280;
+            $new_size_x = $size[0] / $size_k;
+            $new_size_y = $size[1] / $size_k;
+            $new_img = imagecreatetruecolor($new_size_x, $new_size_y);
+            imagecopyresampled($new_img, $img, 0, 0, 0, 0, $new_size_x, $new_size_y, $size[0], $size[1]);
+            imagejpeg($new_img, $outputFile, 50);
+            imagedestroy($img);
+            imagedestroy($new_img);
+        }
+
+        $name_foto = $id_user . '-' . time() . '.jpg';
+      
+        if (!empty($request->foto_1)) {
+            $foto_1 = 'storage/app/bot/images/' . '1_site_' . $name_foto;
+            convert_foto($request->foto_1, $foto_1);
+        }
         else $foto_1 = $site->foto_1;
-        if (!empty($request->input('foto_2'))) $foto_2 = $request->input('foto_2');
+       
+        if (!empty($request->foto_2)) {
+            $foto_2 = 'storage/app/bot/images/' . '2_site_' . $name_foto;
+            convert_foto($request->foto_2, $foto_2);
+        }
         else $foto_2 = $site->foto_2;
-        if (!empty($request->input('foto_3'))) $foto_3 = $request->input('foto_3');
+
+        if (!empty($request->foto_3)) {
+            $foto_3 = 'storage/app/bot/images/' . '3_site_' . $name_foto;
+            convert_foto($request->foto_3, $foto_3);
+        }
         else $foto_3 = $site->foto_3;
-        if (!empty($request->input('foto_4'))) $foto_4 = $request->input('foto_4');
+
+        if (!empty($request->foto_4)) {
+            $foto_4 = 'storage/app/bot/images/' . '4_site_' . $name_foto;
+            convert_foto($request->foto_4, $foto_4);
+        }
         else $foto_4 = $site->foto_4;
-        if (!empty($request->input('foto_5'))) $foto_5 = $request->input('foto_5');
+     
+        if (!empty($request->foto_5)) {
+            $foto_5 = 'storage/app/bot/images/' . '5_site_' . $name_foto;
+            convert_foto($request->foto_5, $foto_5);
+        }
         else $foto_5 = $site->foto_5;
 
-        // if (!empty($request->input('name_opponent'))) $name_opponent = $request->input('name_opponent');
-        // else $name_opponent = 0;
+
+
+
 if($site->id == 1){
         $db_site = Site::create([
             'id_user' => $id_user,
@@ -103,7 +141,7 @@ if($site->id == 1){
             'text_5_a' => $text_5_a,
             'foto_5' => $foto_5,
             'text_5_b' => $text_5_b,
-            
+            'bottom_text' => $bottom_text,  //bottom_text
         ]);
 }
 else {
@@ -115,6 +153,7 @@ else {
         'color_head' => $color_head,
         'color_body' => $color_body,
         'color_card' => $color_card,
+        'color_back' => $color_back,
         'heading' => $heading,
         'phone_1' => $phone_1,
         'top_text' => $top_text,
@@ -138,6 +177,8 @@ else {
         'text_5_a' => $text_5_a,
         'foto_5' => $foto_5,
         'text_5_b' => $text_5_b,
+        'bottom_text' => $bottom_text,
+        'meta_1' => $meta_1,
     ]);
 
 
@@ -151,7 +192,7 @@ else {
 
 }
 
-        return response()->json($site, 200);
+        return response()->json('ok', 200);
     }
 
     /**
@@ -165,9 +206,9 @@ else {
     /**
      * Display the specified resource.
      */
-    public function show(Site $site)
+    public function show($id)
     {
-        $site = Site::where('id', 1)->first();
+        $site = Site::where('id_user', $id)->first();
 
         return view('site', compact('site'));
     }
