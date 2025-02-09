@@ -46,61 +46,61 @@
     <hr>
     <form method="POST">
         @csrf
-
+        
         <div>
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #776300;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #776300;">
                 <input type="radio" name="color_head" value="776300"
                     @if ($site->color_head == '776300') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #3B0056;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #3B0056;">
                 <input type="radio" name="color_head" value="3B0056"
                     @if ($site->color_head == '3B0056') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #002655;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #002655;">
                 <input type="radio" name="color_head" value="002655"
                     @if ($site->color_head == '002655') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #001699;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #001699;">
                 <input type="radio" name="color_head" value="001699"
                     @if ($site->color_head == '001699') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #425EFF;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #425EFF;">
                 <input type="radio" name="color_head" value="425EFF"
                     @if ($site->color_head == '425EFF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #003F06;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #003F06;">
                 <input type="radio" name="color_head" value="003F06"
                     @if ($site->color_head == '003F06') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #00770D;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #00770D;">
                 <input type="radio" name="color_head" value="00770D"
                     @if ($site->color_head == '00770D') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #00BC12;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #00BC12;">
                 <input type="radio" name="color_head" value="00BC12"
                     @if ($site->color_head == '00BC12') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FF4949;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #FF4949;">
                 <input type="radio" name="color_head" value="FF4949"
                     @if ($site->color_head == 'FF4949') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #820000;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #820000;">
                 <input type="radio" name="color_head" value="820000"
                     @if ($site->color_head == '820000') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #560000;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #560000;">
                 <input type="radio" name="color_head" value="560000"
                     @if ($site->color_head == '560000') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #9E9E9E;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #9E9E9E;">
                 <input type="radio" name="color_head" value="9E9E9E"
                     @if ($site->color_head == '9E9E9E') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #444444;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #444444;">
                 <input type="radio" name="color_head" value="444444"
                     @if ($site->color_head == '444444') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #000000;">
+            <span class="px-lg-4"  style="width: 20px; height: 40px; display: inline-block; background-color: #000000;">
                 <input type="radio" name="color_head" value="000000"
                     @if ($site->color_head == '000000') checked @endif></span>
 
@@ -118,59 +118,60 @@
         <hr>
 
         <div>
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFF9DD;">
+            
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFF9DD;">
                 <input type="radio" name="color_body" value="FFF9DD"
                     @if ($site->color_body == 'FFF9DD') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #F4DDFF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #F4DDFF;">
                 <input type="radio" name="color_body" value="F4DDFF"
                     @if ($site->color_body == 'F4DDFF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #96A9FF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #96A9FF;">
                 <input type="radio" name="color_body" value="96A9FF"
                     @if ($site->color_body == '96A9FF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #BAC4FF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #BAC4FF;">
                 <input type="radio" name="color_body" value="BAC4FF"
                     @if ($site->color_body == 'BAC4FF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #DDE2FF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #DDE2FF;">
                 <input type="radio" name="color_body" value="DDE2FF"
                     @if ($site->color_body == 'DDE2FF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #8CFF99;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #8CFF99;">
                 <input type="radio" name="color_body" value="8CFF99"
                     @if ($site->color_body == '8CFF99') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #C1FFC8;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #C1FFC8;">
                 <input type="radio" name="color_body" value="C1FFC8"
                     @if ($site->color_body == 'C1FFC8') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #DDFFE1;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #DDFFE1;">
                 <input type="radio" name="color_body" value="DDFFE1"
                     @if ($site->color_body == 'DDFFE1') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFA8A8;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFA8A8;">
                 <input type="radio" name="color_body" value="FFA8A8"
                     @if ($site->color_body == 'FFA8A8') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFC9C9;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFC9C9;">
                 <input type="radio" name="color_body" value="FFC9C9"
                     @if ($site->color_body == 'FFC9C9') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFDDDD;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFDDDD;">
                 <input type="radio" name="color_body" value="FFDDDD"
                     @if ($site->color_body == 'FFDDDD') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFFFFF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFFFFF;">
                 <input type="radio" name="color_body" value="FFFFFF"
                     @if ($site->color_body == 'FFFFFF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #D8D8D8;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #D8D8D8;">
                 <input type="radio" name="color_body" value="D8D8D8"
                     @if ($site->color_body == 'D8D8D8') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #C4C4C4;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #C4C4C4;">
                 <input type="radio" name="color_body" value="C4C4C4"
                     @if ($site->color_body == 'C4C4C4') checked @endif></span>
 
@@ -183,59 +184,59 @@
         <p></p>
         <hr>
         <div>
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #776300;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #776300;">
                 <input type="radio" name="color_card" value="776300"
                     @if ($site->color_card == '776300') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #3B0056;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #3B0056;">
                 <input type="radio" name="color_card" value="3B0056"
                     @if ($site->color_card == '3B0056') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #002655;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #002655;">
                 <input type="radio" name="color_card" value="002655"
                     @if ($site->color_card == '002655') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #001699;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #001699;">
                 <input type="radio" name="color_card" value="001699"
                     @if ($site->color_card == '001699') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #425EFF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #425EFF;">
                 <input type="radio" name="color_card" value="425EFF"
                     @if ($site->color_card == '425EFF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #003F06;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #003F06;">
                 <input type="radio" name="color_card" value="003F06"
                     @if ($site->color_card == '003F06') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #00770D;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #00770D;">
                 <input type="radio" name="color_card" value="00770D"
                     @if ($site->color_card == '00770D') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #00BC12;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #00BC12;">
                 <input type="radio" name="color_card" value="00BC12"
                     @if ($site->color_card == '00BC12') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FF4949;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FF4949;">
                 <input type="radio" name="color_card" value="FF4949"
                     @if ($site->color_card == 'FF4949') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #820000;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #820000;">
                 <input type="radio" name="color_card" value="820000"
                     @if ($site->color_card == '820000') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #560000;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #560000;">
                 <input type="radio" name="color_card" value="560000"
                     @if ($site->color_card == '560000') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #9E9E9E;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #9E9E9E;">
                 <input type="radio" name="color_card" value="9E9E9E"
                     @if ($site->color_card == '9E9E9E') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #444444;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #444444;">
                 <input type="radio" name="color_card" value="444444"
                     @if ($site->color_card == '444444') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #000000;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #000000;">
                 <input type="radio" name="color_card" value="000000"
                     @if ($site->color_card == '000000') checked @endif></span>
 
@@ -246,59 +247,59 @@
         <p class="link-danger">Напишите заголовок карточки вида работ</p>
         <p></p>
         <div>
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFF9DD;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFF9DD;">
                 <input type="radio" name="color_back" value="FFF9DD"
                     @if ($site->color_back == 'FFF9DD') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #F4DDFF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #F4DDFF;">
                 <input type="radio" name="color_back" value="F4DDFF"
                     @if ($site->color_back == 'F4DDFF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #96A9FF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #96A9FF;">
                 <input type="radio" name="color_back" value="96A9FF"
                     @if ($site->color_back == '96A9FF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #BAC4FF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #BAC4FF;">
                 <input type="radio" name="color_back" value="BAC4FF"
                     @if ($site->color_back == 'BAC4FF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #DDE2FF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #DDE2FF;">
                 <input type="radio" name="color_back" value="DDE2FF"
                     @if ($site->color_back == 'DDE2FF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #8CFF99;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #8CFF99;">
                 <input type="radio" name="color_back" value="8CFF99"
                     @if ($site->color_back == '8CFF99') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #C1FFC8;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #C1FFC8;">
                 <input type="radio" name="color_back" value="C1FFC8"
                     @if ($site->color_back == 'C1FFC8') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #DDFFE1;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #DDFFE1;">
                 <input type="radio" name="color_back" value="DDFFE1"
                     @if ($site->color_back == 'DDFFE1') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFA8A8;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFA8A8;">
                 <input type="radio" name="color_back" value="FFA8A8"
                     @if ($site->color_back == 'FFA8A8') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFC9C9;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFC9C9;">
                 <input type="radio" name="color_back" value="FFC9C9"
                     @if ($site->color_back == 'FFC9C9') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFDDDD;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFDDDD;">
                 <input type="radio" name="color_back" value="FFDDDD"
                     @if ($site->color_back == 'FFDDDD') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #FFFFFF;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FFFFFF;">
                 <input type="radio" name="color_back" value="FFFFFF"
                     @if ($site->color_back == 'FFFFFF') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #D8D8D8;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #D8D8D8;">
                 <input type="radio" name="color_back" value="D8D8D8"
                     @if ($site->color_back == 'D8D8D8') checked @endif></span>
 
-            <span style="width: 20px; height: 40px; display: inline-block; background-color: #C4C4C4;">
+            <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #C4C4C4;">
                 <input type="radio" name="color_back" value="C4C4C4"
                     @if ($site->color_back == 'C4C4C4') checked @endif></span>
 

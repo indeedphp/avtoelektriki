@@ -59,8 +59,9 @@ Route::get('/cabinet_new_post', [CabinetController::class, 'cabinet_new_post'])-
 Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('cabinet_new_post2');
 
 
-Route::get('/draft_post', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
+Route::get('/draft_post/{id}', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
 Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->name('draft_post_create'); // создаем черновик поста
+Route::get('/draft_post_in_post/{id}', [DraftPostController::class, 'draft_post_in_post'])->name('draft_post_in_post'); // 
 
 Route::get('/cabinet_site/{id}', [SiteController::class, 'index'])->name('site_index');
 Route::get('/site/{id}', [SiteController::class, 'show'])->name('site_show');

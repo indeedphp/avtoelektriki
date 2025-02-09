@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Draft_post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class DraftPostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $post = Draft_post::where('id', 15)->first();
+        $post = Draft_post::where('id', $id)->first();
    
         return view('draft_post', compact('post'));
     }
@@ -21,9 +22,26 @@ class DraftPostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function draft_post_in_post($id)
     {
-        //
+   
+        $draft_post = Draft_post::where('id', $id)->first();
+
+        Post::create([
+            'name_post' => $draft_post->name_post,
+            'text_post' => $draft_post->text_post,
+             'id_user' => $draft_post->id_user, 
+             'user_name' => $draft_post->user_name,
+             'url_foto' => $draft_post->url_foto,
+              'url_foto_2' => $draft_post->url_foto_2,
+             'text_post_2' => $draft_post->text_post_2,
+             'url_foto_3' => $draft_post->url_foto_3,
+             'text_post_3' => $draft_post->text_post_3,
+        ]);
+
+        Draft_post::where('id', $id)->delete();
+       
+        return response()->json('ok', 200);
     }
 
     /**
@@ -55,8 +73,9 @@ class DraftPostController extends Controller
         info($request);
         $name_post = $request->input('name_post');
         $text_post = $request->input('text_post');
+        $draft_post_id = $request->input('draft_post_id');
         
-        $id_user = Auth::user()->name;
+        $id_user = Auth::user()->id;
         $user_name = Auth::user()->user_name;
 
         function convert_foto2($inputFile, $outputFile)
@@ -102,18 +121,19 @@ class DraftPostController extends Controller
 
       }
 
-        $db_draft_post = Draft_post::create([
+      $db_draft_post =  Draft_post::where('id', $draft_post_id)
+        ->update([
             'name_post' => $name_post,
-             'text_post' => $text_post,
-              'id_user' => $id_user, 
-              'user_name' => $user_name,
-              'url_foto' => $url_foto,
-               'url_foto_2' => $url_foto_2,
-              'text_post_2' => $text_post_2,
-              'url_foto_3' => $url_foto_3,
-              'text_post_3' => $text_post_3,
-            ]);
-        // Storage::disk('local')->put('file.txt', 'Contents');
+            'text_post' => $text_post,
+             'id_user' => $id_user, 
+             'user_name' => $user_name,
+             'url_foto' => $url_foto,
+              'url_foto_2' => $url_foto_2,
+             'text_post_2' => $text_post_2,
+             'url_foto_3' => $url_foto_3,
+             'text_post_3' => $text_post_3,
+        ]);
+
         return response()->json($db_draft_post, 200);
     }
 

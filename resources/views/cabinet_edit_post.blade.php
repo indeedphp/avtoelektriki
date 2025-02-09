@@ -25,7 +25,7 @@
             <a class="link-danger nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('site_index') }}">Сайт</a>
+            <a class="nav-link" href="{{ route('site_index', Auth::user()->id) }}">Сайт</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Статистика</a>
@@ -38,6 +38,7 @@
 
 <form  method="POST">
     @csrf
+    <input type="hidden" name="post_id" value="{{$post->id}}">
   <div class="card card-body p-1 " id="div_name_post" contenteditable="true"
   data-placeholder=" Напишите комментарий">  {{ $post->name_post}}</div>
   <p class="link-danger">Правим название поста</p>
@@ -54,6 +55,8 @@
   <p></p>
   <br>
   <hr>
+
+@if ($post->url_foto_2 !== null)
   <img class=" img-fluid shadow " src="{{ url($post->url_foto_2) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 2</p>
   <input class="form-control" type="file" name="foto_2">
@@ -64,7 +67,9 @@
   <p class="link-danger">Правим текст под фото 2</p>
   <p></p>
   <br>
+@endif
   <hr>
+  @if ($post->url_foto_2 !== null)
   <img class=" img-fluid shadow " src="{{ url($post->url_foto_3) }}" alt="Фото потерялось">
   <p class="link-danger">Фото 3</p>
   <input class="form-control" type="file" name="foto_3">
@@ -75,7 +80,7 @@
   <p class="link-danger">Правим текст под фото 3</p>
   <p></p>
   <br>
-
+  <br>@endif
   <div class="row">
     
     <button class="btn btn-primary " title="Отправить"
@@ -100,15 +105,21 @@
 document.addEventListener('submit', function (event) {
     event.preventDefault();
     const formData = new FormData(event.target);
+    let div_text_post_2 = null;
+    if (document.getElementById("div_text_post_2")) div_text_post_2 = event.target.querySelector('#div_text_post_2').textContent;
+    let div_text_post_3 = null;
+    if (document.getElementById("div_text_post_3")) div_text_post_3 = event.target.querySelector('#div_text_post_3').textContent;
+
+
+
     let div_name_post = event.target.querySelector('#div_name_post');
     let div_text_post = event.target.querySelector('#div_text_post');
-    let div_text_post_2 = event.target.querySelector('#div_text_post_2');
-    let div_text_post_3 = event.target.querySelector('#div_text_post_3');
+
 
                 formData.append("name_post", div_name_post.textContent);
                 formData.append("text_post", div_text_post.textContent);
-                formData.append("text_post_2", div_text_post_2.textContent);
-                formData.append("text_post_3", div_text_post_3.textContent);
+                formData.append("text_post_2", div_text_post_2);
+                formData.append("text_post_3", div_text_post_3);
 
               
                     fetch('/cabinet_edit_post', {

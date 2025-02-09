@@ -23,15 +23,19 @@ class CabinetController extends Controller
 
   public function cabinet_new_post()
     {
-
+        $user_name = Auth::user()->user_name;
+        $id_user = Auth::user()->id;
+        if(empty(Draft_post::where('id_user', $id_user)->first())) $draft_post = Draft_post::create(['user_name'=>$user_name, 'id_user'=>$id_user]);
+        else $draft_post = Draft_post::where('id_user', $id_user)->first();
         // Storage::disk('local')->put('file.txt', 'Contents');
-        return view('cabinet_new_post');
+// info($draft_post);
+        return view('cabinet_new_post', compact('draft_post'));
     }
     public function cabinet_edit_post()
     {
-
-        $post = Post::where('id', '=', '7')->first();
-
+        $id_user = Auth::user()->id;
+        // $post = Post::where('id', '=', '7')->first();
+        $post =  DB::table('posts')->where('id_user',  $id_user)->orderBy('id', 'desc')->first();
         // dump($post);
         return view('cabinet_edit_post', compact('post'));
     }
@@ -39,13 +43,13 @@ class CabinetController extends Controller
 
     public function edit_post(Request $request)
     {
-        $id_user = Auth::user()->name;
-        
-        $post = Post::where('id', 7)->first();
-     
-        $reply_id = '7';
-       
         info($request);
+        $user_name = Auth::user()->name;
+        $id_user = Auth::user()->id;
+        $post_id = $request->input('post_id');
+
+        $post = Post::where('id', $post_id)->first();
+       
         function convert_foto($inputFile, $outputFile)
         {
             $img = imagecreatefromjpeg($inputFile);
@@ -85,8 +89,21 @@ class CabinetController extends Controller
             convert_foto($request->foto_3, $url_foto_3);
         }
       
+
+        // Draft_post::where('id', 19)
+        // ->update([
+        //     'name_post' => $name_post,
+        //     'text_post' => $text_post,
+        //     'url_foto' => $url_foto,
+        //     'text_post_2' => $text_post_2,
+        //     'url_foto_2' => $url_foto_2,
+        //     'text_post_3' => $text_post_3,
+        //     'url_foto_3' => $url_foto_3
+        // ]);
+
+
         DB::table('posts')
-            ->where('id', $reply_id)
+            ->where('id', $post_id)
             ->update([
                 'name_post' => $name_post,
                 'text_post' => $text_post,

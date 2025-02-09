@@ -27,15 +27,15 @@
                 <div class="row">
                     <!-- ФОТО_1 -->
                     <div class="col-lg-10 ">
-                        <img class="img-fluid shadow" src="{{ $post->url_foto }}">
+                        <img class="img-fluid shadow" src="@if($post->url_foto == null){{url('plug.jpg')}}@else{{url($post->url_foto)}}@endif">
                     </div>
                     <!-- МИНИ ФОТКИ -->
                     <div id="foto" class="d-none d-lg-block  col-lg-2 p-0">
                         @if ($post->url_foto_2 !== null)
-                        <img class="img-fluid shadow" src="{{ $post->url_foto_2 }}">
+                        <img class="img-fluid shadow" src="{{ url($post->url_foto_2) }}">
                         @endif
                         @if ($post->url_foto_3 !== null)
-                        <img class="img-fluid shadow mt-2" src="{{ $post->url_foto_3 }}">
+                        <img class="img-fluid shadow mt-2" src="{{ url($post->url_foto_3) }}">
                         @endif
                     </div>
 
@@ -50,7 +50,7 @@
             @if ($post->url_foto_2 !== null)
                 <div class="card-body px-1 px-lg-2  py-3">
                     <div class="card-body px-0  px-lg-5 py-0">
-                        <img class=" img-fluid shadow " src="{{ $post->url_foto_2 }}">
+                        <img class=" img-fluid shadow " src="{{ url($post->url_foto_2) }}">
                     </div>
                     <p class="card-text py-2">{{ $post->text_post_2 }}</p>
                 </div>
@@ -59,7 +59,7 @@
             @if ($post->url_foto_3 !== null)
                 <div class="card-body px-1 px-lg-2  py-1">
                     <div class="card-body px-0  px-lg-5 py-0">
-                        <img class=" img-fluid shadow " src="{{ $post->url_foto_3 }}">
+                        <img class=" img-fluid shadow " src="{{ url($post->url_foto_3) }}">
                     </div>
                     <p class="card-text py-2">{{ $post->text_post_3 }}</p>
                 </div>
