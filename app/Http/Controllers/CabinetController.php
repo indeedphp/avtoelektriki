@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Draft_post;
+use App\Models\Comment;
 
 class CabinetController extends Controller
 {
@@ -18,10 +19,24 @@ class CabinetController extends Controller
         // Storage::disk('local')->put('file.txt', 'Contents');
         return view('cabinet');
     }
+   public function statistic_show()
+    {
+        $id_user = Auth::user()->id;
+        $posts = Post::where('id_user', $id_user)->get();
+       $post_count = count($posts);
+       $comments = Comment::where('id_user', $id_user)->get();
+       $comments_count = count($comments);
+        return view('cabinet_statistic', compact('post_count', 'comments_count'));
+    }
+    public function all_post_show()
+    {
+        $id_user = Auth::user()->id;
+        $posts = Post::where('id_user', $id_user)->get();
+        $posts = $posts->reverse();
+        return view('cabinet_all_post', compact('posts'));
+    }
 
-
-
-  public function cabinet_new_post()
+  public function new_post_create()
     {
         $user_name = Auth::user()->user_name;
         $id_user = Auth::user()->id;
@@ -31,7 +46,7 @@ class CabinetController extends Controller
 // info($draft_post);
         return view('cabinet_new_post', compact('draft_post'));
     }
-    public function cabinet_edit_post()
+    public function edit_post_show()
     {
         $id_user = Auth::user()->id;
         // $post = Post::where('id', '=', '7')->first();
@@ -39,6 +54,16 @@ class CabinetController extends Controller
         // dump($post);
         return view('cabinet_edit_post', compact('post'));
     }
+
+    public function all_post_edit($id)
+    {
+       
+       
+        $post = Post::where('id', $id)->first();
+       
+        return view('cabinet_edit_post', compact('post'));
+    }
+
 
 
     public function edit_post(Request $request)
@@ -115,6 +140,14 @@ class CabinetController extends Controller
             ]);
 
         return response()->json('eee', 200);
+    }
+
+
+
+    public function post_delete($id)
+    {
+        Post::where('id', $id)->delete();
+        return redirect()->route('cabinet_all_post'); 
     }
 
 

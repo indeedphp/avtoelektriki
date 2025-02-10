@@ -3,17 +3,14 @@
 @section('posts')
     <div class="card  mb-3  shadow ">
         <div class=" card-header text-muted py-1 p-lg-3">
-            <div class="row">
                 <!-- МЕСТОПОЛОЖЕНИЕ -->
-                <div class="col-auto me-auto p-0 px-lg-3">
+                <div class="float-start p-0 px-lg-3">
                     <i class="bi bi-geo-alt"> Алматы </i>
                 </div>
                 <!-- ИМЯ ПОЛЬЗОВАТЕЛЯ -->
-                <div class="col-auto p-0 pe-1 px-lg-3 ">
+                <div class="float-end p-0 pe-1 px-lg-3 ">
                     <i class="bi bi-universal-access ms-auto " style="text-decoration: none"> {{ $post->user_name }} </i>
                 </div>
-
-            </div>
         </div>
         <div class="card-body px-1 px-lg-5 mx-lg-5 py-2 ">
             <div class="pb-2">
@@ -68,21 +65,21 @@
         </div>
         </div>
         <div class="card-footer text-muted px-0 py-1 p-lg-3 ">
-            <div class="row">
+            
                 <!-- ЛАЙК -->
-                <div class="col-auto pe-2 text-black-80">
+                <div class="float-start pe-2">
                     <i class="bi bi-hand-thumbs-up ps-1"> 0</i>&nbsp;
                 </div>
                 <!-- РЕПОСТ -->
-                <div class="col-auto me-auto ps-0">
+                <div class="float-start">
                     <i class="bi bi-share text-black-80"> Поделится</i>
                 </div>
                 <!-- КОМЕНТАРИИ КНОПКА -->
-                <div class="col-auto">
+                <div class="float-end pe-2">
                     <i class="bi bi-chat-dots text-black-80"> Комментарии </i>
                 </div>
 
-            </div>
+            
         </div>
     </div>
 @endsection

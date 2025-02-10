@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ps-2">
                 <li class="nav-item">
-                    <a class="link-danger nav-link" href="{{ route('cabinet_index') }}">Настройки</a>
+                    <a class="nav-link" href="{{ route('cabinet_index') }}">Настройки</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cabinet_new_post') }}">Новый пост</a>
@@ -28,13 +28,25 @@
                     <a class="nav-link" href="{{ route('site_index', Auth::user()->id) }}">Сайт</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cabinet_statistic') }}">Статистика</a>
+                    <a class="nav-link link-danger" href="{{ route('cabinet_statistic') }}">Статистика</a>
                 </li>
             </ul>
         </div>
 
     </nav>
-    <hr><hr><hr><hr>
-    @endsection
 
-    
+<div class="p-3" >
+   <b>Всего размещенно постов на портале: </b> {{$post_count}}
+</div>
+
+<div class="p-3" >
+    <b>Всего комментариев на портале: </b> {{$comments_count}}
+ </div>
+
+
+
+
+
+
+
+@endsection

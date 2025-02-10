@@ -19,7 +19,7 @@
                     <a class="nav-link link-danger " href="{{ route('cabinet_new_post') }}">Новый пост</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Все посты</a>
+                    <a class="nav-link" href="{{ route('cabinet_all_post') }}">Все посты</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
@@ -28,7 +28,7 @@
                     <a class="nav-link" href="{{ route('site_index', Auth::user()->id) }}">Сайт</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Статистика</a>
+                    <a class="nav-link" href="{{ route('cabinet_statistic') }}">Статистика</a>
                 </li>
             </ul>
         </div>

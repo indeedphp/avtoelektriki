@@ -53,9 +53,13 @@ Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel2')
 Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel_show');
 
 Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet_index');
-Route::get('/cabinet_edit_post', [CabinetController::class, 'cabinet_edit_post'])->name('cabinet_edit_post');
+Route::get('/cabinet_statistic', [CabinetController::class, 'statistic_show'])->name('cabinet_statistic');
+Route::get('/cabinet_all_post', [CabinetController::class, 'all_post_show'])->name('cabinet_all_post');
+Route::get('/cabinet_edit_post', [CabinetController::class, 'edit_post_show'])->name('cabinet_edit_post');
+Route::get('/cabinet_all_post_edit/{id}', [CabinetController::class, 'all_post_edit'])->name('cabinet_all_post_edit');
+Route::get('/cabinet_new_post', [CabinetController::class, 'new_post_create'])->name('cabinet_new_post');
+Route::delete('/cabinet_all_post_delete/{id}', [CabinetController::class, 'post_delete'])->name('cabinet_all_post_delete');
 Route::post('/cabinet_edit_post', [CabinetController::class, 'edit_post'])->name('cabinet_edit_post2');
-Route::get('/cabinet_new_post', [CabinetController::class, 'cabinet_new_post'])->name('cabinet_new_post');
 Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('cabinet_new_post2');
 
 
