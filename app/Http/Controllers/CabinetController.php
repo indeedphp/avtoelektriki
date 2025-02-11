@@ -8,17 +8,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Draft_post;
+use App\Models\User;
 use App\Models\Comment;
 
 class CabinetController extends Controller
 {
  
-    public function index()
+    public function settings_show()
     {
-
-        // Storage::disk('local')->put('file.txt', 'Contents');
-        return view('cabinet');
+        $id = Auth::user()->id;
+        $user = User::where('id', $id)->first();
+        // dd($user);
+        return view('cabinet_settings', compact('user'));
     }
+
    public function statistic_show()
     {
         $id_user = Auth::user()->id;
@@ -64,7 +67,18 @@ class CabinetController extends Controller
         return view('cabinet_edit_post', compact('post'));
     }
 
+    public function settings_edit(Request $request)
+    {
+        $new_name = $request->input('new_name');
+        $id = Auth::user()->id;
+        
+         User::where('id', $id)
+        ->update([
+            "user_name" => $new_name
+        ]);
 
+       return redirect()->route('cabinet_settings');
+    }
 
     public function edit_post(Request $request)
     {

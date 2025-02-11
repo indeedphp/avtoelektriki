@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ps-2">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cabinet_index') }}">Настройки</a>
+                    <a class="nav-link" href="{{ route('cabinet_settings') }}">Настройки</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-danger " href="{{ route('cabinet_new_post') }}">Новый пост</a>

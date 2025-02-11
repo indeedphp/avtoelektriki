@@ -41,7 +41,7 @@ rel="stylesheet" -->
                                 </li>
                                 <li class="nav-item ms-auto">
                                     @auth
-                                        <a class="nav-link active " aria-current="page" href="{{route('cabinet_index')}}">Кабинет</a>
+                                        <a class="nav-link active " aria-current="page" href="{{route('cabinet_settings')}}">Кабинет</a>
                                     @endauth
                                     @guest
                                         <a class="nav-link active " href="{{ route('login') }}">Вход</a>

@@ -52,7 +52,7 @@ Route::get('/api_channel/{id}', [ChannelController::class, 'show'])->name('chann
 Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel2');
 Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel_show');
 
-Route::get('/cabinet', [CabinetController::class, 'index'])->name('cabinet_index');
+Route::get('/cabinet_settings', [CabinetController::class, 'settings_show'])->name('cabinet_settings');
 Route::get('/cabinet_statistic', [CabinetController::class, 'statistic_show'])->name('cabinet_statistic');
 Route::get('/cabinet_all_post', [CabinetController::class, 'all_post_show'])->name('cabinet_all_post');
 Route::get('/cabinet_edit_post', [CabinetController::class, 'edit_post_show'])->name('cabinet_edit_post');
@@ -61,7 +61,7 @@ Route::get('/cabinet_new_post', [CabinetController::class, 'new_post_create'])->
 Route::delete('/cabinet_all_post_delete/{id}', [CabinetController::class, 'post_delete'])->name('cabinet_all_post_delete');
 Route::post('/cabinet_edit_post', [CabinetController::class, 'edit_post'])->name('cabinet_edit_post2');
 Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('cabinet_new_post2');
-
+Route::put('/cabinet_settings', [CabinetController::class, 'settings_edit'])->name('cabinet_settings_edit');
 
 Route::get('/draft_post/{id}', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
 Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->name('draft_post_create'); // создаем черновик поста

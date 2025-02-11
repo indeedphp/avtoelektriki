@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ps-2">
                 <li class="nav-item">
-                    <a class="link-danger nav-link" href="{{ route('cabinet_index') }}">Настройки</a>
+                    <a class="link-danger nav-link" href="{{ route('cabinet_settings') }}">Настройки</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cabinet_new_post') }}">Новый пост</a>
@@ -34,7 +34,19 @@
         </div>
 
     </nav>
-    <hr><hr><hr><hr>
+   
+    <div class="p-3" >
+        <b>Ваше имя пользователя: {{$user->user_name}}</b> 
+     </div>
+
+     <form action="{{route('cabinet_settings_edit')}}" method="POST">
+        @csrf
+        @method ('PUT')
+        <label  class="form-label">Вы можете изменить свое имя пользователя тут</label>
+        <input class="form-control m-2" type="text" name="new_name" placeholder = "введите имя ">
+        <input class="form-control btn btn-primary m-2" type="submit">
+      </form>
+
     @endsection
 
     
