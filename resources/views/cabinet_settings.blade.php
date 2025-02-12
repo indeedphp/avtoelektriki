@@ -35,15 +35,15 @@
 
     </nav>
    
-    <div class="p-3" >
+    <div class="m-2" >
         <b>Ваше имя пользователя: {{$user->user_name}}</b> 
      </div>
 
      <form action="{{route('cabinet_settings_edit')}}" method="POST">
         @csrf
         @method ('PUT')
-        <label  class="form-label">Вы можете изменить свое имя пользователя тут</label>
-        <input class="form-control m-2" type="text" name="new_name" placeholder = "введите имя ">
+        <label  class="form-label m-2">Вы можете изменить свое имя пользователя тут</label>
+        <input class="form-control m-2" type="text" name="new_name" placeholder = "введите новое имя ">
         <input class="form-control btn btn-primary m-2" type="submit">
       </form>
 

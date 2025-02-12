@@ -15,7 +15,7 @@
         <div class="card-body px-1 px-lg-5 mx-lg-5 py-2 ">
             <div class="pb-2">
                 <!-- ДАТА -->
-                <i class="bi bi-clock pe-3 p-lg-3 text-black-80"> @php echo date('d-m-Y', strtotime($post->updated_at)); @endphp </i>
+                <i class="bi bi-clock pe-3 p-lg-3 text-black-80"> {{date('d-m-Y', strtotime($post->updated_at))}}</i>
                 <!-- ИМЯ ПОСТА -->
                 <b class="card-title pb-5 h5">{{ $post->name_post }}</b>
 

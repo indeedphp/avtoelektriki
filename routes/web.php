@@ -11,6 +11,7 @@ use App\Http\Controllers\LikeReplyController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\DraftPostController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
@@ -92,3 +93,11 @@ Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'authentication'])->name('authentication');
 Route::post('/register', [LoginController::class, 'registerCreate'])->name('registerCreate');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+
+
+// ==================================================================================================
+
+Route::get('/admin_index', [AdminController::class, 'index'])->name('admin_index')->middleware('auth');
+Route::get('/admin_all_users', [AdminController::class, 'show_all_users'])->name('admin_all_users')->middleware('auth');

@@ -63,7 +63,7 @@
                     </div>
                 </nav>
                 {{-- overflow-x-hidden --}}
-                <div class="container-fluid p-1 overflow-x-hidden">
+                <div class="container-fluid p-1 ">
                     <div class="row ">
                         
                         <div class="col-xl-2 "></div>
@@ -84,23 +84,6 @@
 <div  class="col-xl-2 "> </div>
 </div></div>
 
-@yield('hidden') 
 
-<div id="user_name_id" hidden> @auth {{ Auth::user()->name }}
-        @else
-        0 @endauth </div>
-
-<div id="csrf_token" hidden> @auth {{ csrf_token() }}
-        @else
-        0 @endauth </div>
-
-        <div id="server_url" hidden>{{ url('/') }}</div>
-
-      
-
-
-
-
-@yield('js') 
 </body>
 </html>
