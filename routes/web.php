@@ -100,4 +100,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // ==================================================================================================
 
 Route::get('/admin_index', [AdminController::class, 'index'])->name('admin_index')->middleware('auth');
-Route::get('/admin_all_users', [AdminController::class, 'show_all_users'])->name('admin_all_users')->middleware('auth');
+Route::get('/admin_users', [AdminController::class, 'show_users'])->name('admin_users')->middleware('auth');
+Route::get('/admin_posts', [AdminController::class, 'show_posts'])->name('admin_posts')->middleware('auth');
+Route::get('/admin_comments', [AdminController::class, 'show_comments'])->name('admin_comments')->middleware('auth');
+Route::get('/admin_replys', [AdminController::class, 'show_replys'])->name('admin_replys')->middleware('auth');
+Route::get('/admin_sites', [AdminController::class, 'show_sites'])->name('admin_sites')->middleware('auth');
+Route::get('/admin_settings', [AdminController::class, 'show_settings'])->name('admin_settings')->middleware('auth');
+Route::get('/admin_statistics', [AdminController::class, 'show_statistics'])->name('admin_statistics')->middleware('auth');

@@ -42,7 +42,7 @@ class PostController extends Controller
         else $name = 0;
         
         // $posts = Post::orderBy('id')->paginate(5);
-        $posts = Post::orderBy('id', 'desc')->paginate(5);
+        $posts = Post::orderBy('id', 'desc')->cursorPaginate(5);
         // $posts = Post::all();
         // $posts = $posts->reverse();
 
