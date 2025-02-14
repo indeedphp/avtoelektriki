@@ -26,13 +26,14 @@ class ReplyCommentController extends Controller
         $reply = $request->input('reply');
         $comment_id = $request->input('comment_id');
         $id_user = Auth::user()->name;
+        $user_id = Auth::user()->id;
         $user_name = Auth::user()->user_name;
         if (!empty($request->input('reply_id'))) $reply_id = $request->input('reply_id');
         else $reply_id = 0;
         if (!empty($request->input('name_opponent'))) $name_opponent = $request->input('name_opponent');
         else $name_opponent = 0;
 
-        $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'id_user' => $id_user, 'user_name' => $user_name, 'num' => $reply_id, 'stuff' => $name_opponent]);
+        $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'user_id' => $user_id, 'id_user' => $id_user,'user_name' => $user_name, 'num' => $reply_id, 'stuff' => $name_opponent]);
 
         return response()->json($db_reply, 200);
     }

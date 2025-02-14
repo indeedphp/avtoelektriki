@@ -60,22 +60,27 @@
                     <input type="text" class="form-control p-1" name="id_search" placeholder = "id">
                 </form>
             </th>
+            <th class="ps-0 pe-1" scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'id_user_'.$sort])}}"> Id user</a>
+                <form action="{{ route('admin_sites') }}" method="GET">
+                    <input type="text" class="form-control p-1" name="id_user_search" placeholder = "id">
+                </form>
+            </th>
             <th class="ps-1 pe-1"  scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'date_cr_'.$sort])}}">Дата созд.</a>
                 <form action="{{ route('admin_sites') }}" method="GET">
-                    <input type="text" class="form-control p-1" name="date_cr_search" placeholder = "19-04-2025 день-месяц-год">
+                    <input type="text" class="form-control p-1" name="date_cr_search" placeholder = "д-м-г">
                 </form>
             </th>
-            {{-- <th class="ps-1 pe-1" scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'date_up_'.$sort])}}">Дата обн.</a>
+            <th class="ps-1 pe-1" scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'date_up_'.$sort])}}">Дата обн.</a>
                 <form action="{{ route('admin_sites') }}" method="GET">
-                    <input type="text" class="form-control p-1" name="date_up_search" placeholder = "19-04-2025 день-месяц-год">
+                    <input type="text" class="form-control p-1" name="date_up_search" placeholder = "д-м-г">
                 </form>
             </th>
-            <th class="ps-1 pe-1" scope="col">Имя
+            <th class="ps-1 pe-1" scope="col">Заголовок
                 <form action="{{ route('admin_sites') }}" method="GET">
-                    <input type="text"  class="form-control p-1"  name="name_search" placeholder = "name">
+                    <input type="text"  class="form-control p-1"  name="name_search" placeholder = "Заголовок">
                 </form>
 
-            </th> --}}
+            </th>
 
             <th scope="col"><a href="{{route('admin_sites', ['sorting' => 'activ_'.$sort])}}">ban</a></th>
             
@@ -90,11 +95,12 @@
 @foreach ($sites as $site)
 
     <tr>
-        <th scope="row"><a href="" >{{ $site->id }}</a> </th>  
+        <th scope="row">{{ $site->id }} </th>  
+        <th scope="row"><a href="{{route('admin_users', ['id_search' => $site->id_user])}}" >{{ $site->id_user }}</a> </th>
         <td>{{date('d-m-Y', strtotime($site->created_at))}}</td>
         <td>{{date('d-m-Y', strtotime($site->updated_at))}}</td>
-        {{-- <td>{{Str::limit($post->name , 12)}}</td>
-        <td>{{$post->activ}}</td> --}}
+        <td>{{Str::limit($site->heading , 25)}}</td>
+        <td>{{$site->activ}}</td>
         
         <td> <a href="" >cor</a> </td>
       

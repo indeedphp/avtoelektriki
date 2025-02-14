@@ -21,6 +21,7 @@ class ReplyComment extends Model
 
     protected $fillable = [
         'comment_id',
+        'user_id',
         'id_user',
         'reply',
         'user_name',

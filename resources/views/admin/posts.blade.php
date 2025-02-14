@@ -58,22 +58,32 @@
                     <input type="text" class="form-control p-1" name="id_search" placeholder = "id">
                 </form>
             </th>
+            <th class="ps-0 pe-1" scope="col"><a href="{{route('admin_posts', ['count' => $count, 'sorting' => 'id_user_'.$sort])}}">id user</a>
+                <form action="{{ route('admin_posts') }}" method="GET">
+                    <input type="text" class="form-control p-1" name="id_user_search" placeholder = "id">
+                </form>
+            </th>
+
+
+
+
+            
             <th class="ps-1 pe-1"  scope="col"><a href="{{route('admin_posts', ['count' => $count, 'sorting' => 'date_cr_'.$sort])}}">Дата созд.</a>
                 <form action="{{ route('admin_posts') }}" method="GET">
                     <input type="text" class="form-control p-1" name="date_cr_search" placeholder = "19-04-2025 день-месяц-год">
                 </form>
             </th>
-            {{-- <th class="ps-1 pe-1" scope="col"><a href="{{route('admin_posts', ['count' => $count, 'sorting' => 'date_up_'.$sort])}}">Дата обн.</a>
+            <th class="ps-1 pe-1" scope="col"><a href="{{route('admin_posts', ['count' => $count, 'sorting' => 'date_up_'.$sort])}}">Дата обн.</a>
                 <form action="{{ route('admin_posts') }}" method="GET">
                     <input type="text" class="form-control p-1" name="date_up_search" placeholder = "19-04-2025 день-месяц-год">
                 </form>
             </th>
-            <th class="ps-1 pe-1" scope="col">Имя
+            <th class="ps-1 pe-1" scope="col">Название поста
                 <form action="{{ route('admin_posts') }}" method="GET">
-                    <input type="text"  class="form-control p-1"  name="name_search" placeholder = "name">
+                    <input type="text"  class="form-control p-1"  name="name_post_search" placeholder = "Название поста">
                 </form>
 
-            </th> --}}
+            </th>
 
             <th scope="col"><a href="{{route('admin_posts', ['sorting' => 'activ_'.$sort])}}">ban</a></th>
             
@@ -88,11 +98,12 @@
 @foreach ($posts as $post)
 
     <tr>
-        <th scope="row"><a href="" >{{ $post->id }}</a> </th>  
+        <th scope="row" >{{ $post->id }}</th>  
+        <th scope="row"><a href="{{route('admin_users', ['id_search' => $post->id_user])}}" >{{ $post->id_user }}</a> </th>
         <td>{{date('d-m-Y', strtotime($post->created_at))}}</td>
         <td>{{date('d-m-Y', strtotime($post->updated_at))}}</td>
-        {{-- <td>{{Str::limit($post->name , 12)}}</td>
-        <td>{{$post->activ}}</td> --}}
+        <td>{{Str::limit($post->name_post , 18)}}</td>
+        <td>{{$post->activ}}</td>
         
         <td> <a href="" >cor</a> </td>
       

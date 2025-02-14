@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('reply_comments', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('user_id')->nullable();
+            $table->integer('post_id')->nullable();
             $table->integer('comment_id')->nullable();
             $table->string('user_name')->nullable();
             $table->text('reply')->nullable();
+            $table->integer('activ')->nullable();
             $table->integer('num')->nullable();
             $table->string('id_user')->nullable();
             $table->text('stuff')->nullable();
+            $table->timestamps();
         });
     }
 

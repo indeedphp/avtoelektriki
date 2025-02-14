@@ -88,7 +88,7 @@
 @foreach ($users as $user)
 
     <tr>
-        <th scope="row"><a href="" >{{ $user->id }}</a> </th>  
+        <th scope="row"><a href="{{route('admin_posts', ['id_user_search' => $user->id])}}" >{{ $user->id }}</a> </th>  
         <td>{{date('d-m-Y', strtotime($user->created_at))}}</td>
         <td>{{date('d-m-Y', strtotime($user->updated_at))}}</td>
         <td>{{Str::limit($user->name , 12)}}</td>
@@ -105,7 +105,7 @@
 </table>
 
 
-{{-- {{$count}} --}}
+{{-- {{$count}} <th scope="row"><a href="{{route('admin_posts', ['id_user_search' => $user->id])}}" >{{ $user->id }}</a> </th> --}}
 
 {{-- {{ $users->links('vendor.pagination.bootstrap-4', ['count' => $count]) }} --}}
 
