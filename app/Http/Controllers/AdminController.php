@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReplyComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Site;
@@ -50,12 +51,8 @@ class AdminController extends Controller
         // info(round($size/1024/1024, 2));
         $size_file = round($size[0] / 1024 / 1024, 2);
         $count_files =  $size[1];
-
-
         return view('admin/statistics', compact('post_count', 'comment_count', 'user_count', 'site_count', 'size_file', 'addr', 'count_files'));
     }
-
-
 
     public function show_users(Request $request)
     {
@@ -104,7 +101,7 @@ class AdminController extends Controller
         }
 
         $users->count = $count;
-
+        // dump($users->currentPage());
         // $users->links('vendor.pagination.bootstrap-4', ['count' => $count]);
 
         // dd($users->count());
@@ -132,10 +129,10 @@ class AdminController extends Controller
             $posts = Post::orderBy('updated_at', 'asc')->paginate($count);
             $sort = 'desc';
         } else if ($request->sorting == 'activ_desc') {
-            $posts = Post::orderBy('activ', 'desc')->paginate($count);
+            $posts = Post::orderBy('stuff', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'activ_asc') {
-            $posts = Post::orderBy('activ', 'asc')->paginate($count);
+            $posts = Post::orderBy('stuff', 'asc')->paginate($count);
             $sort = 'desc';
         } else if ($request->sorting == 'id_user_desc') {
             $posts = Post::orderBy('id_user', 'asc')->paginate($count);
@@ -143,7 +140,7 @@ class AdminController extends Controller
         } else if ($request->sorting == 'id_user_asc') {
             $posts = Post::orderBy('id_user', 'desc')->paginate($count);
             $sort = 'desc';
-        }else if ($request->sorting == 'id_desc') {
+        } else if ($request->sorting == 'id_desc') {
             $posts = Post::orderBy('id', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'id_asc') {
@@ -151,15 +148,9 @@ class AdminController extends Controller
             $sort = 'desc';
         } else if (isset($request->id_search)) {
             $posts = Post::where('id', $request->id_search)->paginate($count);
-        }
-        else if (isset($request->id_user_search)) {
+        } else if (isset($request->id_user_search)) {
             $posts = Post::where('id_user', $request->id_user_search)->paginate($count);
-        }
-        
-        
-        
-        
-        else if (isset($request->date_cr_search)) {
+        } else if (isset($request->date_cr_search)) {
             $date = Carbon::create($request->date_cr_search);
             $posts = Post::whereYear('created_at', $date->format('Y'))->whereMonth('created_at', $date->format('m'))->whereDay('created_at', $date->format('d'))->paginate($count);
         } else if (isset($request->date_up_search)) {
@@ -201,25 +192,19 @@ class AdminController extends Controller
         } else if ($request->sorting == 'activ_desc') {
             $comments = Comment::orderBy('activ', 'desc')->paginate($count);
             $sort = 'asc';
-        } 
-        
-        else if ($request->sorting == 'user_id_desc') {
+        } else if ($request->sorting == 'user_id_desc') {
             $comments = Comment::orderBy('user_id', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'user_id_asc') {
             $comments = Comment::orderBy('user_id', 'asc')->paginate($count);
             $sort = 'desc';
-        }
-        else if ($request->sorting == 'post_id_desc') {
+        } else if ($request->sorting == 'post_id_desc') {
             $comments = Comment::orderBy('post_id', 'asc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'post_id_asc') {
             $comments = Comment::orderBy('post_id', 'desc')->paginate($count);
             $sort = 'desc';
-        }
-
-
-        else if ($request->sorting == 'activ_asc') {
+        } else if ($request->sorting == 'activ_asc') {
             $comments = Comment::orderBy('activ', 'asc')->paginate($count);
             $sort = 'desc';
         } else if ($request->sorting == 'id_desc') {
@@ -230,19 +215,11 @@ class AdminController extends Controller
             $sort = 'desc';
         } else if (isset($request->id_search)) {
             $comments = Comment::where('id', $request->id_search)->paginate($count);
-        }
-        
-        else if (isset($request->user_id_search)) {
+        } else if (isset($request->user_id_search)) {
             $comments = Comment::where('user_id', $request->user_id_search)->paginate($count);
-        }
-        
-        
-        else if (isset($request->post_id_search)) {
+        } else if (isset($request->post_id_search)) {
             $comments = Comment::where('post_id', $request->post_id_search)->paginate($count);
-        }
-        
-        
-        else if (isset($request->date_cr_search)) {
+        } else if (isset($request->date_cr_search)) {
             $date = Carbon::create($request->date_cr_search);
             $comments = Comment::whereYear('created_at', $date->format('Y'))->whereMonth('created_at', $date->format('m'))->whereDay('created_at', $date->format('d'))->paginate($count);
         } else if (isset($request->date_up_search)) {
@@ -283,56 +260,36 @@ class AdminController extends Controller
             $replys = ReplyComment::orderBy('updated_at', 'asc')->paginate($count);
             $sort = 'desc';
         } else if ($request->sorting == 'activ_desc') {
-            $replys = ReplyComment::orderBy('activ', 'desc')->paginate($count);
+            $replys = ReplyComment::orderBy('activ', 'asc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'activ_asc') {
-            $replys = ReplyComment::orderBy('activ', 'asc')->paginate($count);
+            $replys = ReplyComment::orderBy('activ', 'desc')->paginate($count);
             $sort = 'desc';
-        }
-        
-        else if ($request->sorting == 'user_id_desc') {
+        } else if ($request->sorting == 'user_id_desc') {
             $replys = ReplyComment::orderBy('user_id', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'user_id_asc') {
             $replys = ReplyComment::orderBy('user_id', 'asc')->paginate($count);
             $sort = 'desc';
-        }
-        
-                else if ($request->sorting == 'comment_id_desc') {
+        } else if ($request->sorting == 'comment_id_desc') {
             $replys = ReplyComment::orderBy('comment_id', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'comment_id_asc') {
             $replys = ReplyComment::orderBy('comment_id', 'asc')->paginate($count);
             $sort = 'desc';
-        }
-        
-        else if ($request->sorting == 'id_desc') {
+        } else if ($request->sorting == 'id_desc') {
             $replys = ReplyComment::orderBy('id', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'id_asc') {
             $replys = ReplyComment::orderBy('id', 'asc')->paginate($count);
             $sort = 'desc';
-        } 
-        
-        
-        
-        
-        
-        
-        else if (isset($request->id_search)) {
+        } else if (isset($request->id_search)) {
             $replys = ReplyComment::where('id', $request->id_search)->paginate($count);
-        } 
-        
-        else if (isset($request->user_id_search)) {
+        } else if (isset($request->user_id_search)) {
             $replys = ReplyComment::where('user_id', $request->user_id_search)->paginate($count);
-        } 
-
-            else if (isset($request->comment_id_search)) {
+        } else if (isset($request->comment_id_search)) {
             $replys = ReplyComment::where('comment_id', $request->comment_id_search)->paginate($count);
-        } 
-
-        
-        else if (isset($request->date_cr_search)) {
+        } else if (isset($request->date_cr_search)) {
             $date = Carbon::create($request->date_cr_search);
             $replys = ReplyComment::whereYear('created_at', $date->format('Y'))->whereMonth('created_at', $date->format('m'))->whereDay('created_at', $date->format('d'))->paginate($count);
         } else if (isset($request->date_up_search)) {
@@ -372,10 +329,10 @@ class AdminController extends Controller
             $sites = Site::orderBy('updated_at', 'asc')->paginate($count);
             $sort = 'desc';
         } else if ($request->sorting == 'activ_desc') {
-            $sites = Site::orderBy('activ', 'desc')->paginate($count);
+            $sites = Site::orderBy('active', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'activ_asc') {
-            $sites = Site::orderBy('activ', 'asc')->paginate($count);
+            $sites = Site::orderBy('active', 'asc')->paginate($count);
             $sort = 'desc';
         } else if ($request->sorting == 'id_desc') {
             $sites = Site::orderBy('id', 'desc')->paginate($count);
@@ -383,22 +340,15 @@ class AdminController extends Controller
         } else if ($request->sorting == 'id_asc') {
             $sites = Site::orderBy('id', 'asc')->paginate($count);
             $sort = 'desc';
-        } 
-        
-        else if ($request->sorting == 'id_user_desc') {
+        } else if ($request->sorting == 'id_user_desc') {
             $sites = Site::orderBy('id_user', 'desc')->paginate($count);
             $sort = 'asc';
         } else if ($request->sorting == 'id_user_asc') {
             $sites = Site::orderBy('id_user', 'asc')->paginate($count);
             $sort = 'desc';
-        } 
-
-
-        else if (isset($request->id_search)) {
+        } else if (isset($request->id_search)) {
             $sites = Site::where('id', $request->id_search)->paginate($count);
-        }
-        
-        else if (isset($request->id_user_search)) {
+        } else if (isset($request->id_user_search)) {
             $sites = Site::where('id_user', $request->id_user_search)->paginate($count);
         } else if (isset($request->date_cr_search)) {
             $date = Carbon::create($request->date_cr_search);
@@ -419,6 +369,70 @@ class AdminController extends Controller
 
         // $sites = Site::all();
         return view('admin/sites', compact('sites', 'sort', 'count'));
+    }
+
+
+    public function update_user(Request $request, $id, $activ)
+    {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {
+            User::where('id', $id)
+                ->update([
+                    "activ" => $activ
+                ]);
+            // редиректим для показа заданного количества и конкретной страницы
+            return redirect()->route('admin_users', ['page' => $request->page, 'count' => $request->count]);
+        } else return redirect()->route('index');
+    }
+
+    public function update_post(Request $request, $id, $activ)
+    {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {
+            Post::where('id', $id)
+                ->update([
+                    "stuff" => $activ
+                ]);
+            // редиректим для показа заданного количества и конкретной страницы
+            return redirect()->route('admin_posts', ['page' => $request->page, 'count' => $request->count]);
+        } else return redirect()->route('index');
+    }
+
+    public function update_comment(Request $request, $id, $activ)
+    {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {
+            Comment::where('id', $id)
+                ->update([
+                    "activ" => $activ
+                ]);
+            // редиректим для показа заданного количества и конкретной страницы
+            return redirect()->route('admin_comments', ['page' => $request->page, 'count' => $request->count]);
+        } else return redirect()->route('index');
+    }
+    public function update_reply(Request $request, $id, $activ)
+    {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {
+            ReplyComment::where('id', $id)
+                ->update([
+                    "activ" => $activ
+                ]);
+            // редиректим для показа заданного количества и конкретной страницы
+            return redirect()->route('admin_replys', ['page' => $request->page, 'count' => $request->count]);
+        } else return redirect()->route('index');
+    }
+    public function update_site(Request $request, $id, $activ)
+    {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {
+            Site::where('id', $id)
+                ->update([
+                    "active" => $activ
+                ]);
+            // редиректим для показа заданного количества и конкретной страницы
+            return redirect()->route('admin_sites', ['page' => $request->page, 'count' => $request->count]);
+        } else return redirect()->route('index');
     }
 }
 // $users = User::whereMonth('created_at', $startDate->format('m'))

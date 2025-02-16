@@ -55,22 +55,22 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th class="ps-0 pe-1" scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'id_'.$sort])}}"> Id</a>
+            <th class="ps-0 pe-1" scope="col"><a href="{{route('admin_sites', ['page' => $sites->currentPage(), 'count' => $count, 'sorting' => 'id_'.$sort])}}"> Id</a>
                 <form action="{{ route('admin_sites') }}" method="GET">
                     <input type="text" class="form-control p-1" name="id_search" placeholder = "id">
                 </form>
             </th>
-            <th class="ps-0 pe-1" scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'id_user_'.$sort])}}"> Id user</a>
+            <th class="ps-0 pe-1" scope="col"><a href="{{route('admin_sites', ['page' => $sites->currentPage(), 'count' => $count, 'sorting' => 'id_user_'.$sort])}}"> Id user</a>
                 <form action="{{ route('admin_sites') }}" method="GET">
                     <input type="text" class="form-control p-1" name="id_user_search" placeholder = "id">
                 </form>
             </th>
-            <th class="ps-1 pe-1"  scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'date_cr_'.$sort])}}">Дата созд.</a>
+            <th class="ps-1 pe-1"  scope="col"><a href="{{route('admin_sites', ['page' => $sites->currentPage(), 'count' => $count, 'sorting' => 'date_cr_'.$sort])}}">Дата созд.</a>
                 <form action="{{ route('admin_sites') }}" method="GET">
                     <input type="text" class="form-control p-1" name="date_cr_search" placeholder = "д-м-г">
                 </form>
             </th>
-            <th class="ps-1 pe-1" scope="col"><a href="{{route('admin_sites', ['count' => $count, 'sorting' => 'date_up_'.$sort])}}">Дата обн.</a>
+            <th class="ps-1 pe-1" scope="col"><a href="{{route('admin_sites', ['page' => $sites->currentPage(), 'count' => $count, 'sorting' => 'date_up_'.$sort])}}">Дата обн.</a>
                 <form action="{{ route('admin_sites') }}" method="GET">
                     <input type="text" class="form-control p-1" name="date_up_search" placeholder = "д-м-г">
                 </form>
@@ -82,7 +82,7 @@
 
             </th>
 
-            <th scope="col"><a href="{{route('admin_sites', ['sorting' => 'activ_'.$sort])}}">ban</a></th>
+            <th scope="col"><a href="{{route('admin_sites', ['page' => $sites->currentPage(), 'count' => $count, 'sorting' => 'activ_'.$sort])}}">ban</a></th>
             
             <th scope="col">cor</th>
            
@@ -100,12 +100,45 @@
         <td>{{date('d-m-Y', strtotime($site->created_at))}}</td>
         <td>{{date('d-m-Y', strtotime($site->updated_at))}}</td>
         <td>{{Str::limit($site->heading , 25)}}</td>
-        <td>{{$site->activ}}</td>
+        <td>{{$site->active}}</td>
         
-        <td> <a href="" >cor</a> </td>
+        <td> <a href="" data-bs-toggle="modal" data-bs-target="#Modal_{{$site->id}}">cor</a> </td>
+
       
 
     </tr>
+
+
+    <!-- Модальное окно -->
+    <div class="modal fade" id="Modal_{{$site->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+        
+                    <ul>
+                        <li>id сайт: {{ $site->id }}</li>
+                        <li>дата созд.: {{ date('d-m-Y', strtotime($site->created_at)) }}</li>
+                        <li>дата изм.: {{ date('d-m-Y', strtotime($site->created_at)) }}</li>
+                        <li>id юзера: {{$site->id_user}}</li>
+                        <li>имя юзера: {{$site->user_name}}</li>
+                        <li>комментарий: {{$site->reply}}</li>
+                        <li>разрешения: {{$site->active}}</li>
+                        <li>заголовок: {{$site->heading}}</li>
+                        <li>верхний текст: {{$site->top_text}}</li>
+                        <li>заголовок карточки 1: {{$site->text_1_a}}</li>
+                        <li>текст карточки 1: {{$site->text_1_b}}</li>
+                        <li>заголовок карточки 2: {{$site->text_2_a}}</li>
+                        <li>текст карточки 2: {{$site->text_2_b}}</li>
+                    </ul>
+                    <a href="{{ route('admin_site_update', [$site->id, '1', 'page' => $sites->currentPage(), 'count' => $count]) }}" class="btn btn-secondary">бан</a>
+                    <a href="{{ route('admin_site_update', [$site->id, '0', 'page' => $sites->currentPage(), 'count' => $count]) }}" class="btn btn-secondary" >дебан</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 @endforeach
 

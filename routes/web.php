@@ -26,10 +26,7 @@ use App\Models\Post;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-
-    return view('index');
-});
+Route::get('/', function () { return view('index'); })->name('index');;
 
 Route::get('/1', function () {
     $create_post = Create_post::where('id_user', '7124124425')->first();
@@ -41,7 +38,7 @@ Route::get('/1', function () {
 });
 
 Route::get('/5', function () {
-
+info(app('request'));
     return view('welcome');
 });
 
@@ -98,7 +95,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 // ==================================================================================================
-
+info('f55555');
 Route::get('/admin_index', [AdminController::class, 'index'])->name('admin_index')->middleware('auth');
 Route::get('/admin_users', [AdminController::class, 'show_users'])->name('admin_users')->middleware('auth');
 Route::get('/admin_posts', [AdminController::class, 'show_posts'])->name('admin_posts')->middleware('auth');
@@ -107,3 +104,9 @@ Route::get('/admin_replys', [AdminController::class, 'show_replys'])->name('admi
 Route::get('/admin_sites', [AdminController::class, 'show_sites'])->name('admin_sites')->middleware('auth');
 Route::get('/admin_settings', [AdminController::class, 'show_settings'])->name('admin_settings')->middleware('auth');
 Route::get('/admin_statistics', [AdminController::class, 'show_statistics'])->name('admin_statistics')->middleware('auth');
+
+Route::get('/admin_user_update/{id}/{activ}', [AdminController::class, 'update_user'])->name('admin_user_update')->middleware('auth');
+Route::get('/admin_post_update/{id}/{activ}', [AdminController::class, 'update_post'])->name('admin_post_update')->middleware('auth');
+Route::get('/admin_comment_update/{id}/{activ}', [AdminController::class, 'update_comment'])->name('admin_comment_update')->middleware('auth');
+Route::get('/admin_reply_update/{id}/{activ}', [AdminController::class, 'update_reply'])->name('admin_reply_update')->middleware('auth');
+Route::get('/admin_site_update/{id}/{activ}', [AdminController::class, 'update_site'])->name('admin_site_update')->middleware('auth');
