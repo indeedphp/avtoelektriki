@@ -16,6 +16,9 @@ use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,22 +29,40 @@ use App\Models\Post;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () { return view('index'); })->name('index');;
+
+Route::get('/', function () {
+    return view('index');
+})->name('index');;
 
 Route::get('/1', function () {
-    $create_post = Create_post::where('id_user', '7124124425')->first();
-    DB::table('create_posts')
-        ->where('id_user', '7124124425')
-        ->update(['step' => $create_post->step + 1]);
-    // echo $test->id;
-    // return view('index');
+    // auth()->loginUsingId(5);
+    $qq =   Str::ulid();
+    info($qq);
+
+    $ww = Hash::make($qq);
+    info($ww);
+    return view('index');
 });
+
+
 
 Route::get('/5', function () {
-info(app('request'));
+    info(app('request'));
     return view('welcome');
 });
+Route::get('/7', function () {
+    info(url('/'));
+    // dump(Hash::check('01JM9XCK17FN37NJ8R08QJ49NT', '$2y$12$sKNr1/X3Buqb9i8bw1bFm.QcsH/ihLH/PjSY1nVQWafx4fxdYxrPK'));
+    //    dump(password_verify('123', '123'));
 
+
+    // return redirect('/');
+});
+
+
+
+Route::get('/3', [LoginController::class, 'create_token'])->name('create_token');
+Route::get('/login_token', [LoginController::class, 'login_token'])->name('login_token');
 
 Route::get('/api_index', [PostController::class, 'show'])->name('show');
 
@@ -95,7 +116,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 // ==================================================================================================
-info('f55555');
+
 Route::get('/admin_index', [AdminController::class, 'index'])->name('admin_index')->middleware('auth');
 Route::get('/admin_users', [AdminController::class, 'show_users'])->name('admin_users')->middleware('auth');
 Route::get('/admin_posts', [AdminController::class, 'show_posts'])->name('admin_posts')->middleware('auth');

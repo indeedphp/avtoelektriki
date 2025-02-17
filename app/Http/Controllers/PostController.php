@@ -52,7 +52,7 @@ class PostController extends Controller
          
             $post->time = date('d-m-Y', strtotime($post->created_at)); 
             $text_post = Str::limit($post->text_post, 173); 
-            info($text_post);
+            // info($text_post);
             $text_post_end = Str::unwrap($post->text_post, rtrim($text_post, '.'));
             $post->text_post = $text_post;
             $post->text_post_end = $text_post_end;

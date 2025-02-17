@@ -63,7 +63,7 @@
                         созд.</a>
                     <form action="{{ route('admin_users') }}" method="GET">
                         <input type="text" class="form-control p-1" name="date_cr_search"
-                            placeholder = "19-04-2025 день-месяц-год">
+                            placeholder = "д-м-г">
                     </form>
                 </th>
                 <th class="ps-1 pe-1" scope="col"><a
@@ -71,7 +71,7 @@
                         обн.</a>
                     <form action="{{ route('admin_users') }}" method="GET">
                         <input type="text" class="form-control p-1" name="date_up_search"
-                            placeholder = "19-04-2025 день-месяц-год">
+                            placeholder = "д-м-г">
                     </form>
                 </th>
                 <th class="ps-1 pe-1" scope="col">Имя

@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('user_name')->nullable();
+            $table->string('telegram')->nullable();
             $table->integer('activ')->nullable();
+            $table->string('token')->nullable();
+            $table->string('stuff')->nullable();
         });
     }
 
@@ -25,6 +28,9 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('user_name');
             $table->dropColumn('activ');
+            $table->dropColumn('token');
+            $table->dropColumn('stuff');
+            $table->dropColumn('telegram');
         });
     }
 };
