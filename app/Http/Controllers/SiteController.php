@@ -23,8 +23,10 @@ class SiteController extends Controller
 
     public function index($id)
     {
-        $site = Site::where('id_user', $id)->first();
-
+       
+        if(!empty(Site::where('id_user', $id)->first())) $site = Site::where('id_user', $id)->first();
+        else $site = Site::where('id', 1)->first();
+        
         return view('cabinet_site', compact('site'));
     }
 

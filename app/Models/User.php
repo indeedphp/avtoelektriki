@@ -14,12 +14,12 @@ class User extends Authenticatable
 
 
 
-//     public function user_posts()
-//     {
+    //     public function user_posts()
+    //     {
 
-//         return $this->hasMany(Comment::class);
-// // dd(123456);
-//     }
+    //         return $this->hasMany(Comment::class);
+    // // dd(123456);
+    //     }
 
 
 
@@ -34,6 +34,9 @@ class User extends Authenticatable
         'password',
         'user_name',
         'activ',
+        'stuff',
+        'telegram',
+        'token',
     ];
 
     /**

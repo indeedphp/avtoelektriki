@@ -18,7 +18,7 @@ class CabinetController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
-        // dd($user);
+        // dd($user); index
         return view('cabinet_settings', compact('user'));
     }
 

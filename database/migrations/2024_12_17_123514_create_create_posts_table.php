@@ -13,20 +13,22 @@ return new class extends Migration
     {
         Schema::create('create_posts', function (Blueprint $table) {  // создаем таблицу в которой пост создается из бота
             $table->id();
-            $table->timestamps();
             $table->string('user_name')->nullable();
             $table->string('id_user')->nullable();
-            $table->string('id_post')->nullable();
-            $table->string('date')->nullable();
             $table->text('name_post')->nullable();
-            $table->text('text_post')->nullable();
-            $table->string('url_foto')->nullable();
+            $table->text('text_post_1')->nullable();
+            $table->string('url_foto_1')->nullable();
             $table->text('text_post_2')->nullable();
             $table->string('url_foto_2')->nullable();
             $table->text('text_post_3')->nullable();
             $table->string('url_foto_3')->nullable();
+            $table->text('text_post_4')->nullable();
+            $table->string('url_foto_4')->nullable();
+            $table->text('text_post_5')->nullable();
+            $table->string('url_foto_5')->nullable();
             $table->string('step')->nullable();
             $table->string('stuff')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -38,3 +40,4 @@ return new class extends Migration
         Schema::dropIfExists('create_posts');
     }
 };
+// поменять местами фото и текст

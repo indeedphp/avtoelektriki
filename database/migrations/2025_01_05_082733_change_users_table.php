@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('user_name')->nullable();
-            $table->string('telegram')->nullable();
+            $table->string('telegram')->nullable();// добавить уникальность на telegram колонку ->unique();
             $table->integer('activ')->nullable();
             $table->string('token')->nullable();
             $table->string('stuff')->nullable();

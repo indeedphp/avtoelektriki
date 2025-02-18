@@ -46,7 +46,8 @@
         <input class="form-control m-2" type="text" name="new_name" placeholder = "введите новое имя ">
         <input class="form-control btn btn-primary m-2" type="submit">
       </form>
-
+<p>Запретить боту выдачу одноразовых ссылок для входа</p>
+<P>Запретить боту возможность чмены пароля на сайте</P>
     @endsection
 
     

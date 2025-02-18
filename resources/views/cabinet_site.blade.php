@@ -50,8 +50,8 @@
         <div>
             <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #776300;">
                 <input type="radio" name="color_head" value="776300"
-                    @if ($site->color_head == '776300') checked @endif></span>
-
+                    @if ($site->color_head == '776300') checked @endif></span>  {{-- отмечаем точкой если выбран цвет --}}
+                    
             <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #3B0056;">
                 <input type="radio" name="color_head" value="3B0056"
                     @if ($site->color_head == '3B0056') checked @endif></span>

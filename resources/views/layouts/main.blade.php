@@ -38,7 +38,7 @@
                                         <a class="nav-link active " href="{{ route('register') }}">Привествуем гость!</a>
                                     @endguest
                                     @auth
-                                        <a class="nav-link active ">Привествуем {{ Auth::user()->user_name }} !</a>
+                                        <a class="nav-link active ">Привествуем {{ Auth::user()->name }} !</a>
                                     @endauth
                                 </li>
                                 <li class="nav-item ms-auto">

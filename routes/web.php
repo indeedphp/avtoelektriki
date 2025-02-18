@@ -47,7 +47,7 @@ Route::get('/1', function () {
 
 
 Route::get('/5', function () {
-    info(app('request'));
+    dd(Str::password(9, true, true, false, false));
     return view('welcome');
 });
 Route::get('/7', function () {
@@ -82,13 +82,18 @@ Route::post('/cabinet_edit_post', [CabinetController::class, 'edit_post'])->name
 Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('cabinet_new_post2');
 Route::put('/cabinet_settings', [CabinetController::class, 'settings_edit'])->name('cabinet_settings_edit');
 
+Route::get('/cabinet_site/{id}', [SiteController::class, 'index'])->name('site_index');
+Route::get('/site/{id}', [SiteController::class, 'show'])->name('site_show');
+Route::post('/site', [SiteController::class, 'site_create'])->name('site_create'); // создаем 
+
+
+
+
 Route::get('/draft_post/{id}', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
 Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->name('draft_post_create'); // создаем черновик поста
 Route::get('/draft_post_in_post/{id}', [DraftPostController::class, 'draft_post_in_post'])->name('draft_post_in_post'); // 
 
-Route::get('/cabinet_site/{id}', [SiteController::class, 'index'])->name('site_index');
-Route::get('/site/{id}', [SiteController::class, 'show'])->name('site_show');
-Route::post('/site', [SiteController::class, 'site_create'])->name('site_create'); // создаем 
+
 
 Route::get('/likes', [LikeController::class, 'create'])->name('create');
 

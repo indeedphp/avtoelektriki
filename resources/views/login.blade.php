@@ -75,7 +75,7 @@
 
 
     <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
 
   </div>
   <div class="mb-3">
