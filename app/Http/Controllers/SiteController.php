@@ -30,6 +30,11 @@ class SiteController extends Controller
         return view('cabinet_site', compact('site'));
     }
 
+
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */

@@ -90,6 +90,7 @@ Route::post('/site', [SiteController::class, 'site_create'])->name('site_create'
 
 
 Route::get('/draft_post/{id}', [DraftPostController::class, 'index'])->name('draft_index');  // черновик поста покахываем
+Route::get('/draft_post_bot/{id}', [DraftPostController::class, 'show_post_bot'])->name('draft_post_bot');  // черновик поста бота покахываем
 Route::post('/draft_post', [DraftPostController::class, 'draft_post_create'])->name('draft_post_create'); // создаем черновик поста
 Route::get('/draft_post_in_post/{id}', [DraftPostController::class, 'draft_post_in_post'])->name('draft_post_in_post'); // 
 

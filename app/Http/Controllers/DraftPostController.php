@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Draft_post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Create_post;
 use App\Models\Post;
 
 class DraftPostController extends Controller
@@ -18,6 +19,19 @@ class DraftPostController extends Controller
    
         return view('draft_post', compact('post'));
     }
+
+
+
+    public function show_post_bot($id)
+    {
+       
+       $post = Create_post::where('id', $id)->first();
+        
+    //    abort(404);
+        return view('draft_post_bot', compact('post'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

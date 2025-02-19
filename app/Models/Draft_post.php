@@ -23,6 +23,10 @@ class Draft_post extends Model
         'url_foto_2',
         'text_post_3',
         'url_foto_3',
+        'text_post_4',
+        'url_foto_4',
+        'text_post_5',
+        'url_foto_5',
         'stuff',
     ];
 }

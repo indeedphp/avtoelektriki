@@ -39,25 +39,28 @@
     {{-- {{asset('images/cube.png')}} --}}
 
     <hr>
-    <p> Создайте свой пост, посмотреть его предварительно можно тут <a class="nav-link"
-            href="{{ route('draft_index', $draft_post->id) }}" target="_blank">Показать пост</a>
+    <p> Создайте свой пост. На странице может быть показан черновик поста из бота если вы его сохранили или незаконченный пост. <br>
+        <a class="btn btn-primary mt-2" href="{{ route('draft_index', $draft_post->id) }}" target="_blank">Посмотреть как будет
+        выглядеть пост</a>
     </p>
     <hr>
     <form method="POST">
         @csrf
         <input type="hidden" name="draft_post_id" value="{{ $draft_post->id }}">
         <div class="card card-body p-1 " id="div_name_post" contenteditable="true" data-placeholder=" Напишите комментарий">
+            {{ $draft_post->name_post}}
         </div>
         <p class="link-danger">Название поста(обязательное поле)</p>
         <p></p>
 
-        <img id="preview" class=" img-fluid shadow " src="plug.jpg" alt="Фото потерялось">
+        <img id="preview" class=" img-fluid shadow " src="@if($draft_post->url_foto == null){{url('plug.jpg')}}@else{{url($draft_post->url_foto)}}@endif"  alt="Фото потерялось">
 
         <p class="link-danger">Выберите свое фото(обязательно для изменения)</p>
 
         <input class="form-control" type="file" id="fileInput" name="foto_1">
         <br>
         <div class="card card-body p-1 " id="div_text_post" contenteditable="true" data-placeholder=" Напишите комментарий">
+            {{ $draft_post->text_post}}
         </div>
         <p class="link-danger">Напишите текст под фото (обязательное поле)</p>
         <p></p>

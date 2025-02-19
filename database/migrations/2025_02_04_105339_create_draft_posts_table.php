@@ -25,6 +25,10 @@ return new class extends Migration
             $table->string('url_foto_2')->nullable();
             $table->text('text_post_3')->nullable();
             $table->string('url_foto_3')->nullable();
+            $table->text('text_post_4')->nullable();
+            $table->string('url_foto_4')->nullable();
+            $table->text('text_post_5')->nullable();
+            $table->string('url_foto_5')->nullable();
             $table->string('step')->nullable();
             $table->string('stuff')->nullable();
         });

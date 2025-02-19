@@ -52,7 +52,7 @@ class LoginController extends Controller
 
     public function create_token(Request $request)
     {
-        $email = '8611501263@5796256868';
+        $email = 'cQbGUTvvX1';
 
         $user_data = User::where('email', $email)->first();
         $token = Str::ulid();
