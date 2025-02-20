@@ -3,15 +3,15 @@
 namespace App\Http\Telegraph;
 
 use DefStudio\Telegraph\Handlers\WebhookHandler;
-use DefStudio\Telegraph\Facades\Telegraph;
-use DefStudio\Telegraph\Keyboard\ReplyButton;
-use DefStudio\Telegraph\Keyboard\ReplyKeyboard;
+// use DefStudio\Telegraph\Facades\Telegraph;
+// use DefStudio\Telegraph\Keyboard\ReplyButton;
+// use DefStudio\Telegraph\Keyboard\ReplyKeyboard;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Keyboard\Button;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Draft_post;
 use App\Models\Create_post;
-use App\Models\Post;
+// use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 
 class Handler extends WebhookHandler
 {
-    public function start()  // функция вызывется при входе в бота первый раз, а так же из меню
+    public function start()  // метод вызывется при входе в бота первый раз, а так же из меню по команде start
     {
         $id_user = $this->message->from()->id();  // получаем ид телеграмм пользователя
         $user_name = $this->message->from()->firstName();  // получаем из телеграмма имя
@@ -28,13 +28,13 @@ class Handler extends WebhookHandler
         if ($create_post !== null)
             $create_post->delete();  // подчищаем черновик если есть незавершенный пост
         $user_data = User::where('telegram', $id_user)->first(); // получаем пользователя
-        if ($user_data == null) {   // если пользователя нет то создаем
+        if ($user_data == null) {    // если пользователя нет то создаем
             $email = Str::password(10, true, true, false, false);
             $password = Str::password(9, true, true, false, false);
             User::create(['telegram' => $id_user, 'email' => $email, 'password' => $password, 'name' => $user_name])->first();
         }
         $this->chat  // выводим кнопки в бота
-            ->message('Бот сайта "Автоэлектрики" приветствует вас! Все команды бота в кноке "меню" внизу экрана')
+            ->message('Бот сайта "Автоэлектрики" приветствует вас! Все команды бота в кнопке "меню" внизу экрана')
             ->keyboard(
                 Keyboard::make()->buttons([
                     Button::make('Ссылка на сайт "Автоэлектрики"')->action('feedback_1')->param('value', '1'),
@@ -45,13 +45,13 @@ class Handler extends WebhookHandler
             )->send();
     }
 
-    public function feedback_1()
+    public function feedback_1()  // обрабатываем команды от кнопок команды start
     {
         $value_button = $this->data->get('value');  // получаем значения от кнопок из бота
         $chat_id = $this->chat->chat_id;
         $user_data = User::where('telegram',  $chat_id)->first();
 
-        if ($value_button == 1)
+        if ($value_button == 1)  // выдаем простую ссылку на сайт 
             $this->chat->html('Ссылка на сайт' . url('/'))->send();
 
         if ($value_button == 2) {  // создаем новый пароль от сайта
@@ -86,15 +86,15 @@ class Handler extends WebhookHandler
     {
         $id_user = $this->message->from()->id();
         $create_post = Create_post::where('id_user', $id_user)->first();
-        $photo_no = empty($this->message->photos()->toArray());
-        $count_vol = count($this->message->toArray());
-        if ($create_post == null) {
+        $photo_no = empty($this->message->photos()->toArray());  // есть ли фотки в сообщении
+        $count_vol = count($this->message->toArray());   // по обьему массива определяем текстовое сообщение
+        if ($create_post == null) {  // если просто отправлено сообщение вне команд и пустой черновик бота
             $this->reply("Выберите команду для бота в синем меню внизу");
         } else {
             switch ($create_post->step) {
-                case 1:
-                    if ($photo_no == true && $count_vol == 9) {
-                        $this->name_post_create();
+                case 1:  // первый шаг создание названия поста
+                    if ($photo_no == true && $count_vol == 9) { // определяем точно ли текстовое сообщение
+                        $this->name_post_create();  // отправляем создавать название поста
                     } else {
                         $this->chat->html('<i>Неправильное действие1</i>')->send();
                     }
@@ -110,7 +110,7 @@ class Handler extends WebhookHandler
                         $this->chat->html('<i>Неправильное действие2</i>')->send();
                     }
                     break;
-                case 3:  // эти шаги к сохранению текста
+                case 3:  // эти шаги приводят к сохранению текста
                 case 6:
                 case 9:
                 case 12:
@@ -215,22 +215,22 @@ class Handler extends WebhookHandler
             ->where('id_user', $id_user)
             ->update([$text_post => $text, 'step' => $step]);
 
-        if ($step == 16) {
+        if ($step == 16) {  // выдаем в бот кнопки
             $this->chat
                 ->message('Выберите вариант с помощью кнопок, просмотр будующего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
                 ->keyboard(
                     Keyboard::make()->buttons([
-                        Button::make('Сохранить как черновик (доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
+                        Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
                         Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
                     ])
                 )->withoutPreview()->send();
-        } else {
+        } else {  // выдаем в бот кнопки
             $this->chat
                 ->message('Выберите вариант с помощью кнопок, просмотр будующего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
                 ->keyboard(
                     Keyboard::make()->buttons([
                         Button::make('Дописать еще блок с фото и текстом"')->action('feedback_2')->param('value', '1'),
-                        Button::make('Сохранить как черновик (доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
+                        Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
                         Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
                     ])
                 )->withoutPreview()->send();
@@ -258,7 +258,7 @@ class Handler extends WebhookHandler
             }
         }
 
-        if ($value_button == '1') { 
+        if ($value_button == '1') {   // предлагаем в боте закинуть фото
             DB::table('create_posts')
                 ->where('id_user', $chat_id)
                 ->update(['step' => $step]);
