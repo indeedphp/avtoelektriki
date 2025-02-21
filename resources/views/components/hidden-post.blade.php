@@ -67,6 +67,20 @@
                             <p id="p_text_post_3" class="card-text py-2"></p>
                         </div>
 
+                        <div hidden id="div_hidden_post3" class="card-body px-1 px-lg-2  py-3">
+                            <div class="card-body px-0  px-lg-5 py-0">
+                                <img id="img_url8" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                            </div>
+                            <p id="p_text_post_4" class="card-text py-2"></p>
+                        </div>
+
+                        <div hidden id="div_hidden_post4" class="card-body px-1 px-lg-2  py-1">
+                            <div class="card-body px-0  px-lg-5 py-0">
+                                <img id="img_url9" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                            </div>
+                            <p id="p_text_post_5" class="card-text py-2"></p>
+                        </div>
+
 
                     </div>
                 </div>

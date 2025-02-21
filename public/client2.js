@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {  // код сраб�
             posts_loading(received.data);
         });
 });
-
+// ===================================================================================================
 function posts_loading(data) {
 
     let posts = document.getElementById('posts');
@@ -72,6 +72,17 @@ function posts_loading(data) {
             clone_post.querySelector('#img_url3').src = server_url + '/' + item['url_foto_3'];
             clone_post.querySelector('#p_text_post_3').textContent = item['text_post_3'];
         }
+        if (item['url_foto_4'] != null) {
+            console.log(item['url_foto_4']);
+            clone_post.querySelector('#div_hidden_post3').removeAttribute('hidden');
+            clone_post.querySelector('#img_url8').src = server_url + '/' + item['url_foto_4'];
+            clone_post.querySelector('#p_text_post_4').textContent = item['text_post_4'];
+        }
+        if (item['url_foto_5'] != null) {
+            clone_post.querySelector('#div_hidden_post4').removeAttribute('hidden');
+            clone_post.querySelector('#img_url9').src = server_url + '/' + item['url_foto_5'];
+            clone_post.querySelector('#p_text_post_5').textContent = item['text_post_5'];
+        }
         // clone_post.querySelector('#a_collapse_post_end').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#like_post').textContent = ' ' + item['post_like_count'];
         clone_post.querySelector('#like_post').setAttribute('post_id', item['id']);
@@ -102,14 +113,14 @@ function posts_loading(data) {
         clone_post = null;
     });
 }
-
+// =================================================================================================
 function comments_loading(data, post_id, id_user) {
     let comm = document.getElementById('comm' + post_id);
     let test_comment = document.getElementById('test_comment');
 
     data.forEach(function (item3, i, enu) {   // перебираем комметарии
         let clone_comment = test_comment.cloneNode(true);
-       
+        
       
         clone_comment.querySelector('#a_post_name_user').textContent =  ' ' + item3['user_name'];
         clone_comment.querySelector('#a_post_name_user').href = server_url + '/channel/' + id_user;
@@ -154,7 +165,7 @@ function comments_loading(data, post_id, id_user) {
         clone_comment = null;
     });
 };
-
+// =====================================================================================================================
 function replys_loading(data, id_comment, post_id, id_user) {
     let reply = document.getElementById('reply' + id_comment);
     let replu_hidden = document.getElementById('replu_hidden');

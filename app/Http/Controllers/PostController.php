@@ -61,6 +61,8 @@ class PostController extends Controller
             if($text_post_end != null)$text = 'развернуть текст'; 
             if($post->text_post_2 != null)$text = 'развернуть текст и фото'; 
             if($post->text_post_3 != null)$text = 'развернуть текст и 2 фото';
+            if($post->text_post_4 != null)$text = 'развернуть текст и 3 фото'; 
+            if($post->text_post_5 != null)$text = 'развернуть текст и 4 фото';
             $post->text_post_link = $text;
 
             foreach ($post->like_plus as $like) {

@@ -2,31 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+// use Carbon\Carbon;
 use App\Models\Post;
-use App\Models\Comment;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+// use App\Models\Comment;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ChannelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index($id)
     {
-        // dd('44');
-        // $fgdfgfdgd = '6';
-        // return view('channel', compact($fgdfgfdgd));
-
         return view('channel', ['id' => $id]);
     }
     
-
-
-
     public function show($id)
     {
         $post_like_count = 0;
@@ -45,23 +36,10 @@ class ChannelController extends Controller
         $reply_dislike_active = false;
         $reply_made_user = false;
         
-
         if (!empty(Auth::user()->name)) $name = Auth::user()->name;
         else $name = 0;
         
-        // $posts = Post::orderBy('id')->paginate(5);
-
-        // $posts = Post::all();
-        // $posts = $posts->reverse();
-        // $posts = Post::orderBy('id', 'desc')->paginate(5);
        $posts = Post::where('id_user', '=', $id)->paginate(5);
-
-        // $posts = Post::all();
-        // $posts = $posts->reverse();
-
-
-
-
 
         foreach ($posts as $post) {
             $post->like_plus();
@@ -77,6 +55,8 @@ class ChannelController extends Controller
             if($text_post_end != null)$text = 'развернуть текст'; 
             if($post->text_post_2 != null)$text = 'развернуть текст и фото'; 
             if($post->text_post_3 != null)$text = 'развернуть текст и 2 фото';
+            if($post->text_post_4 != null)$text = 'развернуть текст и 3 фото'; 
+            if($post->text_post_5 != null)$text = 'развернуть текст и 4 фото';
             $post->text_post_link = $text;
 
             foreach ($post->like_plus as $like) {
@@ -144,21 +124,14 @@ class ChannelController extends Controller
             $post_like_count = 0;
         }
 
-        // return view('index', compact('posts'));
         return $posts;
     }
 
 
     public function index2($id)
     {
-        // dd('44');
-        // $fgdfgfdgd = '6';
-        // return view('channel', compact($fgdfgfdgd));
-
         return view('post', ['id' => $id]);
     }
-
-
 
     public function show2($id)
     {
@@ -182,19 +155,7 @@ class ChannelController extends Controller
         if (!empty(Auth::user()->name)) $name = Auth::user()->name;
         else $name = 0;
         
-        // $posts = Post::orderBy('id')->paginate(5);
-
-        // $posts = Post::all();
-        // $posts = $posts->reverse();
-        // $posts = Post::orderBy('id', 'desc')->paginate(5);
        $posts = Post::where('id', '=', $id)->paginate(5);
-
-        // $posts = Post::all();
-        // $posts = $posts->reverse();
-
-
-
-
 
         foreach ($posts as $post) {
             $post->like_plus();
@@ -210,6 +171,8 @@ class ChannelController extends Controller
             if($text_post_end != null)$text = 'развернуть текст'; 
             if($post->text_post_2 != null)$text = 'развернуть текст и фото'; 
             if($post->text_post_3 != null)$text = 'развернуть текст и 2 фото';
+            if($post->text_post_4 != null)$text = 'развернуть текст и 3 фото'; 
+            if($post->text_post_5 != null)$text = 'развернуть текст и 4 фото';
             $post->text_post_link = $text;
 
             foreach ($post->like_plus as $like) {
@@ -277,7 +240,6 @@ class ChannelController extends Controller
             $post_like_count = 0;
         }
 
-        // return view('index', compact('posts'));
         return $posts;
     }
 }

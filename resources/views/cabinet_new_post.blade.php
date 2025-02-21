@@ -355,7 +355,7 @@
             formData.append("preview3", event.target.querySelector('#preview3').getAttribute('src'));
             formData.append("preview4", event.target.querySelector('#preview4').getAttribute('src'));
             formData.append("preview5", event.target.querySelector('#preview5').getAttribute('src'));
-            
+
             formData.append("name_post", event.target.querySelector('#div_name_post').textContent);
             formData.append("text_post", event.target.querySelector('#div_text_post').textContent);
             formData.append("text_post_2", event.target.querySelector('#div_text_post_2').textContent);
@@ -379,32 +379,35 @@
 
         })
 
-        function draft_post_in_post() {  // переносим из черновика в пост для портала
+        function draft_post_in_post() { // переносим из черновика в пост для портала
             if (temp) {
                 fetch('/draft_post_in_post/' + draft_post_id)
                     .then(response => response.json())
                     .then(commits => {
                         console.dir(commits);
 
+
+                        if (commits == 'nok') {
+                            alert(
+                                'Такое название поста у вас уже есть, добавте "продолжение" или "часть 2" или сделайте другое название');
+
+                        } else alert('Ваш пост успешно размещен');
                         location.reload();
-                        alert('Ваш пост успешно размещен');
+
                     });
             } else alert('Сначала сохраните пост');
 
         }
 
-        function draft_post_clear() {  // переносим из черновика в пост для портала
-           
-                fetch('/draft_post_clear/' + draft_post_id)
-                    .then(response => response.json())
-                    .then(commits => {
-                        location.reload();
-                    });
-            
+        function draft_post_clear() { // пе
+
+            fetch('/draft_post_clear/' + draft_post_id)
+                .then(response => response.json())
+                .then(commits => {
+                    location.reload();
+                });
+
 
         }
-
-
-        
     </script>
 @endsection

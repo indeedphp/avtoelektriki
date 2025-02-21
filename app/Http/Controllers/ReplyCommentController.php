@@ -27,7 +27,7 @@ class ReplyCommentController extends Controller
         $comment_id = $request->input('comment_id');
         $id_user = Auth::user()->name;
         $user_id = Auth::user()->id;
-        $user_name = Auth::user()->user_name;
+        $user_name = Auth::user()->name;
         if (!empty($request->input('reply_id'))) $reply_id = $request->input('reply_id');
         else $reply_id = 0;
         if (!empty($request->input('name_opponent'))) $name_opponent = $request->input('name_opponent');

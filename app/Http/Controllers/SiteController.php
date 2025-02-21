@@ -31,13 +31,17 @@ class SiteController extends Controller
     }
 
 
+    public function show($id)
+    {
+        // $site = Site::where('id_user', $id)->first();
+        if(!empty(Site::where('id_user', $id)->first())) $site = Site::where('id_user', $id)->first();
+        else $site = Site::where('id', 1)->first();
+        return view('site', compact('site'));
+    }
 
 
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function site_create(Request $request)
     {
 
@@ -202,45 +206,5 @@ else {
         return response()->json('ok', 200);
     }
 
-    /**
-     * Store a newly created resource in storage.phone_1
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $site = Site::where('id_user', $id)->first();
-
-        return view('site', compact('site'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Site $site)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Site $site)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Site $site)
-    {
-        //
-    }
 }

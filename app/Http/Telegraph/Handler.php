@@ -217,7 +217,7 @@ class Handler extends WebhookHandler
 
         if ($step == 16) {  // выдаем в бот кнопки
             $this->chat
-                ->message('Выберите вариант с помощью кнопок, просмотр будующего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                ->message('Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
                 ->keyboard(
                     Keyboard::make()->buttons([
                         Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
@@ -226,7 +226,7 @@ class Handler extends WebhookHandler
                 )->withoutPreview()->send();
         } else {  // выдаем в бот кнопки
             $this->chat
-                ->message('Выберите вариант с помощью кнопок, просмотр будующего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                ->message('Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
                 ->keyboard(
                     Keyboard::make()->buttons([
                         Button::make('Дописать еще блок с фото и текстом"')->action('feedback_2')->param('value', '1'),
