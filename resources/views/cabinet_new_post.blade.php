@@ -336,20 +336,10 @@
         //========= отправка формы и текста из див ==============================================================================
         document.addEventListener('submit', function(event) {
             temp = true;
-            // console.log(temp+'333');
+           
             event.preventDefault();
             const formData = new FormData(event.target);
-            // let div_name_post = event.target.querySelector('#div_name_post');
-            // let div_text_post = event.target.querySelector('#div_text_post');
-            // let div_text_post_2 = event.target.querySelector('#div_text_post_2');
-            // let div_text_post_3 = event.target.querySelector('#div_text_post_3');
-            // let div_text_post_4 = event.target.querySelector('#div_text_post_4');
-            // let div_text_post_5 = event.target.querySelector('#div_text_post_5');
-            // let preview = event.target.querySelector('#preview');
-
-
-
-
+   
             formData.append("preview", event.target.querySelector('#preview').getAttribute('src'));
             formData.append("preview2", event.target.querySelector('#preview2').getAttribute('src'));
             formData.append("preview3", event.target.querySelector('#preview3').getAttribute('src'));
@@ -375,12 +365,10 @@
                 .then(commits => {
 
                 });
-
-
         })
 
         function draft_post_in_post() { // переносим из черновика в пост для портала
-            if (temp) {
+            if (temp) {  // если пост сохранен
                 fetch('/draft_post_in_post/' + draft_post_id)
                     .then(response => response.json())
                     .then(commits => {

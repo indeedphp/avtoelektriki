@@ -39,13 +39,31 @@
         <b>Ваше имя пользователя: {{$user->user_name}}</b> 
      </div>
 
-     <form action="{{route('cabinet_settings_edit')}}" method="POST">
+     <form action="{{route('cabinet_settings_edit_name')}}" method="POST">
         @csrf
         @method ('PUT')
         <label  class="form-label m-2">Вы можете изменить свое имя пользователя тут</label>
         <input class="form-control m-2" type="text" name="new_name" placeholder = "введите новое имя ">
         <input class="form-control btn btn-primary m-2" type="submit">
       </form>
+
+      <form action="{{route('cabinet_settings_edit_login')}}" method="POST">
+        @csrf
+        @method ('PUT')
+        <label  class="form-label m-2">Вы можете изменить свой логин</label>
+        <input class="form-control m-2" type="text" name="new_login" placeholder = "введите новый логин">
+        <input class="form-control btn btn-primary m-2" type="submit">
+      </form>
+
+      <form action="{{route('cabinet_settings_edit_password')}}" method="POST">
+        @csrf
+        @method ('PUT')
+        <label  class="form-label m-2">Вы можете изменить свой пароль</label>
+        <input class="form-control m-2" type="text" name="new_password" placeholder = "введите новый пароль">
+        <input class="form-control btn btn-primary m-2" type="submit">
+      </form>
+
+
 <p>Запретить боту выдачу одноразовых ссылок для входа</p>
 <P>Запретить боту возможность чмены пароля на сайте</P>
     @endsection

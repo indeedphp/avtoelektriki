@@ -34,8 +34,10 @@
         </div>
 
     </nav>
-
-
+    <hr>
+    <b class=" mb-3" >Всего постов у вас {{$count}} </b> 
+    <hr>
+    
     @foreach ($posts as $post)
         <div class="card my-2">
  
@@ -61,25 +63,18 @@
                      <form method="POST" action="{{ route('cabinet_all_post_delete', $post->id) }}">
                          @method('DELETE') @csrf <button class="btn btn-sm p-0">Удалить</button></form> 
                      </div>
-                <div class="float-end me-2 p-0" ><a class="btn btn-sm p-0" href="{{ route('cabinet_all_post_edit', $post->id) }}">Редактировать</a></div>
+                     <div class="float-end me-2 p-0" ><a class="btn btn-sm p-0" href="{{ route('cabinet_edit_post', $post->id) }}">Редактировать</a></div>
+                <div class="float-end me-2 p-0" ><a class="btn btn-sm p-0" href="{{ route('channel2', $post->id) }}" target="_blank">Показать</a></div>
+
+                
             </div>
         </div>
     @endforeach
+
+
+    {{ $posts->links() }}
+
+    
 @endsection
 
 
-
-{{-- 'created_at',
-'updated_at',
-'user_name',
-'name_post',
-'id_user',
-'id_post',
-'date',
-'text_post',
-'url_foto',
-'text_post_2',
-'url_foto_2',
-'text_post_3',
-'url_foto_3',
-'stuff', --}}

@@ -8,7 +8,9 @@
                 </li>
             @else
                 <li class="page-item">
-                    <a class="page-link" href="{{ $paginator->previousPageUrl() }}&count={{$paginator->count}}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                    @if(empty($paginator->count)) <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                    @else <a class="page-link" href="{{ $paginator->previousPageUrl() }}&count={{$paginator->count}}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                    @endif
                 </li>
             @endif
 
@@ -25,7 +27,10 @@
                         @if ($page == $paginator->currentPage())
                             <li class="page-item active" aria-current="page"><span class="page-link">{{ $page }}</span></li>
                         @else
-                            <li class="page-item"><a class="page-link" href="{{ $url }}&count={{$paginator->count}}">{{ $page }}</a></li>
+                        <li class="page-item">
+                        @if(empty($paginator->count))<a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                        @else <a class="page-link" href="{{ $url }}&count={{$paginator->count}}">{{ $page }}</a></li>
+                        @endif
                         @endif
                     @endforeach
                 @endif
@@ -34,7 +39,9 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li class="page-item">
-                    <a class="page-link" href="{{ $paginator->nextPageUrl() }}&count={{$paginator->count}}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                    @if(empty($paginator->count)) <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                    @else <a class="page-link" href="{{ $paginator->nextPageUrl() }}&count={{$paginator->count}}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                    @endif
                 </li>
             @else
                 <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
