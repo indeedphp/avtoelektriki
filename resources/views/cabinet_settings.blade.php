@@ -5,7 +5,7 @@
 @section('posts')
     <nav class="navbar navbar-expand-lg  p-0 pe-2">
 
-        <a class="navbar-brand">Кабинет пользователя:</a>
+        <a class="navbar-brand ms-2">Кабинет пользователя:</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,38 +34,48 @@
         </div>
 
     </nav>
-   
-    <div class="m-2" >
-        <b>Ваше имя пользователя: {{$user->user_name}}</b> 
-     </div>
 
-     <form action="{{route('cabinet_settings_edit_name')}}" method="POST">
+    <div class="m-2">
+        <b>Ваше имя пользователя: {{ $user->name }}</b>
+    </div>
+    <hr>
+    <form action="{{ route('cabinet_settings_edit_name') }}" method="POST">
         @csrf
         @method ('PUT')
-        <label  class="form-label m-2">Вы можете изменить свое имя пользователя тут</label>
-        <input class="form-control m-2" type="text" name="new_name" placeholder = "введите новое имя ">
-        <input class="form-control btn btn-primary m-2" type="submit">
-      </form>
+        <label class="form-label ms-2 my-2">Вы можете изменить свое имя пользователя тут, минимум 4 символа и максимум 20</label>
+        <input class="form-control my-2" type="text" name="new_name" placeholder = "Введите новое имя">
+        @error('new_name')
+            <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+        @enderror
+        <input class="form-control btn btn-primary my-2" type="submit">
+    </form>
 
-      <form action="{{route('cabinet_settings_edit_login')}}" method="POST">
+    <hr>
+
+
+    <form action="{{ route('cabinet_settings_edit_login') }}" method="POST">
         @csrf
         @method ('PUT')
-        <label  class="form-label m-2">Вы можете изменить свой логин</label>
-        <input class="form-control m-2" type="text" name="new_login" placeholder = "введите новый логин">
-        <input class="form-control btn btn-primary m-2" type="submit">
-      </form>
-
-      <form action="{{route('cabinet_settings_edit_password')}}" method="POST">
+        <label class="form-label ms-2 my-2">Вы можете изменить свой логин, минимум 8 символов и максимум 20</label>
+        <input class="form-control my-2" type="text" name="new_login" placeholder = "Введите новый логин">
+        @error('new_login')
+            <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+        @enderror
+        <input class="form-control btn btn-primary my-2" type="submit">
+    </form>
+    <hr>
+    <form action="{{ route('cabinet_settings_edit_password') }}" method="POST">
         @csrf
         @method ('PUT')
-        <label  class="form-label m-2">Вы можете изменить свой пароль</label>
-        <input class="form-control m-2" type="text" name="new_password" placeholder = "введите новый пароль">
-        <input class="form-control btn btn-primary m-2" type="submit">
-      </form>
+        <label class="form-label ms-2 my-2">Вы можете изменить свой пароль, минимум 8 символов и максимум 20</label>
+        <input class="form-control my-2" type="text" name="new_password" placeholder = "Введите новый пароль">
+        @error('new_password')
+            <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+        @enderror
+        <input class="form-control btn btn-primary my-2" type="submit">
+    </form>
 
 
-<p>Запретить боту выдачу одноразовых ссылок для входа</p>
-<P>Запретить боту возможность чмены пароля на сайте</P>
-    @endsection
-
-    
+    <p>Запретить боту выдачу одноразовых ссылок для входа</p>
+    <P>Запретить боту возможность чмены пароля на сайте</P>
+@endsection

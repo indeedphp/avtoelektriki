@@ -46,12 +46,14 @@
     </p>
     <hr>
     {{-- =========  форма ввода ================================================================================== --}}
-    <form method="POST">
+    <form method="POST" action="{{ route('draft_post_create') }}">
         @csrf
         <input type="hidden" name="draft_post_id" value="{{ $draft_post->id }}">
-        <div class="card card-body p-1 " id="div_name_post" contenteditable="true" data-placeholder=" Напишите комментарий">
+
+        <textarea class="form-control" placeholder="Напишите текст под фото" name="name_post">{{ $draft_post->name_post }}</textarea>
+        {{-- <div class="card card-body p-1 " id="div_name_post" contenteditable="true" data-placeholder=" Напишите комментарий">
             {{ $draft_post->name_post }}
-        </div>
+        </div> --}}
         <p class="link-danger">Название поста(обязательное поле)</p>
         <p></p>
         {{-- -------------------- карточка 1 -------------------------------------------- --}}
@@ -60,12 +62,14 @@
             alt="Фото потерялось">
 
         <p class="link-danger">Выберите свое фото(обязательно для изменения)</p>
-
+       
         <input class="form-control" type="file" id="fileInput" name="foto_1">
-        <br>
-        <div class="card card-body p-1 " id="div_text_post" contenteditable="true" data-placeholder=" Напишите комментарий">
+        <p id="error_foto_size_1" class="link-danger"></p>
+       
+        <textarea class="form-control" placeholder="Напишите текст под фото" name="text_1"></textarea>
+        {{-- <div class="card card-body p-1 " id="div_text_post" contenteditable="true" data-placeholder=" Напишите комментарий">
             {{ $draft_post->text_post }}
-        </div>
+        </div> --}}
         <p class="link-danger">Напишите текст под фото (обязательное поле)</p>
         <p></p>
         <label>
@@ -87,11 +91,13 @@
             <p class="link-danger">Выберите свое фото 2 (обязательно для изменения)</p>
 
             <input class="form-control" type="file" id="fileInput2" name="foto_2">
+            <p id="error_foto_size_2" class="link-danger"></p>
             <br>
-            <div class="card card-body p-1 " id="div_text_post_2"
+            <textarea class="form-control" placeholder="Напишите текст под фото" name="text_2"></textarea>
+            {{-- <div class="card card-body p-1 " id="div_text_post_2"
                 contenteditable="true"data-placeholder=" Напишите комментарий">
                 {{ $draft_post->text_post_2 }}
-            </div>
+            </div> --}}
             <p class="link-danger">Напишите текст под фото 2 (обязательное поле)</p>
             <p></p>
             <label>
@@ -115,11 +121,13 @@
             <p class="link-danger">Выберите свое фото 3 (обязательно для изменения)</p>
 
             <input class="form-control" type="file" id="fileInput3" name="foto_3">
+            <p id="error_foto_size_3" class="link-danger"></p>
             <br>
-            <div class="card card-body p-1 " id="div_text_post_3" contenteditable="true"
+            <textarea class="form-control" placeholder="Напишите текст под фото" name="text_3"></textarea>
+            {{-- <div class="card card-body p-1 " id="div_text_post_3" contenteditable="true"
                 data-placeholder=" Напишите комментарий">
                 {{ $draft_post->text_post_3 }}
-            </div>
+            </div> --}}
             <p class="link-danger">Напишите текст под фото 3 (обязательное поле)</p>
             <p></p>
             <label>
@@ -143,11 +151,13 @@
             <p class="link-danger">Выберите свое фото 4 (обязательно для изменения)</p>
 
             <input class="form-control" type="file" id="fileInput4" name="foto_4">
+            <p id="error_foto_size_4" class="link-danger"></p>
             <br>
-            <div class="card card-body p-1 " id="div_text_post_4" contenteditable="true"
+            <textarea class="form-control" placeholder="Напишите текст под фото" name="text_4"></textarea>
+            {{-- <div class="card card-body p-1 " id="div_text_post_4" contenteditable="true"
                 data-placeholder=" Напишите комментарий">
                 {{ $draft_post->text_post_4 }}
-            </div>
+            </div> --}}
             <p class="link-danger">Напишите текст под фото 4 (обязательное поле)</p>
             <p></p>
             <label>
@@ -170,11 +180,13 @@
             <p class="link-danger">Выберите свое фото 5 (обязательно для изменения)</p>
 
             <input class="form-control" type="file" id="fileInput5" name="foto_5">
+            <p id="error_foto_size_5" class="link-danger"></p>
             <br>
-            <div class="card card-body p-1 " id="div_text_post_5" contenteditable="true"
+            <textarea class="form-control" placeholder="Напишите текст под фото" name="text_5"></textarea>
+            {{-- <div class="card card-body p-1 " id="div_text_post_5" contenteditable="true"
                 data-placeholder=" Напишите комментарий">
                 {{ $draft_post->text_post_5 }}
-            </div>
+            </div> --}}
             <p class="link-danger">Напишите текст под фото 5 (обязательное поле)</p>
             <p></p>
             <br>
@@ -248,22 +260,28 @@
             }
         });
         //=======предпросмотр фото 1=========================================================================
+        const maxSize = 1048576; // Максимальный размер файла: 1MB
         const fileInput = document.getElementById('fileInput');
         const preview = document.getElementById('preview');
 
         fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
+                const error_foto_size_1 = document.getElementById('error_foto_size_1');
+                if (file.size > maxSize) error_foto_size_1.textContent = 'Максимальный размер фото — 1MB.';
+                else { error_foto_size_1.textContent = '';
+           
                 const reader = new FileReader();
-
                 reader.onload = function(e) {
                     preview.src = e.target.result;
-                    // preview.style.display = 'block'; // Показываем изображение
                 };
 
                 reader.readAsDataURL(file); // Читаем файл как DataURL
             }
+            }
         });
+
+  
         //----------предпросмотр фото 2------------------------------------------------------------------------
         const fileInput2 = document.getElementById('fileInput2');
         const preview2 = document.getElementById('preview2');
@@ -271,6 +289,9 @@
         fileInput2.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
+                const error_foto_size_2 = document.getElementById('error_foto_size_2');
+                if (file.size > maxSize) error_foto_size_2.textContent = 'Максимальный размер фото — 1MB.';
+                else { error_foto_size_2.textContent = '';
                 const reader = new FileReader();
 
                 reader.onload = function(e) {
@@ -280,6 +301,7 @@
 
                 reader.readAsDataURL(file); // Читаем файл как DataURL
             }
+            }
         });
         //----------предпросмотр фото 3--------------------------------------------------------------------
         const fileInput3 = document.getElementById('fileInput3');
@@ -288,6 +310,9 @@
         fileInput3.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
+                const error_foto_size_3 = document.getElementById('error_foto_size_3');
+                if (file.size > maxSize) error_foto_size_3.textContent = 'Максимальный размер фото — 1MB.';
+                else { error_foto_size_3.textContent = '';
                 const reader = new FileReader();
 
                 reader.onload = function(e) {
@@ -297,6 +322,7 @@
 
                 reader.readAsDataURL(file); // Читаем файл как DataURL
             }
+            }
         });
         //----------предпросмотр фото 4--------------------------------------------------------------------
         const fileInput4 = document.getElementById('fileInput4');
@@ -305,6 +331,9 @@
         fileInput4.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
+                const error_foto_size_4 = document.getElementById('error_foto_size_4');
+                if (file.size > maxSize) error_foto_size_4.textContent = 'Максимальный размер фото — 1MB.';
+                else { error_foto_size_4.textContent = '';
                 const reader = new FileReader();
 
                 reader.onload = function(e) {
@@ -314,6 +343,7 @@
 
                 reader.readAsDataURL(file); // Читаем файл как DataURL
             }
+            }
         });
         //----------предпросмотр фото 5--------------------------------------------------------------------
         const fileInput5 = document.getElementById('fileInput5');
@@ -322,6 +352,9 @@
         fileInput5.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
+                const error_foto_size_5 = document.getElementById('error_foto_size_5');
+                if (file.size > maxSize) error_foto_size_5.textContent = 'Максимальный размер фото — 1MB.';
+                else { error_foto_size_5.textContent = '';
                 const reader = new FileReader();
 
                 reader.onload = function(e) {
@@ -331,48 +364,49 @@
 
                 reader.readAsDataURL(file); // Читаем файл как DataURL
             }
+            }
         });
 
         //========= отправка формы и текста из див ==============================================================================
-        document.addEventListener('submit', function(event) {
-            temp = true;
+        // document.addEventListener('submit', function(event) {
+        //     temp = true;
            
-            event.preventDefault();
-            const formData = new FormData(event.target);
+        //     event.preventDefault();
+        //     const formData = new FormData(event.target);
    
-            formData.append("preview", event.target.querySelector('#preview').getAttribute('src'));
-            formData.append("preview2", event.target.querySelector('#preview2').getAttribute('src'));
-            formData.append("preview3", event.target.querySelector('#preview3').getAttribute('src'));
-            formData.append("preview4", event.target.querySelector('#preview4').getAttribute('src'));
-            formData.append("preview5", event.target.querySelector('#preview5').getAttribute('src'));
+            // formData.append("preview", event.target.querySelector('#preview').getAttribute('src'));
+            // formData.append("preview2", event.target.querySelector('#preview2').getAttribute('src'));
+            // formData.append("preview3", event.target.querySelector('#preview3').getAttribute('src'));
+            // formData.append("preview4", event.target.querySelector('#preview4').getAttribute('src'));
+            // formData.append("preview5", event.target.querySelector('#preview5').getAttribute('src'));
 
-            formData.append("name_post", event.target.querySelector('#div_name_post').textContent);
-            formData.append("text_post", event.target.querySelector('#div_text_post').textContent);
-            formData.append("text_post_2", event.target.querySelector('#div_text_post_2').textContent);
-            formData.append("text_post_3", event.target.querySelector('#div_text_post_3').textContent);
-            formData.append("text_post_4", event.target.querySelector('#div_text_post_4').textContent);
-            formData.append("text_post_5", event.target.querySelector('#div_text_post_5').textContent);
+            // formData.append("name_post", event.target.querySelector('#div_name_post').textContent);
+            // formData.append("text_post", event.target.querySelector('#div_text_post').textContent);
+            // formData.append("text_post_2", event.target.querySelector('#div_text_post_2').textContent);
+            // formData.append("text_post_3", event.target.querySelector('#div_text_post_3').textContent);
+            // formData.append("text_post_4", event.target.querySelector('#div_text_post_4').textContent);
+            // formData.append("text_post_5", event.target.querySelector('#div_text_post_5').textContent);
 
-            fetch('/draft_post', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': csrf_token
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(commits => {
+        //     fetch('/draft_post', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Accept': 'application/json',
+        //                 'X-CSRF-TOKEN': csrf_token
+        //             },
+        //             body: formData
+        //         })
+        //         .then(response => response.json())
+        //         .then(commits => {
 
-                });
-        })
+        //         });
+        // })
 
         function draft_post_in_post() { // переносим из черновика в пост для портала
             if (temp) {  // если пост сохранен
                 fetch('/draft_post_in_post/' + draft_post_id)
                     .then(response => response.json())
                     .then(commits => {
-                        console.dir(commits);
+                        console.dir('111'+commits);
 
 
                         if (commits == 'nok') {

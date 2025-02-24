@@ -23,14 +23,17 @@ class LoginController extends Controller
 
     public function registerCreate(Request $request)
     {
-        $validated = $request->validate([
-            'email' => ['min:5'],
-            'password' => ['min:5'],
-            'name' => ['min:3'],
-        ]);
+        $vali = ['email' => Str::password(9), 'password' => Str::password(9), 'name' => Str::password(9)];
+        info($vali);
+
+        // $validated = $request->validate([
+        //     'email' => ['min:5'],
+        //     'password' => ['min:5'],
+        //     'name' => ['min:3'],
+        // ]);
         // dd($validated);
-        User::create($validated);
-        return redirect('login');
+        User::create($vali);
+        return redirect('/');
     }
 
     public function authentication(Request $request)
@@ -79,7 +82,7 @@ class LoginController extends Controller
         // info($user_data->token);
         if (Hash::check($token, $user_data->token)) Auth::loginUsingId($user_data->id);
         else return redirect('/');
-//-------------перезаписываем токен блокируя повторный вход----------------------
+        //-------------перезаписываем токен блокируя повторный вход----------------------
         $token = Str::ulid();
         $token_hash = Hash::make($token);
         User::where('id', $user_data->id)

@@ -34,33 +34,33 @@ Route::get('/', function () {
     return view('index');
 })->name('index');;
 
-Route::get('/1', function () {
-    // auth()->loginUsingId(5);
-    $qq =   Str::ulid();
-    info($qq);
+// Route::get('/1', function () {
+//     // auth()->loginUsingId(5);
+//     $qq =   Str::ulid();
+//     info($qq);
 
-    $ww = Hash::make($qq);
-    info($ww);
-    return view('index');
-});
-
-
-
-Route::get('/5', function () {
-    dd(Str::password(9, true, true, false, false));
-    return view('welcome');
-});
-Route::get('/7', function () {
-    info(url('/'));
-    // dump(Hash::check('01JM9XCK17FN37NJ8R08QJ49NT', '$2y$12$sKNr1/X3Buqb9i8bw1bFm.QcsH/ihLH/PjSY1nVQWafx4fxdYxrPK'));
-    //    dump(password_verify('123', '123'));
-
-
-    // return redirect('/');
-});
+//     $ww = Hash::make($qq);
+//     info($ww);
+//     return view('index');
+// });
 
 
 
+// Route::get('/5', function () {
+//     dd(Str::password(9, true, true, false, false));
+//     return view('welcome');
+// });
+// Route::get('/7', function () {
+//     info(url('/'));
+//     // dump(Hash::check('01JM9XCK17FN37NJ8R08QJ49NT', '$2y$12$sKNr1/X3Buqb9i8bw1bFm.QcsH/ihLH/PjSY1nVQWafx4fxdYxrPK'));
+//     //    dump(password_verify('123', '123'));
+
+
+//     // return redirect('/');
+// });
+
+
+Route::get('/555', [LoginController::class, 'registerCreate'])->name('registerCreate');
 Route::get('/3', [LoginController::class, 'create_token'])->name('create_token');
 Route::get('/login_token', [LoginController::class, 'login_token'])->name('login_token');
 
@@ -71,12 +71,12 @@ Route::get('/api_channel/{id}', [ChannelController::class, 'show'])->name('chann
 Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel2');
 Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel_show');
 
-Route::get('/cabinet_settings', [CabinetController::class, 'settings_show'])->name('cabinet_settings');
-Route::get('/cabinet_statistic', [CabinetController::class, 'statistic_show'])->name('cabinet_statistic');
-Route::get('/cabinet_all_post', [CabinetController::class, 'all_post_show'])->name('cabinet_all_post');
-Route::get('/cabinet_edit_post/{id_post?}', [CabinetController::class, 'edit_post_show'])->name('cabinet_edit_post');
-Route::get('/cabinet_all_post_edit/{id}', [CabinetController::class, 'all_post_edit'])->name('cabinet_all_post_edit');
-Route::get('/cabinet_new_post', [CabinetController::class, 'new_post_create'])->name('cabinet_new_post');
+Route::get('/cabinet_settings', [CabinetController::class, 'settings_show'])->name('cabinet_settings')->middleware('auth');
+Route::get('/cabinet_statistic', [CabinetController::class, 'statistic_show'])->name('cabinet_statistic')->middleware('auth');
+Route::get('/cabinet_all_post', [CabinetController::class, 'all_post_show'])->name('cabinet_all_post')->middleware('auth');
+Route::get('/cabinet_edit_post/{id_post?}', [CabinetController::class, 'edit_post_show'])->name('cabinet_edit_post')->middleware('auth');
+Route::get('/cabinet_all_post_edit/{id}', [CabinetController::class, 'all_post_edit'])->name('cabinet_all_post_edit')->middleware('auth');
+Route::get('/cabinet_new_post', [CabinetController::class, 'new_post_create'])->name('cabinet_new_post')->middleware('auth');
 Route::delete('/cabinet_all_post_delete/{id}', [CabinetController::class, 'post_delete'])->name('cabinet_all_post_delete');
 Route::post('/cabinet_edit_post', [CabinetController::class, 'edit_post'])->name('cabinet_edit_post2');
 Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('cabinet_new_post2');
@@ -85,7 +85,7 @@ Route::put('/cabinet_settings_2', [CabinetController::class, 'edit_login'])->nam
 Route::put('/cabinet_settings_3', [CabinetController::class, 'edit_password'])->name('cabinet_settings_edit_password');
 
 
-Route::get('/cabinet_site/{id}', [SiteController::class, 'index'])->name('site_index');
+Route::get('/cabinet_site/{id}', [SiteController::class, 'index'])->name('site_index')->middleware('auth');
 Route::get('/site/{id}', [SiteController::class, 'show'])->name('site_show');
 Route::post('/site', [SiteController::class, 'site_create'])->name('site_create'); // создаем 
 
@@ -118,7 +118,7 @@ Route::delete('/reply_comment', [ReplyCommentController::class, 'delete'])->name
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'authentication'])->name('authentication');
-Route::post('/register', [LoginController::class, 'registerCreate'])->name('registerCreate');
+// Route::post('/register', [LoginController::class, 'registerCreate'])->name('registerCreate');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 

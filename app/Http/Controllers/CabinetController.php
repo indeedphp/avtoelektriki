@@ -18,6 +18,7 @@ class CabinetController extends Controller
     // ======================================================================================================
     public function settings_show()
     {
+       
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
         // dd($user); indexedit_post_show
@@ -79,25 +80,31 @@ class CabinetController extends Controller
     // =======================================================================================================
     public function edit_name(Request $request)
     {
-        $new_name = $request->input('new_name');
-        $id = Auth::user()->id;
+       $id = Auth::user()->id;
+
+       $validated = $request->validate([
+            'new_name' => ['required', 'min:4', 'max:20', 'unique:users,name'],
+        ]);
 
         User::where('id', $id)
             ->update([
-                "user_name" => $new_name
+                "name" => $validated['new_name']
             ]);
-
+          
         return redirect()->route('cabinet_settings');
     }
     // ----------------------------------------------------------------------------
     public function edit_login(Request $request)
     {
-        $new_login = $request->input('new_login');
         $id = Auth::user()->id;
+
+        $validated = $request->validate([
+            'new_login' => ['required', 'min:8', 'max:20', 'unique:users,email'],
+        ]);
 
         User::where('id', $id)
             ->update([
-                "email" => $new_login
+                "email" => $validated['new_login']
             ]);
 
         return redirect()->route('cabinet_settings');
@@ -105,9 +112,13 @@ class CabinetController extends Controller
     // ---------------------------------------------------------------------------------
     public function edit_password(Request $request)
     {
-        $new_password = $request->input('new_password');
-        $password_hash = Hash::make($new_password);
         $id = Auth::user()->id;
+
+        $validated = $request->validate([
+            'new_password' => ['required', 'min:8', 'max:20'],
+        ]);
+
+        $password_hash = Hash::make($validated['new_password']);
 
         User::where('id', $id)
             ->update([
