@@ -25,7 +25,7 @@
                     <a class="nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('site_index', Auth::user()->id) }}">Сайт</a>
+                    <a class="nav-link" href="{{ route('site_index') }}">Сайт</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-danger" href="{{ route('cabinet_statistic') }}">Статистика</a>

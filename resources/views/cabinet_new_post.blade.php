@@ -25,7 +25,7 @@
                     <a class="nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('site_index', Auth::user()->id) }}">Сайт</a>
+                    <a class="nav-link" href="{{ route('site_index') }}">Сайт</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cabinet_statistic') }}">Статистика</a>
@@ -49,7 +49,7 @@
         @csrf
         <input type="hidden" name="draft_post_id" value="{{ $draft_post->id }}">
 
-<textarea class="form-control" placeholder="Напишите текст под фото" name="name_post">
+<textarea class="form-control" placeholder="Напишите название поста" name="name_post">
 @if($draft_post->name_post != null){{$draft_post->name_post}}@else{{old('name_post')}}@endif
 </textarea>
 @error('name_post')
@@ -203,7 +203,7 @@
                         пятый блок фото плюс текст </i>
                 @else
                     <input type="checkbox" id="toggleCheckbox4" name="checkbox_4" checked> <i id="checkbox_text_4">
-                        Убрать блоки ниже </i>
+                        Убрать блок ниже </i>
                 @endif
             </label>
             <br>
@@ -311,7 +311,7 @@
             let checkbox_text_4 = document.getElementById("checkbox_text_4");
             if (checkbox4.checked) {
                 div4.removeAttribute('hidden');
-                checkbox_text_4.textContent = ' Убрать блоки ниже';
+                checkbox_text_4.textContent = ' Убрать блок ниже';
             } else {
                 div4.setAttribute('hidden', true);
                 checkbox_text_4.textContent = ' Добавить пятый блок фото плюс текст';
@@ -420,15 +420,8 @@
                     .then(response => response.json())
                     .then(commits => {
                         console.dir('111' + commits);
-
-                        if (commits == 'nok') {
-                            alert(
-                                'Такое название поста у вас уже есть, добавте "продолжение" или "часть 2" или сделайте другое название'
-                            );
-
-                        } else alert('Ваш пост успешно размещен');
+                         alert('Ваш пост успешно размещен');
                         location.reload();
-
                     });
                 }
 // -----------------------------------------------------------------------------------------

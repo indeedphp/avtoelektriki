@@ -58,11 +58,19 @@ class PostController extends Controller
             $post->text_post_end = $text_post_end;
 
             $text = null;
+            $text_count = 0;
+            
+            if($post->url_foto_2 != null)$text_count ++; 
+            if($post->url_foto_3 != null)$text_count ++;
+            if($post->url_foto_4 != null)$text_count ++;
+            if($post->url_foto_5 != null)$text_count ++;
+
             if($text_post_end != null)$text = 'развернуть текст'; 
-            if($post->text_post_2 != null)$text = 'развернуть текст и фото'; 
-            if($post->text_post_3 != null)$text = 'развернуть текст и 2 фото';
-            if($post->text_post_4 != null)$text = 'развернуть текст и 3 фото'; 
-            if($post->text_post_5 != null)$text = 'развернуть текст и 4 фото';
+            if($text_count == 1)$text = 'развернуть текст и фото'; 
+            if($text_count == 2)$text = 'развернуть текст и 2 фото';
+            if($text_count == 3)$text = 'развернуть текст и 3 фото'; 
+            if($text_count == 4)$text = 'развернуть текст и 4 фото';
+
             $post->text_post_link = $text;
 
             foreach ($post->like_plus as $like) {

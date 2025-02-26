@@ -25,7 +25,7 @@
                     <a class="link-danger nav-link" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('site_index', Auth::user()->id) }}">Сайт</a>
+                    <a class="nav-link" href="{{ route('site_index') }}">Сайт</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cabinet_statistic') }}">Статистика</a>
@@ -35,201 +35,359 @@
 
     </nav>
     <hr>
-    <b class=" mb-3" >На странице показан ваш последний пост, если хотите выбрать другой то пройдите на страницу<a href="{{ route('cabinet_all_post') }}"> все посты</a> </b> 
+    <b class=" mb-3" >На странице показан ваш крайний пост, если хотите выбрать другой то пройдите на страницу<a href="{{ route('cabinet_all_post') }}"> все посты</a> </b> 
     <hr>
-    <form method="POST">
+    {{-- =========  форма ввода ================================================================================== --}}
+    <form method="POST" action="{{ route('cabinet_edit_post2') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="post_id" value="{{ $post->id }}">
-        <div class="card card-body p-1 " id="div_name_post" contenteditable="true" data-placeholder=" Напишите комментарий">
-            {{ $post->name_post }}</div>
-        <p class="link-danger">Правим название поста</p>
+
+<textarea class="form-control" placeholder="Напишите название поста" name="name_post">
+@if($post->name_post != null){{$post->name_post}}@else{{old('name_post')}}@endif
+</textarea>
+@error('name_post')
+<b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+@enderror
+
+        <p class="link-danger">Название поста (обязательно для заполнения)</p>
         <p></p>
 
-        {{-- 1 ============================================================================================== --}}
-        <img id="preview_1" class=" img-fluid shadow " src="{{ url($post->url_foto) }}" alt="Фото потерялось">
-        <p class="link-danger">Фото 1</p>
-        <input class="form-control" type="file" id="file_input_1" name="foto_1">
-        {{-- <input class="form-control" type="file" name="foto_1"> --}}
-        <p class="link-danger">Изменить фото 1</p>
-        <p></p>
-        <div class="card card-body p-1 " id="div_text_post" contenteditable="true" data-placeholder=" Напишите комментарий">
-            {{ $post->text_post }}</div>
-        <p class="link-danger">Правим текст под фото 1</p>
-        <p></p>
-        <br>
-        <hr>
-        {{-- 2 ============================================================================================== --}}
-        @if ($post->url_foto_2 !== null)
-            <img id="preview_2" class=" img-fluid shadow " src="{{ url($post->url_foto_2) }}" alt="Фото потерялось">
-            <p class="link-danger">Фото 2</p>
-            <input class="form-control" type="file" id="file_input_2" name="foto_2">
-            <p class="link-danger">Изменить фото 2</p>
+        {{-- -------------------- карточка 1 -------------------------------------------- --}}
+        <div>
+            <img id="preview" class=" img-fluid shadow "
+                src="@if ($post->url_foto == null) {{ url('plug.jpg') }}@else{{ url($post->url_foto) }} @endif"
+                alt="Фото потерялось">
+            @error('foto_1')
+                <b class="link-danger ">Ошибка: {{ $message }}</b>
+            @enderror
+            <input class="form-control" type="file" id="fileInput" name="foto_1">
+            <p class="link-danger">Выберите свое фото</p>
+            <p id="error_foto_size_1" class="link-danger"></p>
+            
+            
+<textarea class="form-control" placeholder="Напишите текст под фото" name="text_post_1">
+@if($post->text_post != null){{ $post->text_post}}@else{{old('text_post_1')}}@endif
+</textarea>
+@error('text_post_1')
+<b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+@enderror
+            <p class="link-danger">Напишите текст под фото</p>
             <p></p>
-            <div class="card card-body p-1 " id="div_text_post_2" contenteditable="true"
-                data-placeholder=" Напишите комментарий"> {{ $post->text_post_2 }}</div>
-            <p class="link-danger">Правим текст под фото 2</p>
-            <p></p>
+        </div>
+            {{-- checkbox 1----------------------------------------------------------------------------------- --}}
+            <hr>
+            <label>
+                @if ($post->url_foto_2 == null && $post->text_post_2 == null)
+                    <input type="checkbox" id="toggleCheckbox" name="checkbox_1"> <i id="checkbox_text_1"> Добавить второй
+                        блок фото плюс текст </i>
+                @else
+                    <input type="checkbox" id="toggleCheckbox" name="checkbox_1" checked> <i id="checkbox_text_1"> Убрать второй блок фото плюс текст</i>
+                @endif
+            </label>
             <br>
-        @endif
-        <hr>
-        {{-- 3 ============================================================================================== --}}
-        @if ($post->url_foto_3 !== null)
-            <img id="preview_3" class=" img-fluid shadow " src="{{ url($post->url_foto_3) }}" alt="Фото потерялось">
-            <p class="link-danger">Фото 3</p>
-            <input class="form-control" type="file" id="file_input_3" name="foto_3">
-            <p class="link-danger">Изменить фото 3</p>
-            <p></p>
-            <div class="card card-body p-1 " id="div_text_post_3" contenteditable="true"
-                data-placeholder=" Напишите комментарий"> {{ $post->text_post_3 }}</div>
-            <p class="link-danger">Правим текст под фото 3</p>
-            <p></p>
-            <br>
-            <br>
-        @endif
-        <hr>
-        {{-- 4 ============================================================================================== --}}
-        @if ($post->url_foto_4 !== null)
-            <img id="preview_4" class=" img-fluid shadow " src="{{ url($post->url_foto_4) }}" alt="Фото потерялось">
-            <p class="link-danger">Фото 4</p>
-            <input class="form-control" type="file" id="file_input_4" name="foto_4">
-            <p class="link-danger">Изменить фото 4</p>
-            <p></p>
-            <div class="card card-body p-1 " id="div_text_post_4" contenteditable="true"
-                data-placeholder=" Напишите комментарий"> {{ $post->text_post_4 }}</div>
-            <p class="link-danger">Правим текст под фото 4</p>
-            <p></p>
-            <br>
-            <br>
-        @endif
-        <hr>
-        {{-- 5 ============================================================================================== --}}
-        @if ($post->url_foto_5 !== null)
-            <img id="preview_5" class=" img-fluid shadow " src="{{ url($post->url_foto_5) }}" alt="Фото потерялось">
-            <p class="link-danger">Фото 5</p>
-            <input class="form-control" type="file" id="file_input_5" name="foto_5">
-            <p class="link-danger">Изменить фото 5</p>
-            <p></p>
-            <div class="card card-body p-1 " id="div_text_post_5" contenteditable="true"
-                data-placeholder=" Напишите комментарий"> {{ $post->text_post_5 }}</div>
-            <p class="link-danger">Правим текст под фото 5</p>
-            <p></p>
-            <br>
-            <br>
-        @endif
-        {{-- ============================================================================================== --}}
+            <hr><br>
+       
+        {{-- -------------------- карточка 2 -------------------------------------------- --}}
 
+        <div id="myDiv" @if ($post->url_foto_2 == null && $post->text_post_2 == null) hidden @endif>
+            <img id="preview2" class=" img-fluid shadow "
+                src="@if ($post->url_foto_2 == null) {{ url('plug.jpg') }}@else{{ url($post->url_foto_2) }} @endif"
+                alt="Фото потерялось">
+                @error('foto_2')
+                <b class="link-danger ">Ошибка: {{ $message }}</b>
+            @enderror
+            
+
+            <input class="form-control" type="file" id="fileInput2" name="foto_2" >
+            <p class="link-danger">Выберите свое фото 2 </p>
+            <p id="error_foto_size_2" class="link-danger"></p>
+            <br>
+<textarea class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2">
+@if($post->text_post_2 != null){{$post->text_post_2}}@else{{old('text_post_2')}}@endif
+</textarea>
+@error('text_post_2')
+<b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+@enderror
+            <p class="link-danger">Напишите текст под фото 2 </p>
+            <p></p>
+        </div>
+            {{-- checkbox 2----------------------------------------------------------------------------------- --}}
+            <hr>
+            <label>
+                @if ($post->url_foto_3 == null && $post->text_post_3 == null)
+                    <input type="checkbox" id="toggleCheckbox2" name="checkbox_2"> <i id="checkbox_text_2"> Добавить третий блок
+                        фото плюс текст </i>
+                @else
+                    <input type="checkbox" id="toggleCheckbox2" name="checkbox_2" checked> <i id="checkbox_text_2"> Убрать третий блок фото плюс текст</i>
+                @endif
+            </label>
+            <br>
+            <hr><br>
+      
+
+        {{-- -------------------- карточка 3 -------------------------------------------- --}}
+
+        <div id="myDiv2" @if ($post->url_foto_3 == null && $post->text_post_3 == null) hidden @endif>
+            <img id="preview3" class=" img-fluid shadow "
+                src="@if ($post->url_foto_3 == null) {{ url('plug.jpg') }}@else{{ url($post->url_foto_3) }} @endif"
+                alt="Фото потерялось">
+                @error('foto_3')
+                <b class="link-danger ">Ошибка: {{ $message }}</b>
+            @enderror
+            <input class="form-control" type="file" id="fileInput3" name="foto_3">
+            <p class="link-danger">Выберите свое фото 3 </p>
+            <p id="error_foto_size_3" class="link-danger"></p>
+            
+            <br>
+<textarea class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3">
+@if ($post->text_post_3 != null){{$post->text_post_3}}@else{{old('text_post_3')}}@endif
+</textarea>
+@error('text_post_3')
+<b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+@enderror
+            <p class="link-danger">Напишите текст под фото 3 </p>
+            <p></p>
+        </div>
+            {{-- checkbox 3----------------------------------------------------------------------------------- --}}
+            <hr>
+            <label>
+                @if ($post->url_foto_4 == null && $post->text_post_4 == null)
+                    <input type="checkbox" id="toggleCheckbox3" name="checkbox_3"> <i id="checkbox_text_3"> Добавить
+                        четвертый блок фото плюс текст </i>
+                @else
+                    <input type="checkbox" id="toggleCheckbox3" name="checkbox_3" checked> <i id="checkbox_text_3">
+                        Убрать четвертый блок фото плюс текст</i>
+                @endif
+            </label>
+            <br>
+            <hr><br>
         
 
-            <button class="btn btn-primary " title="Отправить" type="submit">Сохранить изменения поста</button>
+        {{-- -------------------- карточка 4 -------------------------------------------- --}}
+        <div id="myDiv3" @if ($post->url_foto_4 == null && $post->text_post_4 == null) hidden @endif>
+            <img id="preview4" class=" img-fluid shadow "
+                src="@if ($post->url_foto_4 == null) {{ url('plug.jpg') }}@else{{ url($post->url_foto_4) }} @endif"
+                alt="Фото потерялось">
+                @error('foto_4')
+                <b class="link-danger ">Ошибка: {{ $message }}</b>
+            @enderror
+            <input class="form-control" type="file" id="fileInput4" name="foto_4">
+            <p class="link-danger">Выберите свое фото 4 </p>
+            <p id="error_foto_size_4" class="link-danger"></p>
+          
+            <br>
+<textarea class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4">
+@if ($post->text_post_4 != null)
+{{$post->text_post_4}}@else{{old('text_post_4')}}@endif
+</textarea>
+@error('text_post_4')
+<b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+@enderror
+            <p class="link-danger">Напишите текст под фото 4 </p>
+            <p></p>
+        </div>
+            {{-- checkbox 4----------------------------------------------------------------------------------- --}}
+            <hr>
+            <label>
+                @if ($post->url_foto_5 == null && $post->text_post_5 == null)
+                    <input type="checkbox" id="toggleCheckbox4" name="checkbox_4"> <i id="checkbox_text_4"> Добавить
+                        пятый блок фото плюс текст </i>
+                @else
+                    <input type="checkbox" id="toggleCheckbox4" name="checkbox_4" checked> <i id="checkbox_text_4">
+                        Убрать пятый блок фото плюс текст</i>
+                @endif
+            </label>
+            <br>
+            <hr><br>
        
+
+        {{-- -------------------- карточка 5 -------------------------------------------- --}}
+
+        <div id="myDiv4" @if ($post->url_foto_5 == null && $post->text_post_5 == null) hidden @endif>
+            <img id="preview5" class=" img-fluid shadow "
+                src="@if ($post->url_foto_5 == null) {{ url('plug.jpg') }}@else{{ url($post->url_foto_5) }} @endif"
+                alt="Фото потерялось">
+                @error('foto_5')
+                <b class="link-danger ">Ошибка: {{ $message }}</b>
+            @enderror
+            <input class="form-control" type="file" id="fileInput5" name="foto_5">
+            <p class="link-danger">Выберите свое фото 5 </p>
+            <p id="error_foto_size_5" class="link-danger"></p>
+            
+            <br>
+<textarea class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5">
+@if($post->text_post_5 != null){{$post->text_post_5}}@else{{old('text_post_5')}}@endif
+</textarea>
+@error('text_post_5')
+<b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+@enderror
+            <p class="link-danger">Напишите текст под фото 5 </p>
+            <p></p>
+            <br>
+            <hr><br>
+        </div>
+
+        {{-- ----------------кнопки------------------------------------------------------------------------- --}}
+
+        <button class="btn btn-primary " title="Сохранить чтоб потом дописать" type="submit">Сохранить пост</button>
     </form>
-    <a class="btn btn-primary my-3" href="{{ route('channel2', $post->id) }}" target="_blank">Посмотреть как выглядит пост</a>
-    <p></p>
+    <hr>
+    <a class="btn btn-primary" href="{{ route('channel2', $post->id) }}" target="_blank">Посмотреть как будет
+        выглядеть пост</a>
+    <hr>
 
-    <br> <br> <br>
 
-   
-<script>
-      //  =======предпросмотр фото 1=========================================================================
-        let file_input_1 = document.getElementById('file_input_1');
-        let preview_1 = document.getElementById('preview_1');
 
-        file_input_1.addEventListener('change', function(event) {
-            let file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview_1.src = e.target.result;
-                };
-                reader.readAsDataURL(file); // Читаем файл как DataURL
+    {{-- ==================  JS  ======================================================================================= --}}
+    <script>
+        const checkbox = document.getElementById('toggleCheckbox');
+        const checkbox2 = document.getElementById('toggleCheckbox2');
+        const checkbox3 = document.getElementById('toggleCheckbox3');
+        const checkbox4 = document.getElementById('toggleCheckbox4');
+        const div = document.getElementById('myDiv');
+        const div2 = document.getElementById('myDiv2');
+        const div3 = document.getElementById('myDiv3');
+        const div4 = document.getElementById('myDiv4');
+
+        checkbox.addEventListener('change', function() { // Обработчик события для чекбокса 1
+            let checkbox_text_1 = document.getElementById("checkbox_text_1");
+            if (checkbox.checked) {
+                div.removeAttribute('hidden');
+                checkbox_text_1.textContent = ' Убрать второй блок фото плюс текст';
+            } else {
+                div.setAttribute('hidden', true); // при закрытии закрываем и другие карточки
+                checkbox_text_1.textContent = ' Добавить второй блок фото плюс текст';
             }
         });
-// -------------предпросмотр фото 2--------------------------------------------------------------------------
-let file_input_2 = document.getElementById('file_input_2');
-        let preview_2 = document.getElementById('preview_2');
- 
-        file_input_2.addEventListener('change', function(event) {
-            let file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview_2.src = e.target.result;
-                };
-                reader.readAsDataURL(file); // Читаем файл как DataURL
+        //--------------------------------------------------------------------
+        checkbox2.addEventListener('change', function() { // Обработчик события для чекбокса 2
+            let checkbox_text_2 = document.getElementById("checkbox_text_2");
+            if (checkbox2.checked) {
+                div2.removeAttribute('hidden');
+                checkbox_text_2.textContent = ' Убрать третий блок фото плюс текст';
+            } else {
+                div2.setAttribute('hidden', true);
+                checkbox_text_2.textContent = ' Добавить третий блок фото плюс текст';
             }
         });
-// ---------------предпросмотр фото 3------------------------------------------------------------------------
-let file_input_3 = document.getElementById('file_input_3');
-        let preview_3 = document.getElementById('preview_3');
-     
-        file_input_3.addEventListener('change', function(event) {
-            let file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview_3.src = e.target.result;
-                };
-                reader.readAsDataURL(file); // Читаем файл как DataURL
+        //--------------------------------------------------------------------
+        checkbox3.addEventListener('change', function() { // Обработчик события для чекбокса 3
+            let checkbox_text_3 = document.getElementById("checkbox_text_3");
+            if (checkbox3.checked) {
+                div3.removeAttribute('hidden');
+                checkbox_text_3.textContent = ' Убрать четвертый блок фото плюс текст';
+            } else {
+                div3.setAttribute('hidden', true);
+                checkbox_text_3.textContent = ' Добавить четвертый блок фото плюс текст';
             }
         });
-// ----------------предпросмотр фото 4-----------------------------------------------------------------------
-let file_input_4 = document.getElementById('file_input_4');
-        let preview_4 = document.getElementById('preview_4');
-
-        file_input_4.addEventListener('change', function(event) {
-            let file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview_4.src = e.target.result;
-                };
-                reader.readAsDataURL(file); // Читаем файл как DataURL
+        //--------------------------------------------------------------------
+        checkbox4.addEventListener('change', function() { // Обработчик события для чекбокса 4
+            let checkbox_text_4 = document.getElementById("checkbox_text_4");
+            if (checkbox4.checked) {
+                div4.removeAttribute('hidden');
+                checkbox_text_4.textContent = ' Убрать пятый блок фото плюс текст';
+            } else {
+                div4.setAttribute('hidden', true);
+                checkbox_text_4.textContent = ' Добавить пятый блок фото плюс текст';
             }
         });
-// ----------------предпросмотр фото 5------------------------------------------------------------------------
-let file_input_5 = document.getElementById('file_input_5');
-        let preview_5 = document.getElementById('preview_5');
+        //=======предпросмотр фото 1=========================================================================
+        const maxSize = 1048576; // Максимальный размер файла: 1MB
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
 
-        file_input_5.addEventListener('change', function(event) {
-            let file = event.target.files[0];
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview_5.src = e.target.result;
-                };
-                reader.readAsDataURL(file); // Читаем файл как DataURL
+                const error_foto_size_1 = document.getElementById('error_foto_size_1');
+                if (file.size > maxSize) error_foto_size_1.textContent = 'Максимальный размер фото — 1MB.';
+                else {
+                    error_foto_size_1.textContent = '';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file); // Читаем файл как DataURL
+                }
             }
         });
-// ==== отправка формы плюс текста ================================================================================
-    document.addEventListener('submit', function(event) {
-        event.preventDefault();
-        let formData = new FormData(event.target);
-        let div_text_post_2 = null;
-        if (document.getElementById("div_text_post_2")) div_text_post_2 = event.target.querySelector('#div_text_post_2').textContent;
- 
+        //----------предпросмотр фото 2------------------------------------------------------------------------
+        const fileInput2 = document.getElementById('fileInput2');
+        const preview2 = document.getElementById('preview2');
 
-        formData.append("name_post", event.target.querySelector('#div_name_post').textContent);
-        formData.append("text_post", event.target.querySelector('#div_text_post').textContent);
-        formData.append("text_post_2", div_text_post_2);
-        formData.append("text_post_3", event.target.querySelector('#div_text_post_3').textContent);
-        formData.append("text_post_4", event.target.querySelector('#div_text_post_4').textContent);
-        formData.append("text_post_5", event.target.querySelector('#div_text_post_5').textContent);
+        fileInput2.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const error_foto_size_2 = document.getElementById('error_foto_size_2');
+                if (file.size > maxSize) error_foto_size_2.textContent = 'Максимальный размер фото — 1MB.';
+                else {
+                    error_foto_size_2.textContent = '';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview2.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file); // Читаем файл как DataURL
+                }
+            }
+        });
+        //----------предпросмотр фото 3--------------------------------------------------------------------
+        const fileInput3 = document.getElementById('fileInput3');
+        const preview3 = document.getElementById('preview3');
 
+        fileInput3.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const error_foto_size_3 = document.getElementById('error_foto_size_3');
+                if (file.size > maxSize) error_foto_size_3.textContent = 'Максимальный размер фото — 1MB.';
+                else {
+                    error_foto_size_3.textContent = '';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview3.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file); // Читаем файл как DataURL
+                }
+            }
+        });
+        //----------предпросмотр фото 4--------------------------------------------------------------------
+        const fileInput4 = document.getElementById('fileInput4');
+        const preview4 = document.getElementById('preview4');
 
-        fetch('/cabinet_edit_post', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrf_token
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(commits => {
+        fileInput4.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const error_foto_size_4 = document.getElementById('error_foto_size_4');
+                if (file.size > maxSize) error_foto_size_4.textContent = 'Максимальный размер фото — 1MB.';
+                else {
+                    error_foto_size_4.textContent = '';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview4.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file); // Читаем файл как DataURL
+                }
+            }
+        });
+        //----------предпросмотр фото 5--------------------------------------------------------------------
+        const fileInput5 = document.getElementById('fileInput5');
+        const preview5 = document.getElementById('preview5');
 
-            });
+        fileInput5.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const error_foto_size_5 = document.getElementById('error_foto_size_5');
+                if (file.size > maxSize) error_foto_size_5.textContent = 'Максимальный размер фото — 1MB.';
+                else {
+                    error_foto_size_5.textContent = '';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview5.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file); // Читаем файл как DataURL
+                }
+            }
+        });
 
-
-    })
-</script>
+    </script>
 @endsection

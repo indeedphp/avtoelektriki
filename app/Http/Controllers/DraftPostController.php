@@ -30,9 +30,7 @@ class DraftPostController extends Controller
     public function draft_post_in_post($id)  // из черновика делаем пост в ленту
     {
         $draft_post = Draft_post::where('id', $id)->first();
-        $post = Post::where('name_post', $draft_post->name_post)->first();
-        info($post);
-        if ($post == null) {
+       
             Post::create([
                 'name_post' => $draft_post->name_post,
                 'text_post' => $draft_post->text_post,
@@ -50,7 +48,7 @@ class DraftPostController extends Controller
             ]);
 
             return response()->json('ok', 200);
-        } else return response()->json('nok', 200);
+       
     }
 
     public function clear_draft_post($id)  // очищаем базу

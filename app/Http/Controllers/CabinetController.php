@@ -18,7 +18,6 @@ class CabinetController extends Controller
     // ======================================================================================================
     public function settings_show()
     {
-       
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
         // dd($user); indexedit_post_show
@@ -49,7 +48,7 @@ class CabinetController extends Controller
         return view('cabinet_all_post', compact('posts', 'count'));
     }
     // ======================================================================================================
-    public function new_post_create()
+    public function new_post_show()
     {
         $user_name = Auth::user()->user_name;
         $id_user = Auth::user()->id;
@@ -57,19 +56,20 @@ class CabinetController extends Controller
         if (empty(Draft_post::where('id_user', $id_user)->first())) $draft_post = Draft_post::create(['user_name' => $user_name, 'id_user' => $id_user]);
         else $draft_post = Draft_post::where('id_user', $id_user)->first();
         // Storage::disk('local')->put('file.txt', 'Contents');
-        // info($draft_post);
+        // info($post);
         return view('cabinet_new_post', compact('draft_post'));
     }
     // =======================================================================================================
-    public function edit_post_show($id_post = true)  // показываем пост юзера для правки
+    public function edit_post_show($id_post = null)  // показываем пост юзера для правки
     {
         $id_user = Auth::user()->id;
-    
-        if ($id_post) $post = DB::table('posts')->where('id_user',  $id_user)->orderBy('id', 'desc')->first();
-        else $post =  DB::table('posts')->where('id_user', $id_user)->where('id', $id_post)->orderBy('id', 'desc')->first();
+      info($id_post);
+        if ($id_post == null) $post = DB::table('posts')->where('id_user',  $id_user)->orderBy('id', 'desc')->first();
+        else $post =  DB::table('posts')->where('id', $id_post)->first();
 
         if ($post == null) abort(470); // кастомная ошибка вью errors/470 , нет поста у вас
         else return view('cabinet_edit_post', compact('post'));
+        // else return view('welcome', compact('post'));
     }
     // =======================================================================================================
     // public function all_post_edit($id)
@@ -129,100 +129,143 @@ class CabinetController extends Controller
     }
 
     // =======================================================================================================
-    public function edit_post(Request $request)
+
+public function edit_post(Request $request)  // создаем пост в черновике
+{
+    info($request);
+    $valid = $request->validate([  // валидация формы
+        'post_id' => ['required', 'integer'],
+        'name_post' => ['nullable', 'string', 'max:5000'],
+        'foto_1' => ['image', 'max:3072'],  // фото максимум 3 мегабайта
+        'text_post_1' => ['nullable', 'string', 'max:5000'],  // текст можно пустой, максимум 5000 символов
+        'foto_2' => ['image', 'max:3072'],
+        'text_post_2' => ['nullable', 'string', 'max:5000'],
+        'foto_3' => ['image', 'max:3072'],
+        'text_post_3' => ['nullable', 'string', 'max:5000'],
+        'foto_4' => ['image', 'max:3072'],
+        'text_post_4' => ['nullable', 'string', 'max:5000'],
+        'foto_5' => ['image', 'max:3072'],
+        'text_post_5' => ['nullable', 'string', 'max:5000'],
+    ]);
+
+    $post = Post::where('id', $valid['post_id'])->first(); // из базы получаем старые данные
+    $name_post = $post->name_post;
+    $url_foto = $post->url_foto;
+    $text_post = $post->text_post_2;
+    $url_foto_2 = $post->url_foto_2;
+    $text_post_2 = $post->text_post_2;
+    $url_foto_3 = $post->url_foto_3;
+    $text_post_3 = $post->text_post_3;
+    $url_foto_4 = $post->url_foto_4;
+    $text_post_4 = $post->text_post_4;
+    $url_foto_5 = $post->url_foto_5;
+    $text_post_5 = $post->text_post_5;
+
+    $id_user = Auth::user()->id;
+    $user_name = Auth::user()->name;
+
+    function convert_foto($inputFile, $outputFile) // разные форматы приводим к JPG, сжимаем, уменьшаем размер
     {
-        info($request);
-        $user_name = Auth::user()->name;
-        $id_user = Auth::user()->id;
-        $post_id = $request->input('post_id');
+        $file_info = getimagesize($inputFile);
+        $mime_type = $file_info['mime'];
+        info($mime_type);
 
-        $post = Post::where('id', $post_id)->first();
-
-        function convert_foto($inputFile, $outputFile) // разные форматы приводим к JPG, сжимаем, уменьшаем размер
-        {
-            $file_info = getimagesize($inputFile);
-            $mime_type = $file_info['mime'];
-            info($mime_type);
-
-            if ($mime_type == 'image/jpeg') {
-                $img = imagecreatefromjpeg($inputFile);
-            } elseif ($mime_type == 'image/png') {
-                $img = imagecreatefrompng($inputFile);
-            } elseif ($mime_type == 'image/gif') {
-                $img = imagecreatefromgif($inputFile);
-            } elseif ($mime_type == 'image/bmp') {
-                $img = imagecreatefrombmp($inputFile);
-            } elseif ($mime_type == 'image/webp') {
-                $img = imagecreatefromwebp($inputFile);
-            } else {
-                return false;
-            }
-
-            $size = getimagesize($inputFile);
-            $size_k = $size[0] / 1280;
-            $new_size_x = $size[0] / $size_k;
-            $new_size_y = $size[1] / $size_k;
-            $new_img = imagecreatetruecolor($new_size_x, $new_size_y);
-            imagecopyresampled($new_img, $img, 0, 0, 0, 0, $new_size_x, $new_size_y, $size[0], $size[1]);
-            imagejpeg($new_img, $outputFile, 50);
-            imagedestroy($img);
-            imagedestroy($new_img);
+        if ($mime_type == 'image/jpeg') {
+            $img = imagecreatefromjpeg($inputFile);
+        } elseif ($mime_type == 'image/png') {
+            $img = imagecreatefrompng($inputFile);
+        } elseif ($mime_type == 'image/gif') {
+            $img = imagecreatefromgif($inputFile);
+        } elseif ($mime_type == 'image/bmp') {
+            $img = imagecreatefrombmp($inputFile);
+        } elseif ($mime_type == 'image/webp') {
+            $img = imagecreatefromwebp($inputFile);
+        } else {
+            return false;
         }
 
-        $url_foto = $post->url_foto;
-        $url_foto_2 = $post->url_foto_2;
-        $url_foto_3 = $post->url_foto_3;
-        $url_foto_4 = $post->url_foto_4;
-        $url_foto_5 = $post->url_foto_5;
+        $size = getimagesize($inputFile);
+        $size_k = $size[0] / 1280;
+        $new_size_x = $size[0] / $size_k;
+        $new_size_y = $size[1] / $size_k;
+        $new_img = imagecreatetruecolor($new_size_x, $new_size_y);
+        imagecopyresampled($new_img, $img, 0, 0, 0, 0, $new_size_x, $new_size_y, $size[0], $size[1]);
+        imagejpeg($new_img, $outputFile, 50);
+        imagedestroy($img);
+        imagedestroy($new_img);
+    }
 
-        $name_post = $request->input('name_post');
-        $text_post = $request->input('text_post');
-        $text_post_2 = $request->input('text_post_2');
-        $text_post_3 = $request->input('text_post_3');
-        $text_post_4 = $request->input('text_post_4');
-        $text_post_5 = $request->input('text_post_5');
+    $name_foto = $id_user . '-' . time() . '.jpg';  // создаем имя для фото
+    $name_post = $valid['name_post'];
+    $text_post = $request->input('text_post_1');
 
-        $name_foto = $id_user . '-' . time() . '.jpg';
+    if (!empty($valid['foto_1'])) {  
+        $url_foto = 'storage/app/bot/images/' . '1_' . $name_foto;
+        convert_foto($valid['foto_1'], $url_foto);
+    }
 
-        if (!empty($request->foto_1)) {
-            $url_foto = 'storage/app/bot/images/' . '1_' . $name_foto;
-            convert_foto($request->foto_1, $url_foto);
+    if (!empty($request->input('checkbox_1'))) {  // если стоит чекбокс в форме
+        $text_post_2 = $valid['text_post_2']; // меняем текст
+        if (!empty($valid['foto_2'])) {  // если пришло с формы фото
+            $url_foto_2 = 'storage/app/bot/images/' . '2_' . $name_foto; // составляем путь с именем для фото
+            convert_foto($valid['foto_2'], $url_foto_2);  // вызываем функцию и передаем фото и путь
         }
-        if (!empty($request->foto_2)) {
-            $url_foto_2 = 'storage/app/bot/images/' . '2_' . $name_foto;
-            convert_foto($request->foto_2, $url_foto_2);
-        }
-        if (!empty($request->foto_3)) {
+    } else {  // если чекбокс убран то обнуляем фото и текст
+        $text_post_2 = null;
+        $url_foto_2  = null;
+    }
+
+    if (!empty($request->input('checkbox_2'))) {
+        $text_post_3 = $valid['text_post_3'];
+        if (!empty($valid['foto_3'])) {
             $url_foto_3 = 'storage/app/bot/images/' . '3_' . $name_foto;
             convert_foto($request->foto_3, $url_foto_3);
         }
-        if (!empty($request->foto_4)) {
+    } else {
+        $text_post_3 = null;
+        $url_foto_3  = null;
+    }
+
+    if (!empty($request->input('checkbox_3'))) {
+        $text_post_4 = $valid['text_post_4'];
+        if (!empty($valid['foto_4'])) {
             $url_foto_4 = 'storage/app/bot/images/' . '4_' . $name_foto;
             convert_foto($request->foto_4, $url_foto_4);
         }
-        if (!empty($request->foto_5)) {
+    } else {
+        $text_post_4 = null;
+        $url_foto_4  = null;
+    }
+
+    if (!empty($request->input('checkbox_4'))) {
+        $text_post_5 = $valid['text_post_5'];
+        if (!empty($valid['foto_5'])) {
             $url_foto_5 = 'storage/app/bot/images/' . '5_' . $name_foto;
             convert_foto($request->foto_5, $url_foto_5);
         }
-
-        DB::table('posts')
-            ->where('id', $post_id)
-            ->update([
-                'name_post' => $name_post,
-                'text_post' => $text_post,
-                'url_foto' => $url_foto,
-                'text_post_2' => $text_post_2,
-                'url_foto_2' => $url_foto_2,
-                'text_post_3' => $text_post_3,
-                'url_foto_3' => $url_foto_3,
-                'text_post_4' => $text_post_4,
-                'url_foto_4' => $url_foto_4,
-                'text_post_5' => $text_post_5,
-                'url_foto_5' => $url_foto_5
-            ]);
-
-        return response()->json('ok', 200);
+    } else {
+        $text_post_5 = null;
+        $url_foto_5  = null;
     }
+
+    Post::where('id', $valid['post_id'])
+        ->update([
+            'name_post' => $name_post,
+            'text_post' => $text_post,
+            'url_foto' => $url_foto,
+            'url_foto_2' => $url_foto_2,
+            'text_post_2' => $text_post_2,
+            'url_foto_3' => $url_foto_3,
+            'text_post_3' => $text_post_3,
+            'url_foto_4' => $url_foto_4,
+            'text_post_4' => $text_post_4,
+            'url_foto_5' => $url_foto_5,
+            'text_post_5' => $text_post_5,
+        ]);
+
+    return redirect()->route('cabinet_edit_post');
+}
+
     // ======================================================================================================
     public function post_delete($id)
     {
