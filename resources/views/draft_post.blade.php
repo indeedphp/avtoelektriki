@@ -61,6 +61,25 @@
                     <p class="card-text py-2">{{ $post->text_post_3 }}</p>
                 </div>
             @endif
+          <!-- ФОТО 4 И ТЕКСТ -->
+          @if ($post->url_foto_4 !== null)
+          <div class="card-body px-1 px-lg-2  py-1">
+              <div class="card-body px-0  px-lg-5 py-0">
+                  <img class=" img-fluid shadow " src="{{ url($post->url_foto_4) }}">
+              </div>
+              <p class="card-text py-2">{{ $post->text_post_4 }}</p>
+          </div>
+      @endif
+
+      <!-- ФОТО 5 И ТЕКСТ -->
+      @if ($post->url_foto_5 !== null)
+          <div class="card-body px-1 px-lg-2  py-1">
+              <div class="card-body px-0  px-lg-5 py-0">
+                  <img class=" img-fluid shadow " src="{{ url($post->url_foto_5) }}">
+              </div>
+              <p class="card-text py-2">{{ $post->text_post_5 }}</p>
+          </div>
+      @endif
 
         </div>
         </div>

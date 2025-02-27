@@ -82,17 +82,17 @@ class DraftPostController extends Controller
         info($request);
         $valid = $request->validate([  // валидация формы
             'draft_post_id' => ['required', 'integer'],
-            'name_post' => ['nullable', 'string', 'max:5000'],
+            'name_post' => ['nullable', 'string', 'max:250'],
             'foto_1' => ['image', 'max:3072'],  // фото максимум 3 мегабайта
-            'text_post_1' => ['nullable', 'string', 'max:5000'],  // текст можно пустой, максимум 5000 символов
+            'text_post_1' => ['nullable', 'string', 'max:2000'],  // текст можно пустой, максимум 5000 символов
             'foto_2' => ['image', 'max:3072'],
-            'text_post_2' => ['nullable', 'string', 'max:5000'],
+            'text_post_2' => ['nullable', 'string', 'max:2000'],
             'foto_3' => ['image', 'max:3072'],
-            'text_post_3' => ['nullable', 'string', 'max:5000'],
+            'text_post_3' => ['nullable', 'string', 'max:2000'],
             'foto_4' => ['image', 'max:3072'],
-            'text_post_4' => ['nullable', 'string', 'max:5000'],
+            'text_post_4' => ['nullable', 'string', 'max:2000'],
             'foto_5' => ['image', 'max:3072'],
-            'text_post_5' => ['nullable', 'string', 'max:5000'],
+            'text_post_5' => ['nullable', 'string', 'max:2000'],
         ]);
         
         $draft_post = Draft_post::where('id', $valid['draft_post_id'])->first();  // из базы получаем старые данные

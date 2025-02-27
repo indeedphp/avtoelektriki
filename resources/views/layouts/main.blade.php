@@ -60,9 +60,9 @@
                     </li>
                     <li class="nav-item ms-auto">
                         @auth
-                            @if (Auth::user()->id == 2)
+                            {{-- @if (Auth::user()->id == 2) --}}
                                 <a class="nav-link active " href="{{ route('admin_index') }}">admin</a>
-                            @endif
+                            {{-- @endif --}}
                         @endauth
                     </li>
                     </li>

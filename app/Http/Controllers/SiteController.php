@@ -38,7 +38,7 @@ class SiteController extends Controller
         else $site = Site::where('id', 1)->first();
         return view('site', compact('site'));
     }
-    public function reset_site(Request $request)  // показываем готовый сайт
+    public function reset_site(Request $request)  // показываем готовый сайт визитку
     {
         $site = Site::where('id', 1)->first();
         Site::where('id', $request->site_id)

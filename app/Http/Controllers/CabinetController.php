@@ -135,7 +135,7 @@ public function edit_post(Request $request)  // создаем пост в че�
     info($request);
     $valid = $request->validate([  // валидация формы
         'post_id' => ['required', 'integer'],
-        'name_post' => ['nullable', 'string', 'max:5000'],
+        'name_post' => ['nullable', 'string', 'max:250'],
         'foto_1' => ['image', 'max:3072'],  // фото максимум 3 мегабайта
         'text_post_1' => ['nullable', 'string', 'max:5000'],  // текст можно пустой, максимум 5000 символов
         'foto_2' => ['image', 'max:3072'],

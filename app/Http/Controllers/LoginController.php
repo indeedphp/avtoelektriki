@@ -31,9 +31,9 @@ class LoginController extends Controller
         //     'password' => ['min:5'],
         //     'name' => ['min:3'],
         // ]);
-        // dd($validated);
+        dump($vali);
         User::create($vali);
-        return redirect('/');
+        // return redirect('/');
     }
 
     public function authentication(Request $request)

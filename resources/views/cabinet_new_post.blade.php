@@ -56,7 +56,7 @@
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
 
-        <p class="link-danger">Название поста (обязательно для заполнения)</p>
+        <p class="link-danger">Название поста, максимум 250 символов. Пример: "Рено Логан 2015 год, не работают противотуманные фары."</p>
         <p></p>
 
         {{-- -------------------- карточка 1 -------------------------------------------- --}}
@@ -68,28 +68,26 @@
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
             <input class="form-control" type="file" id="fileInput" name="foto_1">
-            <p class="link-danger">Выберите свое фото</p>
+            <p class="link-danger">Выберите свое фото, размер максимум 3 мегабайта</p>
             <p id="error_foto_size_1" class="link-danger"></p>
             
             
-<textarea class="form-control" placeholder="Напишите текст под фото" name="text_post_1">
+<textarea class="form-control" placeholder="Напишите текст под фото" name="text_post_1" style="height: 150px">
 @if($draft_post->text_post != null){{ $draft_post->text_post}}@else{{old('text_post_1')}}@endif
 </textarea>
 @error('text_post_1')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
-            <p class="link-danger">Напишите текст под фото</p>
+            <p class="link-danger">Напишите текст под фото, максимум 2000 символов</p>
             <p></p>
             {{-- checkbox 1----------------------------------------------------------------------------------- --}}
             <hr>
             <label>
                 @if ($draft_post->url_foto_2 == null && $draft_post->text_post_2 == null)
-                    <input type="checkbox" id="toggleCheckbox" name="checkbox_1"> <i id="checkbox_text_1"> Добавить второй
-                        блок
+                    <input type="checkbox" id="toggleCheckbox" name="checkbox_1"> <i id="checkbox_text_1"> Добавить второй блок
                         фото плюс текст </i>
                 @else
-                    <input type="checkbox" id="toggleCheckbox" name="checkbox_1" checked> <i id="checkbox_text_1"> Убрать
-                        блоки
+                    <input type="checkbox" id="toggleCheckbox" name="checkbox_1" checked> <i id="checkbox_text_1"> Убрать блоки
                         ниже </i>
                 @endif
             </label>
@@ -108,16 +106,16 @@
             
 
             <input class="form-control" type="file" id="fileInput2" name="foto_2" >
-            <p class="link-danger">Выберите свое фото 2 </p>
+            <p class="link-danger">Выберите свое фото 2, размер максимум 3 мегабайта</p>
             <p id="error_foto_size_2" class="link-danger"></p>
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2">
+<textarea class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2" style="height: 150px">
 @if($draft_post->text_post_2 != null){{$draft_post->text_post_2}}@else{{old('text_post_2')}}@endif
 </textarea>
 @error('text_post_2')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
-            <p class="link-danger">Напишите текст под фото 2 </p>
+            <p class="link-danger">Напишите текст под фото 2, максимум 2000 символов</p>
             <p></p>
             {{-- checkbox 2----------------------------------------------------------------------------------- --}}
             <hr>
@@ -146,17 +144,17 @@
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
             <input class="form-control" type="file" id="fileInput3" name="foto_3">
-            <p class="link-danger">Выберите свое фото 3 </p>
+            <p class="link-danger">Выберите свое фото 3, размер максимум 3 мегабайта</p>
             <p id="error_foto_size_3" class="link-danger"></p>
             
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3">
+<textarea class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3" style="height: 150px">
 @if ($draft_post->text_post_3 != null){{$draft_post->text_post_3}}@else{{old('text_post_3')}}@endif
 </textarea>
 @error('text_post_3')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
-            <p class="link-danger">Напишите текст под фото 3 </p>
+            <p class="link-danger">Напишите текст под фото 3, максимум 2000 символов</p>
             <p></p>
             {{-- checkbox 3----------------------------------------------------------------------------------- --}}
             <hr>
@@ -182,18 +180,18 @@
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
             <input class="form-control" type="file" id="fileInput4" name="foto_4">
-            <p class="link-danger">Выберите свое фото 4 </p>
+            <p class="link-danger">Выберите свое фото 4, размер максимум 3 мегабайта</p>
             <p id="error_foto_size_4" class="link-danger"></p>
           
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4">
+<textarea class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4" style="height: 150px">
 @if ($draft_post->text_post_4 != null)
 {{$draft_post->text_post_4}}@else{{old('text_post_4')}}@endif
 </textarea>
 @error('text_post_4')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
-            <p class="link-danger">Напишите текст под фото 4 </p>
+            <p class="link-danger">Напишите текст под фото 4, максимум 2000 символов</p>
             <p></p>
             {{-- checkbox 4----------------------------------------------------------------------------------- --}}
             <hr>
@@ -220,17 +218,17 @@
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
             <input class="form-control" type="file" id="fileInput5" name="foto_5">
-            <p class="link-danger">Выберите свое фото 5 </p>
+            <p class="link-danger">Выберите свое фото 5, размер максимум 3 мегабайта</p>
             <p id="error_foto_size_5" class="link-danger"></p>
             
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5">
+<textarea class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5" style="height: 150px">
 @if($draft_post->text_post_5 != null){{$draft_post->text_post_5}}@else{{old('text_post_5')}}@endif
 </textarea>
 @error('text_post_5')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
-            <p class="link-danger">Напишите текст под фото 5 </p>
+            <p class="link-danger">Напишите текст под фото 5, максимум 2000 символов</p>
             <p></p>
             <br>
             <hr><br>

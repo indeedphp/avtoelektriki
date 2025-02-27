@@ -1,4 +1,4 @@
-@extends('layouts/main')
+{{-- @extends('layouts/main')
 
 
 
@@ -596,4 +596,4 @@
             }
         });
     </script>
-@endsection
+@endsection --}}
