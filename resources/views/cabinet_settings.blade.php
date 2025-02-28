@@ -34,7 +34,7 @@
         </div>
 
     </nav>
-
+<div class="row px-1">
     <div class="m-2">
         <b>Ваше имя пользователя: {{ $user->name }}</b>
     </div>
@@ -57,7 +57,7 @@
         @csrf
         @method ('PUT')
         <label class="form-label ms-2 my-2">Вы можете изменить свой логин, минимум 8 символов и максимум 20</label>
-        <input class="form-control my-2" type="text" name="new_login" placeholder = "Введите новый логин">
+        <input class="form-control my-2 " type="text" name="new_login" placeholder = "Введите новый логин">
         @error('new_login')
             <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
@@ -77,5 +77,7 @@
 
 
     <p>Запретить боту выдачу одноразовых ссылок для входа</p>
-    <P>Запретить боту возможность чмены пароля на сайте</P>
+    <P>Запретить боту возможность cмены пароля на сайте</P>
+
+</div>
 @endsection

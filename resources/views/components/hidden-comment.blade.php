@@ -60,21 +60,21 @@
 
                             <div class="collapse" id="collapse_comment_smile">
 
-                                <span comment_id="" class="comment_smile">😀</span>
-                                <span comment_id="" class="comment_smile">👍</span>
-                                <span comment_id="" class="comment_smile">👌</span>
-                                <span comment_id="" class="comment_smile">😂</span>
-                                <span comment_id="" class="comment_smile">😎</span>
-                                <span comment_id="" class="comment_smile">😇</span>
-                                <span comment_id="" class="comment_smile">😝</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😀</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">👍</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">👌</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😂</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😎</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😇</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😝</span>
 
-                                <span comment_id="" class="comment_smile">👎</span>
-                                <span comment_id="" class="comment_smile">💩</span>
-                                <span comment_id="" class="comment_smile">😈</span>
-                                <span comment_id="" class="comment_smile">☠</span>
-                                <span comment_id="" class="comment_smile">😪</span>
-                                <span comment_id="" class="comment_smile">😬</span>
-                                <span comment_id="" class="comment_smile">😭</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">👎</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">💩</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😈</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">☠</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😪</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😬</span>
+                                <span comment_id="" class="comment_smile" style="user-select: none;">😭</span>
 
                             </div>
                         </div>
@@ -105,21 +105,21 @@
 
                             <div id="div_comment_edit_smile" class="collapse">
 
-                                <span comment_id="" class="comment_edit_smile">😀</span>
-                                <span comment_id="" class="comment_edit_smile">👍</span>
-                                <span comment_id="" class="comment_edit_smile">👌</span>
-                                <span comment_id="" class="comment_edit_smile">😂</span>
-                                <span comment_id="" class="comment_edit_smile">😎</span>
-                                <span comment_id="" class="comment_edit_smile">😇</span>
-                                <span comment_id="" class="comment_edit_smile">😝</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😀</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">👍</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">👌</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😂</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😎</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😇</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😝</span>
 
-                                <span comment_id="" class="comment_edit_smile">👎</span>
-                                <span comment_id="" class="comment_edit_smile">💩</span>
-                                <span comment_id="" class="comment_edit_smile">😈</span>
-                                <span comment_id="" class="comment_edit_smile">☠</span>
-                                <span comment_id="" class="comment_edit_smile">😪</span>
-                                <span comment_id="" class="comment_edit_smile">😬</span>
-                                <span comment_id="" class="comment_edit_smile">😭</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">👎</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">💩</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😈</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">☠</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😪</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😬</span>
+                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😭</span>
 
                             </div>
                         </div>

@@ -263,7 +263,7 @@ public function edit_post(Request $request)  // создаем пост в че�
             'text_post_5' => $text_post_5,
         ]);
 
-    return redirect()->route('cabinet_edit_post');
+    return redirect()->route('cabinet_edit_post' , $valid['post_id']);
 }
 
     // ======================================================================================================

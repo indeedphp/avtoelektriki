@@ -68,21 +68,21 @@
 
                             <div class="collapse" id="collapse_reply_smile">
 
-                                <span reply_id="" class="reply_smile">😀</span>
-                                <span reply_id="" class="reply_smile">👍</span>
-                                <span reply_id="" class="reply_smile">👌</span>
-                                <span reply_id="" class="reply_smile">😂</span>
-                                <span reply_id="" class="reply_smile">😎</span>
-                                <span reply_id="" class="reply_smile">😇</span>
-                                <span reply_id="" class="reply_smile">😝</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😀</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">👍</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">👌</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😂</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😎</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😇</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😝</span>
 
-                                <span reply_id="" class="reply_smile">👎</span>
-                                <span reply_id="" class="reply_smile">💩</span>
-                                <span reply_id="" class="reply_smile">😈</span>
-                                <span reply_id="" class="reply_smile">☠</span>
-                                <span reply_id="" class="reply_smile">😪</span>
-                                <span reply_id="" class="reply_smile">😬</span>
-                                <span reply_id="" class="reply_smile">😭</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">👎</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">💩</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😈</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">☠</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😪</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😬</span>
+                                <span reply_id="" class="reply_smile" style="user-select: none;">😭</span>
 
                             </div>
                         </div>
@@ -113,21 +113,21 @@
 
                             <div class="collapse" id="collapse_reply_edit_smile">
 
-                                <span reply_id="" class="reply_edit_smile">😀</span>
-                                <span reply_id="" class="reply_edit_smile">👍</span>
-                                <span reply_id="" class="reply_edit_smile">👌</span>
-                                <span reply_id="" class="reply_edit_smile">😂</span>
-                                <span reply_id="" class="reply_edit_smile">😎</span>
-                                <span reply_id="" class="reply_edit_smile">😇</span>
-                                <span reply_id="" class="reply_edit_smile">😝</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😀</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">👍</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">👌</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😂</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😎</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😇</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😝</span>
 
-                                <span reply_id="" class="reply_edit_smile">👎</span>
-                                <span reply_id="" class="reply_edit_smile">💩</span>
-                                <span reply_id="" class="reply_edit_smile">😈</span>
-                                <span reply_id="" class="reply_edit_smile">☠</span>
-                                <span reply_id="" class="reply_edit_smile">😪</span>
-                                <span reply_id="" class="reply_edit_smile">😬</span>
-                                <span reply_id="" class="reply_edit_smile">😭</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">👎</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">💩</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😈</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">☠</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😪</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😬</span>
+                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😭</span>
 
                             </div>
                         </div>

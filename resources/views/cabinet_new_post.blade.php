@@ -33,8 +33,10 @@
             </ul>
         </div>
 
-    </nav>
+    </nav><br>
+
     {{-- ------------------------------------------------------------------------------------------- --}}
+    <div class="row px-1"> 
     <hr>
     <p> Создайте свой пост. На странице может быть показан черновик поста из бота если вы его сохранили или незаконченный
         пост. <br>
@@ -233,21 +235,24 @@
             <br>
             <hr><br>
         </div>
-
+    
         {{-- ----------------кнопки------------------------------------------------------------------------- --}}
 
-        <button class="btn btn-primary " title="Сохранить чтоб потом дописать" type="submit">Сохранить пост</button>
+        <button class="btn btn-primary mb-2" title="Сохранить чтоб потом дописать" type="submit">Сохранить пост</button>
     </form>
     <hr>
+<div>
     <a class="btn btn-primary" href="{{ route('draft_index', $draft_post->id) }}" target="_blank">Посмотреть как будет
         выглядеть пост</a>
+        
     <hr>
 
-    <button class="btn btn-primary p-2" onclick="draft_post_in_post();"
+    <button class="btn btn-primary " onclick="draft_post_in_post();"
         title="Опубликовать пост, для размещения на главной странице">Публикуем пост на портале автоэлектрики</button>
     <hr>
     <div id="draft_post_id" hidden>{{ $draft_post->id }}</div>
-
+</div>
+</div>
     {{-- ==================  JS  ======================================================================================= --}}
     <script>
         let draft_post_id = document.getElementById("draft_post_id").textContent;

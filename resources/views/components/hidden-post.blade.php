@@ -150,21 +150,21 @@
 
                                     <div id="div_smile" class="collapse">
 
-                                        <span post_id="" class="post_smile">😀</span>
-                                        <span post_id="" class="post_smile">👍</span>
-                                        <span post_id="" class="post_smile">👌</span>
-                                        <span post_id="" class="post_smile">😂</span>
-                                        <span post_id="" class="post_smile">😎</span>
-                                        <span post_id="" class="post_smile">😇</span>
-                                        <span post_id="" class="post_smile">😝</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😀</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">👍</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">👌</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😂</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😎</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😇</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😝</span>
 
-                                        <span post_id="" class="post_smile">👎</span>
-                                        <span post_id="" class="post_smile">💩</span>
-                                        <span post_id="" class="post_smile">😈</span>
-                                        <span post_id="" class="post_smile">☠</span>
-                                        <span post_id="" class="post_smile">😪</span>
-                                        <span post_id="" class="post_smile">😬</span>
-                                        <span post_id="" class="post_smile">😭</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">👎</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">💩</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😈</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">☠</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😪</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😬</span>
+                                        <span post_id="" class="post_smile" style="user-select: none;">😭</span>
 
                                     </div>
                                 </div>
