@@ -73,7 +73,6 @@ function posts_loading(data) {
             clone_post.querySelector('#p_text_post_3').textContent = item['text_post_3'];
         }
         if (item['url_foto_4'] != null) {
-            console.log(item['url_foto_4']);
             clone_post.querySelector('#div_hidden_post3').removeAttribute('hidden');
             clone_post.querySelector('#img_url8').src = server_url + '/' + item['url_foto_4'];
             clone_post.querySelector('#p_text_post_4').textContent = item['text_post_4'];
@@ -123,11 +122,11 @@ function comments_loading(data, post_id, id_user) {
         
       
         clone_comment.querySelector('#a_post_name_user').textContent =  ' ' + item3['user_name'];
-        clone_comment.querySelector('#a_post_name_user').href = server_url + '/channel/' + id_user;
+        clone_comment.querySelector('#a_post_name_user').href = server_url + '/channel/' + item3['user_id'];
         clone_comment.querySelector('nobr').textContent = item3['time'];
         clone_comment.querySelector('#comment_text').textContent = item3['comment'];
         clone_comment.querySelector('#comment_text').id = "comment_text" + item3['id'];
-        if (item3['comment_like_active']) clone_comment.querySelector('#like_comment').className = "bi bi-hand-thumbs-up-fill";
+        if (item3['comment_like_active']) clone_comment.querySelector('#like_comment').className = "bi bi-hand-thumbs-up-fill ps-1";
         if (item3['comment_dislike_active']) clone_comment.querySelector('#dislike_comment').className = "bi bi-hand-thumbs-down-fill";
         if (item3['comment_made_user']) clone_comment.querySelector('#a_comment_edit').removeAttribute('hidden');
         clone_comment.querySelector('#i_collapse_smile').setAttribute('href', "#collapse_comment_edit_smile" + item3['id']);
@@ -174,15 +173,15 @@ function replys_loading(data, id_comment, post_id, id_user) {
         let clone_reply = replu_hidden.cloneNode(true);
 
         clone_reply.querySelector('#a_reply_name_user').textContent =  ' ' + item4['user_name'];
-        clone_reply.querySelector('#a_reply_name_user').href = server_url + '/channel/' + id_user;
+        clone_reply.querySelector('#a_reply_name_user').href = server_url + '/channel/' + item4['user_id'];
         clone_reply.querySelector('nobr').textContent = item4['time'];
         clone_reply.querySelector('#reply_text').textContent = item4['reply'];
-        if (item4['reply_like_active']) clone_reply.querySelector('#like_reply').className = "bi bi-hand-thumbs-up-fill";
+        if (item4['reply_like_active']) clone_reply.querySelector('#like_reply').className = "bi bi-hand-thumbs-up-fill ps-1";
         if (item4['reply_dislike_active']) clone_reply.querySelector('#dislike_reply').className = "bi bi-hand-thumbs-down-fill";
         if (item4['reply_made_user']) clone_reply.querySelector('#hidden_reply_collapse_edit').removeAttribute('hidden');
         clone_reply.querySelector('#i_reply_reply_collapse_smile').setAttribute('href', "#collapse_reply_smile" + item4['id'])
         clone_reply.querySelector('#collapse_reply_smile').id = "collapse_reply_smile" + item4['id'];
-        clone_reply.querySelector('#i_reply_edit_collapse_smile').setAttribute('href', "#collapse_reply_edit_smile" + item4['id'])
+        clone_reply.querySelector('#i_reply_edit_collapse_smile').setAttribute('href', "#collapse_reply_edit_smile" + item4['id']);
         clone_reply.querySelector('#collapse_reply_edit_smile').id = "collapse_reply_edit_smile" + item4['id'];
         clone_reply.querySelector('#form_reply_reply').setAttribute('coment_id', item4['comment_id']);
         clone_reply.querySelector('#form_reply_reply').setAttribute('reply_id', item4['id']);

@@ -5,8 +5,8 @@
 @section('posts')
     <nav class="navbar navbar-expand-lg  p-0 pe-2">
 
-        <a class="navbar-brand ps-3">Кабинет пользователя:</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        <a class="navbar-brand ms-1">Кабинет пользователя:</a>
+        <button class="navbar-toggler me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,6 +35,9 @@
 
     </nav>
     <hr>
+    
+    @if($post != null)  {{-- если пустой пост то , окончание условия в низу поста --}}
+
     <b class=" mb-3" >На странице показан ваш крайний пост, если хотите выбрать другой то пройдите на страницу<a href="{{ route('cabinet_all_post') }}"> все посты</a> </b> 
     <hr>
     {{-- =========  форма ввода ================================================================================== --}}
@@ -236,7 +239,9 @@
         выглядеть пост</a>
     <hr>
 
-
+    {{-- окончание условия, сам иф почти вначале поста --}}
+@else  <h3 class="text-center mt-5">У вас нет еще ни одного поста ¯\_(ツ)_/¯</h3>  
+    @endif
 
     {{-- ==================  JS  ======================================================================================= --}}
     <script>

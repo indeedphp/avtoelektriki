@@ -5,8 +5,8 @@
 @section('posts')
     <nav class="navbar navbar-expand-lg  p-0 pe-2">
 
-        <a class="navbar-brand">Кабинет пользователя:</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        <a class="navbar-brand ms-1">Кабинет пользователя:</a>
+        <button class="navbar-toggler me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,10 +42,10 @@
         <b>Всего написано вами комментариев на портале:  {{ $comments_count }}</b>
     </div>
     <div class="p-3">
-        <b>Последний пост рамещен: дата {{ $last_post->created_at }}</b>
+        <b>Последний пост рамещен: дата {{ $last_post['created_at']}}</b>
     </div>
     <div class="p-3">
-        <b>Последний коментарий вами написан: дата {{$last_comments->created_at }}</b> 
+        <b>Последний коментарий вами написан: дата {{$last_comments['created_at'] }}</b> 
     </div>
     <div class="p-3">
         <b>Последний коментарий вам написан: дата </b>

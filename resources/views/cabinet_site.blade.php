@@ -5,8 +5,8 @@
 @section('posts')
     <nav class="navbar navbar-expand-lg  p-0 pe-2">
 
-        <a class="navbar-brand">Кабинет пользователя:</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        <a class="navbar-brand ms-1">Кабинет пользователя:</a>
+        <button class="navbar-toggler me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,7 +35,7 @@
 
     </nav>
     <hr>
-
+    <div class="row px-1">
 
 
     <p> Ваш сайт уже создан, только укажите свой номер телефона, посмотреть как выглядит сайт можно <a class=""
@@ -492,6 +492,7 @@
         <button class="btn btn-primary " title="Отправить" type="submit">Сброс сайта на начальные настройки</button>
         <hr>
     </form>
+    <div>
     <footer class=" " ;>
         <div class="p-2">
             <span class=" ">© 2024 Company, Inc</span>

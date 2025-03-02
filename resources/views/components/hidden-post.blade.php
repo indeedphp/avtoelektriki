@@ -3,7 +3,7 @@
     <div id='post'>
       
         <div class="card  mb-3  shadow ">
-            <div class=" card-header text-muted py-1 p-lg-3">
+            <div class=" card-header text-muted py-1 p-lg-3 user-select-none">
                 <div class="row">
 
                     <div class="col-auto me-auto p-0 px-lg-3">
@@ -41,7 +41,7 @@
 
                 <div class="card-text pt-2">
                     <div id="span_text_post" class="px-1">выводим текст под фото</div>
-                    <div class="text-end pb-1 pe-1"> <a id="a_collapse_post" class="link-underline-light p-0 "
+                    <div class="text-end pb-1 pe-1"> <a id="a_collapse_post" class="link-underline-light p-0 user-select-none"
                             href="#collapseExample1" data-bs-toggle="collapse" data-bs-target="js collapse"
                             aria-expanded="false" aria-controls="collapseExample"></a>
                     </div>
@@ -86,10 +86,10 @@
                 </div>
             </div>
             <div class="card-footer text-muted px-0 py-1 p-lg-3 ">
-                <div class="row">
+                <div class="row user-select-none">
 
-                    <div class="col-auto pe-2 text-black-80">
-                        <i id="like_post" class="bi bi-hand-thumbs-up ps-1" style="cursor: pointer;" value="1"
+                    <div class="col-auto pe-2">
+                        <i id="like_post" class="bi bi-hand-thumbs-up ps-1 " style="cursor: pointer;" value="1"
                             post_id="js"></i>&nbsp;
                     </div>
 
@@ -97,7 +97,7 @@
                     <!-- РЕПОСТ -->
                     <div class="col-auto me-auto ps-0">
 
-                        <i id="a_collapse_repost" class="bi bi-share text-black-80" title="Репост"
+                        <i id="a_collapse_repost" class="bi bi-share " title="Репост"
                             data-bs-toggle="collapse" role="button" data-bs-target="#collapse" aria-expanded="false"
                             aria-controls="collapseExample"> Поделится</i>
 
@@ -105,11 +105,11 @@
                     <!-- КОМЕНТАРИИ КНОПКА -->
                     <div class="col-auto">
 
-                        <i id="a_collapse_comment" class="bi bi-chat-dots text-black-80"
+                        <i id="a_collapse_comment" class="bi bi-chat-dots "
                             title="Написать, прочитать комментарии" data-bs-toggle="collapse" role="button"
                             data-bs-target="#collapseComment" aria-expanded="false" aria-controls="collapseExample">
                             Комментарии </i>
-                        <i id="i_comment_count" class="text-black-80 pe-2"></i>
+                        <i id="i_comment_count" class="pe-2 "></i>
 
                     </div>
                 </div>
@@ -148,23 +148,23 @@
                                         href="collapse_post_smile" role="button" aria-expanded="false"
                                         aria-controls="collapseExample"> </i>
 
-                                    <div id="div_smile" class="collapse">
+                                    <div id="div_smile" class="collapse user-select-none">
 
-                                        <span post_id="" class="post_smile" style="user-select: none;">😀</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">👍</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">👌</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😂</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😎</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😇</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😝</span>
+                                        <span post_id="" class="post_smile ">😀</span>
+                                        <span post_id="" class="post_smile ">👍</span>
+                                        <span post_id="" class="post_smile ">👌</span>
+                                        <span post_id="" class="post_smile ">😂</span>
+                                        <span post_id="" class="post_smile ">😎</span>
+                                        <span post_id="" class="post_smile ">😇</span>
+                                        <span post_id="" class="post_smile ">😝</span>
 
-                                        <span post_id="" class="post_smile" style="user-select: none;">👎</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">💩</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😈</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">☠</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😪</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😬</span>
-                                        <span post_id="" class="post_smile" style="user-select: none;">😭</span>
+                                        <span post_id="" class="post_smile ">👎</span>
+                                        <span post_id="" class="post_smile ">💩</span>
+                                        <span post_id="" class="post_smile ">😈</span>
+                                        <span post_id="" class="post_smile ">☠</span>
+                                        <span post_id="" class="post_smile ">😪</span>
+                                        <span post_id="" class="post_smile ">😬</span>
+                                        <span post_id="" class="post_smile ">😭</span>
 
                                     </div>
                                 </div>
@@ -177,7 +177,7 @@
                         <div id="comm" class="overflow-x-hidden p-0" style="max-height: 300px;">
                             {{-- КОМЕНТАРИИ ВСТАВЛЯЕМ ===================================================================================================================================================== --}}
                         </div>
-                        <div class="row">
+                        <div class="row user-select-none">
                             <div class="col-auto me-auto pe-0 flex-fill">
                             </div>
                             <div class="col-auto  ps-0">

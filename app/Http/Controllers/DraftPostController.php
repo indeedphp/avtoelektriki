@@ -129,14 +129,14 @@ class DraftPostController extends Controller
             } else {
                 return false;
             }
-
+info(Storage::path('bot/images').$outputFile);
             $size = getimagesize($inputFile);
             $size_k = $size[0] / 1280;
             $new_size_x = $size[0] / $size_k;
             $new_size_y = $size[1] / $size_k;
             $new_img = imagecreatetruecolor($new_size_x, $new_size_y);
             imagecopyresampled($new_img, $img, 0, 0, 0, 0, $new_size_x, $new_size_y, $size[0], $size[1]);
-            imagejpeg($new_img, $outputFile, 50);
+            imagejpeg($new_img, Storage::path('bot/images').$outputFile, 50);
             imagedestroy($img);
             imagedestroy($new_img);
         }
@@ -146,14 +146,14 @@ class DraftPostController extends Controller
 
         if (!empty($valid['foto_1'])) {  
             $url_foto = 'storage/app/bot/images/' . '1_' . $name_foto;
-            convert_foto($valid['foto_1'], $url_foto);
+            convert_foto($valid['foto_1'], '/1_' . $name_foto);
         }
 
         if (!empty($request->input('checkbox_1'))) {  // если стоит чекбокс в форме
             $text_post_2 = $valid['text_post_2']; // меняем текст
             if (!empty($valid['foto_2'])) {  // если пришло с формы фото
                 $url_foto_2 = 'storage/app/bot/images/' . '2_' . $name_foto; // составляем путь с именем для фото
-                convert_foto($valid['foto_2'], $url_foto_2);  // вызываем функцию и передаем фото и путь
+                convert_foto($valid['foto_2'], '/2_' . $name_foto);  // вызываем функцию и передаем фото и путь
             }
         } else {  // если чекбокс убран то обнуляем фото и текст
             $text_post_2 = null;
@@ -164,7 +164,7 @@ class DraftPostController extends Controller
             $text_post_3 = $valid['text_post_3'];
             if (!empty($valid['foto_3'])) {
                 $url_foto_3 = 'storage/app/bot/images/' . '3_' . $name_foto;
-                convert_foto($request->foto_3, $url_foto_3);
+                convert_foto($request->foto_3, '/3_' . $name_foto);
             }
         } else {
             $text_post_3 = null;
@@ -175,7 +175,7 @@ class DraftPostController extends Controller
             $text_post_4 = $valid['text_post_4'];
             if (!empty($valid['foto_4'])) {
                 $url_foto_4 = 'storage/app/bot/images/' . '4_' . $name_foto;
-                convert_foto($request->foto_4, $url_foto_4);
+                convert_foto($request->foto_4, '/4_' . $name_foto);
             }
         } else {
             $text_post_4 = null;
@@ -186,7 +186,7 @@ class DraftPostController extends Controller
             $text_post_5 = $valid['text_post_5'];
             if (!empty($valid['foto_5'])) {
                 $url_foto_5 = 'storage/app/bot/images/' . '5_' . $name_foto;
-                convert_foto($request->foto_5, $url_foto_5);
+                convert_foto($request->foto_5, '/5_' . $name_foto);
             }
         } else {
             $text_post_5 = null;

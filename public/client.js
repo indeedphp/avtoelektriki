@@ -97,11 +97,13 @@ console.dir(commits);
                             });
                            
                             clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
-                            clone.querySelector('#a_post_name_user').textContent = commits['user_name'] + ' ';
-                            clone.querySelector('#a_post_name_user').setAttribute('coment_id', commits['id']);
+                            clone.querySelector('#a_post_name_user').textContent =  ' '+commits['user_name'];
+                            clone.querySelector('#a_post_name_user').href = server_url + '/channel/' + commits['user_id'];
                             clone.querySelector('#comment_text').textContent = commits['comment'];
                             clone.querySelector('#comment_text').id = "comment_text" + commits['id'];
-                            clone.querySelector('a').setAttribute('href', "#coment_collapse" + commits['id']);
+                            // clone.querySelector('a').setAttribute('href', "#coment_collapse" + commits['id']);
+                            clone.querySelector('#i_collapse_smile').setAttribute('href', "#collapse_comment_edit_smile" + commits['id']);
+                            clone.querySelector('#div_comment_edit_smile').id = "collapse_comment_edit_smile" + commits['id'];
                             clone.querySelector('#coment_reply_collapse').href = "#coment_reply_collapse" + commits['id'];
                             clone.querySelector('#coment_reply_collapse_hidden').id = "coment_reply_collapse" + commits['id'];
                             clone.querySelector('#form_reply_comment').setAttribute('coment_id', commits['id']);
@@ -227,7 +229,8 @@ console.dir(commits);
                                 item.setAttribute('reply_id', commits['id']);
                             });
 
-                            clone_replu.querySelector('#a_reply_name_user').textContent = commits['user_name'] + ' ';
+                            clone_replu.querySelector('#a_reply_name_user').textContent = ' '+commits['user_name'];
+                            clone_replu.querySelector('#a_reply_name_user').href = server_url + '/channel/' + commits['user_id'];
                             clone_replu.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, -10) + ' ';
                             clone_replu.querySelector('#reply_text').textContent = commits['reply'];
                             clone_replu.querySelector('#form_reply_reply').setAttribute('coment_id', commits['comment_id']);
@@ -246,6 +249,8 @@ console.dir(commits);
                             clone_replu.querySelector('#text_div_reply_edit').id = "text_div_reply_edit" + commits['id'];
                             clone_replu.querySelector('#hidden_reply_collapse').href = "#reply_collapse" + commits['id'];
                             clone_replu.querySelector('#reply_collapse').id = "reply_collapse" + commits['id'];
+                            clone_replu.querySelector('#i_reply_edit_collapse_smile').setAttribute('href', "#collapse_reply_edit_smile" + commits['id']);
+                            clone_replu.querySelector('#collapse_reply_edit_smile').id = "collapse_reply_edit_smile" + commits['id'];
                             clone_replu.querySelector('#form_reply_del').setAttribute('reply_id', commits['id']);
                             clone_replu.querySelector('#form_reply_del').setAttribute('post_id', post_id);
                             clone_replu.querySelector('#hidden_reply_collapse_edit').removeAttribute('hidden');
@@ -368,10 +373,10 @@ content.addEventListener('click', (event) => {
                         // console.dir(commits);
                         if (commits == 1) {
                             event.target.textContent = ' ' + (like_comment_content + 1);
-                            event.target.className = "bi bi-hand-thumbs-up-fill";
+                            event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
                         } else if (commits == 0 && like_comment_content != 0) {
                             event.target.textContent = ' ' + (like_comment_content - 1);
-                            event.target.className = "bi bi-hand-thumbs-up";
+                            event.target.className = "bi bi-hand-thumbs-up ps-1";
                         }
                     });
                     break;
@@ -404,10 +409,10 @@ content.addEventListener('click', (event) => {
                         // console.dir(commits);
                         if (commits == 1) {
                             event.target.textContent = ' ' + (like_reply_content + 1);
-                            event.target.className = "bi bi-hand-thumbs-up-fill";
+                            event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
                         } else if (commits == 0 && like_reply_content != 0) {
                             event.target.textContent = ' ' + (like_reply_content - 1);
-                            event.target.className = "bi bi-hand-thumbs-up";
+                            event.target.className = "bi bi-hand-thumbs-up ps-1";
                         }
                     });
                     break;

@@ -5,7 +5,7 @@
             <div class="card-header p-0 ">
                 <div class="row">
                     <div class="col-auto me-auto pe-0 flex-fill">
-                         <a href="ссылка js" id="a_reply_name_user" class="bi bi-universal-access  small" style="text-decoration: none" target="_blank" ></a>
+                         <a href="ссылка js" id="a_reply_name_user" class="bi bi-universal-access small ps-1" style="text-decoration: none" target="_blank" ></a>
                     </div>
                     <div class="col-auto  ps-0">
                         <nobr class="small"> </nobr>
@@ -15,17 +15,17 @@
                 </div>
             </div>
             <ul class="list-group list-group-flush p-0">
-                <li id="reply_text" class="list-group-item p-0">
+                <li id="reply_text" class="list-group-item ps-1 p-0">
                 </li>
                 <li class="list-group-item p-0">
                     <div class="row small">
                         <div class="col-auto me-auto pe-0 flex-fill">
                             {{-- ЛАЙК ДИЗЛАЙК ОТВЕТ==========================================================================    --}}
 
-                            <i id="like_reply" class="bi bi-hand-thumbs-up" style="cursor: pointer;" value="5"
+                            <i id="like_reply" class="bi bi-hand-thumbs-up ps-1 user-select-none" style="cursor: pointer;" value="5"
                                 reply_id=""> 0
                             </i>&nbsp;
-                            <i id="dislike_reply" class=" bi bi-hand-thumbs-down " style="cursor: pointer;"
+                            <i id="dislike_reply" class=" bi bi-hand-thumbs-down user-select-none" style="cursor: pointer;"
                                 value="6" reply_id=""> 0
                             </i>
                         </div>
@@ -37,7 +37,7 @@
                                 title="Редактировать, удалить комментарий" style="cursor: pointer;">изменить
                             </a>
 
-                            <a id="hidden_reply_collapse" class="link-underline-light p-0" data-bs-toggle="collapse"
+                            <a id="hidden_reply_collapse" class="link-underline-light p-0 pe-1" data-bs-toggle="collapse"
                                 href="#reply_collapse" role="button" aria-expanded="false"
                                 aria-controls="collapseExample" title="Ответить на комментарий"
                                 style=" cursor: pointer;">
@@ -66,23 +66,23 @@
                             <i id="i_reply_reply_collapse_smile" class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_reply_smile"
                                 role="button" aria-expanded="false" aria-controls="collapseExample"> </i>
 
-                            <div class="collapse" id="collapse_reply_smile">
+                            <div class="collapse user-select-none" id="collapse_reply_smile">
 
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😀</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">👍</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">👌</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😂</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😎</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😇</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😝</span>
+                                <span reply_id="" class="reply_smile" >😀</span>
+                                <span reply_id="" class="reply_smile" >👍</span>
+                                <span reply_id="" class="reply_smile" >👌</span>
+                                <span reply_id="" class="reply_smile" >😂</span>
+                                <span reply_id="" class="reply_smile" >😎</span>
+                                <span reply_id="" class="reply_smile" >😇</span>
+                                <span reply_id="" class="reply_smile" >😝</span>
 
-                                <span reply_id="" class="reply_smile" style="user-select: none;">👎</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">💩</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😈</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">☠</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😪</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😬</span>
-                                <span reply_id="" class="reply_smile" style="user-select: none;">😭</span>
+                                <span reply_id="" class="reply_smile" >👎</span>
+                                <span reply_id="" class="reply_smile" >💩</span>
+                                <span reply_id="" class="reply_smile" >😈</span>
+                                <span reply_id="" class="reply_smile" >☠</span>
+                                <span reply_id="" class="reply_smile" >😪</span>
+                                <span reply_id="" class="reply_smile" >😬</span>
+                                <span reply_id="" class="reply_smile" >😭</span>
 
                             </div>
                         </div>
@@ -111,23 +111,23 @@
                                 href="#collapse_reply_edit_smile" role="button" aria-expanded="false"
                                 aria-controls="collapseExample"> </i>
 
-                            <div class="collapse" id="collapse_reply_edit_smile">
+                            <div class="collapse user-select-none" id="collapse_reply_edit_smile">
 
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😀</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">👍</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">👌</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😂</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😎</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😇</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😝</span>
+                                <span reply_id="" class="reply_edit_smile" >😀</span>
+                                <span reply_id="" class="reply_edit_smile" >👍</span>
+                                <span reply_id="" class="reply_edit_smile" >👌</span>
+                                <span reply_id="" class="reply_edit_smile" >😂</span>
+                                <span reply_id="" class="reply_edit_smile" >😎</span>
+                                <span reply_id="" class="reply_edit_smile" >😇</span>
+                                <span reply_id="" class="reply_edit_smile" >😝</span>
 
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">👎</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">💩</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😈</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">☠</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😪</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😬</span>
-                                <span reply_id="" class="reply_edit_smile" style="user-select: none;">😭</span>
+                                <span reply_id="" class="reply_edit_smile" >👎</span>
+                                <span reply_id="" class="reply_edit_smile" >💩</span>
+                                <span reply_id="" class="reply_edit_smile" >😈</span>
+                                <span reply_id="" class="reply_edit_smile" >☠</span>
+                                <span reply_id="" class="reply_edit_smile" >😪</span>
+                                <span reply_id="" class="reply_edit_smile" >😬</span>
+                                <span reply_id="" class="reply_edit_smile" >😭</span>
 
                             </div>
                         </div>

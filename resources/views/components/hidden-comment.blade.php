@@ -5,7 +5,7 @@
             <div class="card-header p-0 ">
                 <div class="row">
                     <div class="col-auto me-auto pe-0 flex-fill">
-                        <a href="ссылка js" id="a_post_name_user" class="bi bi-universal-access ms-auto small" style="text-decoration: none" target="_blank" ></a>
+                        <a href="ссылка js" id="a_post_name_user" class="bi bi-universal-access ms-auto small ps-1" style="text-decoration: none" target="_blank" ></a>
                     </div>
                     <div class="col-auto  ps-0">
                         <nobr class="small"> </nobr>
@@ -14,12 +14,12 @@
                 </div>
             </div>
             <ul class="list-group list-group-flush p-0">
-                <li id="comment_text" class="list-group-item p-0">
+                <li id="comment_text" class="list-group-item ps-1 p-0">
                 </li>
                 <li class="list-group-item p-0">
-                    <div class="row small">
+                    <div class="row small user-select-none">
                         <div class="col-auto me-auto pe-0 flex-fill">
-                            <i id="like_comment" class='bi bi-hand-thumbs-up ' style="cursor: pointer;" value="3"
+                            <i id="like_comment" class='bi bi-hand-thumbs-up ps-1' style="cursor: pointer;" value="3"
                                 comment_id="">
                                 0</i>&nbsp;
                             <i id="dislike_comment" class="bi bi-hand-thumbs-down" style="cursor: pointer;"
@@ -32,7 +32,7 @@
                                 class="link-underline-light p-0" style="cursor: pointer;">изменить
                             </a>
 
-                            <a id="coment_reply_collapse" class="link-underline-light p-0" data-bs-toggle="collapse"
+                            <a id="coment_reply_collapse" class="link-underline-light p-0 pe-1" data-bs-toggle="collapse"
                                 href="#coment_reply_collapse" role="button" aria-expanded="false"
                                 aria-controls="collapseExample" title="Редактировать, удалить комментарий"
                                 style=" cursor: pointer;">
@@ -58,23 +58,23 @@
                             <i id="i_collapse_comment_smile_reply" class="bi bi-emoji-smile h3 " data-bs-toggle="collapse" href="#collapse_comment_smile"
                                 role="button" aria-expanded="false" aria-controls="collapseExample"> </i>
 
-                            <div class="collapse" id="collapse_comment_smile">
+                            <div id="collapse_comment_smile" class="collapse user-select-none">
 
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😀</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">👍</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">👌</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😂</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😎</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😇</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😝</span>
+                                <span comment_id="" class="comment_smile">😀</span>
+                                <span comment_id="" class="comment_smile">👍</span>
+                                <span comment_id="" class="comment_smile">👌</span>
+                                <span comment_id="" class="comment_smile">😂</span>
+                                <span comment_id="" class="comment_smile">😎</span>
+                                <span comment_id="" class="comment_smile">😇</span>
+                                <span comment_id="" class="comment_smile">😝</span>
 
-                                <span comment_id="" class="comment_smile" style="user-select: none;">👎</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">💩</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😈</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">☠</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😪</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😬</span>
-                                <span comment_id="" class="comment_smile" style="user-select: none;">😭</span>
+                                <span comment_id="" class="comment_smile">👎</span>
+                                <span comment_id="" class="comment_smile">💩</span>
+                                <span comment_id="" class="comment_smile">😈</span>
+                                <span comment_id="" class="comment_smile">☠</span>
+                                <span comment_id="" class="comment_smile">😪</span>
+                                <span comment_id="" class="comment_smile">😬</span>
+                                <span comment_id="" class="comment_smile">😭</span>
 
                             </div>
                         </div>
@@ -103,23 +103,23 @@
                                 href="#collapse_comment_edit_smile" role="button" aria-expanded="false"
                                 aria-controls="collapseExample"> </i>
 
-                            <div id="div_comment_edit_smile" class="collapse">
+                            <div id="div_comment_edit_smile" class="collapse user-select-none">
 
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😀</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">👍</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">👌</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😂</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😎</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😇</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😝</span>
+                                <span comment_id="" class="comment_edit_smile">😀</span>
+                                <span comment_id="" class="comment_edit_smile">👍</span>
+                                <span comment_id="" class="comment_edit_smile">👌</span>
+                                <span comment_id="" class="comment_edit_smile">😂</span>
+                                <span comment_id="" class="comment_edit_smile">😎</span>
+                                <span comment_id="" class="comment_edit_smile">😇</span>
+                                <span comment_id="" class="comment_edit_smile">😝</span>
 
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">👎</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">💩</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😈</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">☠</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😪</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😬</span>
-                                <span comment_id="" class="comment_edit_smile" style="user-select: none;">😭</span>
+                                <span comment_id="" class="comment_edit_smile">👎</span>
+                                <span comment_id="" class="comment_edit_smile">💩</span>
+                                <span comment_id="" class="comment_edit_smile">😈</span>
+                                <span comment_id="" class="comment_edit_smile">☠</span>
+                                <span comment_id="" class="comment_edit_smile">😪</span>
+                                <span comment_id="" class="comment_edit_smile">😬</span>
+                                <span comment_id="" class="comment_edit_smile">😭</span>
 
                             </div>
                         </div>
