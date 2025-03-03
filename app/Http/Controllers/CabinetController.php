@@ -13,18 +13,59 @@ use App\Models\Comment;
 use App\Models\LikeComment;
 use Illuminate\Support\Facades\Hash;
 
+/*
+|--------------------------------------------------------------------------
+| CabinetController
+|--------------------------------------------------------------------------
+|
+| кабинет сайта
+|
+*/
+
 class CabinetController extends Controller
 {
     // ======================================================================================================
-    public function settings_show()
+    public function settings_show()  // страница настроек в кабинете
     {
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
-        // dd($user); indexedit_post_show
+
         return view('cabinet_settings', compact('user'));
     }
-    // ======================================================================================================      
-    public function statistic_show()
+    // ======================================================================================================
+    public function new_post_show()  // страница создания поста в кабинете
+    {
+        $user_name = Auth::user()->user_name;
+        $id_user = Auth::user()->id;
+
+        if (empty(Draft_post::where('id_user', $id_user)->first())) $draft_post = Draft_post::create(['user_name' => $user_name, 'id_user' => $id_user]);
+        else $draft_post = Draft_post::where('id_user', $id_user)->first();
+
+        return view('cabinet_new_post', compact('draft_post'));
+    }
+    // ======================================================================================================
+    public function all_post_show()  // страница всех постов юзера в кабинете, с пагинацией
+    {
+        $id_user = Auth::user()->id;
+        $posts = Post::orderBy('id', 'desc')->where('id_user', $id_user)->paginate(20);
+        $count = $posts->total();
+
+        return view('cabinet_all_post', compact('posts', 'count'));
+    }
+    // =======================================================================================================
+    public function edit_post_show($id_post = null)  // страница поста юзера для правки в кабинете
+    {
+        $id_user = Auth::user()->id;
+        info($id_post);
+        if ($id_post == null) $post = DB::table('posts')->where('id_user',  $id_user)->orderBy('id', 'desc')->first();
+        else $post =  DB::table('posts')->where('id', $id_post)->first();
+
+        return view('cabinet_edit_post', compact('post'));
+    }
+    // ======================================================================================================     
+    // МЕТОД СТРАНИЦА САЙТА В КАБИНЕТЕ НАХОДИТСЯ В SiteController
+    // ======================================================================================================  
+    public function statistic_show()  // страница статистики в кабинете
     {
         $id_user = Auth::user()->id;
         $posts = Post::where('id_user', $id_user)->get();
@@ -38,53 +79,14 @@ class CabinetController extends Controller
         else $last_post = (array)$last_post;
         $last_comments =  DB::table('comments')->where('user_id',  $id_user)->orderBy('id', 'desc')->first();
         if ((array)$last_comments == null)  $last_comments['created_at'] = 0;
-         else $last_comments = (array)$last_comments;
-// dd($last_comments);
-
+        else $last_comments = (array)$last_comments;
+     
         return view('cabinet_statistic', compact('post_count', 'comments_count', 'last_post', 'last_comments'));
     }
-    // ======================================================================================================
-    public function all_post_show()  // показываем все посты юзера с пагинацией
-    {
-        $id_user = Auth::user()->id;
-        $posts = Post::orderBy('id', 'desc')->where('id_user', $id_user)->paginate(20);
-        $count = $posts->total();
-        info($posts);
-        return view('cabinet_all_post', compact('posts', 'count'));
-    }
-    // ======================================================================================================
-    public function new_post_show()
-    {
-        $user_name = Auth::user()->user_name;
-        $id_user = Auth::user()->id;
 
-        if (empty(Draft_post::where('id_user', $id_user)->first())) $draft_post = Draft_post::create(['user_name' => $user_name, 'id_user' => $id_user]);
-        else $draft_post = Draft_post::where('id_user', $id_user)->first();
-        // Storage::disk('local')->put('file.txt', 'Contents');
-        // info($post);
-        return view('cabinet_new_post', compact('draft_post'));
-    }
     // =======================================================================================================
-    public function edit_post_show($id_post = null)  // показываем пост юзера для правки
-    {
-        $id_user = Auth::user()->id;
-        info($id_post);
-        if ($id_post == null) $post = DB::table('posts')->where('id_user',  $id_user)->orderBy('id', 'desc')->first();
-        else $post =  DB::table('posts')->where('id', $id_post)->first();
-
-        // if ($post == null) abort(470); // кастомная ошибка вью errors/470 , нет поста у вас
-        // else
-         return view('cabinet_edit_post', compact('post'));
-        // else return view('welcome', compact('post'));
-    }
-    // =======================================================================================================
-    // public function all_post_edit($id)
-    // {
-    //     $post = Post::where('id', $id)->first();
-    //     return view('cabinet_edit_post', compact('post'));
-    // }
-    // =======================================================================================================
-    public function edit_name(Request $request)
+ 
+    public function edit_name(Request $request)  // правим имя юзера из кабинета
     {
         $id = Auth::user()->id;
 
@@ -100,7 +102,7 @@ class CabinetController extends Controller
         return redirect()->route('cabinet_settings');
     }
     // ----------------------------------------------------------------------------
-    public function edit_login(Request $request)
+    public function edit_login(Request $request)  // правим логин из кабинета
     {
         $id = Auth::user()->id;
 
@@ -116,7 +118,7 @@ class CabinetController extends Controller
         return redirect()->route('cabinet_settings');
     }
     // ---------------------------------------------------------------------------------
-    public function edit_password(Request $request)
+    public function edit_password(Request $request) // правим пароль из кабинета
     {
         $id = Auth::user()->id;
 
@@ -136,7 +138,7 @@ class CabinetController extends Controller
 
     // =======================================================================================================
 
-    public function edit_post(Request $request)  // создаем пост в черновике
+    public function edit_post(Request $request)  // редактируем пост в черновике
     {
         info($request);
         $valid = $request->validate([  // валидация формы
@@ -273,7 +275,7 @@ class CabinetController extends Controller
     }
 
     // ======================================================================================================
-    public function post_delete($id)
+    public function post_delete($id)  // удаляем пост со страницы все посты в кабинете
     {
         Post::where('id', $id)->delete();
         return redirect()->route('cabinet_all_post');

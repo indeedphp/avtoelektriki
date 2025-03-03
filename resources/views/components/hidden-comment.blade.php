@@ -75,6 +75,7 @@
                                 <span comment_id="" class="comment_smile">😪</span>
                                 <span comment_id="" class="comment_smile">😬</span>
                                 <span comment_id="" class="comment_smile">😭</span>
+                                <span comment_id="" class="comment_smile">🍺</span>
 
                             </div>
                         </div>
@@ -120,6 +121,7 @@
                                 <span comment_id="" class="comment_edit_smile">😪</span>
                                 <span comment_id="" class="comment_edit_smile">😬</span>
                                 <span comment_id="" class="comment_edit_smile">😭</span>
+                                <span comment_id="" class="comment_edit_smile">🍺</span>
 
                             </div>
                         </div>

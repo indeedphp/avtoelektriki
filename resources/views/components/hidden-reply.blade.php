@@ -18,14 +18,14 @@
                 <li id="reply_text" class="list-group-item ps-1 p-0">
                 </li>
                 <li class="list-group-item p-0">
-                    <div class="row small">
+                    <div class="row small user-select-none">
                         <div class="col-auto me-auto pe-0 flex-fill">
                             {{-- ЛАЙК ДИЗЛАЙК ОТВЕТ==========================================================================    --}}
 
-                            <i id="like_reply" class="bi bi-hand-thumbs-up ps-1 user-select-none" style="cursor: pointer;" value="5"
+                            <i id="like_reply" class="bi bi-hand-thumbs-up ps-1 " style="cursor: pointer;" value="5"
                                 reply_id=""> 0
                             </i>&nbsp;
-                            <i id="dislike_reply" class=" bi bi-hand-thumbs-down user-select-none" style="cursor: pointer;"
+                            <i id="dislike_reply" class=" bi bi-hand-thumbs-down " style="cursor: pointer;"
                                 value="6" reply_id=""> 0
                             </i>
                         </div>
@@ -83,6 +83,7 @@
                                 <span reply_id="" class="reply_smile" >😪</span>
                                 <span reply_id="" class="reply_smile" >😬</span>
                                 <span reply_id="" class="reply_smile" >😭</span>
+                                <span reply_id="" class="reply_smile ">🍺</span>
 
                             </div>
                         </div>
@@ -128,6 +129,7 @@
                                 <span reply_id="" class="reply_edit_smile" >😪</span>
                                 <span reply_id="" class="reply_edit_smile" >😬</span>
                                 <span reply_id="" class="reply_edit_smile" >😭</span>
+                                <span reply_id="" class="reply_edit_smile ">🍺</span>
 
                             </div>
                         </div>

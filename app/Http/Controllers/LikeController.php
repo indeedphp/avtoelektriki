@@ -7,6 +7,15 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 
+/*
+|--------------------------------------------------------------------------
+| LikeController
+|--------------------------------------------------------------------------
+|
+| лайки, на посты
+|
+*/
+
 class LikeController extends Controller
 {
     /**

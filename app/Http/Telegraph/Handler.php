@@ -37,7 +37,7 @@ class Handler extends WebhookHandler
             ->message('Бот сайта "Автоэлектрики" приветствует вас! Все команды бота в кнопке "меню" внизу экрана')
             ->keyboard(
                 Keyboard::make()->buttons([
-                    Button::make('Ссылка на сайт "Автоэлектрики"')->action('feedback_1')->param('value', '1'),
+                    Button::make('Ссылка на сайт "Автоэлектрики"')->action('feedback_1')->param('value', '1'),  // ответ в методе feedback_1
                     Button::make('Вход на сайт через одноразовую ссылку')->action('feedback_1')->param('value', '4'),
                     Button::make('Получить логин и пароль от сайта')->action('feedback_1')->param('value', value: '2'),
                     Button::make('Создать пост без регистрации')->action('feedback_1')->param('value', '3'),
@@ -52,7 +52,7 @@ class Handler extends WebhookHandler
         $user_data = User::where('telegram',  $chat_id)->first();
 
         if ($value_button == 1)  // выдаем простую ссылку на сайт 
-            $this->chat->html('Ссылка на сайт' . url('/'))->send();
+            $this->chat->html('Ссылка на сайт ' . url('/'))->send();
 
         if ($value_button == 2) {  // создаем новый пароль от сайта
             $password = Str::password(9, true, true, false, false);
@@ -67,7 +67,7 @@ class Handler extends WebhookHandler
                 ->where('id_user', $chat_id)
                 ->delete();
             Create_post::create(['id_user' => $chat_id, 'step' => '1'])->first();
-            $this->chat->html('Напишите название поста, например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000г троит" и отправьте.')->send();
+            $this->chat->html('Напишите название поста (максимум 250 символов), например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000г троит" и отправьте.')->send();
         }
 
         if ($value_button == 4) { // создаем одноразовую ссылку для входа на сайт
@@ -78,10 +78,10 @@ class Handler extends WebhookHandler
                 ->update([
                     "token" => $token_hash
                 ]);
-            $this->chat->html('Одноразовая ссылка для входа, никому не передавайте её! ' . url('/') . '/login_token?email=' . $user_data->email . '&token=' . $token)->withoutPreview()->send();
+            $this->chat->html('Одноразовая ссылка для входа, никому не передавайте её! ' . url('/') . '/login_token?login=' . $user_data->email . '&token=' . $token)->withoutPreview()->send();
         }
     }
-   
+
     protected function handleChatMessage($text): void  // метод приема всех сообщений от бота настроен для сортировки сообщения, фото
     {
         $id_user = $this->message->from()->id();
@@ -107,7 +107,7 @@ class Handler extends WebhookHandler
                     if ($photo_no == false) {
                         $this->foto_create();
                     } else {
-                        $this->chat->html('<i>Неправильное действие2</i>')->send();
+                        $this->chat->html('<i>Жду фото</i>')->send();
                     }
                     break;
                 case 3:  // эти шаги приводят к сохранению текста
@@ -118,7 +118,7 @@ class Handler extends WebhookHandler
                     if ($photo_no == true && $count_vol == 9) {
                         $this->text_post_create();
                     } else {
-                        $this->chat->html('<i>Неправильное действие3</i>')->send();
+                        $this->chat->html('<i>Жду текст</i>')->send();
                     }
                     break;
                 default:
@@ -132,14 +132,17 @@ class Handler extends WebhookHandler
         $id_user = $this->message->from()->id();
         $text = $this->message->text();
         $user_name = $this->message->from()->firstName();
-        DB::table('create_posts')
-            ->where('id_user', $id_user)
-            ->update(['user_name' => $user_name, 'name_post' => $text, 'step' => '2']);
+        if (mb_strlen($text) > 250) $this->reply("Название поста слишком длинное, сделайте на более 250 символов");
+        else {
+            DB::table('create_posts')
+                ->where('id_user', $id_user)
+                ->update(['user_name' => $user_name, 'name_post' => $text, 'step' => '2']);
 
-        $this->reply("Название сохранено. Вставте одно фото, например автомобиля, его салона, неисправной детали и пр. Текст под фото не нужен");
+            $this->reply("Название сохранено. Вставте одно фото, например автомобиля, его салона, неисправной детали и пр. Текст под фото не нужен");
+        }
     }
 
-    protected function foto_create() // скачиваем, создаем имя, сохраняем фото
+    protected function foto_create() // скачиваем, создаем название, сохраняем фото
     {
         $id_user = $this->message->from()->id();
         $user_data = User::where('telegram', $id_user)->first();  // получаем пользователя
@@ -187,6 +190,9 @@ class Handler extends WebhookHandler
         $text = $this->message->text();
         $id_user = $this->message->from()->id();
 
+        if (mb_strlen($text) > 2000) $this->reply("Текст слишком длинный, сделайте на более 2000 символов");
+        else {
+
         $create_post = Create_post::where('id_user', $id_user)->first();
         if ($create_post->text_post_1 == null) {  // в зависимости от заполнения мнеяем ячейку для текста в базе
             $text_post = 'text_post_1';
@@ -217,7 +223,7 @@ class Handler extends WebhookHandler
 
         if ($step == 16) {  // выдаем в бот кнопки
             $this->chat
-                ->message('Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
                 ->keyboard(
                     Keyboard::make()->buttons([
                         Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
@@ -226,7 +232,7 @@ class Handler extends WebhookHandler
                 )->withoutPreview()->send();
         } else {  // выдаем в бот кнопки
             $this->chat
-                ->message('Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
                 ->keyboard(
                     Keyboard::make()->buttons([
                         Button::make('Дописать еще блок с фото и текстом"')->action('feedback_2')->param('value', '1'),
@@ -235,6 +241,7 @@ class Handler extends WebhookHandler
                     ])
                 )->withoutPreview()->send();
         }
+    }
     }
 
     public function feedback_2() // получаем запросы от кнопок из text_post_create()
@@ -320,7 +327,7 @@ class Handler extends WebhookHandler
         if ($create_post !== null)
             $create_post->delete();
         Create_post::create(['id_user' => $id_user, 'step' => '1'])->first();
-        $this->chat->html('Напишите название поста, например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000 г троит" и отправьте2.')->send();
+        $this->chat->html('Напишите название поста (максимум 250 символов), например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000 г троит" и отправьте2.')->send();
     }
 
     public function delete_post() // идем через команду /delete_post

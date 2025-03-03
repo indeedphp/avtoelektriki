@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\LikeReply;
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| LikeReplyController
+|--------------------------------------------------------------------------
+|
+| лайки, поставленные на ответы к комментариям
+|
+*/
+
 class LikeReplyController extends Controller
 {
     /**

@@ -10,6 +10,15 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
+/*
+|--------------------------------------------------------------------------
+| ChannelController
+|--------------------------------------------------------------------------
+|
+| каналы пользователей
+|
+*/
+
 class ChannelController extends Controller
 {
 

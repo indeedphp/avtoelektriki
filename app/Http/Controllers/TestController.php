@@ -7,6 +7,15 @@ use Illuminate\View\View;
 
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| TestController
+|--------------------------------------------------------------------------
+|
+| тесты не из ларавел и пр.
+|
+*/
+
 class TestController extends Controller
 {
     public function index(): View

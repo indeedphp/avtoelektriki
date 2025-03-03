@@ -165,6 +165,11 @@
                                         <span post_id="" class="post_smile ">😪</span>
                                         <span post_id="" class="post_smile ">😬</span>
                                         <span post_id="" class="post_smile ">😭</span>
+                                        <span post_id="" class="post_smile ">💯</span>
+                                        <span post_id="" class="post_smile ">🤷‍♀️</span>
+                                        <span post_id="" class="post_smile ">🍺</span>
+                                        
+                                        
 
                                     </div>
                                 </div>

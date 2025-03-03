@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\LikeComment;
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| LikeCommentController
+|--------------------------------------------------------------------------
+|
+| лайки, дизлаки на комментарии
+|
+*/
+
 class LikeCommentController extends Controller
 {
     /**

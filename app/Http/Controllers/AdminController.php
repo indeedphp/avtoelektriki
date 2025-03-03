@@ -11,6 +11,15 @@ use App\Models\Site;
 use App\Models\Comment;
 use Carbon\Carbon;
 
+/*
+|--------------------------------------------------------------------------
+| AdminController
+|--------------------------------------------------------------------------
+|
+| админка сайта
+|
+*/
+
 class AdminController extends Controller
 {
     public function index()

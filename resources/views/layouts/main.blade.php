@@ -54,9 +54,7 @@
                         @guest
                             <a class="nav-link active " href="{{ route('register') }}">Регистрация</a>
                         @endguest
-                        @auth
-                            <a class="nav-link active " href="{{ route('logout') }}">Выход</a>
-                        @endauth
+                    
                     </li>
                     <li class="nav-item ms-auto">
                         @auth

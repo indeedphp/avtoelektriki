@@ -8,6 +8,15 @@ use App\Models\ReplyComment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+/*
+|--------------------------------------------------------------------------
+| CommentController
+|--------------------------------------------------------------------------
+|
+| коментарии на посты 
+|
+*/
+
 class CommentController extends Controller
 {
 
