@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\UserData;
 
 class Handler extends WebhookHandler
 {
@@ -31,7 +32,8 @@ class Handler extends WebhookHandler
         if ($user_data == null) {    // если пользователя нет то создаем
             $email = Str::password(10, true, true, false, false);
             $password = Str::password(9, true, true, false, false);
-            User::create(['telegram' => $id_user, 'email' => $email, 'password' => $password, 'name' => $user_name])->first();
+            $user = User::create(['telegram' => $id_user, 'email' => $email, 'password' => $password, 'name' => $user_name])->first();
+            UserData::create(['user_id' => $user->id])->first();
         }
         $this->chat  // выводим кнопки в бота
             ->message('Бот сайта "Автоэлектрики" приветствует вас! Все команды бота в кнопке "меню" внизу экрана')

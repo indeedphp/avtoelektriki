@@ -12,13 +12,11 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\LikeComment;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\UserData;
 /*
 |--------------------------------------------------------------------------
 | CabinetController
 |--------------------------------------------------------------------------
-|
-| кабинет сайта
 |
 */
 
@@ -29,8 +27,8 @@ class CabinetController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
-
-        return view('cabinet_settings', compact('user'));
+        $user_data = UserData::where('user_id', $id)->first();
+        return view('cabinet_settings', ['user' => $user, 'user_data' => $user_data]);
     }
     // ======================================================================================================
     public function new_post_show()  // страница создания поста в кабинете
@@ -135,7 +133,49 @@ class CabinetController extends Controller
 
         return redirect()->route('cabinet_settings');
     }
+    // ----------------------------------------------------------------------------
+    public function edit_color_channel(Request $request) // правим цвет полосы канала из кабинета
+    {
+        $id = Auth::user()->id;
+        UserData::where('user_id', $id)
+            ->update([
+                "color_channel" => $request->color_channel,
+            ]);
+        return redirect()->route('cabinet_settings');
+    }
+        // ---------------------------------------------------------------------------------
+        public function edit_definition_channel(Request $request) // правим описание канала из кабинета
+        {
+            $id = Auth::user()->id;
+            $validated = $request->validate([
+                'definition_channel' => ['nullable', 'string', 'max:100'],
+            ]);
+            UserData::where('user_id', $id)
+                ->update([
+                    "definition_channel" => $validated['definition_channel']
+                ]);
+    
+            return redirect()->route('cabinet_settings');
+        }
+        // ---------------------------------------------------------------------------------
+        public function edit_name_channel(Request $request) // правим описание канала из кабинета
+        {
+            $id = Auth::user()->id;
+            $validated = $request->validate([
+                'name_channel' => ['nullable', 'string', 'max:40'],
+            ]);
+            UserData::where('user_id', $id)
+                ->update([
+                    "name_channel" => $validated['name_channel']
+                ]);
+    
+            return redirect()->route('cabinet_settings');
+        }
 
+
+
+
+        
     // =======================================================================================================
 
     public function edit_post(Request $request)  // редактируем пост в черновике

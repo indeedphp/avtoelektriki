@@ -33,7 +33,8 @@ class LoginController extends Controller
         //     'name' => ['min:3'],
         // ]);
         dump($vali);
-        User::create($vali);
+       $user = User::create($vali);
+       info($user->id);
         // return redirect('/');
     }
     // ---------------------------------------------------
@@ -73,7 +74,7 @@ class LoginController extends Controller
     {
         $validated = $request->validate([
             'email' => ['required', 'min:8', 'max:20'],
-            'password' => ['required', 'min:8', 'max:20'],
+            'password' => ['required',  'max:20'],
         ]);
         info($validated);
         Auth::attempt($validated, true);

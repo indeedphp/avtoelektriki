@@ -83,7 +83,9 @@ Route::post('/cabinet_new_post', [CabinetController::class, 'new_post'])->name('
 Route::put('/cabinet_settings', [CabinetController::class, 'edit_name'])->name('cabinet_settings_edit_name');
 Route::put('/cabinet_settings_2', [CabinetController::class, 'edit_login'])->name('cabinet_settings_edit_login');
 Route::put('/cabinet_settings_3', [CabinetController::class, 'edit_password'])->name('cabinet_settings_edit_password');
-
+Route::put('/cabinet_settings_4', [CabinetController::class, 'edit_color_channel'])->name('cabinet_settings_edit_color_channel');
+Route::put('/cabinet_settings_5', [CabinetController::class, 'edit_definition_channel'])->name('cabinet_settings_edit_definition_channel');
+Route::put('/cabinet_settings_6', [CabinetController::class, 'edit_name_channel'])->name('cabinet_settings_edit_name_channel');
 
 Route::get('/cabinet_site', [SiteController::class, 'index'])->name('site_index')->middleware('auth');
 Route::get('/site/{id}', [SiteController::class, 'show'])->name('site_show');

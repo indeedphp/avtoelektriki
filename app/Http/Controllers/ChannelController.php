@@ -9,7 +9,8 @@ use App\Models\Post;
 // use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
+use App\Models\User;
+use App\Models\UserData;
 /*
 |--------------------------------------------------------------------------
 | ChannelController
@@ -22,12 +23,16 @@ use Illuminate\Support\Str;
 class ChannelController extends Controller
 {
 
-    public function index($id)
+    public function index($id)  // показываем страницу channel с постами одного юзер
     {
-        return view('channel', ['id' => $id]);
+        // $id = Auth::user()->id;
+        $user = User::where('id', $id)->first();
+        $user_data = UserData::where('user_id', $id)->first();
+        info($user_data);
+        return view('channel', ['id' => $id, 'user' => $user, 'user_data' => $user_data]);
     }
     
-    public function show($id)
+    public function show($id)  // для фетч запроса метод
     {
         $post_like_count = 0;
         $post_comment_count = 0;
@@ -144,12 +149,12 @@ class ChannelController extends Controller
     }
 
 
-    public function index2($id)
+    public function index2($id)  // показываем страницу post с конкретным одним постом
     {
         return view('post', ['id' => $id]);
     }
 
-    public function show2($id)
+    public function show2($id)  // для фетч запроса метод
     {
         $post_like_count = 0;
         $post_comment_count = 0;
