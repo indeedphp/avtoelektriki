@@ -5,7 +5,7 @@
             <div class="card-header p-0 ">
                 <div class="row">
                     <div class="col-auto me-auto pe-0 flex-fill">
-                         <a href="ссылка js" id="a_reply_name_user" class="bi bi-universal-access small ps-1" style="text-decoration: none" target="_blank" ></a>
+                         <a href="ссылка js" id="a_reply_name_user" class=" small ps-1" style="text-decoration: none" target="_blank" ></a>
                     </div>
                     <div class="col-auto  ps-0">
                         <nobr class="small"> </nobr>
@@ -19,9 +19,8 @@
                 </li>
                 <li class="list-group-item p-0">
                     <div class="row small user-select-none">
-                        <div class="col-auto me-auto pe-0 flex-fill">
-                            {{-- ЛАЙК ДИЗЛАЙК ОТВЕТ==========================================================================    --}}
-
+                        {{-- ЛАЙК ДИЗЛАЙК ОТВЕТ==========================================================================    --}}
+                        <div class="col-auto  pe-3 ">
                             <i id="like_reply" class="bi bi-hand-thumbs-up ps-1 " style="cursor: pointer;" value="5"
                                 reply_id=""> 0
                             </i>&nbsp;
@@ -29,6 +28,11 @@
                                 value="6" reply_id=""> 0
                             </i>
                         </div>
+                    <!-- ПОЖАЛОВАТСЯ -->
+                    <div class="col-auto me-auto p-0 m-0 ps-0">
+                        <button id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
+                        title="Пожаловатся на комментарий"  data-bs-toggle="modal" data-bs-target="#modal_complaint"></button>       
+                </div>
                         <div class="col-auto  ps-0">
 
                             <a hidden id="hidden_reply_collapse_edit" class="link-underline-light p-0"

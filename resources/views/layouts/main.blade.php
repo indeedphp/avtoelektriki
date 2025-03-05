@@ -78,10 +78,6 @@
                 <div class=" my-2 py-3"></div>
 
 
-
-
-
-
                 <div id='content' class="">
                     @yield('posts')
 
@@ -97,6 +93,7 @@
     <div id="user_name_id" hidden> @auth {{ Auth::user()->name }}
         @else
         0 @endauth </div>
+        <div id="user_id" hidden>@auth{{Auth::user()->id}}@else 0 @endauth</div>
 
     <div id="csrf_token" hidden> @auth {{ csrf_token() }}
         @else
@@ -104,7 +101,29 @@
 
     <div id="server_url" hidden>{{ url('/') }}</div>
 
-
+  <!-- Модальное окно жалоб одно для всех-->
+  <div class="modal fade" id="modal_complaint" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 id="h1_text_modal" class="modal-title fs-5" id="exampleModalLabel">Ж на пост</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+            <form  form_type="10">
+                <input id="hidden_input_complaint" type="hidden" name="id" value="">
+                <input id="hidden_input_complaint_2" type="hidden" name="essence" value="">
+                <input id="hidden_input_complaint_3" type="hidden" name="user_id" value="">
+                <label class="form-label ">Напишите суть, оскорбления, ругань, флуд, реклама и пр.</label>
+                <input class="form-control my-1" type="text" name="complaint" placeholder = "Опишите в несколько слов" >
+        </div>
+        <div class="modal-footer">
+            <input class="btn btn-primary btn-sm my-1" type="submit" data-bs-dismiss="modal">
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 

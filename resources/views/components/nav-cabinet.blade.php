@@ -7,22 +7,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ps-2">
             <li class="nav-item">
-                <a class="nav-link {{Route::is('cabinet_settings') ? 'link-danger' : '' }}" href="{{ route('cabinet_settings') }}">Настройки</a>
+                <a class="nav-link {{Route::is('cabinet_settings') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_settings') }}">Настройки</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{Route::is('cabinet_new_post') ? 'link-danger' : '' }}" href="{{ route('cabinet_new_post') }}">Новый пост</a>
+                <a class="nav-link {{Route::is('cabinet_new_post') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_new_post') }}">Новый пост</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{Route::is('cabinet_all_post') ? 'link-danger' : '' }}" href="{{ route('cabinet_all_post') }}">Все посты</a>
+                <a class="nav-link {{Route::is('cabinet_all_post') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_all_post') }}">Все посты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{Route::is('cabinet_edit_post') ? 'link-danger' : '' }}" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
+                <a class="nav-link {{Route::is('cabinet_edit_post') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_edit_post') }}">Редактируем пост</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{Route::is('site_index') ? 'link-danger' : '' }}" href="{{ route('site_index') }}">Сайт</a>
+                <a class="nav-link {{Route::is('site_index') ? 'link-danger' : 'text-black' }}" href="{{ route('site_index') }}">Сайт</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{Route::is('cabinet_statistic') ? 'link-danger' : '' }}" href="{{ route('cabinet_statistic') }}">Статистика</a>
+                <a class="nav-link {{Route::is('cabinet_statistic') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_statistic') }}">Статистика</a>
             </li>
         </ul>
     </div>

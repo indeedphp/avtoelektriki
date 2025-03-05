@@ -142,3 +142,4 @@ Route::get('/admin_post_update/{id}/{activ}', [AdminController::class, 'update_p
 Route::get('/admin_comment_update/{id}/{activ}', [AdminController::class, 'update_comment'])->name('admin_comment_update')->middleware('auth');
 Route::get('/admin_reply_update/{id}/{activ}', [AdminController::class, 'update_reply'])->name('admin_reply_update')->middleware('auth');
 Route::get('/admin_site_update/{id}/{activ}', [AdminController::class, 'update_site'])->name('admin_site_update')->middleware('auth');
+Route::post('/admin_create_complaint', [AdminController::class, 'create_complaint'])->name('admin_complaint_create');

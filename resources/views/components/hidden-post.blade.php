@@ -88,20 +88,25 @@
             <div class="card-footer text-muted px-0 py-1 p-lg-3 ">
                 <div class="row user-select-none">
 
-                    <div class="col-auto pe-2">
+                    <div class="col-auto pe-2 text-black">
                         <i id="like_post" class="bi bi-hand-thumbs-up ps-1 " style="cursor: pointer;" value="1"
                             post_id="js"></i>&nbsp;
                     </div>
 
 
                     <!-- РЕПОСТ -->
-                    <div class="col-auto me-auto ps-0">
+                    <div class="col-auto  ps-0">
 
-                        <i id="a_collapse_repost" class="bi bi-share " title="Репост"
+                        <i id="a_collapse_repost" class="bi bi-share " title="Поделится, ссылка, ватсап, телеграмм"
                             data-bs-toggle="collapse" role="button" data-bs-target="#collapse" aria-expanded="false"
-                            aria-controls="collapseExample"> Поделится</i>
-
-                    </div>
+                            aria-controls="collapseExample"> Репост</i>
+                        </div>  
+                        <!-- ПОЖАЛОВАТСЯ -->
+                        <div class="col-auto me-auto p-0 m-0 ps-0">
+                            <button id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
+                            title="Пожаловатся на пост" data-bs-toggle="modal" data-bs-target="#modal_complaint"></button>    
+                        </div>
+                    
                     <!-- КОМЕНТАРИИ КНОПКА -->
                     <div class="col-auto">
 
@@ -198,5 +203,8 @@
             </div>
         </div>
 
+
+
     </div>
 </div>
+

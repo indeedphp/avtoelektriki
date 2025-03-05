@@ -10,6 +10,8 @@ use App\Models\Post;
 use App\Models\Site;
 use App\Models\Comment;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;  // подключаем фасад
+use App\Notifications\ComplaintNotification;  // подключаем нотификацию
 
 /*
 |--------------------------------------------------------------------------
@@ -443,8 +445,25 @@ class AdminController extends Controller
             return redirect()->route('admin_sites', ['page' => $request->page, 'count' => $request->count]);
         } else return redirect()->route('index');
     }
+
+
+// -------------------------------------------------------------------------------------
+    public function create_complaint(Request $request) // создаем жалобу на посты комменты и ответы комментов для админки
+    {
+        info($request);
+
+        // 'id' => '62',  // приходит айди либо поста либо коментария либо ответа на комментарий
+        // 'essence' => '1',  // 1-пост, 2-комментарий , 3- ответ на комментарий
+        // 'user_id' => '2',  // айди юзера отправившего жалобу
+        // 'complaint' => 'tfytututuu',  // текст жалобы
+
+        $validated = $request->validate([
+            'complaint' => ['string', 'max:100'],
+        ]);
+
+        $user = User::find(2);
+        Notification::send($user, new ComplaintNotification($validated['complaint']));  // используем ларавел нотмфикации ComplaintNotification
+
+        return response()->json('ok', 200);
+    }
 }
-// $users = User::whereMonth('created_at', $startDate->format('m'))
-// ->whereDay('created_at', '>=', $startDate->format('d'))
-// ->whereDay('created_at', '<=', $endDate->format('d'))
-// ->get();

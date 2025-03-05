@@ -158,7 +158,7 @@ class CabinetController extends Controller
             return redirect()->route('cabinet_settings');
         }
         // ---------------------------------------------------------------------------------
-        public function edit_name_channel(Request $request) // правим описание канала из кабинета
+        public function edit_name_channel(Request $request) // правим название канала из кабинета
         {
             $id = Auth::user()->id;
             $validated = $request->validate([

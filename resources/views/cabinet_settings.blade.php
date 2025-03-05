@@ -6,9 +6,9 @@
 <x-nav-cabinet/> {{-- вставляем навигацию --}}
     <div class="row px-1">
         
-        <hr>
+        <hr class="mt-2">
        
-    <div class="my-2"> <label class="form-label">Выход с сайта</label> <a class="btn btn-primary" href="{{ route('logout') }}">Выход</a>  </div>
+    <div class=""> <a class="btn btn-primary btn-sm px-3 me-2" href="{{ route('logout') }}">Выход</a> <label class="form-label">Выход с сайта</label>  </div>
 
 
         <hr>
@@ -22,7 +22,7 @@
             @error('new_name')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
-             <input class="form-control btn btn-primary my-1" type="submit">
+             <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
 
         <hr>
@@ -36,7 +36,7 @@
             @error('new_login')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
-            <input class="form-control btn btn-primary my-1" type="submit">
+            <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
         <hr>
         <form action="{{ route('cabinet_settings_edit_password') }}" method="POST">
@@ -47,7 +47,7 @@
             @error('new_password')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
-            <input class="form-control btn btn-primary my-1" type="submit">
+            <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
         <hr>
 
@@ -119,7 +119,7 @@
             <p class="link-danger">Выберите цвет верхней полосы канала</p>
         </div>
  
-    <input class="form-control btn btn-primary my-1" type="submit">
+    <input class="btn btn-primary btn-sm my-1" type="submit">
 </form>
 
 <hr>
@@ -131,7 +131,7 @@
     @error('definition_channel')
         <b class="link-danger ">Ошибка: {{ $message }}</b>
     @enderror
-    <input class="form-control btn btn-primary my-1" type="submit">
+    <input class="btn btn-primary btn-sm my-1" type="submit">
 </form>
 
 <hr>
@@ -143,9 +143,17 @@
     @error('name_channel')
         <b class="link-danger ">Ошибка: {{ $message }}</b>
     @enderror
-    <input class="form-control btn btn-primary my-1" type="submit">
+    <input class="btn btn-primary btn-sm my-1" type="submit">
 </form>
+<hr>
 
 
     </div>
+
+    <footer class="" ;>
+        <div class="p-2">
+            <span class=" ">© 2024 Company, Inc</span>
+        </div>
+    </footer>
+
 @endsection

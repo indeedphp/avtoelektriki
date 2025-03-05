@@ -106,6 +106,7 @@ function posts_loading(data) {
         clone_post.querySelector('#div_smile').id = 'collapse_post_smile' + item['id'];
         clone_post.querySelector('#comm').id = 'comm' + item['id'];
         clone_post.querySelector('#a_collapse_comment_end').setAttribute('data-bs-target', '#collapseComment' + item['id']);
+        clone_post.querySelector('#button_complaint').setAttribute('onclick', 'complaint('+item['id']+',1)'); // заполняем кнопку жалобы
         clone_post.id = 'one_post';
         posts.appendChild(clone_post);
         comments_loading(item.comment_plus, item['id'], item['id_user']);  // вставляем комментарии
@@ -156,7 +157,9 @@ function comments_loading(data, post_id, id_user) {
         clone_comment.querySelector('#dislike_comment').setAttribute('comment_id', item3['id']);
         clone_comment.querySelector('#dislike_comment').textContent = ' ' + item3['comment_dislike_count'];
         clone_comment.querySelector('#reply').id = "reply" + item3['id'];
+        clone_comment.querySelector('#button_complaint').setAttribute('onclick', 'complaint('+item3['id']+',2)'); // заполняем кнопку жалобы
         clone_comment.id = 'one_comment' + item3['id'];
+        
 
         comm.appendChild(clone_comment);
         // comm.id = 'one_commentddd';
@@ -207,6 +210,7 @@ function replys_loading(data, id_comment, post_id, id_user) {
         clone_reply.querySelector('#reply_collapse').id = "reply_collapse" + item4['id'];
         clone_reply.querySelector('#form_reply_del').setAttribute('reply_id', item4['id']);
         clone_reply.querySelector('#form_reply_del').setAttribute('post_id', post_id);
+        clone_reply.querySelector('#button_complaint').setAttribute('onclick', 'complaint('+item4['id']+',3)'); // заполняем кнопку жалобы
         clone_reply.id = 'one_reply' + item4['id'];
 
         reply.appendChild(clone_reply);

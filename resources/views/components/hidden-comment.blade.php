@@ -5,7 +5,7 @@
             <div class="card-header p-0 ">
                 <div class="row">
                     <div class="col-auto me-auto pe-0 flex-fill">
-                        <a href="ссылка js" id="a_post_name_user" class="bi bi-universal-access ms-auto small ps-1" style="text-decoration: none" target="_blank" ></a>
+                        <a href="ссылка js" id="a_post_name_user" class=" ms-auto small ps-1" style="text-decoration: none" target="_blank" ></a>
                     </div>
                     <div class="col-auto  ps-0">
                         <nobr class="small"> </nobr>
@@ -18,20 +18,26 @@
                 </li>
                 <li class="list-group-item p-0">
                     <div class="row small user-select-none">
-                        <div class="col-auto me-auto pe-0 flex-fill">
+                         <!-- ЛАЙК ДИЗЛАЙК -->
+                        <div class="col-auto  pe-3 ">
                             <i id="like_comment" class='bi bi-hand-thumbs-up ps-1' style="cursor: pointer;" value="3"
                                 comment_id="">
                                 0</i>&nbsp;
                             <i id="dislike_comment" class="bi bi-hand-thumbs-down" style="cursor: pointer;"
                                 value="4" comment_id=""> 0</i>
                         </div>
+                        <!-- ПОЖАЛОВАТСЯ -->
+                        <div class="col-auto me-auto p-0 m-0 ps-0">
+                            <button id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
+                            title="Пожаловатся на комментарий" data-bs-toggle="modal" data-bs-target="#modal_complaint"></button>      
+                    </div>
                         <div class="col-auto  ps-0">
-
+                      <!-- РЕДАКТИРУЕМ КОММЕНТАРИЙ -->
                             <a id="a_comment_edit"  hidden data-bs-toggle="collapse" href="#coment_collapse" role="button" aria-expanded="false"
                                 aria-controls="collapseExample" title="Редактировать, удалить комментарий"
                                 class="link-underline-light p-0" style="cursor: pointer;">изменить
                             </a>
-
+                    <!-- ОТВЕТ НА КОММЕНТАРИЙ -->
                             <a id="coment_reply_collapse" class="link-underline-light p-0 pe-1" data-bs-toggle="collapse"
                                 href="#coment_reply_collapse" role="button" aria-expanded="false"
                                 aria-controls="collapseExample" title="Редактировать, удалить комментарий"

@@ -43,11 +43,11 @@ window.addEventListener('click', function (event) {
 });
 
 let user_name_id = document.getElementById("user_name_id").textContent;
-
+let user_id = document.getElementById("user_id").textContent;
 // =================================================================== ОТПРАВКА  КОМЕНТАРИЯ  ================================================================================== 
-const content = document.getElementById('content');
+// const content = document.getElementById('content');
 
-content.addEventListener('submit', function (event) {
+window.addEventListener('submit', function (event) {
     event.preventDefault();
     if (user_name_id == 0) alert("Зарегистрируйтесь");
     else {
@@ -325,6 +325,24 @@ console.dir(commits);
                     });
 
                 break;
+
+                            // отправка жалобы ======================================================================================================================
+            case '10':
+
+            fetch('/admin_create_complaint', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(commits => {
+            
+                });
+
+            break;
         }
     }
 });
@@ -437,3 +455,19 @@ content.addEventListener('click', (event) => {
         }
     }
 })
+
+// -------------------------------------------------------------------------------------------------------------
+function complaint(id, essence) { // жалоба, заполнение модалки
+    let modal_complaint = document.getElementById('modal_complaint');       
+
+    // console.log(test2);
+    // console.log(test);
+
+    if(essence == 1)modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на пост';
+    else modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на комментарий';
+    modal_complaint.querySelector('#hidden_input_complaint').setAttribute('value', id);
+    modal_complaint.querySelector('#hidden_input_complaint_2').setAttribute('value', essence);
+    modal_complaint.querySelector('#hidden_input_complaint_3').setAttribute('value', user_id);
+ 
+    }
+// ============================================================================
