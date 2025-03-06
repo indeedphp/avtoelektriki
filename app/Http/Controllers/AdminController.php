@@ -10,9 +10,9 @@ use App\Models\Post;
 use App\Models\Site;
 use App\Models\Comment;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Notification;  // подключаем фасад
-use App\Notifications\ComplaintNotification;  // подключаем нотификацию
-
+use Illuminate\Support\Facades\Notification;  // подключаем фасад Notification
+use App\Notifications\ComplaintNotification;  // подключаем нотификацию для жалоб
+use App\Models\Complaint;
 /*
 |--------------------------------------------------------------------------
 | AdminController
@@ -24,17 +24,35 @@ use App\Notifications\ComplaintNotification;  // подключаем нотиф
 
 class AdminController extends Controller
 {
-    public function index()
+    // -----------------------------------------------------------------------------------------------
+    public function index()  // показываем страницу основную в админке
     {
         return view('admin/index');
     }
+    // -----------------------------------------------------------------------------------------------
+    public function show_complaints()  // показываем страницу жалобы в админке с инфой
+    {
+        $notviewed = 0;
+        $complaints = Complaint::orderBy('created_at', 'desc')->paginate(5);
 
-    public function show_settings()
+        foreach ($complaints as $complaint) { // перебираем жалобы и помечаем что просмотрены они
+            if ($complaint->viewed == null) {
+                $complaint_db = Complaint::find($complaint->id);
+                $complaint_db->viewed = 1;
+                $complaint_db->save();
+                $notviewed++;  // колмчество не просмотренных жалоб
+            }
+        }
+        $complaints->count = 5;
+        return view('admin/complaints', compact('complaints', 'notviewed'));
+    }
+    // -----------------------------------------------------------------------------------------------
+    public function show_settings()  // показываем страницу настроек в админке
     {
         return view('admin/settings');
     }
-
-    public function show_statistics()
+    // -----------------------------------------------------------------------------------------------
+    public function show_statistics()  // показываем страницу статистики
     {
         $post = Post::all();
         $post_count = count($post);
@@ -64,8 +82,8 @@ class AdminController extends Controller
         $count_files =  $size[1];
         return view('admin/statistics', compact('post_count', 'comment_count', 'user_count', 'site_count', 'size_file', 'addr', 'count_files'));
     }
-
-    public function show_users(Request $request)
+    // -----------------------------------------------------------------------------------------------------
+    public function show_users(Request $request)  // обработка страницы с юзерами
     {
         // info($request);
         $count = 50;
@@ -381,8 +399,7 @@ class AdminController extends Controller
         // $sites = Site::all();
         return view('admin/sites', compact('sites', 'sort', 'count'));
     }
-
-
+// ---------------------------------------------------------------------------------------------------------------
     public function update_user(Request $request, $id, $activ)
     {
         $id_user = Auth::user()->id;
@@ -395,7 +412,7 @@ class AdminController extends Controller
             return redirect()->route('admin_users', ['page' => $request->page, 'count' => $request->count]);
         } else return redirect()->route('index');
     }
-
+// -----------------------------------------------------------------------------------------------------------------
     public function update_post(Request $request, $id, $activ)
     {
         $id_user = Auth::user()->id;
@@ -408,7 +425,7 @@ class AdminController extends Controller
             return redirect()->route('admin_posts', ['page' => $request->page, 'count' => $request->count]);
         } else return redirect()->route('index');
     }
-
+// -----------------------------------------------------------------------------------------------------------------
     public function update_comment(Request $request, $id, $activ)
     {
         $id_user = Auth::user()->id;
@@ -421,6 +438,7 @@ class AdminController extends Controller
             return redirect()->route('admin_comments', ['page' => $request->page, 'count' => $request->count]);
         } else return redirect()->route('index');
     }
+  // -----------------------------------------------------------------------------------------------------------------
     public function update_reply(Request $request, $id, $activ)
     {
         $id_user = Auth::user()->id;
@@ -433,6 +451,7 @@ class AdminController extends Controller
             return redirect()->route('admin_replys', ['page' => $request->page, 'count' => $request->count]);
         } else return redirect()->route('index');
     }
+   // -----------------------------------------------------------------------------------------------------------------  
     public function update_site(Request $request, $id, $activ)
     {
         $id_user = Auth::user()->id;
@@ -445,25 +464,23 @@ class AdminController extends Controller
             return redirect()->route('admin_sites', ['page' => $request->page, 'count' => $request->count]);
         } else return redirect()->route('index');
     }
-
-
-// -------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------------------
     public function create_complaint(Request $request) // создаем жалобу на посты комменты и ответы комментов для админки
     {
         info($request);
-
-        // 'id' => '62',  // приходит айди либо поста либо коментария либо ответа на комментарий
-        // 'essence' => '1',  // 1-пост, 2-комментарий , 3- ответ на комментарий
-        // 'user_id' => '2',  // айди юзера отправившего жалобу
-        // 'complaint' => 'tfytututuu',  // текст жалобы
-
         $validated = $request->validate([
-            'complaint' => ['string', 'max:100'],
+            'id_pcr' => ['required', 'numeric'],  // айди либо поста, либо комментария либо, ответа на комментарий
+            'essence' => ['required', 'numeric'],  // тип либо пост 1, либо комментарий 2, либо ответ на комментарий 3
+            'id_user_complaint' => ['required', 'numeric'],  // адйди жалобщика
+            'id_user_untrue' => ['required', 'numeric'],  // айди накосячившегося
+            'complaint' => ['string', 'max:100'],  // текст жалобы
+            'id_post' => ['required', 'numeric'],  // айди поста под которым проблема
         ]);
-
-        $user = User::find(2);
-        Notification::send($user, new ComplaintNotification($validated['complaint']));  // используем ларавел нотмфикации ComplaintNotification
-
+        Complaint::create($validated);
         return response()->json('ok', 200);
     }
+    // ----------------------------------------------------------------------------------------------------------------
 }
+
+
+

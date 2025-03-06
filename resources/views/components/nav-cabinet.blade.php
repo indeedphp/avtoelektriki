@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg  p-0 pe-2">
+<nav class="navbar navbar-expand-lg  p-0 pe-2 user-select-none">
     <a class="navbar-brand ms-1">Кабинет пользователя:</a>
     <button class="navbar-toggler me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

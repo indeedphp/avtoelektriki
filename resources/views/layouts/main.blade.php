@@ -111,9 +111,11 @@
         </div>
         <div class="modal-body">
             <form  form_type="10">
-                <input id="hidden_input_complaint" type="hidden" name="id" value="">
+                <input id="hidden_input_complaint" type="hidden" name="id_pcr" value="">
                 <input id="hidden_input_complaint_2" type="hidden" name="essence" value="">
-                <input id="hidden_input_complaint_3" type="hidden" name="user_id" value="">
+                <input id="hidden_input_complaint_3" type="hidden" name="id_user_complaint" value="">
+                <input id="hidden_input_complaint_4" type="hidden" name="id_user_untrue" value="">
+                <input id="hidden_input_complaint_5" type="hidden" name="id_post" value="">
                 <label class="form-label ">Напишите суть, оскорбления, ругань, флуд, реклама и пр.</label>
                 <input class="form-control my-1" type="text" name="complaint" placeholder = "Опишите в несколько слов" >
         </div>

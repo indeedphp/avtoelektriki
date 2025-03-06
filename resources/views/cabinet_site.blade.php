@@ -463,7 +463,7 @@
         <button class="btn btn-primary " title="Отправить" type="submit">Сброс сайта на начальные настройки</button>
         <hr>
     </form>
-    <div>
+</div>
     <footer class=" " ;>
         <div class="p-2">
             <span class=" ">© 2024 Company, Inc</span>

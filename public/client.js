@@ -457,17 +457,19 @@ content.addEventListener('click', (event) => {
 })
 
 // -------------------------------------------------------------------------------------------------------------
-function complaint(id, essence) { // жалоба, заполнение модалки
+function complaint(id_post_c, id_user_untrue, id_pcr, essence) { // жалоба, заполнение модалки
     let modal_complaint = document.getElementById('modal_complaint');       
 
     // console.log(test2);
-    // console.log(test);
+    // console.log(id_user_untrue);
 
-    if(essence == 1)modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на пост';
-    else modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на комментарий';
-    modal_complaint.querySelector('#hidden_input_complaint').setAttribute('value', id);
+    if(essence == 1)modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на этот пост';
+    else modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на этот комментарий';
+    modal_complaint.querySelector('#hidden_input_complaint').setAttribute('value', id_pcr);
     modal_complaint.querySelector('#hidden_input_complaint_2').setAttribute('value', essence);
     modal_complaint.querySelector('#hidden_input_complaint_3').setAttribute('value', user_id);
+    modal_complaint.querySelector('#hidden_input_complaint_4').setAttribute('value', id_user_untrue);
+    modal_complaint.querySelector('#hidden_input_complaint_5').setAttribute('value', id_post_c);
  
     }
 // ============================================================================

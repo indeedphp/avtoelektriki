@@ -129,6 +129,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // ==================================================================================================
 
 Route::get('/admin_index', [AdminController::class, 'index'])->name('admin_index')->middleware('auth');
+Route::get('/admin_complaints', [AdminController::class, 'show_complaints'])->name('admin_complaints')->middleware('auth');
 Route::get('/admin_users', [AdminController::class, 'show_users'])->name('admin_users')->middleware('auth');
 Route::get('/admin_posts', [AdminController::class, 'show_posts'])->name('admin_posts')->middleware('auth');
 Route::get('/admin_comments', [AdminController::class, 'show_comments'])->name('admin_comments')->middleware('auth');
