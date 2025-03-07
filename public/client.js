@@ -1,6 +1,6 @@
 window.addEventListener('click', function (event) {
-  
-    
+
+
     if (event.target.id == "a_post_url") {  // копируем ссылку в буфер обмена
         let post = event.target.getAttribute('post_url');
         navigator.clipboard.writeText(post);
@@ -17,26 +17,26 @@ window.addEventListener('click', function (event) {
         let comment_id = event.target.getAttribute('comment_id');
         let text_div_c = document.getElementById('text_div_comment' + comment_id);
         text_div_c.textContent += event.target.textContent;
-       
+
     }
 
     if (event.target.classList.contains('comment_edit_smile')) {
         let comment_id = event.target.getAttribute('comment_id');
         let text_div_c = document.getElementById('text_div_comment_edit' + comment_id);
         text_div_c.textContent += event.target.textContent;
-        
+
     }
     if (event.target.classList.contains('reply_smile')) {
         let comment_id = event.target.getAttribute('reply_id');
         let text_div_c = document.getElementById('text_div_reply' + comment_id);
         text_div_c.textContent += event.target.textContent;
-    
+
     }
     if (event.target.classList.contains('reply_edit_smile')) {
         let comment_id = event.target.getAttribute('reply_id');
         let text_div_c = document.getElementById('text_div_reply_edit' + comment_id);
         text_div_c.textContent += event.target.textContent;
-    
+
     }
 
 
@@ -66,10 +66,10 @@ window.addEventListener('submit', function (event) {
 
         switch (form_type) {
             case '1':
-                
+
                 // let comments = document.getElementById('comments' + post_id);  // блок комментариев под постом
                 let comm = document.getElementById('comm' + post_id);
-                
+
                 let button = event.target.querySelector('button');
                 button.className = "btn btn-success btn-sm";
                 formData.append("comment", text_div.textContent);
@@ -86,7 +86,7 @@ window.addEventListener('submit', function (event) {
                     })
                         .then(response => response.json())
                         .then(commits => {
-console.dir(commits);
+                            console.dir(commits);
                             text_div.textContent = null;
                             let clone = test_comment.cloneNode(true);
                             // console.dir(clone);
@@ -95,9 +95,9 @@ console.dir(commits);
                             enu.forEach(function (item, i, enu) {  // перебираем смайлики
                                 item.setAttribute('comment_id', commits['id']);
                             });
-                           
+
                             clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
-                            clone.querySelector('#a_post_name_user').textContent =  ' '+commits['user_name'];
+                            clone.querySelector('#a_post_name_user').textContent = ' ' + commits['user_name'];
                             clone.querySelector('#a_post_name_user').href = server_url + '/channel/' + commits['user_id'];
                             clone.querySelector('#comment_text').textContent = commits['comment'];
                             clone.querySelector('#comment_text').id = "comment_text" + commits['id'];
@@ -191,7 +191,7 @@ console.dir(commits);
                         // console.dir(commits);
                         // console.dir(comm_count);
                         comm_count.textContent = +comm_count.textContent - 1; // счет комментариев 
-                        
+
                     });
 
                 break;
@@ -229,7 +229,7 @@ console.dir(commits);
                                 item.setAttribute('reply_id', commits['id']);
                             });
 
-                            clone_replu.querySelector('#a_reply_name_user').textContent = ' '+commits['user_name'];
+                            clone_replu.querySelector('#a_reply_name_user').textContent = ' ' + commits['user_name'];
                             clone_replu.querySelector('#a_reply_name_user').href = server_url + '/channel/' + commits['user_id'];
                             clone_replu.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, -10) + ' ';
                             clone_replu.querySelector('#reply_text').textContent = commits['reply'];
@@ -254,14 +254,14 @@ console.dir(commits);
                             clone_replu.querySelector('#form_reply_del').setAttribute('reply_id', commits['id']);
                             clone_replu.querySelector('#form_reply_del').setAttribute('post_id', post_id);
                             clone_replu.querySelector('#hidden_reply_collapse_edit').removeAttribute('hidden');
-                           
+
                             clone_replu.id = 'one_reply' + commits['id'];
 
                             reply.appendChild(clone_replu);
 
                             coment_reply_collapse.className = "collapse";
                             comm_count.textContent = +comm_count.textContent +
-                            1; // прибавляем счет комментариев 
+                                1; // прибавляем счет комментариев 
 
                         });
                 } else {
@@ -326,23 +326,28 @@ console.dir(commits);
 
                 break;
 
-                            // отправка жалобы ======================================================================================================================
+            // отправка жалобы ======================================================================================================================
             case '10':
 
-            fetch('/admin_create_complaint', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrf_token
-                },
-                body: formData
-            })
-                .then(response => response.json())
-                .then(commits => {
-            
-                });
+                let complaint = formData.getAll("complaint"); 
+                let split_complaint = complaint[0].length;
 
-            break;
+                if (split_complaint == 0 || split_complaint > 100) alert("Отправка остановлена: пусто или превышено количество символов (макс. 100)");
+                else {
+                    fetch('/admin_create_complaint', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': csrf_token
+                        },
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(commits => {
+
+                        });
+                }
+                break;
         }
     }
 });
@@ -358,118 +363,118 @@ content.addEventListener('click', (event) => {
         let comment_id = event.target.getAttribute('comment_id');
         let reply_id = event.target.getAttribute('reply_id');
 
-      if (user_name_id == 0) alert("Зарегистрируйтесь");
+        if (user_name_id == 0) alert("Зарегистрируйтесь");
         else {
 
-        switch (type_element) {
-        case '0':
-  
-            break;
-            case '1':
-             // лайк на пост  
-                let like = event.target.textContent;
-                fetch('/likes/?post_id=' + post_id + '&id_user=' + user_name_id)
-                    .then(response => response.json())
-                    .then(commits => {
-                        if (commits == 1) {
-                            event.target.textContent = ' ' + (+like + 1);
-                            event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
-                        } else if (commits == 0 && like != 0) {
-                            event.target.textContent = ' ' + (+like - 1);
-                            event.target.className = "bi bi-hand-thumbs-up ps-1";
-                        }
-                    });
+            switch (type_element) {
+                case '0':
+
+                    break;
+                case '1':
+                    // лайк на пост  
+                    let like = event.target.textContent;
+                    fetch('/likes/?post_id=' + post_id + '&id_user=' + user_name_id)
+                        .then(response => response.json())
+                        .then(commits => {
+                            if (commits == 1) {
+                                event.target.textContent = ' ' + (+like + 1);
+                                event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
+                            } else if (commits == 0 && like != 0) {
+                                event.target.textContent = ' ' + (+like - 1);
+                                event.target.className = "bi bi-hand-thumbs-up ps-1";
+                            }
+                        });
                     break;
 
-                    case '3':
-             // лайки на комментарии
-                let like_comment_content = +event.target.textContent;
-                // let comment_id = event.target.getAttribute('comment_id');
-                fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
-                    .then(response => response.json())
-                    .then(commits => {
-                        // console.dir(commits);
-                        if (commits == 1) {
-                            event.target.textContent = ' ' + (like_comment_content + 1);
-                            event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
-                        } else if (commits == 0 && like_comment_content != 0) {
-                            event.target.textContent = ' ' + (like_comment_content - 1);
-                            event.target.className = "bi bi-hand-thumbs-up ps-1";
-                        }
-                    });
+                case '3':
+                    // лайки на комментарии
+                    let like_comment_content = +event.target.textContent;
+                    // let comment_id = event.target.getAttribute('comment_id');
+                    fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
+                        .then(response => response.json())
+                        .then(commits => {
+                            // console.dir(commits);
+                            if (commits == 1) {
+                                event.target.textContent = ' ' + (like_comment_content + 1);
+                                event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
+                            } else if (commits == 0 && like_comment_content != 0) {
+                                event.target.textContent = ' ' + (like_comment_content - 1);
+                                event.target.className = "bi bi-hand-thumbs-up ps-1";
+                            }
+                        });
                     break;
 
-                    case '4':
-            // дизлайки на коментарии
-                let dislike_comment_content = +event.target.textContent;
-                // let comment_id = event.target.getAttribute('comment_id');
-                fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
-                    .then(response => response.json())
-                    .then(commits => {
-                        // console.dir(commits);
-                        if (commits == 1) {
-                            event.target.textContent = ' ' + (dislike_comment_content + 1);
-                            event.target.className = "bi bi-hand-thumbs-down-fill";
-                        } else if (commits == 0 && dislike_comment_content != 0) {
-                            event.target.textContent = ' ' + (dislike_comment_content - 1);
-                            event.target.className = "bi bi-hand-thumbs-down";
-                        }
-                    });
+                case '4':
+                    // дизлайки на коментарии
+                    let dislike_comment_content = +event.target.textContent;
+                    // let comment_id = event.target.getAttribute('comment_id');
+                    fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
+                        .then(response => response.json())
+                        .then(commits => {
+                            // console.dir(commits);
+                            if (commits == 1) {
+                                event.target.textContent = ' ' + (dislike_comment_content + 1);
+                                event.target.className = "bi bi-hand-thumbs-down-fill";
+                            } else if (commits == 0 && dislike_comment_content != 0) {
+                                event.target.textContent = ' ' + (dislike_comment_content - 1);
+                                event.target.className = "bi bi-hand-thumbs-down";
+                            }
+                        });
                     break;
 
-                    case '5':
-            // лайки на ответы
-                let like_reply_content = +event.target.textContent;
-                // let reply_id = event.target.getAttribute('reply_id');
-                fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
-                    .then(response => response.json())
-                    .then(commits => {
-                        // console.dir(commits);
-                        if (commits == 1) {
-                            event.target.textContent = ' ' + (like_reply_content + 1);
-                            event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
-                        } else if (commits == 0 && like_reply_content != 0) {
-                            event.target.textContent = ' ' + (like_reply_content - 1);
-                            event.target.className = "bi bi-hand-thumbs-up ps-1";
-                        }
-                    });
+                case '5':
+                    // лайки на ответы
+                    let like_reply_content = +event.target.textContent;
+                    // let reply_id = event.target.getAttribute('reply_id');
+                    fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
+                        .then(response => response.json())
+                        .then(commits => {
+                            // console.dir(commits);
+                            if (commits == 1) {
+                                event.target.textContent = ' ' + (like_reply_content + 1);
+                                event.target.className = "bi bi-hand-thumbs-up-fill ps-1";
+                            } else if (commits == 0 && like_reply_content != 0) {
+                                event.target.textContent = ' ' + (like_reply_content - 1);
+                                event.target.className = "bi bi-hand-thumbs-up ps-1";
+                            }
+                        });
                     break;
 
-                    case '6':
-            // дизлайки на ответы
-                let dislike_reply_content = +event.target.textContent;
-                // let reply_id = event.target.getAttribute('reply_id');
-                fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
-                    .then(response => response.json())
-                    .then(commits => {
-                        if (commits == 1) {
-                            event.target.textContent = ' ' + (dislike_reply_content + 1);
-                            event.target.className = "bi bi-hand-thumbs-down-fill";
-                        } else if (commits == 0 && dislike_reply_content != 0) {
-                            event.target.textContent = ' ' + (dislike_reply_content - 1);
-                            event.target.className = "bi bi-hand-thumbs-down";
-                        }
-                    });
-            break;
-        }
+                case '6':
+                    // дизлайки на ответы
+                    let dislike_reply_content = +event.target.textContent;
+                    // let reply_id = event.target.getAttribute('reply_id');
+                    fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
+                        .then(response => response.json())
+                        .then(commits => {
+                            if (commits == 1) {
+                                event.target.textContent = ' ' + (dislike_reply_content + 1);
+                                event.target.className = "bi bi-hand-thumbs-down-fill";
+                            } else if (commits == 0 && dislike_reply_content != 0) {
+                                event.target.textContent = ' ' + (dislike_reply_content - 1);
+                                event.target.className = "bi bi-hand-thumbs-down";
+                            }
+                        });
+                    break;
+            }
         }
     }
 })
 
 // -------------------------------------------------------------------------------------------------------------
-function complaint(id_post_c, id_user_untrue, id_pcr, essence) { // жалоба, заполнение модалки
-    let modal_complaint = document.getElementById('modal_complaint');       
+function complaint(id_post_c, id_user_untrue, id_pcr, essence) { // жалоба, заполнение модалки в layouts/main.blade.php
+    let modal_complaint = document.getElementById('modal_complaint');
 
     // console.log(test2);
     // console.log(id_user_untrue);
 
-    if(essence == 1)modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на этот пост';
+    if (essence == 1) modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на этот пост';
     else modal_complaint.querySelector('#h1_text_modal').textContent = 'Жалоба на этот комментарий';
     modal_complaint.querySelector('#hidden_input_complaint').setAttribute('value', id_pcr);
     modal_complaint.querySelector('#hidden_input_complaint_2').setAttribute('value', essence);
     modal_complaint.querySelector('#hidden_input_complaint_3').setAttribute('value', user_id);
     modal_complaint.querySelector('#hidden_input_complaint_4').setAttribute('value', id_user_untrue);
     modal_complaint.querySelector('#hidden_input_complaint_5').setAttribute('value', id_post_c);
- 
-    }
+
+}
 // ============================================================================

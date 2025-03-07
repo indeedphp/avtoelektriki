@@ -74,7 +74,7 @@ class LoginController extends Controller
     {
         $validated = $request->validate([
             'email' => ['required', 'min:8', 'max:20'],
-            'password' => ['required',  'max:20'],
+            'password' => ['required', 'min:8', 'max:20'],
         ]);
         info($validated);
         Auth::attempt($validated, true);

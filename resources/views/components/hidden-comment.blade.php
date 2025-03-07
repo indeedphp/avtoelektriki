@@ -28,7 +28,7 @@
                         </div>
                         <!-- ПОЖАЛОВАТСЯ -->
                         <div class="col-auto me-auto p-0 m-0 ps-0">
-                            <button id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
+                            <button hidden id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
                             title="Пожаловатся на комментарий" data-bs-toggle="modal" data-bs-target="#modal_complaint"></button>      
                     </div>
                         <div class="col-auto  ps-0">

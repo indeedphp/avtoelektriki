@@ -40,6 +40,12 @@ class PostController extends Controller
 
         if (!empty(Auth::user()->name)) $name = Auth::user()->name;
         else $name = 0;
+ if (!empty(Auth::user()->id)) $id_user = Auth::user()->id;
+        else $id_user = 0;
+        // if (Auth::check()) {
+            
+        // }
+// info(Auth::user()->id);
         
         // $posts = Post::orderBy('id')->paginate(5);
         $posts = Post::orderBy('id', 'desc')->cursorPaginate(5);
@@ -50,6 +56,9 @@ class PostController extends Controller
             $post->like_plus();
             $post->comment_plus();
          
+      
+            ($post->id_user == $id_user) ? $post->author = false : $post->author = true;
+
             $post->time = date('d-m-Y', strtotime($post->created_at)); 
             $text_post = Str::limit($post->text_post, 173); 
             // info($text_post);
@@ -85,10 +94,12 @@ class PostController extends Controller
                 $comment->like_comment_plus();
                 $comment->reply_comment_plus();
                 $comment->time = date('d-m-Y', strtotime($comment->created_at)); 
+                ($comment->user_id == $id_user) ? $comment->author = false : $comment->author = true;
                 if ($name == $comment->id_user) $comment_made_user = true;
                 foreach ($comment->reply_comment_plus as $reply_comment) {
                     $reply_comment->reply_like_plus();
                     $reply_comment->time = date('d-m-Y', strtotime($reply_comment->created_at)); 
+                    ($reply_comment->user_id == $id_user) ? $reply_comment->author = false : $reply_comment->author = true;
                     if ($name == $reply_comment->id_user) $reply_made_user = true;
                     foreach ($reply_comment->reply_like_plus as $reply_like) {
                         if ($reply_like->like == 1)$reply_like_count++;

@@ -23,15 +23,21 @@ use App\Models\UserData;
 class CabinetController extends Controller
 {
     // ======================================================================================================
-    public function settings_show()  // страница настроек в кабинете
+    public function settings_show()  // страница настроек в кабинете -views/cabinet_settings
     {
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
-        $user_data = UserData::where('user_id', $id)->first();
+        
+        if (empty(UserData::where('user_id', $id)->first())){
+            UserData::create(['user_id' => $user->id])->first();
+            $user_data = UserData::where('user_id', 1)->first();
+
+        } else $user_data = UserData::where('user_id', $id)->first();
+        // dd($user_data);
         return view('cabinet_settings', ['user' => $user, 'user_data' => $user_data]);
     }
     // ======================================================================================================
-    public function new_post_show()  // страница создания поста в кабинете
+    public function new_post_show()  // страница создания поста в кабинете  -views/cabinet_new_post
     {
         $user_name = Auth::user()->user_name;
         $id_user = Auth::user()->id;
@@ -42,7 +48,7 @@ class CabinetController extends Controller
         return view('cabinet_new_post', compact('draft_post'));
     }
     // ======================================================================================================
-    public function all_post_show()  // страница всех постов юзера в кабинете, с пагинацией
+    public function all_post_show()  // страница всех постов юзера в кабинете, с пагинацией  -views/cabinet_all_post
     {
         $id_user = Auth::user()->id;
         $posts = Post::orderBy('id', 'desc')->where('id_user', $id_user)->paginate(20);
@@ -51,7 +57,7 @@ class CabinetController extends Controller
         return view('cabinet_all_post', compact('posts', 'count'));
     }
     // =======================================================================================================
-    public function edit_post_show($id_post = null)  // страница поста юзера для правки в кабинете
+    public function edit_post_show($id_post = null)  // страница поста юзера для правки в кабинете  -views/cabinet_edit
     {
         $id_user = Auth::user()->id;
         info($id_post);
@@ -63,7 +69,7 @@ class CabinetController extends Controller
     // ======================================================================================================     
     // МЕТОД СТРАНИЦА САЙТА В КАБИНЕТЕ НАХОДИТСЯ В SiteController
     // ======================================================================================================  
-    public function statistic_show()  // страница статистики в кабинете
+    public function statistic_show()  // страница статистики в кабинете   -views/cabinet_statistic
     {
         $id_user = Auth::user()->id;
         $posts = Post::where('id_user', $id_user)->get();
@@ -84,7 +90,7 @@ class CabinetController extends Controller
 
     // =======================================================================================================
  
-    public function edit_name(Request $request)  // правим имя юзера из кабинета
+    public function edit_name(Request $request)  // правим имя юзера из кабинета  
     {
         $id = Auth::user()->id;
 
@@ -136,6 +142,7 @@ class CabinetController extends Controller
     // ----------------------------------------------------------------------------
     public function edit_color_channel(Request $request) // правим цвет полосы канала из кабинета
     {
+        info($request);
         $id = Auth::user()->id;
         UserData::where('user_id', $id)
             ->update([

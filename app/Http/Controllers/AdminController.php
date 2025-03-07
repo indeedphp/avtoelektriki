@@ -24,27 +24,89 @@ use App\Models\Complaint;
 
 class AdminController extends Controller
 {
-    // -----------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------show_users
     public function index()  // показываем страницу основную в админке
     {
         return view('admin/index');
     }
     // -----------------------------------------------------------------------------------------------
-    public function show_complaints()  // показываем страницу жалобы в админке с инфой
+    public function show_complaints(Request $request)  // показываем страницу жалобы в админке с инфой
     {
+        $count = 50;
+        if (!empty($request->count)) $count = $request->count;
+        $sort = 'desc';
         $notviewed = 0;
-        $complaints = Complaint::orderBy('created_at', 'desc')->paginate(5);
+       
+        
+        if ($request->sorting == 'date_cr_desc') {
+            $complaints = Complaint::orderBy('created_at', 'asc')->paginate($count);
+            $sort = 'asc';
+        } else if ($request->sorting == 'date_cr_asc') {
+            $complaints = Complaint::orderBy('created_at', 'desc')->paginate($count);
+            $sort = 'desc';
+        } else if ($request->sorting == 'id_post_desc') {
+            $complaints = Complaint::orderBy('id_post', 'asc')->paginate($count);
+            $sort = 'asc';
+        } else if ($request->sorting == 'id_post_asc') {
+            $complaints = Complaint::orderBy('id_post', 'desc')->paginate($count);
+            $sort = 'desc';
+        } else if ($request->sorting == 'complaint_desc') {
+            $complaints = Complaint::orderBy('complaint', 'desc')->paginate($count);
+            $sort = 'asc';
+        } else if ($request->sorting == 'complaint_asc') {
+            $complaints = Complaint::orderBy('complaint', 'asc')->paginate($count);
+            $sort = 'desc';
+        } else if ($request->sorting == 'complainer_desc') {
+            $complaints = Complaint::orderBy('id_user_complaint', 'asc')->paginate($count);
+            $sort = 'asc';
+        } else if ($request->sorting == 'complainer_asc') {
+            $complaints = Complaint::orderBy('id_user_complaint', 'desc')->paginate($count);
+            $sort = 'desc';
+        } else if ($request->sorting == 'untrue_desc') {
+            $complaints = Complaint::orderBy('id_user_untrue', 'asc')->paginate($count);
+            $sort = 'asc';
+        } else if ($request->sorting == 'untrue_asc') {
+            $complaints = Complaint::orderBy('id_user_untrue', 'desc')->paginate($count);
+            $sort = 'desc';
+        } else if ($request->sorting == 'type_desc') {
+            $complaints = Complaint::orderBy('essence', 'asc')->paginate($count);
+            $sort = 'asc';
+        } else if ($request->sorting == 'type_asc') {
+            $complaints = Complaint::orderBy('essence', 'desc')->paginate($count);
+            $sort = 'desc';
+        } else if (isset($request->id_search)) {
+            $complaints = Complaint::where('id', $request->id_search)->paginate($count);
+        } else if (isset($request->date_cr_search)) {
+            $date = Carbon::create($request->date_cr_search);
+            $complaints = Complaint::whereYear('created_at', $date->format('Y'))->whereMonth('created_at', $date->format('m'))->whereDay('created_at', $date->format('d'))->paginate($count);
+        } else if (isset($request->id_post_search)) {
+            $complaints = Complaint::where('id_post', $request->id_post_search)->paginate($count);
+        } else if (isset($request->complaint_search)) {
+            $complaints = Complaint::where('complaint', $request->complaint_search)->paginate($count);
+        } else if (isset($request->complainer_search)) {
+            $complaints = Complaint::where('id_user_complaint', $request->complainer_search)->paginate($count);
+        } else if (isset($request->untrue_search)) {
+            $complaints = Complaint::where('id_user_untrue', $request->untrue_search)->paginate($count);
+        }
 
-        foreach ($complaints as $complaint) { // перебираем жалобы и помечаем что просмотрены они
-            if ($complaint->viewed == null) {
-                $complaint_db = Complaint::find($complaint->id);
-                $complaint_db->viewed = 1;
-                $complaint_db->save();
-                $notviewed++;  // колмчество не просмотренных жалоб
+        
+        else {
+         
+            $complaints = Complaint::orderBy('created_at', 'desc')->paginate($count);
+            foreach ($complaints as $complaint) { // перебираем жалобы и помечаем что просмотрены они
+                if ($complaint->viewed == null) {
+                    $complaint_db = Complaint::find($complaint->id);
+                    $complaint_db->viewed = 1;
+                    $complaint_db->save();
+                    $notviewed++;  // колмчество не просмотренных жалоб
+                }
             }
         }
-        $complaints->count = 5;
-        return view('admin/complaints', compact('complaints', 'notviewed'));
+        $complaints->count = $count;
+
+        return view('admin/complaints', compact('complaints', 'sort', 'count', 'notviewed'));
+
+        // return view('admin/complaints', compact('complaints', 'notviewed'));
     }
     // -----------------------------------------------------------------------------------------------
     public function show_settings()  // показываем страницу настроек в админке
@@ -83,7 +145,7 @@ class AdminController extends Controller
         return view('admin/statistics', compact('post_count', 'comment_count', 'user_count', 'site_count', 'size_file', 'addr', 'count_files'));
     }
     // -----------------------------------------------------------------------------------------------------
-    public function show_users(Request $request)  // обработка страницы с юзерами
+    public function show_users(Request $request)  // показ и обработка страницы с юзерами
     {
         // info($request);
         $count = 50;
@@ -117,10 +179,10 @@ class AdminController extends Controller
             $users = User::where('id', $request->id_search)->paginate($count);
         } else if (isset($request->date_cr_search)) {
             $date = Carbon::create($request->date_cr_search);
-            $users = User::whereYear('created_at', $date->format('Y'))->whereMonth('created_at', $date->format('m'))->paginate($count);
+            $users = User::whereYear('created_at', $date->format('Y'))->whereMonth('created_at', $date->format('m'))->whereDay('created_at', $date->format('d'))->paginate($count);
         } else if (isset($request->date_up_search)) {
             $date = Carbon::create($request->date_up_search);
-            $users = User::whereYear('updated_at', $date->format('Y'))->whereMonth('updated_at', $date->format('m'))->paginate($count);
+            $users = User::whereYear('updated_at', $date->format('Y'))->whereMonth('created_at', $date->format('m'))->whereDay('created_at', $date->format('d'))->paginate($count);
         } else if (isset($request->name_search)) {
             $users = User::where('name', $request->name_search)->paginate($count);
         } else {
@@ -138,8 +200,8 @@ class AdminController extends Controller
         // $users = User::all();
         return view('admin/users', compact('users', 'sort', 'count'));
     }
-
-    public function show_posts(Request $request)
+// ----------------------------------------------------------------------------------------------
+    public function show_posts(Request $request) // показ и обработка страницы с постами
     {
         info($request);
         $count = 50;
@@ -199,8 +261,8 @@ class AdminController extends Controller
         // $posts = Post::all();
         return view('admin/posts', compact('posts', 'sort', 'count'));
     }
-
-    public function show_comments(Request $request)
+// --------------------------------------------------------------------------------------------
+    public function show_comments(Request $request) // показ и обработка страницы с комментариями
     {
         info($request);
         $count = 50;
@@ -269,8 +331,8 @@ class AdminController extends Controller
         return view('admin/comments', compact('comments', 'sort', 'count'));
     }
 
-
-    public function show_replys(Request $request)
+// --------------------------------------------------------------------------------------------------------
+    public function show_replys(Request $request) // показ и обработка страницы с ответами на комментарии
     {
         info($request);
         $count = 50;
@@ -338,8 +400,8 @@ class AdminController extends Controller
         // $replys = ReplyComment::all();
         return view('admin/replys', compact('replys', 'sort', 'count'));
     }
-
-    public function show_sites(Request $request)
+// -----------------------------------------------------------------------------------------------------------
+    public function show_sites(Request $request) // показ и обработка страницы с инивидуальными сайтами юзеров
     {
         info($request);
         $count = 50;
@@ -400,10 +462,10 @@ class AdminController extends Controller
         return view('admin/sites', compact('sites', 'sort', 'count'));
     }
 // ---------------------------------------------------------------------------------------------------------------
-    public function update_user(Request $request, $id, $activ)
+    public function update_user(Request $request, $id, $activ)  // метим бан небан  юзера
     {
         $id_user = Auth::user()->id;
-        if ($id_user <= 10) {
+        if ($id_user <= 10) {  // 10 админских айди
             User::where('id', $id)
                 ->update([
                     "activ" => $activ
@@ -413,7 +475,7 @@ class AdminController extends Controller
         } else return redirect()->route('index');
     }
 // -----------------------------------------------------------------------------------------------------------------
-    public function update_post(Request $request, $id, $activ)
+    public function update_post(Request $request, $id, $activ) // метим бан небан   пост
     {
         $id_user = Auth::user()->id;
         if ($id_user <= 10) {
@@ -426,7 +488,7 @@ class AdminController extends Controller
         } else return redirect()->route('index');
     }
 // -----------------------------------------------------------------------------------------------------------------
-    public function update_comment(Request $request, $id, $activ)
+    public function update_comment(Request $request, $id, $activ)  // метим бан небан   коммент
     {
         $id_user = Auth::user()->id;
         if ($id_user <= 10) {
@@ -439,7 +501,7 @@ class AdminController extends Controller
         } else return redirect()->route('index');
     }
   // -----------------------------------------------------------------------------------------------------------------
-    public function update_reply(Request $request, $id, $activ)
+    public function update_reply(Request $request, $id, $activ)  // метим бан небан  ответ на коммент
     {
         $id_user = Auth::user()->id;
         if ($id_user <= 10) {
@@ -452,7 +514,7 @@ class AdminController extends Controller
         } else return redirect()->route('index');
     }
    // -----------------------------------------------------------------------------------------------------------------  
-    public function update_site(Request $request, $id, $activ)
+    public function update_site(Request $request, $id, $activ)  // метим бан небан сайт
     {
         $id_user = Auth::user()->id;
         if ($id_user <= 10) {

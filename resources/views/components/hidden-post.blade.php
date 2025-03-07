@@ -85,7 +85,45 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer text-muted px-0 py-1 p-lg-3 ">
+            <div class="card-footer  text-muted px-0 py-1 p-lg-3 ">
+
+
+            {{-- <div class=" user-select-none">
+                  <!-- ЛАЙК -->
+                <div class="float-start pe-2">
+                    <i id="like_post" class="bi bi-hand-thumbs-up ps-1 " style="cursor: pointer;" value="1"
+                        post_id="js"></i>&nbsp;
+                </div>
+
+
+                <!-- РЕПОСТ -->
+                <div class="float-start pe-2">
+
+                    <i id="a_collapse_repost" class="bi bi-share " title="Поделится, ссылка, ватсап, телеграмм"
+                        data-bs-toggle="collapse" role="button" data-bs-target="#collapse" aria-expanded="false"
+                        aria-controls="collapseExample"> Репост</i>
+                    </div>  
+                    <!-- ПОЖАЛОВАТСЯ -->
+                    <div hidden id="hidden_complaint_post" class="float-start pe-2">
+                        <button id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
+                        title="Пожаловатся на пост" data-bs-toggle="modal" data-bs-target="#modal_complaint"></button>    
+                    </div>
+                
+                <!-- КОМЕНТАРИИ КНОПКА -->
+                <div class="float-end pe-2">
+
+                    <i id="a_collapse_comment" class="bi bi-chat-dots "
+                        title="Написать, прочитать комментарии" data-bs-toggle="collapse" role="button"
+                        data-bs-target="#collapseComment" aria-expanded="false" aria-controls="collapseExample">
+                        Комментарии </i>
+                    <i id="i_comment_count" class="pe-2 "></i>
+
+                </div>
+            </div> --}}
+
+
+
+
                 <div class="row user-select-none">
 
                     <div class="col-auto pe-2 text-black">
@@ -95,15 +133,15 @@
 
 
                     <!-- РЕПОСТ -->
-                    <div class="col-auto  ps-0">
+                    <div class="col-auto  ps-0  ">
 
                         <i id="a_collapse_repost" class="bi bi-share " title="Поделится, ссылка, ватсап, телеграмм"
                             data-bs-toggle="collapse" role="button" data-bs-target="#collapse" aria-expanded="false"
                             aria-controls="collapseExample"> Репост</i>
                         </div>  
                         <!-- ПОЖАЛОВАТСЯ -->
-                        <div class="col-auto me-auto p-0 m-0 ps-0">
-                            <button id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
+                        <div  class="col-auto me-auto p-0 m-0 ps-0">
+                            <button hidden id="button_complaint" class="nav-link bi bi-shield-exclamation" onclick=""
                             title="Пожаловатся на пост" data-bs-toggle="modal" data-bs-target="#modal_complaint"></button>    
                         </div>
                     
@@ -132,7 +170,7 @@
                                 target="_blank"> Телеграм </a>
                             <a id="i_repost_whatsap" class="bi bi-whatsapp link-underline-light px-lg-2"
                                 href="whatsapp://send?text=https://bootstrap-5.ru/docs/5.3/utilities/link/"
-                                target="_blank"> Whatsapp</a>
+                                target="_blank"> Whatsap</a>
                         </div>
 
                     </div>

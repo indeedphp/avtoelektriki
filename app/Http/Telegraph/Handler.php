@@ -33,7 +33,7 @@ class Handler extends WebhookHandler
             $email = Str::password(10, true, true, false, false);
             $password = Str::password(9, true, true, false, false);
             $user = User::create(['telegram' => $id_user, 'email' => $email, 'password' => $password, 'name' => $user_name])->first();
-            UserData::create(['user_id' => $user->id])->first();
+            UserData::create(['user_id' => $user->id])->first(); // под таблицу данных юзера тоже создаем запись
         }
         $this->chat  // выводим кнопки в бота
             ->message('Бот сайта "Автоэлектрики" приветствует вас! Все команды бота в кнопке "меню" внизу экрана')

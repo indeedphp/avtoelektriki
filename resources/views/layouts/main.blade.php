@@ -58,6 +58,12 @@
                     </li>
                     <li class="nav-item ms-auto">
                         @auth
+                            <a class="nav-link active " aria-current="page"
+                                href="{{ route('channel', Auth::user()->id) }}">Канал</a>
+                        @endauth
+                    </li>
+                    <li class="nav-item ms-auto">
+                        @auth
                             {{-- @if (Auth::user()->id == 2) --}}
                                 <a class="nav-link active " href="{{ route('admin_index') }}">admin</a>
                             {{-- @endif --}}
@@ -101,7 +107,7 @@
 
     <div id="server_url" hidden>{{ url('/') }}</div>
 
-  <!-- Модальное окно жалоб одно для всех-->
+  <!-- Модальное окно жалоб одно для всех заполняется в public/client.js function complaint -->
   <div class="modal fade" id="modal_complaint" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -117,7 +123,7 @@
                 <input id="hidden_input_complaint_4" type="hidden" name="id_user_untrue" value="">
                 <input id="hidden_input_complaint_5" type="hidden" name="id_post" value="">
                 <label class="form-label ">Напишите суть, оскорбления, ругань, флуд, реклама и пр.</label>
-                <input class="form-control my-1" type="text" name="complaint" placeholder = "Опишите в несколько слов" >
+                <input id="input_complaint" class="form-control my-1" type="text" name="complaint" placeholder = "Опишите в несколько слов" >
         </div>
         <div class="modal-footer">
             <input class="btn btn-primary btn-sm my-1" type="submit" data-bs-dismiss="modal">
