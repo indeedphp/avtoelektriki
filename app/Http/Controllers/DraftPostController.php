@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DraftPostController extends Controller
 {
+// ---------------------------------------------------------------------------------------------------------
 
     public function index($id)  // показываем страницу с черновиком поста сделанным в кабинете на странице новый пост
     {
@@ -27,6 +28,7 @@ class DraftPostController extends Controller
 
         return view('draft_post', compact('post'));
     }
+// ---------------------------------------------------------------------------------------------------------
 
     public function show_post_bot($id)  // показываем страницу с черновиком поста сделанным из бота
     {
@@ -34,11 +36,14 @@ class DraftPostController extends Controller
 
         return view('draft_post_bot', compact('post'));
     }
+// ---------------------------------------------------------------------------------------------------------
 
     public function draft_post_in_post($id)  // из черновика делаем пост в ленту
     {
         $draft_post = Draft_post::where('id', $id)->first();
-       
+      info($draft_post->url_foto);
+      
+        if($draft_post->name_post != null && $draft_post->text_post != null && $draft_post->url_foto != null){
             Post::create([
                 'name_post' => $draft_post->name_post,
                 'text_post' => $draft_post->text_post,
@@ -54,11 +59,11 @@ class DraftPostController extends Controller
                 'url_foto_5' => $draft_post->url_foto_5,
                 'text_post_5' => $draft_post->text_post_5,
             ]);
-
             return response()->json('ok', 200);
-       
+        }
+       else return response()->json('no_ok', 200);
     }
-
+// ---------------------------------------------------------------------------------------------------------
     public function clear_draft_post($id)  // очищаем базу со страницы новый пост в кабинете
     {
         Draft_post::where('id', $id)
@@ -84,6 +89,7 @@ class DraftPostController extends Controller
     //     return view('cabinet_new_post');
     // }
 
+// ---------------------------------------------------------------------------------------------------------
 
     public function draft_post_create(Request $request)  // создаем пост в черновике
     {

@@ -19,10 +19,11 @@
             @method ('PUT')
             <label class="form-label ">Вы можете изменить свое имя пользователя тут, минимум 4 символа и максимум
                 20</label>
-            <input class="form-control my-1" type="text" name="new_name" placeholder = "Введите новое имя">
+            <input inf="1" class="form-control my-1" type="text" name="new_name" placeholder = "Введите новое имя">
             @error('new_name')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
+            <p>Количество символов: <span id="symbols_count_1">0</span></p>
             <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
 
@@ -33,10 +34,11 @@
             @csrf
             @method ('PUT')
             <label class="form-label ">Вы можете изменить свой логин, минимум 8 символов и максимум 20</label>
-            <input class="form-control my-1 " type="text" name="new_login" placeholder = "Введите новый логин">
+            <input inf="2" class="form-control my-1 " type="text" name="new_login" placeholder = "Введите новый логин">
             @error('new_login')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
+            <p>Количество символов: <span id="symbols_count_2">0</span></p>
             <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
         <hr>
@@ -45,10 +47,11 @@
             @csrf
             @method ('PUT')
             <label class="form-label ">Вы можете изменить свой пароль, минимум 8 символов и максимум 20</label>
-            <input class="form-control my-1" type="text" name="new_password" placeholder = "Введите новый пароль">
+            <input inf="3" class="form-control my-1" type="text" name="new_password" placeholder = "Введите новый пароль">
             @error('new_password')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
+            <p>Количество символов: <span id="symbols_count_3">0</span></p>
             <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
         <hr>
@@ -131,10 +134,11 @@
             @csrf
             @method ('PUT')
             <label class="form-label ">Вы можете поменять описание канала, максимальная длина 100 символов</label>
-            <input class="form-control my-1" type="text" name="definition_channel" placeholder = "Введите описание">
+            <input inf="4" class="form-control my-1" type="text" name="definition_channel" placeholder = "Введите описание">
             @error('definition_channel')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
+            <p>Количество символов: <span id="symbols_count_4">0</span></p>
             <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
 
@@ -145,11 +149,12 @@
             @csrf
             @method ('PUT')
             <label class="form-label ">Вы можете поменять название канала, максимальная длина 40 символов</label>
-            <input class="form-control my-1" type="text" name="name_channel" placeholder = "Введите описание"
+            <input inf="5" class="form-control my-1" type="text" name="name_channel" placeholder = "Введите описание"
                 value="{{ old('name_channel') }}">
             @error('name_channel')
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
+            <p>Количество символов: <span id="symbols_count_5">0</span></p>
             <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
         <hr>
@@ -162,4 +167,20 @@
             <span class=" ">© 2024 Company, Inc</span>
         </div>
     </footer>
+
+
+<script>
+    // ============ считаем и выводим количество символов в инпутах ====================================================================================
+    window.addEventListener('input', function(event) { // при вводе в любой инпут меняем счетчик 
+    if(event.target.type != 'checkbox'){  // не реагируем на инпут чекбоксов
+      let inf = event.target.getAttribute('inf');
+        let symbols_count = document.getElementById('symbols_count_'+inf);
+        const text = event.target.value.length; // Получаем текст из поля ввода
+        symbols_count.textContent = text; // Обновляем счетчик символо
+    }  
+    });
+</script>
+
+
+
 @endsection

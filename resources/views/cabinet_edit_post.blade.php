@@ -15,12 +15,13 @@
         @csrf
         <input type="hidden" name="post_id" value="{{ $post->id }}">
 
-<textarea class="form-control" placeholder="Напишите название поста" name="name_post">
+<textarea id="input_text_1" inf="1" class="form-control" placeholder="Напишите название поста" name="name_post">
 @if($post->name_post != null){{$post->name_post}}@else{{old('name_post')}}@endif
 </textarea>
 @error('name_post')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
+<p>Количество символов: <span id="symbols_count_1"></span></p>
 
         <p class="link-danger">Название поста (обязательно для заполнения)</p>
         <p></p>
@@ -38,12 +39,14 @@
             <p id="error_foto_size_1" class="link-danger"></p>
             
             
-<textarea class="form-control" placeholder="Напишите текст под фото" name="text_post_1">
+<textarea id="input_text_2" inf="2" class="form-control" placeholder="Напишите текст под фото" name="text_post_1">
 @if($post->text_post != null){{ $post->text_post}}@else{{old('text_post_1')}}@endif
 </textarea>
 @error('text_post_1')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
+<p>Количество символов: <span id="symbols_count_2"></span></p>
+
             <p class="link-danger">Напишите текст под фото</p>
             <p></p>
         </div>
@@ -70,17 +73,20 @@
                 <b class="link-danger ">Ошибка: {{ $message }}</b>
             @enderror
             
+            
 
             <input class="form-control" type="file" id="fileInput2" name="foto_2" >
             <p class="link-danger">Выберите свое фото 2 </p>
             <p id="error_foto_size_2" class="link-danger"></p>
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2">
+<textarea id="input_text_3" inf="3" class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2">
 @if($post->text_post_2 != null){{$post->text_post_2}}@else{{old('text_post_2')}}@endif
 </textarea>
 @error('text_post_2')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
+<p>Количество символов: <span id="symbols_count_3"></span></p>
+
             <p class="link-danger">Напишите текст под фото 2 </p>
             <p></p>
         </div>
@@ -112,12 +118,14 @@
             <p id="error_foto_size_3" class="link-danger"></p>
             
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3">
+<textarea id="input_text_4" inf="4" class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3">
 @if ($post->text_post_3 != null){{$post->text_post_3}}@else{{old('text_post_3')}}@endif
 </textarea>
 @error('text_post_3')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
+<p>Количество символов: <span id="symbols_count_4"></span></p>
+
             <p class="link-danger">Напишите текст под фото 3 </p>
             <p></p>
         </div>
@@ -149,13 +157,15 @@
             <p id="error_foto_size_4" class="link-danger"></p>
           
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4">
+<textarea id="input_text_5" inf="5" class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4">
 @if ($post->text_post_4 != null)
 {{$post->text_post_4}}@else{{old('text_post_4')}}@endif
 </textarea>
 @error('text_post_4')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
+<p>Количество символов: <span id="symbols_count_5"></span></p>
+
             <p class="link-danger">Напишите текст под фото 4 </p>
             <p></p>
         </div>
@@ -188,12 +198,14 @@
             <p id="error_foto_size_5" class="link-danger"></p>
             
             <br>
-<textarea class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5">
+<textarea id="input_text_6" inf="6" class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5">
 @if($post->text_post_5 != null){{$post->text_post_5}}@else{{old('text_post_5')}}@endif
 </textarea>
 @error('text_post_5')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
+<p>Количество символов: <span id="symbols_count_6"></span></p>
+
             <p class="link-danger">Напишите текст под фото 5 </p>
             <p></p>
             <br>
@@ -363,6 +375,24 @@
                 }
             }
         });
-
+// ============ считаем и выводим количество символов в инпутах ====================================================================================
+window.addEventListener('input', function(event) { // при вводе в любой инпут меняем счетчик 
+if(event.target.type != 'checkbox'){  // не реагируем на инпут чекбоксов
+  let inf = event.target.getAttribute('inf');
+    let symbols_count = document.getElementById('symbols_count_'+inf);
+    const text = event.target.value.length; // Получаем текст из поля ввода
+    symbols_count.textContent = text; // Обновляем счетчик символо
+}  
+});
+// -------------------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', function () {  // код срабатывает 1 раз при загрузке страницы
+    for (let i = 1; i <= 6; i++) {  // считаем количество текста в инпутах и выводим под инпутами (i <= 2; меняем под количество инпутов)
+    const input_text = document.getElementById('input_text_'+i);
+    const symbols_count = document.getElementById('symbols_count_'+i);
+    const text = input_text.value; // Получаем текст из поля ввода
+    symbols_count.textContent = text.length; // Обновляем счетчик символов
+    }
+});
+// ======================================================================================================================================================
     </script>
 @endsection
