@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\UserData;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | PostController
@@ -52,11 +54,23 @@ class PostController extends Controller
         // $posts = Post::all();
         // $posts = $posts->reverse();
 
+        // -----------------------------------------
+        $not=[];
+        $user = User::find(2);
+        foreach ($user->unreadNotifications as $notification) {
+            $not[] = $notification->data;
+        }
+        
+// ---------------------------------------------------
+
         foreach ($posts as $post) {
             $post->like_plus();
             $post->comment_plus();
          
-      
+            $user_data = UserData::where('user_id', $post->id_user)->first();
+            if($user_data == null || $user_data->sity == null)$post->author_sity = 'noSity';
+            else $post->author_sity = $user_data->sity;
+
             ($post->id_user == $id_user) ? $post->author = false : $post->author = true;
 
             $post->time = date('d-m-Y', strtotime($post->created_at)); 
@@ -150,6 +164,11 @@ class PostController extends Controller
         }
 
         // return view('index', compact('posts'));
+
+
+        $posts->notdddd = $not;
+        info($posts->notdddd);
+
         return $posts;
     }
 }

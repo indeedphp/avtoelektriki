@@ -59,75 +59,41 @@
         {{-- <p>Запретить боту выдачу одноразовых ссылок для входа</p>
         <P>Запретить боту возможность cмены пароля на сайте</P> --}}
 
-        {{-- ----------- меняем цвет полосы канала -------------------------------------------------------------------------------------------- --}}
-        <form action="{{ route('cabinet_settings_edit_color_channel') }}" method="POST">
+        {{-- ---------------- меняем _sity ------------------------------------------------------------------------------------ --}}
+        <form action="{{ route('cabinet_settings_edit_sity') }}" method="POST">
             @csrf
             @method ('PUT')
-            <label class="form-label ">Вы можете изменить цвет полосы канала</label>
-            <div>
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #776300;">
-                    <input type="radio" name="color_channel" value="776300"
-                        @if ($user_data->color_channel == '776300') checked @endif></span> {{-- отмечаем точкой если выбран цвет --}}
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #3B0056;">
-                    <input type="radio" name="color_channel" value="3B0056"
-                        @if ($user_data->color_channel == '3B0056') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #002655;">
-                    <input type="radio" name="color_channel" value="002655"
-                        @if ($user_data->color_channel == '002655') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #001699;">
-                    <input type="radio" name="color_channel" value="001699"
-                        @if ($user_data->color_channel == '001699') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #425EFF;">
-                    <input type="radio" name="color_channel" value="425EFF"
-                        @if ($user_data->color_channel == '425EFF') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #003F06;">
-                    <input type="radio" name="color_channel" value="003F06"
-                        @if ($user_data->color_channel == '003F06') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #00770D;">
-                    <input type="radio" name="color_channel" value="00770D"
-                        @if ($user_data->color_channel == '00770D') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #00BC12;">
-                    <input type="radio" name="color_channel" value="00BC12"
-                        @if ($user_data->color_channel == '00BC12') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #FF4949;">
-                    <input type="radio" name="color_channel" value="FF4949"
-                        @if ($user_data->color_channel == 'FF4949') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #820000;">
-                    <input type="radio" name="color_channel" value="820000"
-                        @if ($user_data->color_channel == '820000') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #560000;">
-                    <input type="radio" name="color_channel" value="560000"
-                        @if ($user_data->color_channel == '560000') checked @endif></span>
-
-                <span class="px-lg-4" style="width: 20px; height: 40px; display: inline-block; background-color: #9E9E9E;">
-                    <input type="radio" name="color_channel" value="9E9E9E"
-                        @if ($user_data->color_channel == '9E9E9E') checked @endif></span>
-
-                <span class="px-lg-4"
-                    style="width: 20px; height: 40px; display: inline-block; background-color: #444444;">
-                    <input type="radio" name="color_channel" value="444444"
-                        @if ($user_data->color_channel == '444444') checked @endif></span>
-
-                <span class="px-lg-4"
-                    style="width: 20px; height: 40px; display: inline-block; background-color: #000000;">
-                    <input type="radio" name="color_channel" value="000000"
-                        @if ($user_data->color_channel == '000000') checked @endif></span>
-
-                <p class="link-danger">Выберите цвет верхней полосы канала</p>
-            </div>
-
+            <label class="form-label ">Вы можете изменить свой город, минимум 2 символа и максимум 30</label>
+            <input inf="2" class="form-control my-1 " type="text" name="new_sity" placeholder = "Введите название города">
+            @error('new_sity')
+                <b class="link-danger ">Ошибка: {{ $message }}</b>
+            @enderror
+            <p>Количество символов: <span id="symbols_count_2">0</span></p>
             <input class="btn btn-primary btn-sm my-1" type="submit">
         </form>
+        <hr>
+
+
+{{-- ----------- меняем цвет полосы канала и текста -------------------------------------------------------------------------------------------- --}}
+        <form class="user-select-none" action="{{ route('cabinet_settings_edit_color_channel') }}" method="POST">
+            @csrf
+            @method ('PUT')
+            
+           <input id="input_palette" type="hidden" name="color_channel" value="776300">
+           <p class="form-label ">меняем цвет полосы канала и текста</p>
+            <canvas  id="palette" height="50"></canvas>
+            <div class="ps-2 border" id="color_result" style="width: 300px; height: 50px;">выбранный цвет <div class="text-white">выбранный цвет</div> </div>
+            <p class="link-danger">Выберите цвет верхней полосы канала</p>
+            <input type="radio" name="color_text" value="0" checked> 
+            <label class="">Цвет текста черный</label>
+            <br>
+            <input type="radio" name="color_text" value="1">
+            <label class="">Цвет текста белый</label>
+            <br>
+            <input class="btn btn-primary btn-sm my-1" type="submit">
+        </form>
+        
+
         {{-- ---------- меняем описание канала -------------------------------------------------------------------------- --}}
         <hr>
         <form action="{{ route('cabinet_settings_edit_definition_channel') }}" method="POST">
@@ -172,13 +138,53 @@
 <script>
     // ============ считаем и выводим количество символов в инпутах ====================================================================================
     window.addEventListener('input', function(event) { // при вводе в любой инпут меняем счетчик 
-    if(event.target.type != 'checkbox'){  // не реагируем на инпут чекбоксов
+        console.log(event.target.type);
+    if(event.target.type != 'radio'){  // не реагируем на инпут radio
       let inf = event.target.getAttribute('inf');
         let symbols_count = document.getElementById('symbols_count_'+inf);
         const text = event.target.value.length; // Получаем текст из поля ввода
         symbols_count.textContent = text; // Обновляем счетчик символо
     }  
     });
+    // ===========================================================================================================================
+        const color_result = document.getElementById('color_result');
+        const input_palette = document.getElementById('input_palette');
+        const canvas = document.getElementById('palette');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const colorValue = document.getElementById('colorValue');
+
+        function createGradient() { // Создание градиента на canvas
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            gradient.addColorStop(0.3, 'white'); // белый цвет
+            gradient.addColorStop(1, 'black'); // черный цвет
+            gradient.addColorStop(0, 'red');
+            gradient.addColorStop(1 / 6, 'orange');
+            gradient.addColorStop(1 / 6, 'orange');
+            gradient.addColorStop(2 / 6, 'yellow');
+            gradient.addColorStop(3 / 6, 'green');
+            gradient.addColorStop(4 / 6, 'blue');
+            gradient.addColorStop(5 / 6, 'indigo');
+            gradient.addColorStop(1, 'violet');
+            ctx.fillStyle = gradient; // Заполнение холста градиентом
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        // Функция для получения цвета по координатам на canv
+        function getColorUnderCursor(event) {
+            const x = event.offsetX;
+            const y = event.offsetY;
+            // Получаем цвет пикселя в точке (x, y)
+            const pixel = ctx.getImageData(x, y, 1, 1).data;
+            // Преобразуем rgba в формат hex
+            const hexColor = `#${(1 << 24 | (pixel[0] << 16) | (pixel[1] << 8) | pixel[2]).toString(16).slice(1).toUpperCase()}`;
+            // передаем в скрытый инпут
+            input_palette.value = hexColor;
+            // Меняем фон на выбранный цвет
+            color_result.style.backgroundColor = hexColor;
+        }
+        // Заполнение канваса градиентом
+        createGradient();
+        // Обработчик клика на canvas
+        canvas.addEventListener('click', getColorUnderCursor);
 </script>
 
 

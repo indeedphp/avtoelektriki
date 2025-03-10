@@ -147,6 +147,7 @@ class CabinetController extends Controller
         UserData::where('user_id', $id)
             ->update([
                 "color_channel" => $request->color_channel,
+                "stuff" => $request->color_text,
             ]);
         return redirect()->route('cabinet_settings');
     }
@@ -178,7 +179,22 @@ class CabinetController extends Controller
     
             return redirect()->route('cabinet_settings');
         }
+    // ----------------------------------------------------------------------------
+    public function edit_sity(Request $request)  // правим логин из кабинета
+    {
+        $id = Auth::user()->id;
 
+        $validated = $request->validate([
+            'new_sity' => ['required', 'string', 'min:2', 'max:30'],
+        ]);
+
+        UserData::where('user_id', $id)
+            ->update([
+                "sity" => $validated['new_sity']
+            ]);
+
+        return redirect()->route('cabinet_settings');
+    }
 
 
 

@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\ReplyComment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;  // подключаем фасад Notification
+use App\Notifications\ComplaintNotification;  // подключаем нотификацию для жалоб
 /*
 |--------------------------------------------------------------------------
 | CommentController
@@ -22,9 +24,10 @@ class CommentController extends Controller
 
     public function create(Request $request)
     {
-
+       
         $comment = $request->input('comment');
         $post_id = $request->input('post_id');
+        // info();
         $id_user = Auth::user()->name;
         $user_id = Auth::user()->id;
         $user_name = Auth::user()->name;

@@ -25,10 +25,10 @@ window.addEventListener('scroll', function () {  // Код срабатывае�
 document.addEventListener('DOMContentLoaded', function () {  // код срабатывает 1 раз при загрузке страницы
     fetch(page_url)
         .then(response => response.json())
-        .then(received => {
-            url = received.next_page_url;
-            console.log(received);
-            posts_loading(received.data);
+        .then(commit => {
+            url = commit.next_page_url;
+            console.log(commit);
+            posts_loading(commit.data);
         });
 });
 // ===================================================================================================
@@ -41,6 +41,7 @@ function posts_loading(data) {
         let clone_post = post.cloneNode(true);
 
         clone_post.querySelector('#i_clock').textContent = ' ' + item['time'];
+        clone_post.querySelector('#post_sity').textContent = ' ' + item['author_sity'];
         clone_post.querySelector('#a_channel').href = server_url + '/channel/' + item['id_user'];
         clone_post.querySelector('#a_channel').textContent = item['user_name'];
         clone_post.querySelector('#h_name_post').textContent = item['name_post'];

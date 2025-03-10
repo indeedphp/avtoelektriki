@@ -7,7 +7,7 @@
                 <div class="row">
 
                     <div class="col-auto me-auto p-0 px-lg-3">
-                        <i class="bi bi-geo-alt"> Алматы </i> 
+                        <i id="post_sity" class="bi bi-geo-alt"> Алматы </i> 
                     </div>
 
                     <div class="col-auto p-0 pe-1 px-lg-3 ">

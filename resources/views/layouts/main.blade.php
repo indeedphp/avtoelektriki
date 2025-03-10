@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Профпортал Автоэлектрики">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ url('bootstrap.min.js') }}" integrity="" crossorigin="anonymous"></script>
+    {{-- <script src="{{ url('bootstrap.min.js') }}" integrity="" crossorigin="anonymous"></script> --}}
+    <script src="{{ url('bootstrap.bundle.js') }}" integrity="" crossorigin="anonymous"></script>
     <link href="{{ url('bootstrap.css') }}" rel="stylesheet">
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 
@@ -23,16 +24,32 @@
 
 
 
-    <nav class="navbar navbar-expand-xl fixed-top bg-primary " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-xl fixed-top  " data-bs-theme="dark"  style = "background-color : #00496E">
         <div class="container-fluid ">
             <a class="navbar-brand" href="{{ url('/') }}">Автоэлектрики</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+
+            <button class="navbar-toggler ms-auto " type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Переключатель навигации">
                 <span class="navbar-toggler-icon"></span>
             </button>
+  
+
             <div class="collapse navbar-collapse right-aligned-div" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                   
+                    <li class="nav-item dropstart ms-auto " data-bs-theme="light">
+                        @auth
+                        <a class="nav-link  link-danger  bi bi-bell-fill" data-bs-theme="white" href="#" role="button" data-bs-toggle="dropdown"></a>
+                        <ul class="dropdown-menu" >
+                            <li><a class="dropdown-item" href="#">Действие</a></li>
+                            <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                          </ul>
+                          @endauth
+                        </li>
+                       
                     <li class="nav-item ms-auto">
                         @guest
                             <a class="nav-link active " href="{{ route('register') }}">Привествуем гость!</a>
@@ -41,6 +58,8 @@
                             <a class="nav-link active ">Привествуем {{ Auth::user()->name }} !</a>
                         @endauth
                     </li>
+
+        
                     <li class="nav-item ms-auto">
                         @auth
                             <a class="nav-link active " aria-current="page"
@@ -72,9 +91,16 @@
                     </li>
                 </ul>
             </div>
+      
         </div>
+
     </nav>
-    {{-- overflow-x-hidden --}}
+
+
+
+
+
+    {{-- overflow-x-hidden  --}}
     <div class="container-fluid p-1 overflow-x-hidden">
         <div class="row ">
 
@@ -82,7 +108,6 @@
 
             <div class="col  p-3 px-2">
                 <div class=" my-2 py-3"></div>
-
 
                 <div id='content' class="">
                     @yield('posts')

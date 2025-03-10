@@ -19,6 +19,9 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;  // подключаем фасад Notification
+use App\Notifications\ComplaintNotification;  // подключаем нотификацию для жалоб
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +35,7 @@ use Illuminate\Support\Facades\Hash;
 
 Route::get('/', function () {
     return view('index');
-})->name('index');;
+})->name('index');
 
 // Route::get('/1', function () {
 //     // auth()->loginUsingId(5);
@@ -46,10 +49,24 @@ Route::get('/', function () {
 
 
 
-// Route::get('/5', function () {
-//     dd(Str::password(9, true, true, false, false));
-//     return view('welcome');
-// });
+Route::get('/55', function () {
+    
+    return view('welcome');
+});
+
+Route::get('/5', function () {
+    $user = User::find(2);
+Notification::send($user, new ComplaintNotification('privet user2'));
+  
+});
+Route::get('/7', function () {
+    $user = User::find(2);
+    
+    print_r($user->unreadNotifications);
+    
+});
+
+
 // Route::get('/7', function () {
 //     info(url('/'));
 //     // dump(Hash::check('01JM9XCK17FN37NJ8R08QJ49NT', '$2y$12$sKNr1/X3Buqb9i8bw1bFm.QcsH/ihLH/PjSY1nVQWafx4fxdYxrPK'));
@@ -86,6 +103,7 @@ Route::put('/cabinet_settings_3', [CabinetController::class, 'edit_password'])->
 Route::put('/cabinet_settings_4', [CabinetController::class, 'edit_color_channel'])->name('cabinet_settings_edit_color_channel');
 Route::put('/cabinet_settings_5', [CabinetController::class, 'edit_definition_channel'])->name('cabinet_settings_edit_definition_channel');
 Route::put('/cabinet_settings_6', [CabinetController::class, 'edit_name_channel'])->name('cabinet_settings_edit_name_channel');
+Route::put('/cabinet_settings_7', [CabinetController::class, 'edit_sity'])->name('cabinet_settings_edit_sity');
 
 Route::get('/cabinet_site', [SiteController::class, 'index'])->name('site_index')->middleware('auth');
 Route::get('/site/{id}', [SiteController::class, 'show'])->name('site_show');

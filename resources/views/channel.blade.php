@@ -2,14 +2,14 @@
 
 @section('posts')  
 
-<div div class="card  my-3">
+<div div class="card  my-3 @if($user_data->stuff == 1)text-white @endif">
 
-    <div class="card-body row pt-2 pb-0 m-1 shadow rounded" style = "background-color : #@if($user_data->color_channel == null)283196 @else{{$user_data->color_channel}} @endif";>
-    <div class=" m-0 py-0" >    <i class=" float-start  text-white">Личный канал: </i>  <a class="m-0 float-end text-white h4 bi bi-plus-circle " href="{{route('cabinet_new_post')}}" title="Создать пост"></a> </div>
+    <div class="card-body row pt-2 pb-0 m-1 shadow rounded " style = "background-color : @if($user_data->color_channel == null)#283196 @else{{$user_data->color_channel}} @endif";>
+    <div class=" m-0 py-0" >    <i class=" float-start  ">Личный канал: </i>  <a class="m-0 float-end h4 bi bi-plus-circle " href="{{route('cabinet_new_post')}}" title="Создать пост"></a> </div>
 
     
-    <div  class="m-0 py-0" >   <h3 class="my-0 fw-normal text-white">@if($user_data->name_channel == null){{$user->name}} @else{{$user_data->name_channel}} @endif</h4></div>
-      <div>       <p class=" text-white">@if($user_data->definition_channel == null)Автоэлектрика и диагностика @else{{$user_data->definition_channel}} @endif</p></div>
+    <div  class="m-0 py-0" >   <h3 class="my-0 fw-normal ">@if($user_data->name_channel == null){{$user->name}} @else{{$user_data->name_channel}} @endif</h4></div>
+      <div>       <p class=" ">@if($user_data->definition_channel == null)Автоэлектрика и диагностика @else{{$user_data->definition_channel}} @endif</p></div>
             {{-- <a class="nav-link text-white" href="" >Подписатся</a> --}}
 </div></div>
 
