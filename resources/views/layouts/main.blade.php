@@ -38,17 +38,7 @@
             <div class="collapse navbar-collapse right-aligned-div" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
                    
-                    <li class="nav-item dropstart ms-auto " data-bs-theme="light">
-                        @auth
-                        <a class="nav-link  link-danger  bi bi-bell-fill" data-bs-theme="white" href="#" role="button" data-bs-toggle="dropdown"></a>
-                        <ul class="dropdown-menu" >
-                            <li><a class="dropdown-item" href="#">Действие</a></li>
-                            <li><a class="dropdown-item" href="#">Другое действие</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
-                          </ul>
-                          @endauth
-                        </li>
+              
                        
                     <li class="nav-item ms-auto">
                         @guest
@@ -58,7 +48,23 @@
                             <a class="nav-link active ">Привествуем {{ Auth::user()->name }} !</a>
                         @endauth
                     </li>
-
+                    <li class="nav-item dropdown ms-auto " data-bs-theme="light"  >
+                        @auth
+                        <a class="nav-link active @if(!empty($nots)) link-danger @endif bi bi-bell-fill" data-bs-theme="white" href="#" role="button" data-bs-toggle="dropdown"></a>
+                        <ul class="dropdown-menu dropdown-menu-end " >
+                            @isset($nots)
+                            @foreach($nots as $not)
+                            <a class="nav-link text-black mx-2 border my-1" href="{{url('/post/'.$not['post_id'])}}">
+                            <li>{{$not['type']}}</li>
+                            <li>{{Str::limit($not['message'] , 18)}}</li></a>
+                            @endforeach
+                            @endisset
+                            <li> <a class="dropdown-item "
+                                href="{{ route('cabinet_settings') }}">Все уведомления</a></li>
+                          </ul>
+                         
+                          @endauth
+                        </li>
         
                     <li class="nav-item ms-auto">
                         @auth

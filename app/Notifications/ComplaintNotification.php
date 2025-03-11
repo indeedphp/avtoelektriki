@@ -25,6 +25,6 @@ class ComplaintNotification extends Notification
 
     public function toDatabase(object $notifiable): array
     {
-    return ['message'   =>  $this->text ];   // отправляем текст жалобы в базу
+    return  $this->text ;   // отправляем текст жалобы в базу
     }
 }

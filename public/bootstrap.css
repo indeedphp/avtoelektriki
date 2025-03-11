@@ -3441,6 +3441,8 @@ textarea.form-control-lg {
   --bs-dropdown-header-color: #6c757d;
   --bs-dropdown-header-padding-x: 1rem;
   --bs-dropdown-header-padding-y: 0.5rem;
+  /* добавил white-space: nowrap;*/
+  white-space: nowrap;  
   position: absolute;
   z-index: var(--bs-dropdown-zindex);
   display: none;
@@ -12067,7 +12069,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-
+/* добавил  */
 div[contentEditable=true]:empty:before {
   content: attr(data-placeholder);
   opacity: 0.6;

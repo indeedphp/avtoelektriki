@@ -33,9 +33,9 @@ use App\Notifications\ComplaintNotification;  // подключаем нотиф
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+// Route::get('/', function () {
+//     return view('index');
+// })->name('index');
 
 // Route::get('/1', function () {
 //     // auth()->loginUsingId(5);
@@ -81,6 +81,7 @@ Route::get('/555', [LoginController::class, 'registerCreate'])->name('registerCr
 Route::get('/3', [LoginController::class, 'create_token'])->name('create_token');
 Route::get('/login_token', [LoginController::class, 'login_token'])->name('login_token');
 
+Route::get('/', [PostController::class, 'index'])->name('index');
 Route::get('/api_index', [PostController::class, 'show'])->name('show');
 
 Route::get('/channel/{id}', [ChannelController::class, 'index'])->name('channel');
