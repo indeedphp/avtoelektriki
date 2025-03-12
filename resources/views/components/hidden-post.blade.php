@@ -28,11 +28,11 @@
 
                         <div id="foto1" class="col-lg-10 ">
                             <a id="a_url_post" class="" href="http://localhost:3000/post/4" target="_blank"> <img
-                                    id="img_url1" class=" img-fluid shadow" src="" alt="Фото потерялось"> </a>
+                                    id="img_url1" class=" img-fluid shadow rounded" src="" alt="Фото потерялось"> </a>
                         </div>
                         <div id="foto" class="d-none d-lg-block  col-lg-2 p-0">
-                            <img id="img_url4" class="img-fluid shadow" src="" alt="Фото потерялось">
-                            <img hidden id="img_url5" class="img-fluid shadow mt-2" src=""
+                            <img id="img_url4" class="img-fluid shadow rounded" src="" alt="Фото потерялось">
+                            <img hidden id="img_url5" class="img-fluid shadow rounded mt-2" src=""
                                 alt="Фото потерялось">
                         </div>
 
@@ -55,28 +55,28 @@
 
                         <div hidden id="div_hidden_post" class="card-body px-1 px-lg-2  py-3">
                             <div class="card-body px-0  px-lg-5 py-0">
-                                <img id="img_url2" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                                <img id="img_url2" class=" img-fluid shadow rounded" src="" alt="Фото потерялось">
                             </div>
                             <p id="p_text_post_2" class="card-text py-2"></p>
                         </div>
 
                         <div hidden id="div_hidden_post2" class="card-body px-1 px-lg-2  py-1">
                             <div class="card-body px-0  px-lg-5 py-0">
-                                <img id="img_url3" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                                <img id="img_url3" class=" img-fluid shadow rounded" src="" alt="Фото потерялось">
                             </div>
                             <p id="p_text_post_3" class="card-text py-2"></p>
                         </div>
 
                         <div hidden id="div_hidden_post3" class="card-body px-1 px-lg-2  py-3">
                             <div class="card-body px-0  px-lg-5 py-0">
-                                <img id="img_url8" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                                <img id="img_url8" class=" img-fluid shadow rounded" src="" alt="Фото потерялось">
                             </div>
                             <p id="p_text_post_4" class="card-text py-2"></p>
                         </div>
 
                         <div hidden id="div_hidden_post4" class="card-body px-1 px-lg-2  py-1">
                             <div class="card-body px-0  px-lg-5 py-0">
-                                <img id="img_url9" class=" img-fluid shadow " src="" alt="Фото потерялось">
+                                <img id="img_url9" class=" img-fluid shadow rounded" src="" alt="Фото потерялось">
                             </div>
                             <p id="p_text_post_5" class="card-text py-2"></p>
                         </div>

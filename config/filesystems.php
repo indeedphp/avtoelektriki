@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'custom'),
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ return [
     | may even configure multiple disks of the same driver. Defaults have
     | been set up for each driver as an example of the required values.
     |
-    | Supported Drivers: "local", "ftp", "sftp", "s3"
+    | Supported Drivers: "local", "ftp", "sftp", "s3"  /var/www/avtoelektriki/lang
     |
     */
 
@@ -33,6 +33,11 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'throw' => false,
+        ],
+        'custom' => [
+            'driver' => 'local',
+            'root'   => '/var/www/storage/app',
             'throw' => false,
         ],
 

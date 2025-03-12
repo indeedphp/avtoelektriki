@@ -50,7 +50,7 @@ use App\Notifications\ComplaintNotification;  // подключаем нотиф
 
 
 Route::get('/55', function () {
-    
+   dd(storage_path('app')); 
     return view('welcome');
 });
 
