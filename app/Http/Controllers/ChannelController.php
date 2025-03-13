@@ -25,6 +25,7 @@ class ChannelController extends Controller
     // ---------------------------------------------------------------------------------------------
     public function index($id)  // показываем страницу channel с постами одного юзер   -views/channel
     {
+        
         // $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
         if (empty(UserData::where('user_id', $id)->first())) $user_data = UserData::where('user_id', 1)->first();

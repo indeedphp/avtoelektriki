@@ -22,48 +22,58 @@ use App\Notifications\ComplaintNotification;  // подключаем нотиф
 
 class CommentController extends Controller
 {
-
-    public function create(Request $request)
+    // ----------------------------------------------------------------------------------------------------------
+    public function create(Request $request)  // создаем комментарий на пост
     {
 
-        $comment = $request->input('comment');
-        $post_id = $request->input('post_id');
-        // info();
-        $id_user = Auth::user()->name;
+        $valid = $request->validate([
+            'comment' => ['required', 'string', 'max:2000'],
+            'post_id' => ['required', 'integer', 'max:1000000'],
+        ]);
+
         $user_id = Auth::user()->id;
         $user_name = Auth::user()->name;
 
-        $post = Post::where('id', $post_id)->first();
+        $post = Post::where('id', $valid['post_id'])->first();
         $user = User::find($post->id_user);
-        Notification::send($user, new ComplaintNotification(['message' => $comment, 'post_id' => $post_id, 'type' => 'Коментарий на ваш пост:']));
-        $db_comment = Comment::create(['comment' => $comment, 'post_id' => $post_id, 'user_id' => $user_id, 'id_user' => $id_user, 'user_name' => $user_name]);
+        Notification::send($user, new ComplaintNotification([
+            'message' => $valid['comment'],
+            'post_id' => $valid['post_id'],
+            'type' => 'Коментарий на ваш пост:'
+        ]));
+        $comment = Comment::create([
+            'comment' => $valid['comment'],
+            'post_id' => $valid['post_id'],
+            'user_id' => $user_id,
+            'user_name' => $user_name
+        ]);
 
-        return response()->json($db_comment, 200);
+        return response()->json($comment, 200);
     }
-
-    public function update(Request $request)
+    // ----------------------------------------------------------------------------------------------------------
+    public function update(Request $request)  // обновляем комментарий на пост
     {
-        info($request);
-        $comment = $request->input('comment');
-        $comment_id = $request->input('comment_id');
-        $text_comment = $request->input('text_comment');
+        $valid = $request->validate([
+            'text_comment' => ['required', 'string', 'max:2000'],
+            'comment_id' => ['required', 'integer', 'max:10000000'],
+        ]);
 
         DB::table('comments')
-            ->where('id', $comment_id)
-            ->update(['comment' => $text_comment]);
+            ->where('id', $valid['comment_id'])
+            ->update(['comment' => $valid['text_comment']]);
 
-            $db_comment = Comment::where('id', $comment_id)->first();
+        $db_comment = Comment::where('id', $valid['comment_id'])->first();
 
         return response()->json($db_comment, 200);
     }
-
-
-    public function delete(Request $request)
+    // ----------------------------------------------------------------------------------------------------------
+    public function delete(Request $request)  // удаляем комментарий
     {
-        $comment_id = $request->input('comment_id');
-
-        ReplyComment::where('comment_id', '=', $comment_id)->delete();
-        Comment::find($request->input('comment_id'))->delete();
+        $valid = $request->validate([
+            'comment_id' => ['required', 'integer', 'max:10000000'],
+        ]);
+        ReplyComment::where('comment_id', '=', $valid['comment_id'])->delete();  // так же удаляем все ответы на комментарий
+        Comment::find($valid['comment_id'])->delete();
 
         return response()->json('ok', 200);
     }

@@ -83,17 +83,11 @@ class DraftPostController extends Controller
         return response()->json('ok', 200);
     }
 
-
-    // public function cabinet_new_post()
-    // {
-    //     return view('cabinet_new_post');
-    // }
-
 // ---------------------------------------------------------------------------------------------------------
 
     public function draft_post_create(Request $request)  // создаем пост в черновике
     {
-        info($request);
+        // info($request);
         $valid = $request->validate([  // валидация формы
             'draft_post_id' => ['required', 'integer'],
             'name_post' => ['nullable', 'string', 'max:250'],
@@ -107,6 +101,10 @@ class DraftPostController extends Controller
             'text_post_4' => ['nullable', 'string', 'max:2000'],
             'foto_5' => ['image', 'max:3072'],
             'text_post_5' => ['nullable', 'string', 'max:2000'],
+            'checkbox_1' => ['nullable', 'integer', 'max:5'],
+            'checkbox_2' => ['nullable', 'integer', 'max:5'],
+            'checkbox_3' => ['nullable', 'integer', 'max:5'],
+            'checkbox_4' => ['nullable', 'integer', 'max:5'],
         ]);
         
         $draft_post = Draft_post::where('id', $valid['draft_post_id'])->first();  // из базы получаем старые данные
@@ -156,14 +154,14 @@ class DraftPostController extends Controller
         }
 
         $name_foto = $id_user . '-' . time() . '.jpg';  // создаем имя для фото
-        $text_post = $request->input('text_post_1');
+        $text_post = $valid['text_post_1'];
 
         if (!empty($valid['foto_1'])) {  
             $url_foto = 'storage/app/bot/images/' . '1_' . $name_foto;
             convert_foto($valid['foto_1'], '/1_' . $name_foto);
         }
 
-        if (!empty($request->input('checkbox_1'))) {  // если стоит чекбокс в форме
+        if (!empty($valid['checkbox_1'])) {  // если стоит чекбокс в форме
             $text_post_2 = $valid['text_post_2']; // меняем текст
             if (!empty($valid['foto_2'])) {  // если пришло с формы фото
                 $url_foto_2 = 'storage/app/bot/images/' . '2_' . $name_foto; // составляем путь с именем для фото
@@ -174,33 +172,33 @@ class DraftPostController extends Controller
             $url_foto_2  = null;
         }
 
-        if (!empty($request->input('checkbox_2'))) {
+        if (!empty($valid['checkbox_2'])) {
             $text_post_3 = $valid['text_post_3'];
             if (!empty($valid['foto_3'])) {
                 $url_foto_3 = 'storage/app/bot/images/' . '3_' . $name_foto;
-                convert_foto($request->foto_3, '/3_' . $name_foto);
+                convert_foto($valid['foto_3'], '/3_' . $name_foto);
             }
         } else {
             $text_post_3 = null;
             $url_foto_3  = null;
         }
 
-        if (!empty($request->input('checkbox_3'))) {
+        if (!empty($valid['checkbox_3'])) {
             $text_post_4 = $valid['text_post_4'];
             if (!empty($valid['foto_4'])) {
                 $url_foto_4 = 'storage/app/bot/images/' . '4_' . $name_foto;
-                convert_foto($request->foto_4, '/4_' . $name_foto);
+                convert_foto($valid['foto_4'], '/4_' . $name_foto);
             }
         } else {
             $text_post_4 = null;
             $url_foto_4  = null;
         }
 
-        if (!empty($request->input('checkbox_4'))) {
+        if (!empty($valid['checkbox_4'])) {
             $text_post_5 = $valid['text_post_5'];
             if (!empty($valid['foto_5'])) {
                 $url_foto_5 = 'storage/app/bot/images/' . '5_' . $name_foto;
-                convert_foto($request->foto_5, '/5_' . $name_foto);
+                convert_foto($valid['foto_5'], '/5_' . $name_foto);
             }
         } else {
             $text_post_5 = null;

@@ -19,52 +19,58 @@ use Illuminate\Support\Facades\DB;
 
 class ReplyCommentController extends Controller
 {
-
-    public function create(Request $request)
+    // ----------------------------------------------------------------------------------------------------------
+    public function create(Request $request) // создаем ответ на коментарий
     {
-        info($request);
-        $reply = $request->input('reply');
-        $comment_id = $request->input('comment_id');
-        $id_user = Auth::user()->name;
+        $valid = $request->validate([
+            'reply' => ['required', 'string', 'max:2000'],
+            'comment_id' => ['required', 'integer', 'max:1000000'],
+            'reply_id' => ['nullable', 'integer', 'max:1000000'],
+            'name_opponent' => ['nullable', 'string', 'max:100'],
+        ]);
+
         $user_id = Auth::user()->id;
         $user_name = Auth::user()->name;
-        if (!empty($request->input('reply_id'))) $reply_id = $request->input('reply_id');
+        if (!empty($valid['reply_id'])) $reply_id = $valid['reply_id'];
         else $reply_id = 0;
-        if (!empty($request->input('name_opponent'))) $name_opponent = $request->input('name_opponent');
+        if (!empty($valid['name_opponent'])) $name_opponent = $valid['name_opponent'];
         else $name_opponent = 0;
 
-        $db_reply = ReplyComment::create(['reply' => $reply, 'comment_id' => $comment_id, 'user_id' => $user_id, 'id_user' => $id_user,'user_name' => $user_name, 'num' => $reply_id, 'stuff' => $name_opponent]);
+        $reply_comment = ReplyComment::create([
+            'reply' => $valid['reply'],
+            'comment_id' => $valid['comment_id'],
+            'user_id' => $user_id,
+            'user_name' => $user_name,
+            'num' => $reply_id,
+            'stuff' => $name_opponent
+        ]);
 
-        return response()->json($db_reply, 200);
+        return response()->json($reply_comment, 200);
     }
-
-
-    public function update(Request $request)
+    // ----------------------------------------------------------------------------------------------------------
+    public function update(Request $request) // обновляем ответ на коментарий
     {
-        info($request);
-        $reply_id = $request->input('reply_id');
-        $reply = $request->input('reply');
-
+        $valid = $request->validate([
+            'reply' => ['required', 'string', 'max:2000'],
+            'reply_id' => ['required', 'integer', 'max:10000000'],
+        ]);
 
         DB::table('reply_comments')
-            ->where('id', $reply_id)
-            ->update(['reply' => $reply]);
+            ->where('id', $valid['reply_id'])
+            ->update(['reply' => $valid['reply']]);
 
-
-        $db_reply = ReplyComment::where('id', $reply_id)->first();
+        $db_reply = ReplyComment::where('id', $valid['reply_id'])->first();
 
         return response()->json($db_reply, 200);
     }
-
-
-    public function delete(Request $request)
+    // ----------------------------------------------------------------------------------------------------------
+    public function delete(Request $request) // удаляем ответ на коментарий
     {
-
-        $reply_id = $request->input('reply_id');
-
-        ReplyComment::where('num', '=', $reply_id)->delete();
-        
-        if(ReplyComment::where('id', $reply_id)->exists())ReplyComment::where('id', $reply_id)->delete();
+        $valid = $request->validate([
+            'reply_id' => ['required', 'integer', 'max:10000000'],
+        ]);
+        ReplyComment::where('num', '=', $valid['reply_id'])->delete();
+        if (ReplyComment::where('id', $valid['reply_id'])->exists()) ReplyComment::where('id', $valid['reply_id'])->delete();
 
         return response()->json('ok', 200);
     }

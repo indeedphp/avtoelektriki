@@ -27,11 +27,10 @@ class CabinetController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
-        
-        if (empty(UserData::where('user_id', $id)->first())){
+
+        if (empty(UserData::where('user_id', $id)->first())) {
             UserData::create(['user_id' => $user->id])->first();
             $user_data = UserData::where('user_id', 1)->first();
-
         } else $user_data = UserData::where('user_id', $id)->first();
         // dd($user_data);
         return view('cabinet_settings', ['user' => $user, 'user_data' => $user_data]);
@@ -84,12 +83,12 @@ class CabinetController extends Controller
         $last_comments =  DB::table('comments')->where('user_id',  $id_user)->orderBy('id', 'desc')->first();
         if ((array)$last_comments == null)  $last_comments['created_at'] = 0;
         else $last_comments = (array)$last_comments;
-     
+
         return view('cabinet_statistic', compact('post_count', 'comments_count', 'last_post', 'last_comments'));
     }
 
     // =======================================================================================================
- 
+
     public function edit_name(Request $request)  // правим имя юзера из кабинета  
     {
         $id = Auth::user()->id;
@@ -142,43 +141,48 @@ class CabinetController extends Controller
     // ----------------------------------------------------------------------------
     public function edit_color_channel(Request $request) // правим цвет полосы канала из кабинета
     {
-        info($request);
         $id = Auth::user()->id;
+
+        $validated = $request->validate([
+            'color_channel' => ['required', 'string', 'max:20'],
+            'color_text' => ['required', 'integer', 'max:5'],
+        ]);
         UserData::where('user_id', $id)
             ->update([
-                "color_channel" => $request->color_channel,
-                "stuff" => $request->color_text,
+                "color_channel" => $validated['color_channel'],
+                "stuff" => $validated['color_text'],
             ]);
+
         return redirect()->route('cabinet_settings');
     }
-        // ---------------------------------------------------------------------------------
-        public function edit_definition_channel(Request $request) // правим описание канала из кабинета
-        {
-            $id = Auth::user()->id;
-            $validated = $request->validate([
-                'definition_channel' => ['nullable', 'string', 'max:100'],
+    // ---------------------------------------------------------------------------------
+    public function edit_definition_channel(Request $request) // правим описание канала из кабинета
+    {
+        $id = Auth::user()->id;
+        $validated = $request->validate([
+            'definition_channel' => ['nullable', 'string', 'max:100'],
+        ]);
+        UserData::where('user_id', $id)
+            ->update([
+                "definition_channel" => $validated['definition_channel']
             ]);
-            UserData::where('user_id', $id)
-                ->update([
-                    "definition_channel" => $validated['definition_channel']
-                ]);
-    
-            return redirect()->route('cabinet_settings');
-        }
-        // ---------------------------------------------------------------------------------
-        public function edit_name_channel(Request $request) // правим название канала из кабинета
-        {
-            $id = Auth::user()->id;
-            $validated = $request->validate([
-                'name_channel' => ['nullable', 'string', 'max:40'],
+
+        return redirect()->route('cabinet_settings');
+    }
+    // ---------------------------------------------------------------------------------
+    public function edit_name_channel(Request $request) // правим название канала из кабинета
+    {
+        $id = Auth::user()->id;
+        $validated = $request->validate([
+            'name_channel' => ['nullable', 'string', 'max:40'],
+        ]);
+        UserData::where('user_id', $id)
+            ->update([
+                "name_channel" => $validated['name_channel']
             ]);
-            UserData::where('user_id', $id)
-                ->update([
-                    "name_channel" => $validated['name_channel']
-                ]);
-    
-            return redirect()->route('cabinet_settings');
-        }
+
+        return redirect()->route('cabinet_settings');
+    }
     // ----------------------------------------------------------------------------
     public function edit_sity(Request $request)  // правим логин из кабинета
     {
@@ -198,12 +202,12 @@ class CabinetController extends Controller
 
 
 
-        
+
     // =======================================================================================================
 
     public function edit_post(Request $request)  // редактируем пост в черновике
     {
-        info($request);
+        // info($request);
         $valid = $request->validate([  // валидация формы
             'post_id' => ['required', 'integer'],
             'name_post' => ['nullable', 'string', 'max:250'],
@@ -217,6 +221,10 @@ class CabinetController extends Controller
             'text_post_4' => ['nullable', 'string', 'max:5000'],
             'foto_5' => ['image', 'max:3072'],
             'text_post_5' => ['nullable', 'string', 'max:5000'],
+            'checkbox_1' => ['nullable', 'integer', 'max:5'],
+            'checkbox_2' => ['nullable', 'integer', 'max:5'],
+            'checkbox_3' => ['nullable', 'integer', 'max:5'],
+            'checkbox_4' => ['nullable', 'integer', 'max:5'],
         ]);
 
         $post = Post::where('id', $valid['post_id'])->first(); // из базы получаем старые данные
@@ -268,14 +276,14 @@ class CabinetController extends Controller
 
         $name_foto = $id_user . '-' . time() . '.jpg';  // создаем имя для фото
         $name_post = $valid['name_post'];
-        $text_post = $request->input('text_post_1');
+        $text_post = $valid['text_post_1'];
 
         if (!empty($valid['foto_1'])) {
             $url_foto = 'storage/app/bot/images/' . '1_' . $name_foto;
             convert_foto($valid['foto_1'], '/1_' . $name_foto);
         }
 
-        if (!empty($request->input('checkbox_1'))) {  // если стоит чекбокс в форме
+        if (!empty($valid['checkbox_1'])) {  // если стоит чекбокс в форме
             $text_post_2 = $valid['text_post_2']; // меняем текст
             if (!empty($valid['foto_2'])) {  // если пришло с формы фото
                 $url_foto_2 = 'storage/app/bot/images/' . '2_' . $name_foto; // составляем путь с именем для фото
@@ -286,33 +294,33 @@ class CabinetController extends Controller
             $url_foto_2  = null;
         }
 
-        if (!empty($request->input('checkbox_2'))) {
+        if (!empty($valid['checkbox_2'])) {
             $text_post_3 = $valid['text_post_3'];
             if (!empty($valid['foto_3'])) {
                 $url_foto_3 = 'storage/app/bot/images/' . '3_' . $name_foto;
-                convert_foto($request->foto_3, '/3_' . $name_foto);
+                convert_foto($valid['foto_3'], '/3_' . $name_foto);
             }
         } else {
             $text_post_3 = null;
             $url_foto_3  = null;
         }
 
-        if (!empty($request->input('checkbox_3'))) {
+        if (!empty($valid['checkbox_3'])) {
             $text_post_4 = $valid['text_post_4'];
             if (!empty($valid['foto_4'])) {
                 $url_foto_4 = 'storage/app/bot/images/' . '4_' . $name_foto;
-                convert_foto($request->foto_4, '/4_' . $name_foto);
+                convert_foto($valid['foto_4'], '/4_' . $name_foto);
             }
         } else {
             $text_post_4 = null;
             $url_foto_4  = null;
         }
 
-        if (!empty($request->input('checkbox_4'))) {
+        if (!empty($valid['checkbox_4'])) {
             $text_post_5 = $valid['text_post_5'];
             if (!empty($valid['foto_5'])) {
                 $url_foto_5 = 'storage/app/bot/images/' . '5_' . $name_foto;
-                convert_foto($request->foto_5, '/5_' . $name_foto);
+                convert_foto($valid['foto_5'], '/5_' . $name_foto);
             }
         } else {
             $text_post_5 = null;

@@ -16,28 +16,18 @@ use Illuminate\Http\Request;
 
 class LikeCommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // --------------------------------------------------------------------------------------------------------------
+    public function create_dislike(Request $request) // создание, снятие дизлайка
     {
-        //
-    }
+        $valid = $request->validate([
+            'comment_id' => ['required', 'integer', 'max:10000000'],
+            'id_user' => ['required', 'integer', 'max:10000000'],
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create_dislike(Request $request)
-    {
-        // info($request . 'dislike');
-        $comment_id = $request->get('comment_id');
-        $id_user = $request->get('id_user');
-        $likes = LikeComment::where('comment_id', $comment_id)->where('id_user', $id_user)->first();
-
-        info($likes);
+        $likes = LikeComment::where('comment_id', $valid['comment_id'])->where('id_user', $valid['id_user'])->first();
 
         if (empty($likes)) {
-            $www =  LikeComment::create(['comment_id' => $comment_id, 'dislike' => 1, 'id_user' => $id_user]);
+            $www =  LikeComment::create(['comment_id' => $valid['comment_id'], 'dislike' => 1, 'id_user' => $valid['id_user']]);
         } else {
             switch ($likes->dislike) {
                 case 0:
@@ -48,27 +38,23 @@ class LikeCommentController extends Controller
                     break;
             }
 
-            $www = LikeComment::where('comment_id', $comment_id)->where('id_user', $id_user)->first();
+            $www = LikeComment::where('comment_id', $valid['comment_id'])->where('id_user', $valid['id_user'])->first();
 
-            info($www . 'dislike');
         }
         return $www->dislike ;
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function create_like(Request $request)
+    // --------------------------------------------------------------------------------------------------------------
+    public function create_like(Request $request) // создание, снятие лайка
     {
-        info($request . 'like');
-        $comment_id = $request->get('comment_id');
-        $id_user = $request->get('id_user');
-        $likes = LikeComment::where('comment_id', $comment_id)->where('id_user', $id_user)->first();
+        $valid = $request->validate([
+            'comment_id' => ['required', 'integer', 'max:10000000'],
+            'id_user' => ['required', 'integer', 'max:10000000'],
+        ]);
 
-        info($likes);
+        $likes = LikeComment::where('comment_id', $valid['comment_id'])->where('id_user', $valid['id_user'])->first();
 
         if (empty($likes)) {
-            $www =  LikeComment::create(['comment_id' => $comment_id, 'like' => 1, 'id_user' => $id_user]);
+            $www =  LikeComment::create(['comment_id' => $valid['comment_id'], 'like' => 1, 'id_user' => $valid['id_user']]);
         } else {
             switch ($likes->like) {
                 case 0:
@@ -79,42 +65,10 @@ class LikeCommentController extends Controller
                     break;
             }
 
-            $www = LikeComment::where('comment_id', $comment_id)->where('id_user', $id_user)->first();
+            $www = LikeComment::where('comment_id', $valid['comment_id'])->where('id_user', $valid['id_user'])->first();
 
-            // info($www . 'like');
         }
         return $www->like ;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(LikeComment $likeComment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(LikeComment $likeComment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, LikeComment $likeComment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(LikeComment $likeComment)
-    {
-        //
-    }
 }

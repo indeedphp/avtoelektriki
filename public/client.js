@@ -373,7 +373,7 @@ content.addEventListener('click', (event) => {
                 case '1':
                     // лайк на пост  
                     let like = event.target.textContent;
-                    fetch('/likes/?post_id=' + post_id + '&id_user=' + user_name_id)
+                    fetch('/likes/?post_id=' + post_id + '&id_user=' + user_id)
                         .then(response => response.json())
                         .then(commits => {
                             if (commits == 1) {
@@ -390,7 +390,7 @@ content.addEventListener('click', (event) => {
                     // лайки на комментарии
                     let like_comment_content = +event.target.textContent;
                     // let comment_id = event.target.getAttribute('comment_id');
-                    fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
+                    fetch('/like_comment/?comment_id=' + comment_id + '&id_user=' + user_id)
                         .then(response => response.json())
                         .then(commits => {
                             // console.dir(commits);
@@ -408,7 +408,7 @@ content.addEventListener('click', (event) => {
                     // дизлайки на коментарии
                     let dislike_comment_content = +event.target.textContent;
                     // let comment_id = event.target.getAttribute('comment_id');
-                    fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_name_id)
+                    fetch('/dislike_comment/?comment_id=' + comment_id + '&id_user=' + user_id)
                         .then(response => response.json())
                         .then(commits => {
                             // console.dir(commits);
@@ -426,7 +426,7 @@ content.addEventListener('click', (event) => {
                     // лайки на ответы
                     let like_reply_content = +event.target.textContent;
                     // let reply_id = event.target.getAttribute('reply_id');
-                    fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
+                    fetch('/like_reply/?reply_id=' + reply_id + '&id_user=' + user_id)
                         .then(response => response.json())
                         .then(commits => {
                             // console.dir(commits);
@@ -444,7 +444,7 @@ content.addEventListener('click', (event) => {
                     // дизлайки на ответы
                     let dislike_reply_content = +event.target.textContent;
                     // let reply_id = event.target.getAttribute('reply_id');
-                    fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_name_id)
+                    fetch('/dislike_reply/?reply_id=' + reply_id + '&id_user=' + user_id)
                         .then(response => response.json())
                         .then(commits => {
                             if (commits == 1) {

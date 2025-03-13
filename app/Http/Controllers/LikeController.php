@@ -18,27 +18,18 @@ use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
-        $post_id = $request->get('post_id');
-        $id_user = $request->get('id_user');
-        $likes = Like::where('post_id', $post_id)->where('id_user', $id_user)->first();
+        // info($request);
+        $valid = $request->validate([
+            'post_id' => ['required', 'integer', 'max:10000000'],
+            'id_user' => ['required', 'integer', 'max:10000000'],
+        ]);
 
-        info($likes);
+        $likes = Like::where('post_id', $valid['post_id'])->where('id_user', $valid['id_user'])->first();
 
         if (empty($likes)) {
-            $www =  Like::create(['post_id' => $post_id, 'like' => 1, 'id_user' => $id_user]);
+            $www =  Like::create(['post_id' => $valid['post_id'], 'like' => 1, 'id_user' => $valid['id_user']]);
         } else {
             switch ($likes->like) {
                 case 0:
@@ -48,66 +39,12 @@ class LikeController extends Controller
                     $likes->update(['like' => 0]);
                     break;
             }
-
-            $www = Like::where('post_id', $post_id)->where('id_user', $id_user)->first();
+            $www = Like::where('post_id', $valid['post_id'])->where('id_user', $valid['id_user'])->first();
 
             info($www . 'rrr');
         }
         return $www->like ;
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Like $like)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Like $like)
-    {
-        //
     }
 }
-
-
-// if($likes == null) {
-//     $www = Like::create(['post_id' => $post_id, 'like' => 1, 'id_user' => $id_user]);
-// }else{
-//     // dd($likes);
-//     info($likes);
-
-// // foreach($likes as $like){
-// //     // dd($like);
-//    if($likes->id_user !== $id_user ) {
-//     $www = Like::create(['post_id' => $post_id, 'like' => 1, 'id_user' => $id_user]);
-
-// // }
+// 'post_id' => '82',
+// 'id_user' => 'Ламперсольд Тигуан',
