@@ -27,11 +27,17 @@ class AdminController extends Controller
     // -----------------------------------------------------------------------------------------------show_users
     public function index()  // показываем страницу основную в админке
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
         return view('admin/index');
+    } else return redirect()->route('index');
     }
     // -----------------------------------------------------------------------------------------------
     public function show_complaints(Request $request)  // показываем страницу жалобы в админке с инфой
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
+  
         $count = 50;
         if (!empty($request->count)) $count = $request->count;
         $sort = 'desc';
@@ -105,17 +111,23 @@ class AdminController extends Controller
         $complaints->count = $count;
 
         return view('admin/complaints', compact('complaints', 'sort', 'count', 'notviewed'));
+    } else return redirect()->route('index');
 
-        // return view('admin/complaints', compact('complaints', 'notviewed'));
     }
     // -----------------------------------------------------------------------------------------------
     public function show_settings()  // показываем страницу настроек в админке
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
         return view('admin/settings');
+    } else return redirect()->route('index');
     }
     // -----------------------------------------------------------------------------------------------
     public function show_statistics()  // показываем страницу статистики
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
+
         $post = Post::all();
         $post_count = count($post);
         $comment = Comment::all();
@@ -143,10 +155,13 @@ class AdminController extends Controller
         $size_file = round($size[0] / 1024 / 1024, 2);
         $count_files =  $size[1];
         return view('admin/statistics', compact('post_count', 'comment_count', 'user_count', 'site_count', 'size_file', 'addr', 'count_files'));
+    } else return redirect()->route('index');
     }
     // -----------------------------------------------------------------------------------------------------
     public function show_users(Request $request)  // показ и обработка страницы с юзерами
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
         // info($request);
         $count = 50;
         if (!empty($request->count)) $count = $request->count;
@@ -199,10 +214,13 @@ class AdminController extends Controller
 
         // $users = User::all();
         return view('admin/users', compact('users', 'sort', 'count'));
+    } else return redirect()->route('index');
     }
 // ----------------------------------------------------------------------------------------------
     public function show_posts(Request $request) // показ и обработка страницы с постами
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
         info($request);
         $count = 50;
         if (!empty($request->count)) $count = $request->count;
@@ -260,10 +278,13 @@ class AdminController extends Controller
 
         // $posts = Post::all();
         return view('admin/posts', compact('posts', 'sort', 'count'));
+    } else return redirect()->route('index');
     }
 // --------------------------------------------------------------------------------------------
     public function show_comments(Request $request) // показ и обработка страницы с комментариями
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
         info($request);
         $count = 50;
         if (!empty($request->count)) $count = $request->count;
@@ -329,11 +350,14 @@ class AdminController extends Controller
 
         // $comments = Comment::all();
         return view('admin/comments', compact('comments', 'sort', 'count'));
+    } else return redirect()->route('index');
     }
 
 // --------------------------------------------------------------------------------------------------------
     public function show_replys(Request $request) // показ и обработка страницы с ответами на комментарии
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
         info($request);
         $count = 50;
         if (!empty($request->count)) $count = $request->count;
@@ -399,10 +423,13 @@ class AdminController extends Controller
 
         // $replys = ReplyComment::all();
         return view('admin/replys', compact('replys', 'sort', 'count'));
+    } else return redirect()->route('index');
     }
 // -----------------------------------------------------------------------------------------------------------
     public function show_sites(Request $request) // показ и обработка страницы с инивидуальными сайтами юзеров
     {
+        $id_user = Auth::user()->id;
+        if ($id_user <= 10) {  // 10 админских айди
         info($request);
         $count = 50;
         if (!empty($request->count)) $count = $request->count;
@@ -460,6 +487,7 @@ class AdminController extends Controller
 
         // $sites = Site::all();
         return view('admin/sites', compact('sites', 'sort', 'count'));
+    } else return redirect()->route('index');
     }
 // ---------------------------------------------------------------------------------------------------------------
     public function update_user(Request $request, $id, $activ)  // метим бан небан  юзера

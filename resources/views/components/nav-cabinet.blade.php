@@ -10,6 +10,9 @@
                 <a class="nav-link {{Route::is('cabinet_settings') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_settings') }}">Настройки</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{Route::is('cabinet_notification') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_notification') }}">Уведомления</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{Route::is('cabinet_new_post') ? 'link-danger' : 'text-black' }}" href="{{ route('cabinet_new_post') }}">Новый пост</a>
             </li>
             <li class="nav-item">

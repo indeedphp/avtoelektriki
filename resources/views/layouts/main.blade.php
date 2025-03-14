@@ -22,25 +22,20 @@
 
 <body>
 
-
+    {{-- d-xl-none --}}
 
     <nav class="navbar navbar-expand-xl fixed-top  " data-bs-theme="dark"  style = "background-color : #00496E">
-        <div class="container-fluid ">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}">Автоэлектрики</a>
 
-            <button class="navbar-toggler ms-auto " type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Переключатель навигации">
+            <button id="info_bell" class="navbar-toggler ms-auto @if(!empty($nots)) border-danger @endif"
+                data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" >
                 <span class="navbar-toggler-icon"></span>
             </button>
   
-
-            <div class="collapse navbar-collapse right-aligned-div" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                   
-              
-                       
-                    <li class="nav-item ms-auto">
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                    <li class="nav-item ">
                         @guest
                             <a class="nav-link active " href="{{ route('register') }}">Привествуем гость!</a>
                         @endguest
@@ -48,9 +43,9 @@
                             <a class="nav-link active ">Привествуем {{ Auth::user()->name }} !</a>
                         @endauth
                     </li>
-                    <li class="nav-item dropdown ms-auto " data-bs-theme="light"  >
+                    <li class="nav-item dropdown " data-bs-theme="light"  >
                         @auth
-                        <a class="nav-link active @if(!empty($nots)) link-danger @endif bi bi-bell-fill" data-bs-theme="white" href="#" role="button" data-bs-toggle="dropdown"></a>
+                        <a id="bell" class="nav-link active @if(!empty($nots)) link-danger @endif bi bi-bell-fill"  href="#" role="button" data-bs-toggle="dropdown" onclick="bell()"></a>
                         <ul class="dropdown-menu dropdown-menu-end " >
                             @isset($nots)
                             @foreach($nots as $not)
@@ -60,13 +55,11 @@
                             @endforeach
                             @endisset
                             <li> <a class="dropdown-item "
-                                href="{{ route('cabinet_settings') }}">Все уведомления</a></li>
-                          </ul>
-                         
-                          @endauth
-                        </li>
-        
-                    <li class="nav-item ms-auto">
+                                href="{{ route('cabinet_notification') }}">Все уведомления</a></li>
+                            </ul>
+                            @endauth
+                    </li>
+                    <li class="nav-item ">
                         @auth
                             <a class="nav-link active " aria-current="page"
                                 href="{{ route('cabinet_settings') }}">Кабинет</a>
@@ -75,19 +68,19 @@
                             <a class="nav-link active " href="{{ route('login') }}">Вход</a>
                         @endguest
                     </li>
-                    <li class="nav-item ms-auto">
+                    <li class="nav-item ">
                         @guest
                             <a class="nav-link active " href="{{ route('register') }}">Регистрация</a>
                         @endguest
                     
                     </li>
-                    <li class="nav-item ms-auto">
+                    <li class="nav-item ">
                         @auth
                             <a class="nav-link active " aria-current="page"
                                 href="{{ route('channel', Auth::user()->id) }}">Канал</a>
                         @endauth
                     </li>
-                    <li class="nav-item ms-auto">
+                    <li class="nav-item ">
                         @auth
                             {{-- @if (Auth::user()->id == 2) --}}
                                 <a class="nav-link active " href="{{ route('admin_index') }}">admin</a>
@@ -97,30 +90,18 @@
                     </li>
                 </ul>
             </div>
-      
         </div>
-
     </nav>
 
-
-
-
-
-    {{-- overflow-x-hidden  --}}
     <div class="container-fluid p-1 overflow-x-hidden">
         <div class="row ">
-
             <div class="col-xl-2 "></div>
-
             <div class="col  p-3 px-2">
                 <div class=" my-2 py-3"></div>
-
                 <div id='content' class="">
                     @yield('posts')
-
                 </div>
             </div>
-
             <div class="col-xl-2 "> </div>
         </div>
     </div>
@@ -169,5 +150,12 @@
 
     @yield('js')
 </body>
+
+<script>
+function bell() { // меняем цвет колокольчика с красного на белый при нажатии на него
+    document.getElementById('bell').setAttribute('class', "text-white nav-link active bi bi-bell-fill");
+document.getElementById('info_bell').setAttribute('class', "navbar-toggler ms-auto");
+    
+}</script>
 
 </html>

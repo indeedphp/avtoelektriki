@@ -101,3 +101,91 @@
       <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
     </ul>
   </div>
+
+
+
+
+
+
+
+  <nav class="navbar navbar-expand-xl fixed-top  " data-bs-theme="dark"  style = "background-color : #00496E">
+ 
+  
+        <a class="navbar-brand  " href="{{ url('/') }}">Автоэлектрики</a>
+
+  
+
+        <button class="navbar-toggler  me-3" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse float-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0 ">
+               
+          
+                   
+                <li class="nav-item ms-auto">
+                    @guest
+                        <a class="nav-link active " href="{{ route('register') }}">Привествуем гость!</a>
+                    @endguest
+                    @auth
+                        <a class="nav-link active ">Привествуем {{ Auth::user()->name }} !</a>
+                    @endauth
+                </li>
+                {{-- <li class="nav-item dropdown ms-auto d-none d-lg-block" data-bs-theme="light"  >
+                   
+                    @auth
+                    <a class="nav-link active @if(!empty($nots)) link-danger @endif bi bi-bell-fill" id="bell" href="#" role="button" data-bs-toggle="dropdown" onclick="bell()"></a>
+                    <ul class="dropdown-menu dropdown-menu-end " >
+                        @isset($nots)
+                        @foreach($nots as $not)
+                        <a class="nav-link text-black mx-2 border my-1" href="{{url('/post/'.$not['post_id'])}}">
+                        <li>{{$not['type']}}</li>
+                        <li>{{Str::limit($not['message'] , 18)}}</li></a>
+                        @endforeach
+                        @endisset
+                        <li> <a class="dropdown-item "
+                            href="{{ route('cabinet_notification') }}">Все уведомления</a></li>
+                      </ul>
+                     
+                      @endauth
+                    </li> --}}
+    
+                <li class="nav-item ms-auto">
+                    @auth
+                        <a class="nav-link active " aria-current="page"
+                            href="{{ route('cabinet_settings') }}">Кабинет</a>
+                    @endauth
+                    @guest
+                        <a class="nav-link active " href="{{ route('login') }}">Вход</a>
+                    @endguest
+                </li>
+                <li class="nav-item ms-auto">
+                    @guest
+                        <a class="nav-link active " href="{{ route('register') }}">Регистрация</a>
+                    @endguest
+                
+                </li>
+                <li class="nav-item ms-auto">
+                    @auth
+                        <a class="nav-link active " aria-current="page"
+                            href="{{ route('channel', Auth::user()->id) }}">Канал</a>
+                    @endauth
+                </li>
+                <li class="nav-item ms-auto">
+                    @auth
+                        {{-- @if (Auth::user()->id == 2) --}}
+                            <a class="nav-link active " href="{{ route('admin_index') }}">admin</a>
+                        {{-- @endif --}}
+                    @endauth
+                </li>
+                </li>
+            </ul>
+        </div>
+  
+   
+
+</nav>

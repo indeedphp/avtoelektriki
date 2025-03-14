@@ -36,6 +36,23 @@ class CabinetController extends Controller
         return view('cabinet_settings', ['user' => $user, 'user_data' => $user_data]);
     }
     // ======================================================================================================
+    public function notification_show()  // страница уведомлений в кабинете -views/cabinet_notification
+    {
+        $nots = [];
+        if (Auth::check()) {  // если авторизирован то показываем нотификации (уведомления)
+            $user = User::find(Auth::user()->id);
+            foreach ($user->notifications as $notification) {
+                $nots[] = $notification->data;
+                
+            }
+            $user->notifications()->delete(); 
+        }
+        $count_nots = count($nots);
+
+        return view('cabinet_notification', compact('nots', 'count_nots'));
+    }
+
+    // ======================================================================================================
     public function new_post_show()  // страница создания поста в кабинете  -views/cabinet_new_post
     {
         $user_name = Auth::user()->user_name;

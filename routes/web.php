@@ -90,6 +90,7 @@ Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel2')
 Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel_show');
 
 Route::get('/cabinet_settings', [CabinetController::class, 'settings_show'])->name('cabinet_settings')->middleware('auth');
+Route::get('/cabinet_notification', [CabinetController::class, 'notification_show'])->name('cabinet_notification')->middleware('auth');
 Route::get('/cabinet_statistic', [CabinetController::class, 'statistic_show'])->name('cabinet_statistic')->middleware('auth');
 Route::get('/cabinet_all_post', [CabinetController::class, 'all_post_show'])->name('cabinet_all_post')->middleware('auth');
 Route::get('/cabinet_edit_post/{id_post?}', [CabinetController::class, 'edit_post_show'])->name('cabinet_edit_post')->middleware('auth');
