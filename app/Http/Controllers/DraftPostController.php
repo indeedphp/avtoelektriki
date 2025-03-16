@@ -105,8 +105,15 @@ class DraftPostController extends Controller
             'checkbox_2' => ['nullable', 'integer', 'max:5'],
             'checkbox_3' => ['nullable', 'integer', 'max:5'],
             'checkbox_4' => ['nullable', 'integer', 'max:5'],
+            'video_url' => ['nullable', 'starts_with:https://youtu.be', 'string', 'max:100'],
         ]);
         
+        $video_url = parse_url($valid['video_url']);
+        $video_id_youtube = trim($video_url['path'],'/');
+
+//         info($video_url);
+// info(trim($video_url['path'],'/'));
+
         $draft_post = Draft_post::where('id', $valid['draft_post_id'])->first();  // из базы получаем старые данные
         $url_foto = $draft_post->url_foto;
         $text_post = $draft_post->text_post_2;
@@ -220,6 +227,7 @@ class DraftPostController extends Controller
                 'text_post_4' => $text_post_4,
                 'url_foto_5' => $url_foto_5,
                 'text_post_5' => $text_post_5,
+                'stuff' => $video_id_youtube,
             ]);
 
         return redirect()->route('cabinet_new_post');

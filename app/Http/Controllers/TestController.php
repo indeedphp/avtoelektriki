@@ -18,10 +18,62 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    public function index(): View
+    public function index()
     {
-        return view('user.index', [
-            'users' => Test::table('users')->paginate(5)
-        ]);
+
+        // Embed::make($data->links)->parseUrl()->getIframe();
+//         $qq = 0;
+
+// $qqq = 'https://www.youtube.com/embed/PlQObFkF5VI?si=RX21EZDiXIa7MR2t';
+//         $qq = '<iframe width="560" height="315" src="https://www.youtube.com/embed/PlQObFkF5VI?si=RX21EZDiXIa7MR2t" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+// info(strstr($qq, '<iframe'));
+
+// https://youtu.be/Q_YR_n7-rCE?t=3358
+
+// $ww = 'https://www.youtube.com/watch?v=kwqLf41nsF0';
+
+
+// https://www.youtube.com/watch?v=Q_YR_n7-rCE&t=3356s
+
+// info(parse_url($ww));
+
+// https://youtu.be/Q_YR_n7-rCE?si=r9515jRrB3ufE0I7
+
+// https://youtu.be/Q_YR_n7-rCE?si=KEMkqs5a2m2x39ul
+
+
+// $qqq = explode(' ', $qq);
+//       info($qq);https://www.youtube.com/watch?v=PlQObFkF5VI
+//       info($qqq[3]);
+
+
+// $string = "Вот ссылка на сайт https://example.com и другая ссылка http://example.org";
+
+// Регулярное выражение для поиска URL
+// preg_match('/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', $qq, $match);
+// info($matches[0]);
+// $matches теперь содержит массив всех найденных URL
+//  echo $match[0];
+
+
+//  $string = '<iframe width="560" height="315" src="https://www.youtube.com/embed/PlQObFkF5VI?si=kiJI0pXNbPzInXEm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+// $qqq = explode(' ', $qq);
+
+ // Регулярное выражение для поиска первого URL
+//  preg_match('/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', $qq, $match);
+ 
+ // $match[0] будет содержать первый найденный URL
+//  echo $match[0];
+//  echo $match[1];
+
+// print_r($match);
+
+
+$eee = 'https://youtu.be/YvqU3OJm0yw?si=D-px4biNQDUvEXOQ';
+$video_url = parse_url($eee);
+$video_id_youtube = trim($video_url['path'],'/');
+return view('welcome', compact('video_id_youtube'));
+
+
     }
 }

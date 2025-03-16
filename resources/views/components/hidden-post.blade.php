@@ -47,6 +47,18 @@
                     </div>
                 </div>
 
+
+                {{-- <div  id="" class="card-body px-1 px-lg-2  py-1">
+                    <div class="card-body px-0  px-lg-5 py-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/kwqLf41nsF0" title="YouTube video" allowfullscreen></iframe>
+                          </div>
+                    </div>
+                    <p id="" class="card-text py-2"></p>
+                </div> --}}
+
+
+
                 <div id="div_collapse_post" class="collapse p-0">
                     <div class=" p-1">
 

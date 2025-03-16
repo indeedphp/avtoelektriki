@@ -224,7 +224,7 @@ class CabinetController extends Controller
 
     public function edit_post(Request $request)  // редактируем пост в черновике
     {
-        // info($request);
+        info($request);
         $valid = $request->validate([  // валидация формы
             'post_id' => ['required', 'integer'],
             'name_post' => ['nullable', 'string', 'max:250'],
@@ -242,7 +242,11 @@ class CabinetController extends Controller
             'checkbox_2' => ['nullable', 'integer', 'max:5'],
             'checkbox_3' => ['nullable', 'integer', 'max:5'],
             'checkbox_4' => ['nullable', 'integer', 'max:5'],
+            // 'video_url' => ['starts_with:<iframe'],
+            
         ]);
+
+        // info($valid);
 
         $post = Post::where('id', $valid['post_id'])->first(); // из базы получаем старые данные
         $name_post = $post->name_post;

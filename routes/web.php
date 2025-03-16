@@ -13,6 +13,7 @@ use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\DraftPostController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Create_post;
 use App\Models\Post;
@@ -50,7 +51,7 @@ use App\Notifications\ComplaintNotification;  // подключаем нотиф
 
 
 Route::get('/55', function () {
-   dd(storage_path('app')); 
+//    dd(storage_path('app')); 
     return view('welcome');
 });
 
@@ -66,7 +67,7 @@ Route::get('/7', function () {
     
 });
 
-
+Route::get('/777', [TestController::class, 'index']);
 // Route::get('/7', function () {
 //     info(url('/'));
 //     // dump(Hash::check('01JM9XCK17FN37NJ8R08QJ49NT', '$2y$12$sKNr1/X3Buqb9i8bw1bFm.QcsH/ihLH/PjSY1nVQWafx4fxdYxrPK'));
