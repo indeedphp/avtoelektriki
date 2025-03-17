@@ -24,15 +24,15 @@
                 <div class="row">
                     <!-- ФОТО_1 -->
                     <div class="col-lg-10 ">
-                        <img class="img-fluid shadow" src="@if($post->url_foto == null){{url('plug.jpg')}}@else{{url($post->url_foto)}}@endif">
+                        <img class="img-fluid shadow rounded" src="@if($post->url_foto == null){{url('plug.jpg')}}@else{{url($post->url_foto)}}@endif">
                     </div>
                     <!-- МИНИ ФОТКИ -->
                     <div id="foto" class="d-none d-lg-block  col-lg-2 p-0">
                         @if ($post->url_foto_2 !== null)
-                        <img class="img-fluid shadow" src="{{ url($post->url_foto_2) }}">
+                        <img class="img-fluid shadow rounded" src="{{ url($post->url_foto_2) }}">
                         @endif
                         @if ($post->url_foto_3 !== null)
-                        <img class="img-fluid shadow mt-2" src="{{ url($post->url_foto_3) }}">
+                        <img class="img-fluid shadow mt-2 rounded" src="{{ url($post->url_foto_3) }}">
                         @endif
                     </div>
 
@@ -47,7 +47,7 @@
             @if ($post->url_foto_2 !== null)
                 <div class="card-body px-1 px-lg-2  py-3">
                     <div class="card-body px-0  px-lg-5 py-0">
-                        <img class=" img-fluid shadow " src="{{ url($post->url_foto_2) }}">
+                        <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_2) }}">
                     </div>
                     <p class="card-text py-2">{{ $post->text_post_2 }}</p>
                 </div>
@@ -56,7 +56,7 @@
             @if ($post->url_foto_3 !== null)
                 <div class="card-body px-1 px-lg-2  py-1">
                     <div class="card-body px-0  px-lg-5 py-0">
-                        <img class=" img-fluid shadow " src="{{ url($post->url_foto_3) }}">
+                        <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_3) }}">
                     </div>
                     <p class="card-text py-2">{{ $post->text_post_3 }}</p>
                 </div>
@@ -65,7 +65,7 @@
           @if ($post->url_foto_4 !== null)
           <div class="card-body px-1 px-lg-2  py-1">
               <div class="card-body px-0  px-lg-5 py-0">
-                  <img class=" img-fluid shadow " src="{{ url($post->url_foto_4) }}">
+                  <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_4) }}">
               </div>
               <p class="card-text py-2">{{ $post->text_post_4 }}</p>
           </div>
@@ -75,11 +75,36 @@
       @if ($post->url_foto_5 !== null)
           <div class="card-body px-1 px-lg-2  py-1">
               <div class="card-body px-0  px-lg-5 py-0">
-                  <img class=" img-fluid shadow " src="{{ url($post->url_foto_5) }}">
+                  <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_5) }}">
               </div>
               <p class="card-text py-2">{{ $post->text_post_5 }}</p>
           </div>
       @endif
+
+     <!-- ФОТО 5 И ТЕКСТ -->
+     @if ($post->stuff !== null)
+     <div class="card-body px-1 px-lg-2  py-1">
+         <div class="card-body px-0  px-lg-5 py-0">
+            <div class="ratio ratio-16x9">
+                <iframe class="rounded" id="video" src="https://www.youtube.com/embed/{{$post->stuff}}" title="YouTube video" allowfullscreen></iframe>
+              </div>
+         </div>
+         <p class="card-text py-2">{{ $post->date }}</p>
+     </div>
+     @endif
+
+
+     <div hidden id="div_hidden_post5" class="card-body px-1 px-lg-2  py-1">
+        <div class="card-body px-0  px-lg-5 py-0">
+            <div class="ratio ratio-16x9">
+                <iframe class="rounded" id="video" src="" title="YouTube video" allowfullscreen></iframe>
+              </div>
+        </div>
+        <p id="p_text_post_6" class="card-text py-2"></p>
+    </div>
+
+
+
 
         </div>
         </div>

@@ -1,49 +1,48 @@
-@extends('layouts/main') 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предпросмотр видео с YouTube</title>
+</head>
+<body>
+    <h1>Предпросмотр видео с YouTube</h1>
+    <label for="youtube-url">Вставьте ссылку на видео YouTube:</label>
+    <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+    
+    <div id="video-preview">
+        <iframe id="preview-iframe" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
 
-@section('posts')  
-
-{{-- <div class="ratio ratio-16x9">
-    <iframe src="https://www.youtube.com/embed/{{$video_id_youtube}}" title="YouTube video" allowfullscreen></iframe>
-  </div> --}}
-
-  {{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/kwqLf41nsF0?si=w71nuBReYYpQH-jC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> --}}
-{{-- @php
-    $string = "привет https://example.com вот ссылка";
-    $formattedString = preg_replace_callback(
-        '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', 
-        function ($matches) {
-            return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
-        },
-        $string
-    );
-@endphp
-{!! $formattedString !!} --}}
+    <script src="script.js"></script>
+</body>
 
 
 
-{{-- <script>
-let text = "привет http://example.com вот ссertretrterылка";
-let formattedText = text.replace(
-  /https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g, 
-  function(url) {
-    return `<a href="${url}" target="_blank">${url}</a>`;
-  }
-);
-document.body.innerHTML = formattedText;
-</script> --}}
+<script>
+document.getElementById('youtube-url').addEventListener('input', showPreview);
+
+function showPreview() {
+    // Получаем URL из поля ввода
+    const url = document.getElementById('youtube-url').value;
+    
+    // Обновленное регулярное выражение для поддержания обоих форматов ссылок
+    const regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*\?v=))([\w-]+)|(?:https?:\/\/youtu\.be\/)([\w-]+)/;
+    const match = url.match(regex);
+    
+    if (match) {
+        // Если ссылка обычного формата youtube.com
+        const videoId = match[1] || match[2];
+        const iframe = document.getElementById('preview-iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    } else {
+        // Если ссылка некорректная, очищаем iframe
+        document.getElementById('preview-iframe').src = '';
+    }
+}
+
+</script>
 
 
-{{-- https://youtu.be/kwqLf41nsF0?si=pHDVrk0w74Zw8Gah --}}
-{{-- https://www.youtube.com/watch?v=kwqLf41nsF0 --}}
 
-@endsection 
-
- 
-
-             {{-- <div class="card-text pt-2">
-                    <div id="span_text_post" class="px-1">выводим текст под фото</div>
-                    <div class="text-end pb-1 pe-1"> <a id="a_collapse_post" class="link-underline-light p-0 user-select-none"
-                            href="#collapseExample1" data-bs-toggle="collapse" data-bs-target="js collapse"
-                            aria-expanded="false" aria-controls="collapseExample"></a>
-                    </div>
-                </div> --}}
+</html>

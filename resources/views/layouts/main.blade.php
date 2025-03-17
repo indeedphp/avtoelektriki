@@ -122,22 +122,6 @@
         </div>
     </div>
 
-
-    {{-- <div  id="" class="card-body px-1 px-lg-2  py-1">
-        <div class="card-body px-0  px-lg-5 py-0">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/YvqU3OJm0yw?si=6_szJnBPLTf5feYr?enablejsapi=1" title="YouTube video" allowfullscreen></iframe>
-              </div>
-        </div>
-        <p id="" class="card-text py-2"></p>
-    </div> --}}
-
-
-{{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/YvqU3OJm0yw?si=6_szJnBPLTf5feYr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> --}}
-
-
-
-
     @yield('hidden')
 
     <div id="user_name_id" hidden> @auth {{ Auth::user()->name }}

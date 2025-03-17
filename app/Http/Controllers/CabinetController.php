@@ -242,7 +242,9 @@ class CabinetController extends Controller
             'checkbox_2' => ['nullable', 'integer', 'max:5'],
             'checkbox_3' => ['nullable', 'integer', 'max:5'],
             'checkbox_4' => ['nullable', 'integer', 'max:5'],
-            // 'video_url' => ['starts_with:<iframe'],
+            'checkbox_5' => ['nullable', 'string', 'max:3'],
+            'video_url' => ['nullable', 'starts_with:https://youtu.be,https://www.youtube', 'string', 'max:100'],
+            'text_post_6' => ['nullable', 'string', 'max:2000'],
             
         ]);
 
@@ -260,9 +262,22 @@ class CabinetController extends Controller
         $text_post_4 = $post->text_post_4;
         $url_foto_5 = $post->url_foto_5;
         $text_post_5 = $post->text_post_5;
-
+        $video_id_youtube = $post->stuff;
+        $text_post_6 = $post->date;
         $id_user = Auth::user()->id;
         $user_name = Auth::user()->name;
+
+        if (!empty($valid['checkbox_5'])) {
+            if(!empty($valid['video_url'])){  // извлекаем ютуб айди видео 
+                $pattern = '#(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/[^\/]+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})#';
+                preg_match($pattern, $valid['video_url'], $matches);
+                $video_id_youtube = isset($matches[1]) ? $matches[1] : null;  
+                } 
+            if(!empty($valid['text_post_6'])) $text_post_6 = $valid['text_post_6'];  // текст под видео
+        } else {
+            $video_id_youtube = null;
+            $text_post_6  = null;
+        }
 
         function convert_foto($inputFile, $outputFile) // разные форматы приводим к JPG, сжимаем, уменьшаем размер
         {
@@ -361,6 +376,8 @@ class CabinetController extends Controller
                 'text_post_4' => $text_post_4,
                 'url_foto_5' => $url_foto_5,
                 'text_post_5' => $text_post_5,
+                'stuff' => $video_id_youtube,
+                'date' => $text_post_6,
             ]);
 
         return redirect()->route('cabinet_edit_post', $valid['post_id']);

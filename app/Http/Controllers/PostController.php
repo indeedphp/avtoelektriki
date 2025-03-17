@@ -104,12 +104,16 @@ class PostController extends Controller
             if ($post->url_foto_3 != null) $text_count++;
             if ($post->url_foto_4 != null) $text_count++;
             if ($post->url_foto_5 != null) $text_count++;
-
+            
             if ($text_post_end != null) $text = 'развернуть текст';
-            if ($text_count == 1) $text = 'развернуть текст и фото';
-            if ($text_count == 2) $text = 'развернуть текст и 2 фото';
-            if ($text_count == 3) $text = 'развернуть текст и 3 фото';
-            if ($text_count == 4) $text = 'развернуть текст и 4 фото';
+            if ($text_count == 1) $text = 'развернуть текст с фото';
+            if ($text_count == 2) $text = 'развернуть текст с 2 фото';
+            if ($text_count == 3) $text = 'развернуть текст с 3 фото';
+            if ($text_count == 4) $text = 'развернуть текст с 4 фото';
+            if ($post->stuff != null && $text != null) $text = $text.' и видео';
+            if ($text_post_end == null && $post->stuff != null && $text == null) $text = 'развернуть видео';
+
+            
 
             $post->text_post_link = $text;
 

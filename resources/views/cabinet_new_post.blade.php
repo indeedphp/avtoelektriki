@@ -5,6 +5,20 @@
 @section('posts')
 <x-nav-cabinet/> {{-- вставляем навигацию --}}
 
+
+
+@if ($errors->any())
+<div>
+<ul>
+@foreach ($errors->all() as $error)
+<li>{{ $error }}</li>
+@endforeach
+</ul>
+</div>
+@endif
+
+
+
     <br>
 
     {{-- ------------------------------------------------------------------------------------------- --}}
@@ -72,9 +86,9 @@
                         ниже </i>
                 @endif
             </label>
-            <br>
-            <hr><br>
-        </div>
+           
+            <hr>
+        
         {{-- -------------------- карточка 2 -------------------------------------------- --}}
 
         <div id="myDiv" @if ($draft_post->url_foto_2 == null && $draft_post->text_post_2 == null) hidden @endif>
@@ -214,20 +228,51 @@
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
             <p class="link-danger">Напишите текст под фото 5, максимум 2000 символов</p>
-          
-          
             <hr>
         </div>
- {{-- -------------------- вставка видео юрл -------------------------------------------- --}}
-    <div>
-        <h5>Вставляем видео в пост.</h5>
-        <p class="">При желании можете вставить видео с ютуба, нажмите под видео кнопку "поделится" и затем надпись "копировать" вставьте адрес ниже. </p>
-        <input class="form-control" type="text" id="input_text_7" inf="7" name="video_url" placeholder="вставте адрес видео с ютуба">
+
+
+
+            {{-- checkbox 5 ----------------------------------------------------------------------------------- --}}
+            <hr>
+            <label>
+                @if ($draft_post->stuff == null )
+                    <input type="checkbox" id="toggleCheckbox5" name="checkbox_5"> <i id="checkbox_text_5"> Добавить
+                        видео в пост </i>
+                @else
+                    <input type="checkbox" id="toggleCheckbox5" name="checkbox_5" checked> <i id="checkbox_text_5">
+                        Убрать видео из поста </i>
+                @endif
+            </label>
+            <hr>
+        </div>
+
+ {{-- -------------------- вставка видео  -------------------------------------------- --}}
+    <div id="myDiv5" @if ($draft_post->stuff == null) hidden @endif>
+        <h5>Вставляем видео с ютуба в пост</h5>
+        <div class="ratio ratio-16x9">
+            <iframe class="rounded" id="preview-iframe" src="@if($draft_post->stuff != null)https://www.youtube.com/embed/{{$draft_post->stuff}}@endif" 
+            title="YouTube video" allowfullscreen style="background-image: url('{{ url('video.jpg') }}')"></iframe>
+          </div>
+
+        
+        <p class="">При желании можете вставить видео с ютуба, скопируйте ссылку ютуб и вставте ниже </p>
+        <input class="form-control" type="text" id="youtube-url" inf="7" name="video_url" placeholder="вставте адрес видео с ютуба" >
         @error('video_url')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
 <p hidden>Количество символов: <span id="symbols_count_7"></span></p>
-
+<br> 
+<h5>Вставляем текст под видео в пост</h5>
+<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6" style="height: 150px"></textarea>
+    <p>Введено символов: <span id="symbols_count_8"></span></p>
+    @error('text_post_7')
+    <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+    @enderror
+                <p class="link-danger">Напишите текст под видео, максимум 2000 символов</p>
+              
+              
+                <hr>
     </div>
     <hr>
         {{-- ----------------кнопки------------------------------------------------------------------------- --}}
@@ -254,10 +299,12 @@
         const checkbox2 = document.getElementById('toggleCheckbox2');
         const checkbox3 = document.getElementById('toggleCheckbox3');
         const checkbox4 = document.getElementById('toggleCheckbox4');
+        const checkbox5 = document.getElementById('toggleCheckbox5');
         const div = document.getElementById('myDiv');  // получаем для отключения hidden
         const div2 = document.getElementById('myDiv2');
         const div3 = document.getElementById('myDiv3');
         const div4 = document.getElementById('myDiv4');
+        const div5 = document.getElementById('myDiv5');
 
         checkbox.addEventListener('change', function() { // Обработчик события для чекбокса 1
             let checkbox_text_1 = document.getElementById("checkbox_text_1");
@@ -312,6 +359,17 @@
             } else {
                 div4.setAttribute('hidden', true);
                 checkbox_text_4.textContent = ' Добавить пятый блок фото плюс текст';
+            }
+        });
+                //--------------------------------------------------------------------
+                checkbox5.addEventListener('change', function() { // Обработчик события для чекбокса 5
+            let checkbox_text_5 = document.getElementById("checkbox_text_5");
+            if (checkbox5.checked) {
+                div5.removeAttribute('hidden');
+                checkbox_text_5.textContent = ' Убрать видео из поста';
+            } else {
+                div5.setAttribute('hidden', true);
+                checkbox_text_5.textContent = ' Добавить видео в пост';
             }
         });
         //=======предпросмотр фото 1=========================================================================
@@ -436,6 +494,7 @@ else {
         }
 // ============ считаем и выводим количество символов в инпутах ====================================================================================
 window.addEventListener('input', function(event) { // при вводе в любой инпут меняем счетчик 
+    
 if(event.target.type != 'checkbox'){  // не реагируем на инпут чекбоксов
   let inf = event.target.getAttribute('inf');
     let symbols_count = document.getElementById('symbols_count_'+inf);
@@ -452,6 +511,29 @@ document.addEventListener('DOMContentLoaded', function () {  // код сраб�
     symbols_count.textContent = text.length; // Обновляем счетчик символов
     }
 });
-// ======================================================================================================================================================
+// ================ предпросмотр видео ютуб с двух форматов ссылок =================================================================================
+document.getElementById('youtube-url').addEventListener('input', showPreview);
+
+function showPreview() {
+    // Получаем URL из поля ввода
+    const url = document.getElementById('youtube-url').value;
+    
+    // Обновленное регулярное выражение для поддержания обоих форматов ссылок
+    const regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*\?v=))([\w-]+)|(?:https?:\/\/youtu\.be\/)([\w-]+)/;
+    const match = url.match(regex);
+    
+    if (match) {
+        // Если ссылка обычного формата youtube.com
+        const videoId = match[1] || match[2];
+        const iframe = document.getElementById('preview-iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    } else {
+        // Если ссылка некорректная, очищаем iframe
+        document.getElementById('preview-iframe').src = '';
+    }
+}
+
+
+
     </script>
 @endsection

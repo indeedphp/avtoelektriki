@@ -38,6 +38,7 @@
 
                     </div>
                 </div>
+{{-- ------------------------------------------------------------------------------------------------------------------------- --}}
 
                 <div class="card-text pt-2">
                     <div id="span_text_post" class="px-1">выводим текст под фото</div>
@@ -46,24 +47,14 @@
                             aria-expanded="false" aria-controls="collapseExample"></a>
                     </div>
                 </div>
-
-
-                {{-- <div  id="" class="card-body px-1 px-lg-2  py-1">
-                    <div class="card-body px-0  px-lg-5 py-0">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/kwqLf41nsF0" title="YouTube video" allowfullscreen></iframe>
-                          </div>
-                    </div>
-                    <p id="" class="card-text py-2"></p>
-                </div> --}}
-
-
+{{-- ------------------------------------------------------------------------------------------------------------------------- --}}
 
                 <div id="div_collapse_post" class="collapse p-0">
                     <div class=" p-1">
 
                         <div id="div_text_post_end" class="card-text">
                         </div>
+{{-- ------------------------------------------------------------------------------------------------------------------------- --}}
 
                         <div hidden id="div_hidden_post" class="card-body px-1 px-lg-2  py-3">
                             <div class="card-body px-0  px-lg-5 py-0">
@@ -71,6 +62,7 @@
                             </div>
                             <p id="p_text_post_2" class="card-text py-2"></p>
                         </div>
+{{-- ------------------------------------------------------------------------------------------------------------------------- --}}
 
                         <div hidden id="div_hidden_post2" class="card-body px-1 px-lg-2  py-1">
                             <div class="card-body px-0  px-lg-5 py-0">
@@ -78,6 +70,7 @@
                             </div>
                             <p id="p_text_post_3" class="card-text py-2"></p>
                         </div>
+{{-- ------------------------------------------------------------------------------------------------------------------------- --}}
 
                         <div hidden id="div_hidden_post3" class="card-body px-1 px-lg-2  py-3">
                             <div class="card-body px-0  px-lg-5 py-0">
@@ -85,6 +78,7 @@
                             </div>
                             <p id="p_text_post_4" class="card-text py-2"></p>
                         </div>
+{{-- ------------------------------------------------------------------------------------------------------------------------- --}}
 
                         <div hidden id="div_hidden_post4" class="card-body px-1 px-lg-2  py-1">
                             <div class="card-body px-0  px-lg-5 py-0">
@@ -92,8 +86,16 @@
                             </div>
                             <p id="p_text_post_5" class="card-text py-2"></p>
                         </div>
-
-
+{{-- ------------------------------------------------------- вставка видео с текстом ----------------------------------------- --}}
+                        <div hidden id="div_hidden_post5" class="card-body px-1 px-lg-2  py-1">
+                            <div class="card-body px-0  px-lg-5 py-0">
+                                <div class="ratio ratio-16x9">
+                                    <iframe class="rounded" id="video" src="" title="YouTube video" allowfullscreen></iframe>
+                                  </div>
+                            </div>
+                            <p id="p_text_post_6" class="card-text py-2"></p>
+                        </div>
+{{-- ------------------------------------------------------------------------------------------------------------------------- --}}
                     </div>
                 </div>
             </div>

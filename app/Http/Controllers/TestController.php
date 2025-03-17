@@ -69,10 +69,29 @@ class TestController extends Controller
 // print_r($match);
 
 
-$eee = 'https://youtu.be/YvqU3OJm0yw?si=D-px4biNQDUvEXOQ';
-$video_url = parse_url($eee);
-$video_id_youtube = trim($video_url['path'],'/');
-return view('welcome', compact('video_id_youtube'));
+// $eee = 'https://youtu.be/YvqU3OJm0yw?si=D-px4biNQDUvEXOQ';
+// $video_url = parse_url($eee);
+// $video_id_youtube = trim($video_url['path'],'/');
+// return view('welcome', compact('video_id_youtube'));
+
+
+function getYouTubeVideoId($url) {
+    $pattern = '#(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/[^\/]+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})#';
+    preg_match($pattern, $url, $matches);
+    
+    return isset($matches[1]) ? $matches[1] : null;
+}
+
+// Пример использования
+$url = "https://www.youtube.com/watch?v=oV7SPX9FS1c";
+$videoId = getYouTubeVideoId($url);
+
+echo "ID видео: " . $videoId;
+
+
+info($videoId);
+
+
 
 
     }

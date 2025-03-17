@@ -84,6 +84,16 @@ function posts_loading(data) {
             clone_post.querySelector('#img_url9').src = server_url + '/' + item['url_foto_5'];
             clone_post.querySelector('#p_text_post_5').textContent = item['text_post_5'];
         }
+        if (item['url_foto_5'] != null) {
+            clone_post.querySelector('#div_hidden_post4').removeAttribute('hidden');
+            clone_post.querySelector('#img_url9').src = server_url + '/' + item['url_foto_5'];
+            clone_post.querySelector('#p_text_post_5').textContent = item['text_post_5'];
+        }
+        if (item['stuff'] != null) {
+            clone_post.querySelector('#div_hidden_post5').removeAttribute('hidden');
+            clone_post.querySelector('#video').src = 'https://www.youtube.com/embed/' + item['stuff'];
+            clone_post.querySelector('#p_text_post_6').textContent = item['date'];
+        }
         // clone_post.querySelector('#a_collapse_post_end').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#like_post').textContent = ' ' + item['post_like_count'];
         clone_post.querySelector('#like_post').setAttribute('post_id', item['id']);

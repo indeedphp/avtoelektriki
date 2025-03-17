@@ -211,7 +211,39 @@
             <br>
             <hr><br>
         </div>
+            {{-- checkbox 5 ----------------------------------------------------------------------------------- --}}
+            <hr>
+            <label>
+                @if ($post->stuff == null )
+                    <input type="checkbox" id="toggleCheckbox5" name="checkbox_5"> <i id="checkbox_text_5"> Добавить
+                        видео в пост </i>
+                @else
+                    <input type="checkbox" id="toggleCheckbox5" name="checkbox_5" checked> <i id="checkbox_text_5">
+                        Убрать видео из поста </i>
+                @endif
+            </label>
+            <hr>
+        {{-- -------------------- карточка 6 видео -------------------------------------------- --}}
 
+        <div id="myDiv5" @if ($post->stuff == null ) hidden @endif>
+            <div class="ratio ratio-16x9">
+                <iframe class="rounded" id="preview-iframe" src="@if($post->stuff != null)https://www.youtube.com/embed/{{$post->stuff}}@endif" 
+                title="YouTube video" allowfullscreen style="background-image: url('{{ url('video.jpg') }}')"></iframe>
+              </div>
+            <input class="form-control" type="text" id="youtube-url" inf="7" name="video_url" placeholder="вставте адрес видео с ютуба" >
+            <p class="link-danger">Выберите видео с ютуба </p>
+            <br>
+<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6"></textarea>
+@error('text_post_6')
+<b class="link-danger ms-2">Ошибка: {{ $message }}</b>
+@enderror
+<p>Количество символов: <span id="symbols_count_8"></span></p>
+
+            <p class="link-danger">Напишите текст под видео </p>
+            <p></p>
+            <br>
+            <hr><br>
+        </div>
         {{-- ----------------кнопки------------------------------------------------------------------------- --}}
 
         <button class="btn btn-primary " title="Сохранить чтоб потом дописать" type="submit">Сохранить пост</button>
@@ -231,10 +263,12 @@
         const checkbox2 = document.getElementById('toggleCheckbox2');
         const checkbox3 = document.getElementById('toggleCheckbox3');
         const checkbox4 = document.getElementById('toggleCheckbox4');
+        const checkbox5 = document.getElementById('toggleCheckbox5');
         const div = document.getElementById('myDiv');
         const div2 = document.getElementById('myDiv2');
         const div3 = document.getElementById('myDiv3');
         const div4 = document.getElementById('myDiv4');
+        const div5 = document.getElementById('myDiv5');
 
         checkbox.addEventListener('change', function() { // Обработчик события для чекбокса 1
             let checkbox_text_1 = document.getElementById("checkbox_text_1");
@@ -277,6 +311,18 @@
             } else {
                 div4.setAttribute('hidden', true);
                 checkbox_text_4.textContent = ' Добавить пятый блок фото плюс текст';
+            }
+        });
+                //--------------------------------------------------------------------
+                checkbox5.addEventListener('change', function() { // Обработчик события для чекбокса 5
+                    console.log('dgdfg');
+            let checkbox_text_5 = document.getElementById("checkbox_text_5");
+            if (checkbox5.checked) {
+                div5.removeAttribute('hidden');
+                checkbox_text_5.textContent = ' Убрать видео из поста';
+            } else {
+                div5.setAttribute('hidden', true);
+                checkbox_text_5.textContent = ' Добавить видео в пост';
             }
         });
         //=======предпросмотр фото 1=========================================================================
@@ -393,6 +439,26 @@ document.addEventListener('DOMContentLoaded', function () {  // код сраб�
     symbols_count.textContent = text.length; // Обновляем счетчик символов
     }
 });
-// ======================================================================================================================================================
+// ================ предпросмотр видео ютуб с двух форматов ссылок =================================================================================
+document.getElementById('youtube-url').addEventListener('input', showPreview);
+
+function showPreview() {
+    // Получаем URL из поля ввода
+    const url = document.getElementById('youtube-url').value;
+    
+    // Обновленное регулярное выражение для поддержания обоих форматов ссылок
+    const regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*\?v=))([\w-]+)|(?:https?:\/\/youtu\.be\/)([\w-]+)/;
+    const match = url.match(regex);
+    
+    if (match) {
+        // Если ссылка обычного формата youtube.com
+        const videoId = match[1] || match[2];
+        const iframe = document.getElementById('preview-iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    } else {
+        // Если ссылка некорректная, очищаем iframe
+        document.getElementById('preview-iframe').src = '';
+    }
+}
     </script>
 @endsection
