@@ -249,8 +249,7 @@
         <button class="btn btn-primary " title="Сохранить чтоб потом дописать" type="submit">Сохранить пост</button>
     </form>
     <hr>
-    <a class="btn btn-primary" href="{{ route('channel2', $post->id) }}" target="_blank">Посмотреть как будет
-        выглядеть пост</a>
+    <a class="btn btn-primary" href="{{ route('channel2', $post->id) }}" target="_blank">Посмотреть как выглядит пост</a>
     <hr>
 
     {{-- окончание условия, сам иф почти вначале поста --}}

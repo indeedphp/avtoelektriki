@@ -9,24 +9,26 @@ class Create_post extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'created_at',
         'updated_at',
         'user_name',
-        'name_post',
         'id_user',
-        'id_post',
-        'date',
-        'text_post',
-        'url_foto',
-        'text_post_2',
+        'name_post',
+        'url_foto_1',
+        'text_post_1',
         'url_foto_2',
-        'text_post_3',
+        'text_post_2',
         'url_foto_3',
+        'text_post_3',
+        'url_foto_4',
+        'text_post_4',
+        'url_foto_5',
+        'text_post_5',
+        'id_youtube',
+        'text_video',
         'step',
+        'vid_step',
         'stuff',
     ];
-
-
 }

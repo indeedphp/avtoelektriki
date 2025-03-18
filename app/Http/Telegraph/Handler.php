@@ -20,6 +20,8 @@ use App\Models\UserData;
 
 class Handler extends WebhookHandler
 {
+    // ------------------------------------------------------------------------------------------------------------------------------
+
     public function start()  // метод вызывется при входе в бота первый раз, а так же из меню по команде start
     {
         $id_user = $this->message->from()->id();  // получаем ид телеграмм пользователя
@@ -46,6 +48,7 @@ class Handler extends WebhookHandler
                 ])
             )->send();
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     public function feedback_1()  // обрабатываем команды от кнопок команды start
     {
@@ -83,9 +86,11 @@ class Handler extends WebhookHandler
             $this->chat->html('Одноразовая ссылка для входа, никому не передавайте её! ' . url('/') . '/login_token?login=' . $user_data->email . '&token=' . $token)->withoutPreview()->send();
         }
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
-    protected function handleChatMessage($text): void  // метод приема всех сообщений от бота настроен для сортировки сообщения, фото
+    protected function handleChatMessage($text): void  // метод приема всех сообщений от бота настроен для сортировки сообщения, фото, ютуб ссылки
     {
+        info($this->message);
         $id_user = $this->message->from()->id();
         $create_post = Create_post::where('id_user', $id_user)->first();
         $photo_no = empty($this->message->photos()->toArray());  // есть ли фотки в сообщении
@@ -93,41 +98,101 @@ class Handler extends WebhookHandler
         if ($create_post == null) {  // если просто отправлено сообщение вне команд и пустой черновик бота
             $this->reply("Выберите команду для бота в синем меню внизу");
         } else {
-            switch ($create_post->step) {
-                case 1:  // первый шаг создание названия поста
-                    if ($photo_no == true && $count_vol == 9) { // определяем точно ли текстовое сообщение
-                        $this->name_post_create();  // отправляем создавать название поста
-                    } else {
-                        $this->chat->html('<i>Неправильное действие1</i>')->send();
-                    }
-                    break;
-                case 2:  // эти шаги приводят к сохранению фото
-                case 5:
-                case 8:
-                case 11:
-                case 14:
-                    if ($photo_no == false) {
-                        $this->foto_create();
-                    } else {
-                        $this->chat->html('<i>Жду фото</i>')->send();
-                    }
-                    break;
-                case 3:  // эти шаги приводят к сохранению текста
-                case 6:
-                case 9:
-                case 12:
-                case 15:
-                    if ($photo_no == true && $count_vol == 9) {
-                        $this->text_post_create();
-                    } else {
-                        $this->chat->html('<i>Жду текст</i>')->send();
-                    }
-                    break;
-                default:
-                    $this->chat->html('<i>Неправильное действие4</i>')->send();
+            if ($create_post->vid_step == '1' && $photo_no == true) {  // если установлен шаг 1 создания видео из ютуба в посте
+                $this->video_create(); // сохраняем видео с ютуб через метод
+            } else if ($create_post->vid_step == '2' && $photo_no == true) { // если установлен шаг 2 создания видео из ютуба в посте
+                $this->video_text_create(); // сохраняем описание видео с ютуб через метод
+            } else {
+                switch ($create_post->step) {
+                    case 1:  // первый шаг создание названия поста
+                        if ($photo_no == true && $count_vol == 9) { // определяем точно ли текстовое сообщение
+                            $this->name_post_create();  // отправляем создавать название поста
+                        } else {
+                            $this->chat->html('<i>Неправильное действие1</i>')->send();
+                        }
+                        break;
+                    case 2:  // эти шаги приводят к сохранению фото
+                    case 5:
+                    case 8:
+                    case 11:
+                    case 14:
+                        if ($photo_no == false) {
+                            $this->foto_create();
+                        } else {
+                            $this->chat->html('<i>Жду фото</i>')->send();
+                        }
+                        break;
+                    case 3:  // эти шаги приводят к сохранению текста
+                    case 6:
+                    case 9:
+                    case 12:
+                    case 15:
+                        if ($photo_no == true && $count_vol == 9) {
+                            $this->text_post_create();
+                        } else {
+                            $this->chat->html('<i>Жду текст</i>')->send();
+                        }
+                        break;
+                    default:
+                        $this->chat->html('<i>Неправильное действие4</i>')->send();
+                }
             }
         }
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
+
+    protected function video_text_create() // создаем текст под видео в посте
+    {
+        $id_user = $this->message->from()->id();
+        $text = $this->message->text();
+        $create_post = Create_post::where('id_user', $id_user)->first();
+
+        if (mb_strlen($text) > 2000) $this->reply("Текст слишком длинный, сделайте не более 2000 символов");
+        else {
+            DB::table('create_posts')
+                ->where('id_user', $id_user)
+                ->update(['text_video' => $text, 'vid_step' => '3']);
+
+            return $this->chat
+                ->message('Текст под видео сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Дописать еще блок с фото и текстом')->action('feedback_2')->param('value', '1'),
+                        Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
+                        Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
+                    ])
+                )->withoutPreview()->send();
+        }
+    }
+    // ------------------------------------------------------------------------------------------------------------------------------
+
+
+    protected function video_create() // создаем id youtube видео, для видео в посте
+    {
+        $id_user = $this->message->from()->id();
+        $text = $this->message->text();
+        $text = trim($text);
+
+        if (mb_strlen($text) > 100) $this->reply("Ссылка на видео слишком длинная, вставте стандартную ссылку");
+        else {
+            if (strstr($text, 'https://youtu.be') != null || strstr($text, 'https://www.youtube') != null) {
+                $pattern = '#(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/[^\/]+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})#';
+                preg_match($pattern, $text, $matches);
+                $video_id_youtube = isset($matches[1]) ? $matches[1] : null;
+
+                DB::table('create_posts')
+                    ->where('id_user', $id_user)
+                    ->update(['id_youtube' => $video_id_youtube, 'vid_step' => '2']);
+
+                return  $this->reply("Ссылка на ютуб видео сохранена, напишите о чем видео");
+            } else {
+                // return  $this->reply("Ссылка на видео не с ютуб, вставте стандартную ссылку ютуб");
+                return  $this->chat->html("<b>Ссылка на видео не с ютуб, вставте стандартную ссылку ютуб</b>")->send();  //отправляем html
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     protected function name_post_create() // создаем название поста
     {
@@ -143,6 +208,7 @@ class Handler extends WebhookHandler
             $this->reply("Название сохранено. Вставте одно фото, например автомобиля, его салона, неисправной детали и пр. Текст под фото не нужен");
         }
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     protected function foto_create() // скачиваем, создаем название, сохраняем фото
     {
@@ -185,6 +251,7 @@ class Handler extends WebhookHandler
         sleep(5); // пауза между запросами и для тяжелых фото
         $this->bot->store($id_foto, Storage::path('bot/images'), $name_foto);  // сохраняем на локалке,
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     protected function text_post_create() // создаем текст поста в зависимости от шага
     {
@@ -192,59 +259,82 @@ class Handler extends WebhookHandler
         $text = $this->message->text();
         $id_user = $this->message->from()->id();
 
-        if (mb_strlen($text) > 2000) $this->reply("Текст слишком длинный, сделайте на более 2000 символов");
+        if (mb_strlen($text) > 2000) $this->reply("Текст слишком длинный, сделайте не более 2000 символов");
         else {
 
-        $create_post = Create_post::where('id_user', $id_user)->first();
-        if ($create_post->text_post_1 == null) {  // в зависимости от заполнения мнеяем ячейку для текста в базе
-            $text_post = 'text_post_1';
-            $step = '4';
-        } else {
-            if ($create_post->text_post_2 == null) {
-                $text_post = 'text_post_2';
-                $step = '7';
+            $create_post = Create_post::where('id_user', $id_user)->first();
+            if ($create_post->text_post_1 == null) {  // в зависимости от заполнения мнеяем ячейку для текста в базе
+                $text_post = 'text_post_1';
+                $step = '4';
             } else {
-                if ($create_post->text_post_3 == null) {
-                    $text_post = 'text_post_3';
-                    $step = '10';
+                if ($create_post->text_post_2 == null) {
+                    $text_post = 'text_post_2';
+                    $step = '7';
                 } else {
-                    if ($create_post->text_post_4 == null) {
-                        $text_post = 'text_post_4';
-                        $step = '13';
+                    if ($create_post->text_post_3 == null) {
+                        $text_post = 'text_post_3';
+                        $step = '10';
                     } else {
-                        $text_post = 'text_post_5';
-                        $step = '16';
+                        if ($create_post->text_post_4 == null) {
+                            $text_post = 'text_post_4';
+                            $step = '13';
+                        } else {
+                            $text_post = 'text_post_5';
+                            $step = '16';
+                        }
                     }
                 }
             }
-        }
 
-        DB::table('create_posts')
-            ->where('id_user', $id_user)
-            ->update([$text_post => $text, 'step' => $step]);
+            DB::table('create_posts')
+                ->where('id_user', $id_user)
+                ->update([$text_post => $text, 'step' => $step]);
 
-        if ($step == 16) {  // выдаем в бот кнопки
-            $this->chat
-                ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
-                        Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
-                    ])
-                )->withoutPreview()->send();
-        } else {  // выдаем в бот кнопки
-            $this->chat
-                ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
-                ->keyboard(
-                    Keyboard::make()->buttons([
-                        Button::make('Дописать еще блок с фото и текстом"')->action('feedback_2')->param('value', '1'),
-                        Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
-                        Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
-                    ])
-                )->withoutPreview()->send();
+
+            if ($step == 16 && $create_post->vid_step == 3) {  // выдаем в бот кнопки
+                return $this->chat
+                    ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                    ->keyboard(
+                        Keyboard::make()->buttons([
+                            Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
+                            Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
+                        ])
+                    )->withoutPreview()->send();
+            } else if ($step == 16 && $create_post->vid_step != 3) {  // выдаем в бот кнопки
+                return  $this->chat
+                    ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                    ->keyboard(
+                        Keyboard::make()->buttons([
+                            Button::make('Вставить видео с ютуба')->action('feedback_2')->param('value', '4'),
+                            Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
+                            Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
+                        ])
+                    )->withoutPreview()->send();
+            } else if ($create_post->vid_step == 3 && $step <= 15) { // если ютуб видео сохранено
+                return $this->chat
+                    ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                    ->keyboard(
+                        Keyboard::make()->buttons([
+                            Button::make('Дописать еще блок с фото и текстом')->action('feedback_2')->param('value', '1'),
+                            Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
+                            Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
+                        ])
+                    )->withoutPreview()->send();
+            } else {  // выдаем в бот кнопки
+                return $this->chat
+                    ->message('Текст сохранен. Выберите вариант с помощью кнопок, просмотр будущего поста тут ' . url('/') . '/draft_post_bot/' . $create_post->id)
+                    ->keyboard(
+                        Keyboard::make()->buttons([
+                            Button::make('Дописать еще блок с фото и текстом')->action('feedback_2')->param('value', '1'),
+                            Button::make('Вставить видео с ютуба')->action('feedback_2')->param('value', '4'),
+                            Button::make('Сохранить в черновике(доступен в кабинете)')->action('feedback_2')->param('value', value: '3'),
+                            Button::make('Сохранить пост и опубликовать')->action('feedback_2')->param('value', value: '2'),
+                        ])
+                    )->withoutPreview()->send();
+            }
         }
     }
-    }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     public function feedback_2() // получаем запросы от кнопок из text_post_create()
     {
@@ -293,6 +383,9 @@ class Handler extends WebhookHandler
                 'text_post_5' => $create_post->text_post_5,
                 'url_foto_5' => $create_post->url_foto_5,
                 'bot' =>  '1',
+                'stuff' => $create_post->id_youtube,
+                'date' => $create_post->text_video,
+
             ]);
 
             $create_post->delete();  // удаляем пост из черновика бота после сохранения его в таблице пост
@@ -318,9 +411,19 @@ class Handler extends WebhookHandler
                 'url_foto_4' => $create_post->url_foto_4,
                 'text_post_5' => $create_post->text_post_5,
                 'url_foto_5' => $create_post->url_foto_5,
+                'stuff' => $create_post->id_youtube,
+                'date' => $create_post->text_video,
             ]);
         }
+
+        if ($value_button == '4') {   // предлагаем вставить ссылку на ютуб видео
+            DB::table('create_posts')
+                ->where('id_user', $chat_id)
+                ->update(['vid_step' => '1']);
+            $this->chat->html("Вставте ссылку на ютуб видео")->send();
+        }
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     public function new_post()  // идем через команду /new_post
     {
@@ -331,6 +434,7 @@ class Handler extends WebhookHandler
         Create_post::create(['id_user' => $id_user, 'step' => '1'])->first();
         $this->chat->html('Напишите название поста (максимум 250 символов), например "Мазда 3 ремонт стеклоочистителя" или "Ниссан Микра 2000 г троит" и отправьте2.')->send();
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     public function delete_post() // идем через команду /delete_post
     {
@@ -340,6 +444,7 @@ class Handler extends WebhookHandler
             $cr_post->delete();
         $this->chat->html("Пост удален. Можете выбрать команды в меню")->send();
     }
+    // ------------------------------------------------------------------------------------------------------------------------------
 
     public function new_psassword() // идем через команду /new_psassword
     {
@@ -351,9 +456,51 @@ class Handler extends WebhookHandler
 
         $this->chat->html("Ваш логин $user_data->email и пароль $password")->send();
     }
-
+    // ------------------------------------------------------------------------------------------------------------------------------
     protected function handleUnknownCommand($text): void //  идем через неизвестную команду
     {
         $this->chat->html("Нет такой команды, посмотрите список внизу в синем меню")->send();
     }
 }
+
+
+
+// https://www.youtube.com/watch?v=F3bBTs-lka0
+
+// [2025-03-18 09:52:49] local.INFO: array (
+//     'id' => 1147,
+//     'date' => '2025-03-18T09:52:49.000000Z',
+//     'text' => 'https://www.youtube.com/watch?v=F3bBTs-lka0',
+//     'protected' => false,
+//     'from' => 
+//     array (
+//       'id' => 1605592406,
+//       'is_bot' => false,
+//       'first_name' => 'Сергей',
+//       'last_name' => '',
+//       'username' => 'Avtosega',
+//       'language_code' => 'ru',
+//       'is_premium' => false,
+//     ),
+//     'chat' => 
+//     array (
+//       'id' => '1605592406',
+//       'type' => 'private',
+//       'title' => 'Avtosega',
+//     ),
+//     'photos' => 
+//     array (
+//     ),
+//     'new_chat_members' => 
+//     array (
+//     ),
+//     'entities' => 
+//     array (
+//       0 => 
+//       array (
+//         'type' => 'url',
+//         'offset' => 0,
+//         'length' => 43,
+//       ),
+//     ),
+//   )  

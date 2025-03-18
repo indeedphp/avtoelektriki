@@ -81,7 +81,7 @@
           </div>
       @endif
 
-     <!-- ФОТО 5 И ТЕКСТ -->
+     <!-- ВИДЕО И ТЕКСТ -->
      @if ($post->stuff !== null)
      <div class="card-body px-1 px-lg-2  py-1">
          <div class="card-body px-0  px-lg-5 py-0">

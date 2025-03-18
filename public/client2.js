@@ -49,25 +49,33 @@ function posts_loading(data) {
         clone_post.querySelector('#i_repost_post').href = server_url + '/post/' + item['id'];
         clone_post.querySelector('#img_url1').src = server_url + '/' + item['url_foto'];
 
-        if(item['url_foto_2'] == null){
-             clone_post.querySelector('#foto1').className = 'col-lg-12';
-             clone_post.querySelector('#foto').remove(); 
+        if (item['url_foto_2'] == null) {
+            clone_post.querySelector('#foto1').className = 'col-lg-12';
+            clone_post.querySelector('#foto').remove();
         }
-       else{
-        clone_post.querySelector('#img_url4').src = server_url + '/' + item['url_foto_2'];
-        if(item['url_foto_3'] != null){
-        clone_post.querySelector('#img_url5').removeAttribute('hidden');   
-        clone_post.querySelector('#img_url5').src = server_url + '/' + item['url_foto_3'];
-       }}
+        else {
+            clone_post.querySelector('#img_url4').src = server_url + '/' + item['url_foto_2'];
+            if (item['url_foto_3'] != null) {
+                clone_post.querySelector('#img_url5').removeAttribute('hidden');
+                clone_post.querySelector('#img_url5').src = server_url + '/' + item['url_foto_3'];
+            }
+        }
         clone_post.querySelector('#span_text_post').textContent = item['text_post'];
-       if(item['text_post_end'] != '') clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
+        if (item['text_post_end'] != '') clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
         clone_post.querySelector('#a_collapse_post').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#a_collapse_post').textContent = item['text_post_link'];
         clone_post.querySelector('#div_collapse_post').id = 'collapseExample' + item['id'];
         if (item['url_foto_2'] != null) {
             clone_post.querySelector('#div_hidden_post').removeAttribute('hidden');
             clone_post.querySelector('#img_url2').src = server_url + '/' + item['url_foto_2'];
-            clone_post.querySelector('#p_text_post_2').textContent = item['text_post_2'];
+
+            let text_post_2 = item['text_post_2'].replace(
+                /https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g,
+                function (url) {
+                    return `<a href="${url}" target="_blank">${url}</a>`;
+                }
+            );
+            clone_post.querySelector('#p_text_post_2').innerHTML = text_post_2;
         }
         if (item['url_foto_3'] != null) {
             clone_post.querySelector('#div_hidden_post2').removeAttribute('hidden');
@@ -118,10 +126,10 @@ function posts_loading(data) {
         clone_post.querySelector('#div_smile').id = 'collapse_post_smile' + item['id'];
         clone_post.querySelector('#comm').id = 'comm' + item['id'];
         clone_post.querySelector('#a_collapse_comment_end').setAttribute('data-bs-target', '#collapseComment' + item['id']);
-        
+
         if (auth_user_id != 0 && item['author']) {
             clone_post.querySelector('#button_complaint').removeAttribute('hidden');
-            clone_post.querySelector('#button_complaint').setAttribute('onclick', 'complaint('+item['id']+','+item['id_user']+','+item['id']+',1)'); // заполняем кнопку жалобы
+            clone_post.querySelector('#button_complaint').setAttribute('onclick', 'complaint(' + item['id'] + ',' + item['id_user'] + ',' + item['id'] + ',1)'); // заполняем кнопку жалобы
         }
         clone_post.id = 'one_post';
         posts.appendChild(clone_post);
@@ -136,9 +144,9 @@ function comments_loading(data, post_id, id_user) {
 
     data.forEach(function (item3, i, enu) {   // перебираем комметарии
         let clone_comment = test_comment.cloneNode(true);
-        
-      
-        clone_comment.querySelector('#a_post_name_user').textContent =  ' ' + item3['user_name'];
+
+
+        clone_comment.querySelector('#a_post_name_user').textContent = ' ' + item3['user_name'];
         clone_comment.querySelector('#a_post_name_user').href = server_url + '/channel/' + item3['user_id'];
         clone_comment.querySelector('nobr').textContent = item3['time'];
         clone_comment.querySelector('#comment_text').textContent = item3['comment'];
@@ -176,12 +184,12 @@ function comments_loading(data, post_id, id_user) {
 
         if (auth_user_id != 0 && item3['author']) {
             clone_comment.querySelector('#button_complaint').removeAttribute('hidden');
-            clone_comment.querySelector('#button_complaint').setAttribute('onclick', 'complaint('+post_id+','+item3['user_id']+','+item3['id']+',2)'); // заполняем кнопку жалобы
+            clone_comment.querySelector('#button_complaint').setAttribute('onclick', 'complaint(' + post_id + ',' + item3['user_id'] + ',' + item3['id'] + ',2)'); // заполняем кнопку жалобы
         }
 
-        
+
         clone_comment.id = 'one_comment' + item3['id'];
-        
+
 
         comm.appendChild(clone_comment);
         // comm.id = 'one_commentddd';
@@ -197,7 +205,7 @@ function replys_loading(data, id_comment, post_id, id_user) {
     data.forEach(function (item4, i, enu) {   // перебираем ответы
         let clone_reply = replu_hidden.cloneNode(true);
 
-        clone_reply.querySelector('#a_reply_name_user').textContent =  ' ' + item4['user_name'];
+        clone_reply.querySelector('#a_reply_name_user').textContent = ' ' + item4['user_name'];
         clone_reply.querySelector('#a_reply_name_user').href = server_url + '/channel/' + item4['user_id'];
         clone_reply.querySelector('nobr').textContent = item4['time'];
         clone_reply.querySelector('#reply_text').textContent = item4['reply'];
@@ -235,7 +243,7 @@ function replys_loading(data, id_comment, post_id, id_user) {
 
         if (auth_user_id != 0 && item4['author']) {
             clone_reply.querySelector('#button_complaint').removeAttribute('hidden');
-            clone_reply.querySelector('#button_complaint').setAttribute('onclick', 'complaint('+post_id+','+item4['user_id']+','+item4['id']+',3)'); // заполняем кнопку жалобы
+            clone_reply.querySelector('#button_complaint').setAttribute('onclick', 'complaint(' + post_id + ',' + item4['user_id'] + ',' + item4['id'] + ',3)'); // заполняем кнопку жалобы
         }
 
         clone_reply.id = 'one_reply' + item4['id'];

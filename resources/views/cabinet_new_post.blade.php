@@ -264,7 +264,8 @@
 <p hidden>Количество символов: <span id="symbols_count_7"></span></p>
 <br> 
 <h5>Вставляем текст под видео в пост</h5>
-<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6" style="height: 150px"></textarea>
+<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6" style="height: 150px">
+@if($draft_post->date != null){{$draft_post->date}}@else{{old('text_post_6')}}@endif</textarea>
     <p>Введено символов: <span id="symbols_count_8"></span></p>
     @error('text_post_7')
     <b class="link-danger ms-2">Ошибка: {{ $message }}</b>

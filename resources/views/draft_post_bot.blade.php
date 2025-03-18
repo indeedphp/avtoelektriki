@@ -24,16 +24,16 @@
                 <div class="row">
                     <!-- ФОТО_1 -->
                     <div class="col-lg-10 ">
-                        <img class="img-fluid shadow"
+                        <img class="img-fluid shadow rounded"
                             src="@if ($post->url_foto_1 == null) {{ url('plug.jpg') }}@else{{ url($post->url_foto_1) }} @endif">
                     </div>
                     <!-- МИНИ ФОТКИ -->
                     <div id="foto" class="d-none d-lg-block  col-lg-2 p-0">
                         @if ($post->url_foto_2 !== null)
-                            <img class="img-fluid shadow" src="{{ url($post->url_foto_2) }}">
+                            <img class="img-fluid shadow rounded" src="{{ url($post->url_foto_2) }}">
                         @endif
                         @if ($post->url_foto_3 !== null)
-                            <img class="img-fluid shadow mt-2" src="{{ url($post->url_foto_3) }}">
+                            <img class="img-fluid shadow mt-2 rounded" src="{{ url($post->url_foto_3) }}">
                         @endif
                     </div>
 
@@ -41,25 +41,58 @@
             </div>
             <!-- ТЕКСТ ПОД ФОТО 1 -->
             <div class="card-text pt-2">
-                <div class="px-1">{{ $post->text_post_1 }}</div>
+                <div class="px-1">
+                    @php
+                    $text_post_1 = preg_replace_callback(
+                        '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                        function ($matches) {
+                            return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                        },
+                        $post->text_post_1
+                    );
+                @endphp
+                {!! $text_post_1 !!}
+                </div>
             </div>
             <div class=" pt-3">
                 <!-- ФОТО 2 И ТЕКСТ -->
                 @if ($post->url_foto_2 !== null)
                     <div class="card-body px-1 px-lg-2  py-3">
                         <div class="card-body px-0  px-lg-5 py-0">
-                            <img class=" img-fluid shadow " src="{{ url($post->url_foto_2) }}">
+                            <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_2) }}">
                         </div>
-                        <p class="card-text py-2">{{ $post->text_post_2 }}</p>
+                        <p class="card-text py-2">
+                            @php
+                                $text_post_2 = preg_replace_callback(
+                                    '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                    function ($matches) {
+                                        return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                    },
+                                    $post->text_post_2
+                                );
+                            @endphp
+                            {!! $text_post_2 !!}
+                        </p>
                     </div>
                 @endif
                 <!-- ФОТО 3 И ТЕКСТ -->
                 @if ($post->url_foto_3 !== null)
                     <div class="card-body px-1 px-lg-2  py-1">
                         <div class="card-body px-0  px-lg-5 py-0">
-                            <img class=" img-fluid shadow " src="{{ url($post->url_foto_3) }}">
+                            <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_3) }}">
                         </div>
-                        <p class="card-text py-2">{{ $post->text_post_3 }}</p>
+                        <p class="card-text py-2">
+                            @php
+                                $text_post_3 = preg_replace_callback(
+                                    '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                    function ($matches) {
+                                        return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                    },
+                                    $post->text_post_3
+                                );
+                            @endphp
+                            {!! $text_post_3 !!}
+                        </p>
                     </div>
                 @endif
 
@@ -67,9 +100,20 @@
                 @if ($post->url_foto_4 !== null)
                     <div class="card-body px-1 px-lg-2  py-1">
                         <div class="card-body px-0  px-lg-5 py-0">
-                            <img class=" img-fluid shadow " src="{{ url($post->url_foto_4) }}">
+                            <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_4) }}">
                         </div>
-                        <p class="card-text py-2">{{ $post->text_post_4 }}</p>
+                        <p class="card-text py-2">{{ $post->text_post_4 }}
+                            @php
+                                $text_post_4 = preg_replace_callback(
+                                    '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                    function ($matches) {
+                                        return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                    },
+                                    $post->text_post_4,
+                                );
+                            @endphp
+                            {!! $text_post_4 !!}
+                        </p>
                     </div>
                 @endif
 
@@ -77,11 +121,49 @@
                 @if ($post->url_foto_5 !== null)
                     <div class="card-body px-1 px-lg-2  py-1">
                         <div class="card-body px-0  px-lg-5 py-0">
-                            <img class=" img-fluid shadow " src="{{ url($post->url_foto_5) }}">
+                            <img class=" img-fluid shadow rounded" src="{{ url($post->url_foto_5) }}">
                         </div>
-                        <p class="card-text py-2">{{ $post->text_post_5 }}</p>
+                        <p class="card-text py-2">{{ $post->text_post_5 }}
+                            @php
+                                $text_post_5 = preg_replace_callback(
+                                    '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                    function ($matches) {
+                                        return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                    },
+                                    $post->text_post_5,
+                                );
+                            @endphp
+                            {!! $text_post_5 !!}
+                        </p>
                     </div>
                 @endif
+
+                <!-- ВИДЕО И ТЕКСТ -->
+                @if ($post->id_youtube !== null)
+                    <div class="card-body px-1 px-lg-2  py-1">
+                        <div class="card-body px-0  px-lg-5 py-0">
+                            <div class="ratio ratio-16x9">
+                                <iframe class="rounded" id="video"
+                                    src="https://www.youtube.com/embed/{{ $post->id_youtube }}" title="YouTube video"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <p class="card-text py-2">
+                            @php
+                            $text_video = preg_replace_callback(
+                                '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                function ($matches) {
+                                    return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                },
+                                $post->text_video,
+                            );
+                        @endphp
+                        {!! $text_video !!}
+                        </p>
+                    </div>
+                @endif
+
+
 
             </div>
         </div>

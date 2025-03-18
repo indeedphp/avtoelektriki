@@ -67,7 +67,18 @@
                              <img class="mt-lg-3 img-fluid shadow rounded " src="{{ url($site->foto_1) }}"
                                  alt="Фото потерялось">
                          </div>
-                         <p class="card-text p-2 py-lg-4 px-lg-5">{{ $site->text_1_b }}</p>
+                         <p class="card-text p-2 py-lg-4 px-lg-5">
+                            @php
+                            $text_1_b = preg_replace_callback(
+                                '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                function ($matches) {
+                                    return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                },
+                                $site->text_1_b
+                            );
+                        @endphp
+                        {!! $text_1_b !!}
+                         </p>
                      </div>
                  </div>
 
@@ -81,7 +92,18 @@
                              <img class="mt-lg-3 img-fluid shadow rounded" src="{{ url($site->foto_2) }}"
                                  alt="Фото потерялось">
                          </div>
-                         <p class="card-text p-2 py-lg-4 px-lg-5">{{ $site->text_2_b }}</p>
+                         <p class="card-text p-2 py-lg-4 px-lg-5">{{ $site->text_2_b }}
+                            @php
+                            $text_2_b = preg_replace_callback(
+                                '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                function ($matches) {
+                                    return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                },
+                                $site->text_2_b
+                            );
+                        @endphp
+                        {!! $text_2_b !!}
+                         </p>
 
                      </div>
                  </div>
@@ -95,7 +117,18 @@
                              <img class="mt-lg-3 img-fluid shadow rounded" src="{{ url($site->foto_3) }}"
                                  alt="Фото потерялось">
                          </div>
-                         <p class="card-text p-2 py-lg-4 px-lg-5">{{ $site->text_3_b }}</p>
+                         <p class="card-text p-2 py-lg-4 px-lg-5">
+                            @php
+                            $text_3_b = preg_replace_callback(
+                                '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                function ($matches) {
+                                    return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                },
+                                $site->text_3_b
+                            );
+                        @endphp
+                        {!! $text_3_b !!}
+                         </p>
                      </div>
                  </div>
 
@@ -108,7 +141,18 @@
                              <img class="mt-lg-3 img-fluid shadow rounded" src="{{ url($site->foto_4) }}"
                                  alt="Фото потерялось">
                          </div>
-                         <p class="card-text p-2 py-lg-4  px-lg-5">{{ $site->text_4_b }}</p>
+                         <p class="card-text p-2 py-lg-4  px-lg-5">{{ $site->text_4_b }}
+                            @php
+                            $text_4_b = preg_replace_callback(
+                                '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                function ($matches) {
+                                    return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                },
+                                $site->text_4_b
+                            );
+                        @endphp
+                        {!! $text_4_b !!}
+                         </p>
                      </div>
                  </div>
 
