@@ -60,7 +60,7 @@ function posts_loading(data) {
                 clone_post.querySelector('#img_url5').src = server_url + '/' + item['url_foto_3'];
             }
         }
-        clone_post.querySelector('#span_text_post').textContent = item['text_post'];
+        clone_post.querySelector('#span_text_post').innerHTML = text_link(item['text_post']);
         if (item['text_post_end'] != '') clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
         clone_post.querySelector('#a_collapse_post').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#a_collapse_post').textContent = item['text_post_link'];
@@ -68,39 +68,28 @@ function posts_loading(data) {
         if (item['url_foto_2'] != null) {
             clone_post.querySelector('#div_hidden_post').removeAttribute('hidden');
             clone_post.querySelector('#img_url2').src = server_url + '/' + item['url_foto_2'];
-
-            let text_post_2 = item['text_post_2'].replace(
-                /https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g,
-                function (url) {
-                    return `<a href="${url}" target="_blank">${url}</a>`;
-                }
-            );
-            clone_post.querySelector('#p_text_post_2').innerHTML = text_post_2;
+            clone_post.querySelector('#p_text_post_2').innerHTML = text_link(item['text_post_2']);
         }
         if (item['url_foto_3'] != null) {
             clone_post.querySelector('#div_hidden_post2').removeAttribute('hidden');
             clone_post.querySelector('#img_url3').src = server_url + '/' + item['url_foto_3'];
-            clone_post.querySelector('#p_text_post_3').textContent = item['text_post_3'];
+            clone_post.querySelector('#p_text_post_3').innerHTML = text_link(item['text_post_3']);
         }
         if (item['url_foto_4'] != null) {
             clone_post.querySelector('#div_hidden_post3').removeAttribute('hidden');
             clone_post.querySelector('#img_url8').src = server_url + '/' + item['url_foto_4'];
-            clone_post.querySelector('#p_text_post_4').textContent = item['text_post_4'];
+            clone_post.querySelector('#p_text_post_4').innerHTML = text_link(item['text_post_4']);
         }
         if (item['url_foto_5'] != null) {
             clone_post.querySelector('#div_hidden_post4').removeAttribute('hidden');
             clone_post.querySelector('#img_url9').src = server_url + '/' + item['url_foto_5'];
-            clone_post.querySelector('#p_text_post_5').textContent = item['text_post_5'];
+            clone_post.querySelector('#p_text_post_5').innerHTML = text_link(item['text_post_5']);
         }
-        if (item['url_foto_5'] != null) {
-            clone_post.querySelector('#div_hidden_post4').removeAttribute('hidden');
-            clone_post.querySelector('#img_url9').src = server_url + '/' + item['url_foto_5'];
-            clone_post.querySelector('#p_text_post_5').textContent = item['text_post_5'];
-        }
+
         if (item['stuff'] != null) {
             clone_post.querySelector('#div_hidden_post5').removeAttribute('hidden');
             clone_post.querySelector('#video').src = 'https://www.youtube.com/embed/' + item['stuff'];
-            clone_post.querySelector('#p_text_post_6').textContent = item['date'];
+            clone_post.querySelector('#p_text_post_6').innerHTML = text_link(item['date']);
         }
         // clone_post.querySelector('#a_collapse_post_end').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#like_post').textContent = ' ' + item['post_like_count'];
@@ -144,12 +133,12 @@ function comments_loading(data, post_id, id_user) {
 
     data.forEach(function (item3, i, enu) {   // перебираем комметарии
         let clone_comment = test_comment.cloneNode(true);
-
+        let text_link1 = text_link(item3['comment']);
 
         clone_comment.querySelector('#a_post_name_user').textContent = ' ' + item3['user_name'];
         clone_comment.querySelector('#a_post_name_user').href = server_url + '/channel/' + item3['user_id'];
         clone_comment.querySelector('nobr').textContent = item3['time'];
-        clone_comment.querySelector('#comment_text').textContent = item3['comment'];
+        clone_comment.querySelector('#comment_text').innerHTML = text_link1;
         clone_comment.querySelector('#comment_text').id = "comment_text" + item3['id'];
         if (item3['comment_like_active']) clone_comment.querySelector('#like_comment').className = "bi bi-hand-thumbs-up-fill ps-1";
         if (item3['comment_dislike_active']) clone_comment.querySelector('#dislike_comment').className = "bi bi-hand-thumbs-down-fill";
@@ -171,7 +160,7 @@ function comments_loading(data, post_id, id_user) {
         clone_comment.querySelector('#text_div_comment').id = 'text_div_comment' + item3['id'];
         clone_comment.querySelector('#coment_collapse').id = "coment_collapse" + item3['id'];
         clone_comment.querySelector('#form_coment').setAttribute('coment_id', item3['id']);
-        clone_comment.querySelector('#text_div_comment_edit').textContent = item3['comment'];
+        clone_comment.querySelector('#text_div_comment_edit').innerHTML = text_link1;
         clone_comment.querySelector('#text_div_comment_edit').id = 'text_div_comment_edit' + item3['id'];
         clone_comment.querySelector('#form_coment_del').setAttribute('coment_id', item3['id']);
         clone_comment.querySelector('#form_coment_del').setAttribute('post_id', post_id);
@@ -204,11 +193,12 @@ function replys_loading(data, id_comment, post_id, id_user) {
 
     data.forEach(function (item4, i, enu) {   // перебираем ответы
         let clone_reply = replu_hidden.cloneNode(true);
+        let text_link2 = text_link(item4['reply']);
 
         clone_reply.querySelector('#a_reply_name_user').textContent = ' ' + item4['user_name'];
         clone_reply.querySelector('#a_reply_name_user').href = server_url + '/channel/' + item4['user_id'];
         clone_reply.querySelector('nobr').textContent = item4['time'];
-        clone_reply.querySelector('#reply_text').textContent = item4['reply'];
+        clone_reply.querySelector('#reply_text').innerHTML = text_link2;
         if (item4['reply_like_active']) clone_reply.querySelector('#like_reply').className = "bi bi-hand-thumbs-up-fill ps-1";
         if (item4['reply_dislike_active']) clone_reply.querySelector('#dislike_reply').className = "bi bi-hand-thumbs-down-fill";
         if (item4['reply_made_user']) clone_reply.querySelector('#hidden_reply_collapse_edit').removeAttribute('hidden');
@@ -234,7 +224,7 @@ function replys_loading(data, id_comment, post_id, id_user) {
         });
         clone_reply.querySelector('#text_div_reply').textContent = item4['user_name'] + ' ';
         clone_reply.querySelector('#text_div_reply').id = "text_div_reply" + item4['id'];
-        clone_reply.querySelector('#text_div_reply_edit').textContent = item4['reply'];
+        clone_reply.querySelector('#text_div_reply_edit').innerHTML = text_link2;
         clone_reply.querySelector('#text_div_reply_edit').id = "text_div_reply_edit" + item4['id'];
         clone_reply.querySelector('#hidden_reply_collapse').href = "#reply_collapse" + item4['id'];
         clone_reply.querySelector('#reply_collapse').id = "reply_collapse" + item4['id'];
@@ -253,3 +243,16 @@ function replys_loading(data, id_comment, post_id, id_user) {
     });
 };
 
+
+function text_link(text) {  // в тексте делаем ссылки активными
+    if (text == null) return text;
+    else {
+        let text_link = text.replace(
+            /https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g,
+            function (url) {
+                return `<a href="${url}" target="_blank">${url}</a>`;
+            }
+        );
+        return text_link;
+    }
+}

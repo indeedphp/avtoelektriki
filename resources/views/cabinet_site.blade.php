@@ -155,7 +155,7 @@
         {{-- ---------------------------------------------------------------------------------------------------------------- --}}
         <hr>
         <h2>номер телефона</h2>
-        <input id="input_text_2" inf="2" type="tel" class="form-control" name="phone_1" value="{{$site->phone_1}}" >
+        <input id="input_text_2" inf="2" type="tel" class="form-control" name="phone_1" value="{{$site->phone_1}}" maxlength="15">
         @error('phone_1')
         <i class="link-danger ms-2">Ошибка: {{ $message }}</i>
         @enderror

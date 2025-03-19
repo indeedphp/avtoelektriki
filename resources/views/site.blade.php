@@ -141,7 +141,7 @@
                              <img class="mt-lg-3 img-fluid shadow rounded" src="{{ url($site->foto_4) }}"
                                  alt="Фото потерялось">
                          </div>
-                         <p class="card-text p-2 py-lg-4  px-lg-5">{{ $site->text_4_b }}
+                         <p class="card-text p-2 py-lg-4  px-lg-5">
                             @php
                             $text_4_b = preg_replace_callback(
                                 '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
@@ -165,7 +165,18 @@
                              <img class="mt-lg-3 img-fluid shadow rounded" src="{{ url($site->foto_5) }}"
                                  alt="Фото потерялось">
                          </div>
-                         <p class="card-text p-2 py-lg-4 px-lg-5">{{ $site->text_5_b }}</p>
+                         <p class="card-text p-2 py-lg-4 px-lg-5">{{ $site->text_5_b }}
+                            @php
+                            $text_5_b = preg_replace_callback(
+                                '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                                function ($matches) {
+                                    return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                                },
+                                $site->text_5_b
+                            );
+                        @endphp
+                        {!! $text_5_b !!}
+                         </p>
                      </div>
                  </div>
 

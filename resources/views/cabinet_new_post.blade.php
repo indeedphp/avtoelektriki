@@ -37,7 +37,7 @@
         @csrf
         <input type="hidden" name="draft_post_id" value="{{ $draft_post->id }}">
 
-<textarea id="input_text_1" inf="1" class="form-control" placeholder="Напишите название поста" name="name_post" >
+<textarea id="input_text_1" inf="1" class="form-control" placeholder="Напишите название поста" name="name_post" maxlength="250">
 @if($draft_post->name_post != null){{$draft_post->name_post}}@else{{old('name_post')}}@endif
 </textarea>
 <p>Количество символов: <span id="symbols_count_1"></span></p>

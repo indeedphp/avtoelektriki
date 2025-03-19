@@ -233,7 +233,8 @@
             <input class="form-control" type="text" id="youtube-url" inf="7" name="video_url" placeholder="вставте адрес видео с ютуба" >
             <p class="link-danger">Выберите видео с ютуба </p>
             <br>
-<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6"></textarea>
+<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6">
+@if($post->date != null){{$post->date}}@else{{old('text_post_5')}}@endif</textarea>
 @error('text_post_6')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror

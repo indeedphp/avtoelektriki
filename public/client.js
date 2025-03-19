@@ -63,7 +63,7 @@ window.addEventListener('submit', function (event) {
         // console.log(post_id);
         let comm_count = document.getElementById('comm_count' + post_id);  // счет комментариев в посте
         //    console.log(comm_count);
-
+console.dir(text_div.textContent.length ); 
         switch (form_type) {
             case '1':
 
@@ -75,7 +75,7 @@ window.addEventListener('submit', function (event) {
                 formData.append("comment", text_div.textContent);
                 formData.append("post_id", post_id);
 
-                if (text_div.textContent.trim() != '') {
+                if (text_div.textContent.trim() != '' && text_div.textContent.length < 2000) {
                     fetch('/comments/', {
                         method: 'POST',
                         headers: {
@@ -89,17 +89,18 @@ window.addEventListener('submit', function (event) {
                             console.dir(commits);
                             text_div.textContent = null;
                             let clone = test_comment.cloneNode(true);
-                            // console.dir(clone);
+                            
 
                             var enu = clone.querySelectorAll('span');
                             enu.forEach(function (item, i, enu) {  // перебираем смайлики
                                 item.setAttribute('comment_id', commits['id']);
                             });
+                            let text_link_1 = text_link(commits['comment']); // отправляем текст в функцию распознования ссылок
 
                             clone.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, - 10) + ' ';
                             clone.querySelector('#a_post_name_user').textContent = ' ' + commits['user_name'];
                             clone.querySelector('#a_post_name_user').href = server_url + '/channel/' + commits['user_id'];
-                            clone.querySelector('#comment_text').textContent = commits['comment'];
+                            clone.querySelector('#comment_text').innerHTML = text_link_1;
                             clone.querySelector('#comment_text').id = "comment_text" + commits['id'];
                             // clone.querySelector('a').setAttribute('href', "#coment_collapse" + commits['id']);
                             clone.querySelector('#i_collapse_smile').setAttribute('href', "#collapse_comment_edit_smile" + commits['id']);
@@ -112,7 +113,7 @@ window.addEventListener('submit', function (event) {
                             clone.querySelector('#text_div_comment').id = 'text_div_comment' + commits['id'];
                             clone.querySelector('#coment_collapse').id = "coment_collapse" + commits['id'];
                             clone.querySelector('#form_coment').setAttribute('coment_id', commits['id']);
-                            clone.querySelector('#text_div_comment_edit').textContent = commits['comment'];
+                            clone.querySelector('#text_div_comment_edit').innerHTML = text_link_1;
                             clone.querySelector('#text_div_comment_edit').id = 'text_div_comment_edit' + commits['id'];
                             clone.querySelector('#form_coment_del').setAttribute('coment_id', commits['id']);
                             clone.querySelector('#form_coment_del').setAttribute('post_id', post_id);
@@ -132,7 +133,7 @@ window.addEventListener('submit', function (event) {
                             clone = null;
                         });
                 } else {
-                    alert("Напишите коментарий");
+                   return alert("Нельзя пустой и слишком большой комментарий (больше 2000 символов)");
                 }
                 event.target.reset();
                 setTimeout(function () {
@@ -149,7 +150,7 @@ window.addEventListener('submit', function (event) {
                 formData.append("text_comment", text_div.textContent);
                 formData.append("comment_id", comment_id);
 
-                if (text_div.textContent.trim() != '') {
+                if (text_div.textContent.trim() != '' && text_div.textContent.length < 2000) {
                     fetch('/comments/', {
                         method: 'POST',
                         headers: {
@@ -164,7 +165,7 @@ window.addEventListener('submit', function (event) {
                             comment_text.textContent = commits['comment'];
                         });
                 } else {
-                    alert("Напишите комений");
+                    return alert("Нельзя пустой и слишком большой комментарий (больше 2000 символов)");
                 }
 
                 break;
@@ -210,7 +211,7 @@ window.addEventListener('submit', function (event) {
                     reply_collapse.className = "collapse";
                 }
 
-                if (text_div.textContent.trim() != '') {
+                if (text_div.textContent.trim() != '' && text_div.textContent.length < 2000) {
                     fetch('/reply_comment/', {
                         method: 'POST',
                         headers: {
@@ -229,10 +230,12 @@ window.addEventListener('submit', function (event) {
                                 item.setAttribute('reply_id', commits['id']);
                             });
 
+                            let text_link_2 = text_link(commits['reply']); // отправляем текст в функцию распознования ссылок
+
                             clone_replu.querySelector('#a_reply_name_user').textContent = ' ' + commits['user_name'];
                             clone_replu.querySelector('#a_reply_name_user').href = server_url + '/channel/' + commits['user_id'];
                             clone_replu.querySelector('nobr').textContent = new Date().toLocaleString().slice(0, -10) + ' ';
-                            clone_replu.querySelector('#reply_text').textContent = commits['reply'];
+                            clone_replu.querySelector('#reply_text').innerHTML = text_link_2;
                             clone_replu.querySelector('#form_reply_reply').setAttribute('coment_id', commits['comment_id']);
                             clone_replu.querySelector('#form_reply_reply').setAttribute('reply_id', commits['id']);
                             clone_replu.querySelector('#form_reply_reply').setAttribute('post_id', post_id);
@@ -245,7 +248,7 @@ window.addEventListener('submit', function (event) {
                             clone_replu.querySelector('#dislike_reply').setAttribute('reply_id', commits['id']);
                             clone_replu.querySelector('#text_div_reply').textContent = commits['user_name'] + ' ';
                             clone_replu.querySelector('#text_div_reply').id = "text_div_reply" + commits['id'];
-                            clone_replu.querySelector('#text_div_reply_edit').textContent = commits['reply'];
+                            clone_replu.querySelector('#text_div_reply_edit').innerHTML = text_link_2;
                             clone_replu.querySelector('#text_div_reply_edit').id = "text_div_reply_edit" + commits['id'];
                             clone_replu.querySelector('#hidden_reply_collapse').href = "#reply_collapse" + commits['id'];
                             clone_replu.querySelector('#reply_collapse').id = "reply_collapse" + commits['id'];
@@ -265,7 +268,7 @@ window.addEventListener('submit', function (event) {
 
                         });
                 } else {
-                    alert("Напишите что либо");
+                    return alert("Нельзя пустой и слишком большой комментарий (больше 2000 символов)");
                 }
 
                 break;
@@ -278,7 +281,7 @@ window.addEventListener('submit', function (event) {
                 formData.append("reply", text_div.textContent);
                 formData.append("reply_id", reply_id);
 
-                if (text_div.textContent.trim() != '') {
+                if (text_div.textContent.trim() != '' && text_div.textContent.length < 2000) {
                     fetch('/reply_comment/', {
                         method: 'POST',
                         headers: {
@@ -295,7 +298,7 @@ window.addEventListener('submit', function (event) {
 
                         });
                 } else {
-                    alert("Напишите ответ");
+                    return alert("Нельзя пустой и слишком большой комментарий (больше 2000 символов)");
                 }
 
                 break;
@@ -478,4 +481,16 @@ function complaint(id_post_c, id_user_untrue, id_pcr, essence) { // жалоба
 
 }
 // ============================================================================
+function text_link(text) {  // в тексте делаем ссылки активными
+    if (text == null) return text;
+    else {
+        let text_link = text.replace(
+            /https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g,
+            function (url) {
+                return `<a href="${url}" target="_blank">${url}</a>`;
+            }
+        );
+        return text_link;
+    }
+}
 // -------------------------------------------------------------------------------------------------------------

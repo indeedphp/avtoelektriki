@@ -238,17 +238,17 @@ class CabinetController extends Controller
             'text_post_4' => ['nullable', 'string', 'max:5000'],
             'foto_5' => ['image', 'max:3072'],
             'text_post_5' => ['nullable', 'string', 'max:5000'],
-            'checkbox_1' => ['nullable', 'integer', 'max:5'],
-            'checkbox_2' => ['nullable', 'integer', 'max:5'],
-            'checkbox_3' => ['nullable', 'integer', 'max:5'],
-            'checkbox_4' => ['nullable', 'integer', 'max:5'],
-            'checkbox_5' => ['nullable', 'string', 'max:3'],
+            'checkbox_1' => ['nullable', 'string', 'max:5'],
+            'checkbox_2' => ['nullable', 'string', 'max:5'],
+            'checkbox_3' => ['nullable', 'string', 'max:5'],
+            'checkbox_4' => ['nullable', 'string', 'max:5'],
+            'checkbox_5' => ['nullable', 'string', 'max:5'],
             'video_url' => ['nullable', 'starts_with:https://youtu.be,https://www.youtube', 'string', 'max:100'],
             'text_post_6' => ['nullable', 'string', 'max:2000'],
             
         ]);
 
-        // info($valid);
+        info($valid);
 
         $post = Post::where('id', $valid['post_id'])->first(); // из базы получаем старые данные
         $name_post = $post->name_post;
@@ -283,7 +283,7 @@ class CabinetController extends Controller
         {
             $file_info = getimagesize($inputFile);
             $mime_type = $file_info['mime'];
-            info($mime_type);
+            // info($mime_type);
 
             if ($mime_type == 'image/jpeg') {
                 $img = imagecreatefromjpeg($inputFile);

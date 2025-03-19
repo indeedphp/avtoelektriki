@@ -86,6 +86,7 @@ Route::get('/', [PostController::class, 'index'])->name('index');
 Route::get('/api_index', [PostController::class, 'show'])->name('show');
 
 Route::get('/channel/{id}', [ChannelController::class, 'index'])->name('channel');
+Route::get('/channel_all_post/{id}', [ChannelController::class, 'show_channel_all_post'])->name('channel_all_post');
 Route::get('/api_channel/{id}', [ChannelController::class, 'show'])->name('channel_show');
 Route::get('/post/{id}', [ChannelController::class, 'index2'])->name('channel2');
 Route::get('/api_post/{id}', [ChannelController::class, 'show2'])->name('channel_show');

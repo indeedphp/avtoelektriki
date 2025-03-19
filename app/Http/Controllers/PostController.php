@@ -67,7 +67,7 @@ class PostController extends Controller
         // info(Auth::user()->id);
 
         // $posts = Post::orderBy('id')->paginate(5);
-        $posts = Post::orderBy('id', 'desc')->cursorPaginate(5);
+        $posts = Post::orderBy('id', 'desc')->cursorPaginate(10);
         // $posts = Post::all();
         // $posts = $posts->reverse();
 

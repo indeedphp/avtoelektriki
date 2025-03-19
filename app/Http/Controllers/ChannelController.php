@@ -33,6 +33,21 @@ class ChannelController extends Controller
         info($user_data);
         return view('channel', ['id' => $id, 'user' => $user, 'user_data' => $user_data]);
     }
+
+    // ---------------------------------------------------------------------------------------------
+    public function show_channel_all_post($id)  // показываем страницу channel с постами одного юзер в минималистичном виде  -views/channel_all_post
+    {
+        
+        // $id = Auth::user()->id;
+        $user = User::where('id', $id)->first();
+        if (empty(UserData::where('user_id', $id)->first())) $user_data = UserData::where('user_id', 1)->first();
+        else $user_data = UserData::where('user_id', $id)->first();
+        info($user_data);
+        $posts = Post::orderBy('id', 'desc')->where('id_user', $id)->paginate(20);
+        $count = $posts->total();
+        return view('channel_all_post', ['id' => $id, 'user' => $user, 'user_data' => $user_data, 'count' => $count, 'posts' => $posts]);
+    }
+
     // ---------------------------------------------------------------------------------------------
 
     public function show($id)  // для фетч запроса метод    -views/channel
