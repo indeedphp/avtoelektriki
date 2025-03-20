@@ -184,12 +184,23 @@
 
                  <div class="row mx-0">
                      <a href="{{ route('channel', Auth::user()->id) }}" class="btn text-white" target="_blank"
-                         role="button" style = "background-color : #{{ $site->color_card }}"
-                         title="Перейти на портал Автоэлектрики">Наши недавние ремонты тут на портале</a>
+                         role="button" style = "background-color : #8E0400"
+                         title="Перейти на портал Автоэлектрики">Все наши ремонты тут на портале</a>
                  </div>
 
 
-                 <h4 class="p-2 fw-normal ">{{ $site->bottom_text }}</h4>
+                 <h4 class="p-2 fw-normal ">
+                    @php
+                    $bottom_text = preg_replace_callback(
+                        '/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/',
+                        function ($matches) {
+                            return '<a href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+                        },
+                        $site->bottom_text
+                    );
+                @endphp
+               {!! $bottom_text !!}
+                 </h4>
 
 
 

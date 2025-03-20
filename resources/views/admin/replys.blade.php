@@ -1,4 +1,3 @@
-
 @extends('layouts/admin')
 
 
@@ -6,6 +5,7 @@
 @section('posts')
 
 <x-nav-admin/>
+
 
 {{-- {{ route('cabinet_statistic') }} --}}
 
@@ -33,8 +33,6 @@
                     <input type="text" class="form-control p-1" name="comment_id_search" placeholder = "id">
                 </form>
             </th>
-
-
             <th class="ps-1 pe-1"  scope="col"><a href="{{route('admin_replys', ['page' => $replys->currentPage(), 'count' => $count, 'sorting' => 'date_cr_'.$sort])}}">Дата созд.</a>
                 <form action="{{ route('admin_replys') }}" method="GET">
                     <input type="text" class="form-control p-1" name="date_cr_search" placeholder = "д-м-г">
@@ -51,7 +49,7 @@
                 </form>
 
             </th>
-<th scope="col">Ответ</th>
+            <th scope="col">Ответ</th>
             <th scope="col"><a href="{{route('admin_replys', ['page' => $replys->currentPage(), 'count' => $count, 'sorting' => 'activ_'.$sort])}}">ban</a></th>
             
             <th scope="col">cor</th>
@@ -71,7 +69,7 @@
         <td>{{date('d-m-Y', strtotime($reply->created_at))}}</td>
         <td>{{date('d-m-Y', strtotime($reply->updated_at))}}</td>
         <td>{{Str::limit($reply->user_name , 12)}}</td>
-        <td>{{$reply->reply}}</td>
+        <td>{{Str::limit($reply->reply , 30)}}</td>
         <td>{{$reply->activ}}</td>
         <td> <a href="" data-bs-toggle="modal" data-bs-target="#Modal_{{$reply->id}}">cor</a> </td>
 
