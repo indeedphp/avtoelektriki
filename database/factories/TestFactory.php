@@ -24,5 +24,6 @@ class TestFactory extends Factory
             'text_post' => fake()->realText(rand(200, 300)),
            
         ];
+
     }
 }

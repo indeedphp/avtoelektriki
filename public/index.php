@@ -53,3 +53,5 @@ $response = $kernel->handle(
 )->send();
 
 $kernel->terminate($request, $response);
+
+\App\Models\Statistic::latest()->first()->increment('num');  // пишем в базу статистики запись о посещении

@@ -20,7 +20,7 @@
          <div class="row ">
 
              <div class="col-sm-6 d-flex justify-content-center ps-lg-5">
-                 <h3 class="text-white ps-lg-5">{{ $site->heading }}</h3>
+                 <p class="text-white ps-lg-5 h3">{{ $site->heading }}</p>
              </div>
              <div class="col-sm-5 d-flex justify-content-center ps-lg-5">
                  @if ($site->phone_1 != null)

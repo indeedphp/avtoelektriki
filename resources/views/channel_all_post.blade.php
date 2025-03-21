@@ -4,7 +4,7 @@
 
 <div div class="card  my-3 @if($user_data->stuff == 1)text-white @endif">
 
-    <div class="card-body row pt-2 pb-0 m-0 p-0 shadow rounded " style = "background-color : @if($user_data->color_channel == null)#283196 @else{{$user_data->color_channel}} @endif";>
+    <div class="card-body row pt-2 pb-0 m-0 p-0 shadow rounded " style = "background-color : @if($user_data->color_channel == null)#B7B7B7 @else{{$user_data->color_channel}} @endif";>
     <div class=" m-0 px-2" >    <i class=" float-start  ">Личный канал: </i>  <a class="m-0 float-end h4 bi bi-file-earmark-plus " href="{{route('cabinet_new_post')}}" title="Создать пост"></a> </div>
 
     

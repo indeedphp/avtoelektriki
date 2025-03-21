@@ -33,6 +33,7 @@ class SiteController extends Controller
 
     public function show($id)  // показываем готовый сайт
     {
+        \App\Models\Statistic::latest()->first()->increment('site');  // пишем в базу статистики запись о посещении
         // $site = Site::where('id_user', $id)->first();
         if (!empty(Site::where('id_user', $id)->first())) $site = Site::where('id_user', $id)->first();
         else $site = Site::where('id', 1)->first();
@@ -83,7 +84,7 @@ class SiteController extends Controller
         info($request);
         $valid = $request->validate([  // валидация формы
             'site_id' => ['required', 'integer', 'max:100000'],
-            'heading' => ['nullable', 'string', 'max:25'],
+            'heading' => ['nullable', 'string', 'max:30'],
             'phone_1' => ['nullable', 'string', 'max:15'],
             'top_text' => ['nullable', 'string', 'max:500'],
             'color_head' => ['required', 'string', 'max:10'],

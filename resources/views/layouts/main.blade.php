@@ -155,7 +155,7 @@
                     <input id="hidden_input_complaint_5" type="hidden" name="id_post" value="">
                     <label class="form-label ">Напишите суть, оскорбления, ругань, флуд, реклама и пр.</label>
                     <input id="input_complaint" class="form-control my-1" type="text" name="complaint"
-                        placeholder = "Опишите в несколько слов">
+                        placeholder = "Опишите в несколько слов" maxlength="100">
             </div>
             <div class="modal-footer">
                 <input class="btn btn-primary btn-sm my-1" type="submit" data-bs-dismiss="modal">

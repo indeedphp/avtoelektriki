@@ -25,6 +25,7 @@ class CabinetController extends Controller
     // ======================================================================================================
     public function settings_show()  // страница настроек в кабинете -views/cabinet_settings
     {
+        \App\Models\Statistic::latest()->first()->increment('cabinet');  // пишем в базу статистики запись о посещении
         $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
 

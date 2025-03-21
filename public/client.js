@@ -63,7 +63,7 @@ window.addEventListener('submit', function (event) {
         // console.log(post_id);
         let comm_count = document.getElementById('comm_count' + post_id);  // счет комментариев в посте
         //    console.log(comm_count);
-console.dir(text_div.textContent.length ); 
+// console.dir(text_div.textContent.length ); 
         switch (form_type) {
             case '1':
 

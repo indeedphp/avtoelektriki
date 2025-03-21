@@ -7,11 +7,11 @@
                 <div class="row">
 
                     <div class="col-auto me-auto p-0 px-lg-3">
-                        <i id="post_sity" class="bi bi-geo-alt"> Алматы </i> 
+                        <i id="post_sity" class="bi bi-geo-alt">  </i> 
                     </div>
 
                     <div class="col-auto p-0 pe-1 px-lg-3 ">
-                        <a id="a_channel" href="ссылка js" class="bi bi-universal-access ms-auto "
+                        <a id="a_channel" href="ссылка js" class="nav-link bi bi-person ms-auto "
                             style="text-decoration: none" target="_blank"></a>
                     </div>
                 </div>
@@ -42,14 +42,15 @@
 
                 <div class="card-text pt-2">
                     <div id="span_text_post" class="px-1">выводим текст под фото</div>
-                    <div class="text-end pb-1 pe-1"> <a id="a_collapse_post" class="link-underline-light p-0 user-select-none"
+  {{-- ------------------------------------------------------------------------------------------------------------------------- --}}                  
+                    <div class="text-end pb-1 pe-1"> <a id="a_collapse_post" class=" link-underline-light p-0 user-select-none"
                             href="#collapseExample1" data-bs-toggle="collapse" data-bs-target="js collapse"
                             aria-expanded="false" aria-controls="collapseExample"></a>
                     </div>
                 </div>
 {{-- ------------------------------------------------------------------------------------------------------------------------- --}}
 
-                <div id="div_collapse_post" class="collapse p-0">
+                <div id="div_collapse_post" class=" collapse p-0">
                     <div class=" p-1">
 
                         <div id="div_text_post_end" class="card-text">

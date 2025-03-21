@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\UserData;
 use App\Models\User;
+
 // use Illuminate\Support\Facades\Notification;  // подключаем фасад Notification
 // use App\Notifications\ComplaintNotification;  // подключаем нотификацию для жалоб
 /*
@@ -40,6 +41,8 @@ class PostController extends Controller
     // -----------------------------------------------------------------------------------------------------------
     public function show()  // заполняем через апи главную страницу
     {
+        \App\Models\Statistic::latest()->first()->increment('index');  // пишем в базу статистики запись о посещении
+
         $post_like_count = 0;
         $post_comment_count = 0;
         $post_like_active = false;

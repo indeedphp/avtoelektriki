@@ -15,7 +15,7 @@
         @csrf
         <input type="hidden" name="post_id" value="{{ $post->id }}">
 
-<textarea id="input_text_1" inf="1" class="form-control" placeholder="Напишите название поста" name="name_post">
+<textarea id="input_text_1" inf="1" class="form-control" placeholder="Напишите название поста" name="name_post" maxlength="250">
 @if($post->name_post != null){{$post->name_post}}@else{{old('name_post')}}@endif
 </textarea>
 @error('name_post')
@@ -23,7 +23,7 @@
 @enderror
 <p>Количество символов: <span id="symbols_count_1"></span></p>
 
-        <p class="link-danger">Название поста (обязательно для заполнения)</p>
+        <p class="link-danger">Название поста, максимум 250 символов.(обязательно для заполнения)</p>
         <p></p>
 
         {{-- -------------------- карточка 1 -------------------------------------------- --}}
@@ -39,7 +39,7 @@
             <p id="error_foto_size_1" class="link-danger"></p>
             
             
-<textarea id="input_text_2" inf="2" class="form-control" placeholder="Напишите текст под фото" name="text_post_1">
+<textarea id="input_text_2" inf="2" class="form-control" placeholder="Напишите текст под фото" name="text_post_1" maxlength="2000">
 @if($post->text_post != null){{ $post->text_post}}@else{{old('text_post_1')}}@endif
 </textarea>
 @error('text_post_1')
@@ -47,7 +47,7 @@
 @enderror
 <p>Количество символов: <span id="symbols_count_2"></span></p>
 
-            <p class="link-danger">Напишите текст под фото</p>
+            <p class="link-danger">Напишите текст под фото, максимум 2000 символов</p>
             <p></p>
         </div>
             {{-- checkbox 1----------------------------------------------------------------------------------- --}}
@@ -79,7 +79,7 @@
             <p class="link-danger">Выберите свое фото 2 </p>
             <p id="error_foto_size_2" class="link-danger"></p>
             <br>
-<textarea id="input_text_3" inf="3" class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2">
+<textarea id="input_text_3" inf="3" class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2" maxlength="2000">
 @if($post->text_post_2 != null){{$post->text_post_2}}@else{{old('text_post_2')}}@endif
 </textarea>
 @error('text_post_2')
@@ -87,7 +87,7 @@
 @enderror
 <p>Количество символов: <span id="symbols_count_3"></span></p>
 
-            <p class="link-danger">Напишите текст под фото 2 </p>
+            <p class="link-danger">Напишите текст под фото 2, максимум 2000 символов </p>
             <p></p>
         </div>
             {{-- checkbox 2----------------------------------------------------------------------------------- --}}
@@ -118,7 +118,7 @@
             <p id="error_foto_size_3" class="link-danger"></p>
             
             <br>
-<textarea id="input_text_4" inf="4" class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3">
+<textarea id="input_text_4" inf="4" class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3" maxlength="2000">
 @if ($post->text_post_3 != null){{$post->text_post_3}}@else{{old('text_post_3')}}@endif
 </textarea>
 @error('text_post_3')
@@ -126,7 +126,7 @@
 @enderror
 <p>Количество символов: <span id="symbols_count_4"></span></p>
 
-            <p class="link-danger">Напишите текст под фото 3 </p>
+            <p class="link-danger">Напишите текст под фото 3, максимум 2000 символов</p>
             <p></p>
         </div>
             {{-- checkbox 3----------------------------------------------------------------------------------- --}}
@@ -157,7 +157,7 @@
             <p id="error_foto_size_4" class="link-danger"></p>
           
             <br>
-<textarea id="input_text_5" inf="5" class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4">
+<textarea id="input_text_5" inf="5" class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4" maxlength="2000">
 @if ($post->text_post_4 != null)
 {{$post->text_post_4}}@else{{old('text_post_4')}}@endif
 </textarea>
@@ -166,7 +166,7 @@
 @enderror
 <p>Количество символов: <span id="symbols_count_5"></span></p>
 
-            <p class="link-danger">Напишите текст под фото 4 </p>
+            <p class="link-danger">Напишите текст под фото 4, максимум 2000 символов </p>
             <p></p>
         </div>
             {{-- checkbox 4----------------------------------------------------------------------------------- --}}
@@ -198,7 +198,7 @@
             <p id="error_foto_size_5" class="link-danger"></p>
             
             <br>
-<textarea id="input_text_6" inf="6" class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5">
+<textarea id="input_text_6" inf="6" class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5" maxlength="2000">
 @if($post->text_post_5 != null){{$post->text_post_5}}@else{{old('text_post_5')}}@endif
 </textarea>
 @error('text_post_5')
@@ -206,7 +206,7 @@
 @enderror
 <p>Количество символов: <span id="symbols_count_6"></span></p>
 
-            <p class="link-danger">Напишите текст под фото 5 </p>
+            <p class="link-danger">Напишите текст под фото 5, максимум 2000 символов </p>
             <p></p>
             <br>
             <hr><br>
@@ -233,21 +233,21 @@
             <input class="form-control" type="text" id="youtube-url" inf="7" name="video_url" placeholder="вставте адрес видео с ютуба" >
             <p class="link-danger">Выберите видео с ютуба </p>
             <br>
-<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6">
+<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6" maxlength="2000">
 @if($post->date != null){{$post->date}}@else{{old('text_post_5')}}@endif</textarea>
 @error('text_post_6')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
 <p>Количество символов: <span id="symbols_count_8"></span></p>
 
-            <p class="link-danger">Напишите текст под видео </p>
+            <p class="link-danger">Напишите текст под видео, максимум 2000 символов</p>
             <p></p>
             <br>
             <hr><br>
         </div>
         {{-- ----------------кнопки------------------------------------------------------------------------- --}}
 
-        <button class="btn btn-primary " title="Сохранить чтоб потом дописать" type="submit">Сохранить пост</button>
+        <button class="btn btn-primary " title="Сохранить изменения поста" type="submit">Сохранить изменения поста</button>
     </form>
     <hr>
     <a class="btn btn-primary" href="{{ route('channel2', $post->id) }}" target="_blank">Посмотреть как выглядит пост</a>

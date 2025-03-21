@@ -61,20 +61,16 @@
             <p id="error_foto_size_1" class="link-danger"></p>
             
             
-<textarea id="input_text_2" inf="2" class="form-control" placeholder="Напишите текст под фото" name="text_post_1" style="height: 150px">
+<textarea id="input_text_2" inf="2" class="form-control" placeholder="Напишите текст под фото" name="text_post_1" style="height: 150px" maxlength="2000">
 @if($draft_post->text_post != null){{ $draft_post->text_post}}@else{{old('text_post_1')}}@endif
 </textarea>
-<p>Количество символов: <span id="symbols_count_2"></span></p>
+<p>Введено символов: <span id="symbols_count_2"></span></p>
 @error('text_post_1')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
-
-
-
-
-
             <p class="link-danger">Напишите текст под фото, максимум 2000 символов</p>
             <p></p>
+
             {{-- checkbox 1----------------------------------------------------------------------------------- --}}
             <hr>
             <label>
@@ -104,10 +100,10 @@
             <p class="link-danger">Выберите свое фото 2, размер максимум 3 мегабайта</p>
             <p id="error_foto_size_2" class="link-danger"></p>
             <br>
-<textarea id="input_text_3" inf="3" class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2" style="height: 150px">
+<textarea id="input_text_3" inf="3" class="form-control" placeholder="Напишите текст под фото 2" name="text_post_2" style="height: 150px" maxlength="2000"> 
 @if($draft_post->text_post_2 != null){{$draft_post->text_post_2}}@else{{old('text_post_2')}}@endif
 </textarea>
-<p>Количество символов: <span id="symbols_count_3"></span></p>
+<p>Введено символов: <span id="symbols_count_3"></span></p>
 @error('text_post_2')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
@@ -144,10 +140,10 @@
             <p id="error_foto_size_3" class="link-danger"></p>
             
             <br>
-<textarea id="input_text_4" inf="4" class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3" style="height: 150px">
+<textarea id="input_text_4" inf="4" class="form-control" placeholder="Напишите текст под фото 3" name="text_post_3" style="height: 150px" maxlength="2000">
 @if ($draft_post->text_post_3 != null){{$draft_post->text_post_3}}@else{{old('text_post_3')}}@endif
 </textarea>
-<p>Количество символов: <span id="symbols_count_4"></span></p>
+<p>Введено символов: <span id="symbols_count_4"></span></p>
 @error('text_post_3')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
@@ -181,11 +177,11 @@
             <p id="error_foto_size_4" class="link-danger"></p>
           
             <br>
-<textarea id="input_text_5" inf="5" class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4" style="height: 150px">
+<textarea id="input_text_5" inf="5" class="form-control" placeholder="Напишите текст под фото 4" name="text_post_4" style="height: 150px" maxlength="2000">
 @if ($draft_post->text_post_4 != null)
 {{$draft_post->text_post_4}}@else{{old('text_post_4')}}@endif
 </textarea>
-<p>Количество символов: <span id="symbols_count_5"></span></p>
+<p>Введено символов: <span id="symbols_count_5"></span></p>
 @error('text_post_4')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
@@ -220,10 +216,10 @@
             <p id="error_foto_size_5" class="link-danger"></p>
             
             <br>
-<textarea id="input_text_6" inf="6" class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5" style="height: 150px">
+<textarea id="input_text_6" inf="6" class="form-control" placeholder="Напишите текст под фото 5" name="text_post_5" style="height: 150px" maxlength="2000">
 @if($draft_post->text_post_5 != null){{$draft_post->text_post_5}}@else{{old('text_post_5')}}@endif
 </textarea>
-<p>Количество символов: <span id="symbols_count_6"></span></p>
+<p>Введено символов: <span id="symbols_count_6"></span></p>
 @error('text_post_5')
 <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
 @enderror
@@ -264,7 +260,7 @@
 <p hidden>Количество символов: <span id="symbols_count_7"></span></p>
 <br> 
 <h5>Вставляем текст под видео в пост</h5>
-<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6" style="height: 150px">
+<textarea id="input_text_8" inf="8" class="form-control" placeholder="Напишите текст под видео" name="text_post_6" style="height: 150px" maxlength="2000">
 @if($draft_post->date != null){{$draft_post->date}}@else{{old('text_post_6')}}@endif</textarea>
     <p>Введено символов: <span id="symbols_count_8"></span></p>
     @error('text_post_7')

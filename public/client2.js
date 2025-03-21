@@ -43,7 +43,7 @@ function posts_loading(data) {
         clone_post.querySelector('#i_clock').textContent = ' ' + item['time'];
         clone_post.querySelector('#post_sity').textContent = ' ' + item['author_sity'];
         clone_post.querySelector('#a_channel').href = server_url + '/channel/' + item['id_user'];
-        clone_post.querySelector('#a_channel').textContent = item['user_name'];
+        clone_post.querySelector('#a_channel').textContent = ' ' + item['user_name'];
         clone_post.querySelector('#h_name_post').textContent = item['name_post'];
         clone_post.querySelector('#a_url_post').href = server_url + '/post/' + item['id'];
         clone_post.querySelector('#i_repost_post').href = server_url + '/post/' + item['id'];
@@ -61,7 +61,7 @@ function posts_loading(data) {
             }
         }
         clone_post.querySelector('#span_text_post').innerHTML = text_link(item['text_post']);
-        if (item['text_post_end'] != '') clone_post.querySelector('#div_text_post_end').textContent = '...' + item['text_post_end'];
+        if (item['text_post_end'] != '') clone_post.querySelector('#div_text_post_end').innerHTML = '...' + text_link(item['text_post_end']);
         clone_post.querySelector('#a_collapse_post').setAttribute('data-bs-target', '#collapseExample' + item['id']);
         clone_post.querySelector('#a_collapse_post').textContent = item['text_post_link'];
         clone_post.querySelector('#div_collapse_post').id = 'collapseExample' + item['id'];

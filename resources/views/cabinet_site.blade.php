@@ -145,13 +145,13 @@
         {{-- ---------------------------------------------------------------------------------------------------------------- --}}
         <hr>
         <h2>текст в верху страницы</h2>
-        <textarea id="input_text_1" inf="1" class="form-control" name="heading">{{$site->heading}}</textarea>
+        <textarea id="input_text_1" inf="1" class="form-control" name="heading" maxlength="30">{{$site->heading}}</textarea>
             @error('heading')
             <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
             @enderror
-            <i>Количество символов: <span id="symbols_count_1">0</span></i>
+            <i>Введено символов: <span id="symbols_count_1">0</span></i>
             <br>
-        <i class="link-danger">Напишите чем занимаетесь и где, в два-три слова например"Автоэлектрики Алматы", максимум 25 символов</i>
+        <i class="link-danger">Напишите чем занимаетесь и где или как, в два-три слова например"Автоэлектрики Алматы", максимум 30 символов</i>
         {{-- ---------------------------------------------------------------------------------------------------------------- --}}
         <hr>
         <h2>номер телефона</h2>
@@ -159,18 +159,18 @@
         @error('phone_1')
         <i class="link-danger ms-2">Ошибка: {{ $message }}</i>
         @enderror
-        <i>Количество символов: <span id="symbols_count_2">0</span></i>
+        <i>Введено символов: <span id="symbols_count_2">0</span></i>
         <br>
         <i class="link-danger">Напишите номер телефона для контактов, без пробелов, точек и тире, пример +70000000000, максимум 15 символов </i>
         <hr>
 
         {{-- -------------------------------------------------------------------------------------------------------------------- --}}
         <h2>текст сверху карточек</h2>
-        <textarea id="input_text_3" inf="3" class="form-control" name="top_text">{{$site->top_text}}</textarea>
+        <textarea id="input_text_3" inf="3" class="form-control" name="top_text" maxlength="500">{{$site->top_text}}</textarea>
         @error('top_text')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_3">0</span></i>
+        <i>Введено символов: <span id="symbols_count_3">0</span></i>
         <br>
         <i class="link-danger">Напишите коротко главные направления деятельности например "Срочный выезд для запуска
             автомобиля, диагностика на выезде, заправка и ремонт кондиционера", максимум 500 символов</i>
@@ -304,11 +304,11 @@
         <h2>1 карточка</h2>
          <hr>
         <h2>текст верха карточки</h2>
-        <textarea id="input_text_4" inf="4" class="form-control" name="text_1_a">{{$site->text_1_a}}</textarea>
+        <textarea id="input_text_4" inf="4" class="form-control" name="text_1_a" maxlength="50">{{$site->text_1_a}}</textarea>
         @error('text_1_a')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_4">0</span></i>
+        <i>Введено символов: <span id="symbols_count_4">0</span></i>
         <br>
         <i class="link-danger">Напишите заголовок карточки, максимум 50 символов</i>
         <hr>
@@ -322,11 +322,11 @@
         <hr>
         {{-- ------------------------------------------------- --}}
         <h2>текст под фото 1</h2>
-        <textarea id="input_text_5" inf="5" class="form-control" name="text_1_b" style="height: 150px">{{$site->text_1_b}}</textarea>
+        <textarea id="input_text_5" inf="5" class="form-control" name="text_1_b" style="height: 150px" maxlength="1000">{{$site->text_1_b}}</textarea>
         @error('text_1_b')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_5">0</span></i>
+        <i>Введено символов: <span id="symbols_count_5">0</span></i>
         <br>
         <i class="link-danger">Напишите текст под фото 1, максимум 1000 символов</i>
         <hr>
@@ -335,11 +335,11 @@
         <h2>2 карточка</h2>
         <hr>
         <h2>текст верха карточки</h2>
-        <textarea id="input_text_6" inf="6" class="form-control" name="text_2_a">{{$site->text_2_a}}</textarea>
+        <textarea id="input_text_6" inf="6" class="form-control" name="text_2_a" maxlength="50">{{$site->text_2_a}}</textarea>
         @error('text_2_a')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_6">0</span></i>
+        <i>Введено символов: <span id="symbols_count_6">0</span></i>
         <br>
         <i class="link-danger">Напишите заголовок карточки, максимум 50 символов</i>
         <hr>
@@ -352,11 +352,11 @@
         <hr>
          {{-- ---------------------------------------------------------------- --}}
         <h2>текст под фото 2</h2>
-        <textarea id="input_text_7" inf="7" class="form-control" name="text_2_b" style="height: 150px">{{$site->text_2_b}}</textarea>
+        <textarea id="input_text_7" inf="7" class="form-control" name="text_2_b" style="height: 150px" maxlength="1000">{{$site->text_2_b}}</textarea>
         @error('text_2_b')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_7">0</span></i>
+        <i>Введено символов: <span id="symbols_count_7">0</span></i>
         <br>
         <i class="link-danger">Напишите текст под фото, максимум 1000 символов</i>
         <hr>
@@ -365,11 +365,11 @@
         <h2>3 карточка</h2>
         <hr>
         <h2>текст верха карточки</h2>
-        <textarea id="input_text_8" inf="8" class="form-control" name="text_3_a">{{$site->text_3_a}}</textarea>
+        <textarea id="input_text_8" inf="8" class="form-control" name="text_3_a" maxlength="50">{{$site->text_3_a}}</textarea>
         @error('text_3_a')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_8">0</span></i>
+        <i>Введено символов: <span id="symbols_count_8">0</span></i>
         <br>
         <i class="link-danger">Напишите заголовок карточки, максимум 50 символов</i>
         <hr>
@@ -382,11 +382,11 @@
         <hr>
         {{-- -------------------------------------------------------------------------------- --}}
         <h2>текст под фото 3</h2>
-        <textarea id="input_text_9" inf="9" class="form-control" name="text_3_b" style="height: 150px">{{$site->text_3_b}}</textarea>
+        <textarea id="input_text_9" inf="9" class="form-control" name="text_3_b" style="height: 150px" maxlength="1000">{{$site->text_3_b}}</textarea>
         @error('text_3_b')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_9">0</span></i>
+        <i>Введено символов: <span id="symbols_count_9">0</span></i>
         <br>
         <i class="link-danger">Напишите текст под фото, максимум 1000 символов</i>
         <hr>
@@ -395,11 +395,11 @@
         <h2>4 карточка</h2>
         <hr>
         <h2>текст верха карточки</h2>
-        <textarea id="input_text_10" inf="10" class="form-control" name="text_4_a">{{$site->text_4_a}}</textarea>
+        <textarea id="input_text_10" inf="10" class="form-control" name="text_4_a" maxlength="50">{{$site->text_4_a}}</textarea>
         @error('text_4_a')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_10">0</span></i>
+        <i>Введено символов: <span id="symbols_count_10">0</span></i>
         <br>
         <i class="link-danger">Напишите заголовок карточки, максимум 50 символов</i>
         <hr>
@@ -412,11 +412,11 @@
         <hr>
         {{-- ------------------------------------------------------------------------------------- --}}
         <h2>текст под фото 4</h2>
-        <textarea id="input_text_11" inf="11" class="form-control" name="text_4_b" style="height: 150px">{{$site->text_4_b}}</textarea>
+        <textarea id="input_text_11" inf="11" class="form-control" name="text_4_b" style="height: 150px" maxlength="1000">{{$site->text_4_b}}</textarea>
         @error('text_4_b')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_11">0</span></i>
+        <i>Введено символов: <span id="symbols_count_11">0</span></i>
         <br>
         <i class="link-danger">Напишите текст под фото, максимум 1000 символов</i>
         <hr>
@@ -425,11 +425,11 @@
         <h2>5 карточка</h2>
         <hr>
         <h2>текст верха карточки</h2>
-        <textarea id="input_text_12" inf="12" class="form-control" name="text_5_a">{{$site->text_5_a}}</textarea>
+        <textarea id="input_text_12" inf="12" class="form-control" name="text_5_a" maxlength="50">{{$site->text_5_a}}</textarea>
         @error('text_5_a')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_12">0</span></i>
+        <i>Введено символов: <span id="symbols_count_12">0</span></i>
         <br>
         <i class="link-danger">Напишите заголовок карточки, максимум 50 символов</i>
         <hr>
@@ -442,32 +442,32 @@
         <hr>
         {{-- ---------------------------------------------------------------------------------- --}}
         <h2>текст под фото 5</h2>
-        <textarea id="input_text_13" inf="13" class="form-control" name="text_5_b" style="height: 150px">{{$site->text_5_b}}</textarea>
+        <textarea id="input_text_13" inf="13" class="form-control" name="text_5_b" style="height: 150px" maxlength="1000">{{$site->text_5_b}}</textarea>
         @error('text_5_b')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_13">0</span></i>
+        <i>Введено символов: <span id="symbols_count_13">0</span></i>
         <br>
         <i class="link-danger">Напишите текст под фото, максимум 1000 символов</i>
         <hr>
         <hr>
          {{-- ========================================================================================= --}}
         <h2>нижний текст</h2>
-        <textarea id="input_text_14" inf="14" class="form-control" name="bottom_text">{{$site->bottom_text}}</textarea>
+        <textarea id="input_text_14" inf="14" class="form-control" name="bottom_text" maxlength="1000">{{$site->bottom_text}}</textarea>
         @error('bottom_text')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_14">0</span></i>
+        <i>Введено символов: <span id="symbols_count_14">0</span></i>
         <br>
         <i class="link-danger">Подведите итоги, напишите доп контакты и пр. , максимум 1000 символов</i>
         <hr>
         {{-- ---------------------------------------------------------------------------------------------------- --}}
         <h2>мета тег сайта</h2>
-        <textarea id="input_text_15" inf="15" class="form-control" name="meta_1">{{$site->meta_1}}</textarea>
+        <textarea id="input_text_15" inf="15" class="form-control" name="meta_1" maxlength="50">{{$site->meta_1}}</textarea>
         @error('meta_1')
         <b class="link-danger ms-2">Ошибка: {{ $message }}</b>
         @enderror
-        <i>Количество символов: <span id="symbols_count_15">0</span></i>
+        <i>Введено символов: <span id="symbols_count_15">0</span></i>
         <br>    
         <i class="link-danger">Метатег сайта, не отображается на странице, но виден например в ссылке телеграмм, максимум 50 символов</i>
         <hr>

@@ -25,7 +25,7 @@ class ChannelController extends Controller
     // ---------------------------------------------------------------------------------------------
     public function index($id)  // показываем страницу channel с постами одного юзер   -views/channel
     {
-        
+        \App\Models\Statistic::latest()->first()->increment('channel');  // пишем в базу статистики запись о посещении
         // $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
         if (empty(UserData::where('user_id', $id)->first())) $user_data = UserData::where('user_id', 1)->first();
@@ -38,6 +38,7 @@ class ChannelController extends Controller
     public function show_channel_all_post($id)  // показываем страницу channel с постами одного юзер в минималистичном виде  -views/channel_all_post
     {
         
+        // $site = Site::where('id_user', $id)->first();
         // $id = Auth::user()->id;
         $user = User::where('id', $id)->first();
         if (empty(UserData::where('user_id', $id)->first())) $user_data = UserData::where('user_id', 1)->first();
@@ -184,6 +185,7 @@ class ChannelController extends Controller
 
     public function index2($id)  // показываем страницу post с конкретным одним постом  -views/post
     {
+        \App\Models\Statistic::latest()->first()->increment('post');  // пишем в базу статистики запись о посещении
         return view('post', ['id' => $id]);
     }
     // ---------------------------------------------------------------------------------------------

@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;  // подключаем фасад Notification
 use App\Notifications\ComplaintNotification;  // подключаем нотификацию для жалоб
 use App\Models\Complaint;
+use App\Models\Statistic;
 /*
 |--------------------------------------------------------------------------
 | AdminController
@@ -27,6 +28,7 @@ class AdminController extends Controller
     // -----------------------------------------------------------------------------------------------show_users
     public function index()  // показываем страницу основную в админке
     {
+        Statistic::latest()->first()->increment('admin');  // пишем в базу статистики запись 
         $id_user = Auth::user()->id;
         if ($id_user <= 10) {  // 10 админских айди
         return view('admin/index');
@@ -127,7 +129,7 @@ class AdminController extends Controller
     {
         $id_user = Auth::user()->id;
         if ($id_user <= 10) {  // 10 админских айди
-
+        $statistic = Statistic::latest()->first();
         $post = Post::all();
         $post_count = count($post);
         $comment = Comment::all();
@@ -150,11 +152,11 @@ class AdminController extends Controller
             }
             return [$size, $count_files];
         }
-        $size = get_dir_size('/var/www/avtoelektriki/storage/app/bot/images');
+        $size = get_dir_size('/var/www/storage/app/bot/images');
         // info(round($size/1024/1024, 2));
         $size_file = round($size[0] / 1024 / 1024, 2);
         $count_files =  $size[1];
-        return view('admin/statistics', compact('post_count', 'comment_count', 'user_count', 'site_count', 'size_file', 'addr', 'count_files'));
+        return view('admin/statistics', compact('post_count', 'comment_count', 'user_count', 'site_count', 'size_file', 'addr', 'count_files', 'statistic'));
     } else return redirect()->route('index');
     }
     // -----------------------------------------------------------------------------------------------------
@@ -558,6 +560,8 @@ class AdminController extends Controller
     public function create_complaint(Request $request) // создаем жалобу на посты комменты и ответы комментов для админки
     {
         info($request);
+        Statistic::latest()->first()->increment('complaints');  // пишем в базу статистики запись 
+       
         $validated = $request->validate([
             'id_pcr' => ['required', 'numeric'],  // айди либо поста, либо комментария либо, ответа на комментарий
             'essence' => ['required', 'numeric'],  // тип либо пост 1, либо комментарий 2, либо ответ на комментарий 3

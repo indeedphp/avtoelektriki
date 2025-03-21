@@ -24,6 +24,7 @@ class Handler extends WebhookHandler
 
     public function start()  // метод вызывется при входе в бота первый раз, а так же из меню по команде start
     {
+        \App\Models\Statistic::latest()->first()->increment('bot_start');  // пишем в базу статистики запись 
         $id_user = $this->message->from()->id();  // получаем ид телеграмм пользователя
         $user_name = $this->message->from()->firstName();  // получаем из телеграмма имя
         $create_post = Create_post::where('id_user', $id_user)->first(); // получаем черновик из базы
@@ -427,6 +428,7 @@ class Handler extends WebhookHandler
 
     public function new_post()  // идем через команду /new_post
     {
+        \App\Models\Statistic::latest()->first()->increment('bot_post');  // пишем в базу статистики запись 
         $id_user = $this->message->from()->id();
         $create_post = Create_post::where('id_user', $id_user)->first();
         if ($create_post !== null)
